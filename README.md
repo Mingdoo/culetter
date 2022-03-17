@@ -41,7 +41,7 @@
   - IntelliJ IDEA Community
 - **Front-end**
   - React
-  - React Hook
+  - React Hooks
   - Next.js
   - Material-UI
 - **Back-end**
@@ -49,13 +49,15 @@
   - Spring Security
   - Spring Data JPA
   - QueryDSL
+- **AI**
+  - PyTorch
 - **Database**
   - MySQL
 - **Server**
   - AWS EC2
 - **DevOps**
-  - Docker
   - Jenkins
+  - Docker
 
 ## 📒 프로젝트 기획
 
