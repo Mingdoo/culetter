@@ -81,6 +81,6 @@
 
 <img src="README.assets/API_Docs.png" alt="API_Docs" width="500" />
 
-### [개발 환경 세팅](https://www.notion.so/Back-end-Init-a1cb96c6ec0540e788e3d93bf8c9cc3d)
+### [개발 환경 세팅](https://caramel-garden-eaf.notion.site/Infra-a1cb96c6ec0540e788e3d93bf8c9cc3d)
 
 <img src="README.assets/Dev_Env.PNG" alt="Eev_Env" width="500" />
