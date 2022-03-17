@@ -4,7 +4,7 @@
 
 &nbsp;
 
-**See You later**
+**See U Later**
 
 > 다시 만날 날을 기대하며 인사한다는 의미를 담아 프로젝트 이름을 CU;LETTER로 정하였습니다.
 > 
