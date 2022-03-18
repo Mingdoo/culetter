@@ -3,6 +3,7 @@ import MenuList from "../components/menu/MenuList";
 import { Box, Typography } from "@mui/material";
 import Letter from "../components/main/Letter";
 import MenuButton from "../components/menu/MenuButton";
+import Footer from "../components/Footer";
 
 export default function Main() {
   const [open, setOpen] = useState(false);
@@ -15,23 +16,14 @@ export default function Main() {
           <Box
             sx={{
               bgcolor: "#FCFAEF",
-              py: "3vh",
+              pt: "3vh",
               position: "relative",
               display: "flex",
               justifyContent: "center",
               flexDirection: "column",
             }}
           >
-            <Box
-              sx={{
-                width: open ? 1 : 0,
-                height: 1,
-                bgcolor: "rgba(0,0,0,0.2)",
-                position: "absolute",
-              }}
-              onClick={HandleMenu}
-            ></Box>
-            <MenuButton OpenMenu={HandleMenu} open={open}></MenuButton>
+            <MenuButton HandleMenu={HandleMenu} open={open}></MenuButton>
             <Typography
               variant="h4"
               className="Arvo"
@@ -51,6 +43,8 @@ export default function Main() {
                 )
               )}
             </Box>
+            <Footer />
+
             <MenuList open={open}></MenuList>
           </Box>
         </Box>

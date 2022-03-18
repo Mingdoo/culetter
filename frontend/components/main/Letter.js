@@ -15,7 +15,12 @@ function Letter({ text, index }) {
   return (
     <Box
       className="Dodum"
-      sx={{ display: "flex", justifyContent: "center", fontSize: 26 }}
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        fontSize: 26,
+        mb: index === 3 ? 3 : 0,
+      }}
     >
       <svg
         width="320"

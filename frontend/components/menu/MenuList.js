@@ -1,7 +1,5 @@
 import MenuListItem from "./MenuListItem";
 import { Box } from "@mui/material";
-import Divider from "@mui/material/Divider";
-
 export default function MenuList({ open }) {
   return (
     <Box
@@ -23,14 +21,14 @@ export default function MenuList({ open }) {
           "white-space": "nowrap",
           // display: "flex",
           // justifyContent: "center",
-          mt: 5,
-          mb: 3,
+          mt: 4,
+          pb: 2,
           px: "16px",
+          borderBottom: 1,
         }}
       >
         [이름]
       </Box>
-      <Divider></Divider>
       {[
         "홈",
         "편지 쓰기",
