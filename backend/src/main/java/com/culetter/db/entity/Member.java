@@ -42,7 +42,7 @@ public class Member {
                   LocalDateTime createdDate, LocalDateTime updatedDate, String password) {
         this.email = email;
         this.kakaoId = kakaoId;
-        this.status = status;
+        this.status = status;   // 비회원: 0, 회원: 1, 관리자: 2
         this.name = name;
         this.profileImage = profileImage;
         this.createdDate = createdDate;
