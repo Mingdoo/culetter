@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import MenuList from "../components/main/MenuList";
+import MenuList from "../components/menu/MenuList";
 import { Box, Typography } from "@mui/material";
 import Letter from "../components/main/Letter";
-import MenuButton from "../components/MenuButton";
+import MenuButton from "../components/menu/MenuButton";
 
-export default function Main({ width = 240, children }) {
+export default function Main() {
   const [open, setOpen] = useState(false);
   const HandleMenu = () => (open ? setOpen(false) : setOpen(true));
 

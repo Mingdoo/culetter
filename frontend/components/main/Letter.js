@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 const color1 = ["#DA4C1F", "#8A3EC6", "#3EA5C6", "#FF0000"];
 const color2 = ["#76E3FB", "#391FDA", "#FFCC49", "#391FDA"];
 const bg = ["white", "#ECDDBE", "#FDF1E3", "#FFFFE1"];
-const href = ["write", "inbox", "sent", "process"];
+const href = ["write", "inbox", "sent", "ing"];
 
 function Letter({ text, index }) {
   const router = useRouter();
