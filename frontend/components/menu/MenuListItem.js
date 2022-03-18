@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "next/Link";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
