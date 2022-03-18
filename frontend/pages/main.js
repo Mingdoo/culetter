@@ -6,9 +6,6 @@ import MenuButton from "../components/menu/MenuButton";
 import Footer from "../components/Footer";
 
 export default function Main() {
-  const [open, setOpen] = useState(false);
-  const HandleMenu = () => (open ? setOpen(false) : setOpen(true));
-
   return (
     <>
       <Box>
@@ -23,7 +20,7 @@ export default function Main() {
               flexDirection: "column",
             }}
           >
-            <MenuButton HandleMenu={HandleMenu} open={open}></MenuButton>
+            <MenuList></MenuList>
             <Typography
               variant="h4"
               className="Arvo"
@@ -44,8 +41,6 @@ export default function Main() {
               )}
             </Box>
             <Footer />
-
-            <MenuList open={open}></MenuList>
           </Box>
         </Box>
       </Box>
