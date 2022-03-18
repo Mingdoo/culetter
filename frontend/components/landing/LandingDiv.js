@@ -1,5 +1,7 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
+import { makeStyles } from "@material-ui/core/styles";
+
 import PhoneImage from "./PhoneImage";
 
 import StartButton from "./StartButton";

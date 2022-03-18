@@ -4,8 +4,8 @@ import LoginBtn from "../components/login/LoginBtn";
 import Postbox from "../components/postbox/Postbox";
 import { makeStyles } from "@material-ui/core/styles";
 
-const Login = () => {
-  return <Postbox title="LOGIN"></Postbox>;
+const Regist = () => {
+  return <Postbox title="SIGN UP"></Postbox>;
 };
 
-export default Login;
+export default Regist;
