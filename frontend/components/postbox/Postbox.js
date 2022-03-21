@@ -97,10 +97,10 @@ const PostBox = (props) => {
                 sx={{
                   height: 150,
                   width: 240,
-                  mt: 3.7,
+                  mt: 3.5,
                   borderColor: "#A63636",
                   position: "absolute",
-                  bottom: "7.7rem",
+                  bottom: "7.8rem",
                   left: "3rem",
                 }}
               >
