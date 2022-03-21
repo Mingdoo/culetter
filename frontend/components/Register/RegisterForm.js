@@ -143,7 +143,7 @@ const SignupForm = () => {
         {/* 이메일 입력 */}
         <Grid item xs={2}>
           <AccountCircleIcon
-            sx={{ color: "white", position: "relative", top: 10, left: 7 }}
+            sx={{ color: "white", position: "relative", top: 20, left: 7 }}
           />{" "}
         </Grid>
         <Grid item xs={7}>
@@ -196,7 +196,7 @@ const SignupForm = () => {
           <Grid container sx={{ height: "2.5rem" }}>
             <Grid item xs={2}>
               <PasswordIcon
-                sx={{ color: "white", position: "relative", top: 10, left: 7 }}
+                sx={{ color: "white", position: "relative", top: 20, left: 7 }}
               />{" "}
             </Grid>
             <Grid item xs={7}>
@@ -242,7 +242,7 @@ const SignupForm = () => {
         <Grid item xs={12}>
           {/* 비밀번호 입력 */}
           <LockIcon
-            sx={{ color: "white", position: "relative", top: 10, left: -15 }}
+            sx={{ color: "white", position: "relative", top: 20, left: -15 }}
           />{" "}
           <TextField
             id="password"
@@ -271,7 +271,7 @@ const SignupForm = () => {
         <Grid item xs={12}>
           {/* 비밀번호 확인 입력 */}
           <LockIcon
-            sx={{ color: "white", position: "relative", top: 10, left: -15 }}
+            sx={{ color: "white", position: "relative", top: 20, left: -15 }}
           />{" "}
           <TextField
             id="passwordCheck"
@@ -300,7 +300,7 @@ const SignupForm = () => {
         <Grid item xs={12}>
           {/* 이름 입력 */}
           <BadgeIcon
-            sx={{ color: "white", position: "relative", top: 10, left: -15 }}
+            sx={{ color: "white", position: "relative", top: 20, left: -15 }}
           />
           <TextField
             id="name"
