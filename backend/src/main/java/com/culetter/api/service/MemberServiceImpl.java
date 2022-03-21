@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
-
 @Transactional(readOnly = true)
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -63,14 +62,23 @@ public class MemberServiceImpl implements MemberService{
         }};
     }
 
+    @Override
+    public Member getMemberByAuthentication() {
+        return memberRepository.findById(
+                Long.valueOf(SecurityUtil.getCurrentUsername()
+                        .orElseThrow(() -> new ArithmeticException("토큰으로 조회되는 회원이 존재하지 않습니다."))))
+                .orElseThrow(() -> new ArithmeticException("토큰으로 조회되는 회원이 존재하지 않습니다."));
+    }
+
+    @Override
+    public MemberDto.Response getMemberInfoByAuthentication() {
+        Member member = getMemberByAuthentication();
+        return new MemberDto.Response(member.getEmail(), member.getName(), member.getProfileImage());
+    }
+
     private void validateDuplicateMember(String email) {
         if (memberRepository.findByEmail(email).isPresent()) {
             throw new DuplicateMemberException("이미 존재하는 회원입니다.");
         }
-    }
-
-    public Member getMemberByAuthentication() {
-        return memberRepository.findById(
-                Long.valueOf(SecurityUtil.getCurrentUsername().orElse("-1"))).orElse(null);
     }
 }
