@@ -10,8 +10,10 @@ export default function Footer() {
         textAlign: "start",
         px: "2rem",
         py: "2rem",
+        mx: "auto",
         bgcolor: "#535353",
         color: "#ffffff",
+        width: 420,
       }}
     >
       <Typography variant="h4" gutterBottom className="Arvo">
