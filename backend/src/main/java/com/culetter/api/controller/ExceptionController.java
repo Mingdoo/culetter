@@ -1,5 +1,6 @@
 package com.culetter.api.controller;
 
+import com.culetter.exception.member.UnauthenticatedMemberException;
 import com.culetter.exception.member.DuplicateMemberException;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
@@ -36,6 +37,13 @@ public class ExceptionController {
         log.error("DuplicateMemberException - {}", e.getMessage());
         // 409
         return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+    }
+
+    @ExceptionHandler(UnauthenticatedMemberException.class)
+    public ResponseEntity<String> UnauthenticatedMemberExceptionHandler(UnauthenticatedMemberException e) {
+        log.error("AuthenticateMemberException - {}", e.getMessage());
+        // 401
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
     }
 
     @ExceptionHandler(MalformedJwtException.class)

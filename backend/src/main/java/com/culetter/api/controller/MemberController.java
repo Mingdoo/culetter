@@ -37,4 +37,9 @@ public class MemberController {
         map.remove("jwt");
         return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(map);
     }
+
+    @GetMapping
+    public ResponseEntity<MemberDto.Response> getMember() {
+        return ResponseEntity.status(HttpStatus.OK).body(memberService.getMemberInfoByAuthentication());
+    }
 }

@@ -27,4 +27,13 @@ public class MemberDto {
         @Size(min = 2, max = 12, message = "올바른 이름 형식(2자이상 12자이하)이 아닙니다.")
         private String name;
     }
+
+    @Getter
+    @AllArgsConstructor
+    public static class Response {
+        private String email;
+        private String name;
+        private String profileImage;
+    }
+
 }
