@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import LoginForm from "../login/LoginForm";
 import LoginBtn from "../login/LoginBtn";
-import RegisterBtn from "../Register/RegisterBtn";
-import RegisterForm from "../Register/RegisterForm";
+import RegisterBtn from "../register/RegisterBtn";
+import RegisterForm from "../register/RegisterForm";
 
 import { Button, Grid, Box, Icon, SvgIcon, Typography } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
@@ -50,6 +50,7 @@ const PostBox = (props) => {
             color="#FFFFFF"
             align="center"
             sx={{ mt: 10, mb: 10, fontWeight: "100" }}
+            className="Arvo"
           >
             {title}
           </Typography>
