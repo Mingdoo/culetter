@@ -64,4 +64,15 @@ public class Member {
     List<Friend> toFriendList = new ArrayList<>();
     @OneToMany(mappedBy = "member")
     List<ShortMail> shortMailList = new ArrayList<>();
+
+    public void argsNullSetter() {
+        this.email = null;
+        this.kakaoId = null;
+        this.status = null;
+        this.name = null;
+        this.profileImage = null;
+        this.createdDate = null;
+        this.updatedDate = null;
+        this.password = null;
+    }
 }

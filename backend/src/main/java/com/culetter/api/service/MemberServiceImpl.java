@@ -16,8 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
-@Transactional(readOnly = true)
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class MemberServiceImpl implements MemberService{
 
     private final MemberRepository memberRepository;
@@ -74,6 +74,13 @@ public class MemberServiceImpl implements MemberService{
     public MemberDto.Response getMemberInfoByAuthentication() {
         Member member = getMemberByAuthentication();
         return new MemberDto.Response(member.getEmail(), member.getName(), member.getProfileImage());
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteMember() {
+        Member member = getMemberByAuthentication();
+        member.argsNullSetter();
     }
 
     private void validateDuplicateMember(String email) {
