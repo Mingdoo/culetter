@@ -42,4 +42,10 @@ public class MemberController {
     public ResponseEntity<MemberDto.Response> getMember() {
         return ResponseEntity.status(HttpStatus.OK).body(memberService.getMemberInfoByAuthentication());
     }
+
+    @DeleteMapping
+    public ResponseEntity<String> deleteMember() {
+        memberService.deleteMember();
+        return ResponseEntity.status(HttpStatus.OK).body("회원탈퇴가 완료되었습니다.");
+    }
 }
