@@ -9,6 +9,7 @@ const LoginBtn = () => {
         spacing={2}
         sx={{
           mb: 1,
+          mt: 1,
         }}
       >
         <Grid button xs={6}>
@@ -50,12 +51,13 @@ const LoginBtn = () => {
             minHeight: "30px",
             color: "#FCFAEF",
             fontSize: 12,
+            marginTop: "1rem",
           }}
         >
           비밀번호 재설정
         </Button>
       </Box>
-      <Box component="div" sx={{ mt: 2 }}>
+      {/* <Box component="div" sx={{ mt: 2 }}>
         <Button
           size="small"
           variant="contained"
@@ -69,7 +71,7 @@ const LoginBtn = () => {
         >
           카카오 로그인
         </Button>
-      </Box>
+      </Box> */}
     </>
   );
 };

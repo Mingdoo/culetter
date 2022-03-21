@@ -5,7 +5,7 @@ import Postbox from "../components/postbox/Postbox";
 import { makeStyles } from "@material-ui/core/styles";
 
 const Regist = () => {
-  return <Postbox title="SIGN UP"></Postbox>;
+  return <Postbox title="SIGN UP" size="10"></Postbox>;
 };
 
 export default Regist;

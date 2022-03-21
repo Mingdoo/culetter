@@ -8,7 +8,8 @@ const SignupBtn = () => {
       <Grid
         container
         sx={{
-          mb: 1,
+          // position: "absolute",
+          mb: 0,
         }}
       >
         <Grid button xs={12}>
@@ -20,7 +21,7 @@ const SignupBtn = () => {
               minHeight: "30px",
               backgroundColor: "#E2E0A5",
               color: "#3A1D1D",
-              marginTop: "3.8rem",
+              // position: "absolute",
             }}
           >
             회원가입

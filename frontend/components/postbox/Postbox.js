@@ -8,7 +8,7 @@ import { Button, Grid, Box, Icon, SvgIcon, Typography } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
 
 const PostBox = (props) => {
-  const { title } = props;
+  const { title, size } = props;
   return (
     <Box
       component="div"
@@ -59,7 +59,7 @@ const PostBox = (props) => {
             component="div"
             sx={{
               width: 330,
-              height: 450,
+              height: 530,
               backgroundColor: "#d3504a",
             }}
           >
@@ -67,7 +67,7 @@ const PostBox = (props) => {
               component="div"
               sx={{
                 width: 300,
-                height: 450,
+                height: 520,
                 backgroundColor: "#d3504a",
                 border: 2,
                 borderColor: "#A63636",
@@ -89,23 +89,19 @@ const PostBox = (props) => {
                   <RegisterForm></RegisterForm>
                 )}
               </Box>
-              <Box>
-                {title === "LOGIN" ? (
-                  <LoginBtn></LoginBtn>
-                ) : (
-                  <RegisterBtn></RegisterBtn>
-                )}
-              </Box>
+
               {/* 우체통 디자인 */}
               <Box
                 component="div"
                 border={2}
                 sx={{
-                  height: 134,
+                  height: 150,
                   width: 240,
-                  display: "inline-block",
-                  mt: 4.3,
+                  mt: 3.7,
                   borderColor: "#A63636",
+                  position: "absolute",
+                  bottom: "7.7rem",
+                  left: "3rem",
                 }}
               >
                 <Box
@@ -162,13 +158,13 @@ const PostBox = (props) => {
           ></Box>
           <Box
             component="div"
-            border={2}
+            // border={2}
             sx={{
               height: 110,
               width: 100,
               display: "inline-block",
               backgroundColor: "#d3504a",
-              borderColor: "#A63636",
+              // borderColor: "#A63636",
             }}
           ></Box>
           <Box
