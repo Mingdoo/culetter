@@ -15,7 +15,7 @@ export default function MenuList() {
           height: 1,
           width: open ? 240 : 0,
           position: "absolute",
-          "z-index": 1,
+          zIndex: 1,
           top: 0,
           right: 0,
           bgcolor: "#a63636",
@@ -26,7 +26,7 @@ export default function MenuList() {
         <Box
           sx={{
             color: "white",
-            "white-space": "nowrap",
+            whiteSpace: "nowrap",
             // display: "flex",
             // justifyContent: "center",
             mt: 4,
