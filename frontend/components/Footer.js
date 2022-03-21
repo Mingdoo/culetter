@@ -14,6 +14,7 @@ export default function Footer() {
         bgcolor: "#535353",
         color: "#ffffff",
         width: 420,
+        mx: "auto",
       }}
     >
       <Typography variant="h4" gutterBottom className="Arvo">
