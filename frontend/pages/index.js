@@ -62,7 +62,7 @@ export default function landing() {
   );
 }
 
-const landingBoxStyle = {
+export const landingBoxStyle = {
   bgcolor: "#FCFAEF",
   display: "flex",
   flexDirection: "column",
@@ -70,6 +70,7 @@ const landingBoxStyle = {
   justifyContent: "center",
   mx: "auto",
   height: "100vh",
+  position: "relative",
 };
 
 const divColor = ["#E2E0A5", "#EEEB94", "#E2E0A5"];
