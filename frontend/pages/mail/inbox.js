@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
-import { Container, Box, Typography, Grid } from "@mui/material";
+import { Container, Box, Typography, Grid, Button } from "@mui/material";
 import MenuList from "../../components/menu/MenuList";
 import axios from "axios";
 import MailBox from "../../components/mail/inbox/MailBox";
+import SearchBox from "../../components/user/SearchBox";
+
 const SERVER_URL = "https://j6a201.p.ssafy.io:3000";
 const token = "temp";
 
@@ -19,6 +21,8 @@ export default function inbox() {
   // const [loading, setLoading] = useState(false);
   // const [error, setError] = useState(null);
   const loader = useRef(null);
+
+  const [searchMemberName, setSearchMemberName] = useState("");
 
   const tempData = [
     { hasNew: true, name: "홍길동", mailsNum: 2 },
@@ -111,6 +115,7 @@ export default function inbox() {
         }}
       >
         <MenuList></MenuList>
+        {/* <Button onClick={(e) => setSearchMemberName(e)}>test</Button> */}
         <Typography
           variant="h4"
           className="Dodum"
@@ -123,20 +128,50 @@ export default function inbox() {
         >
           받은 편지
         </Typography>
-        <Grid container sx={{ width: 1, px: 3, pt: 10 }}>
-          {mails.map(({ name, hasNew, mailsNum }, index) => (
-            <Grid item xs={6} key={index} wrap>
-              <MailBox
-                hasNew={hasNew}
-                name={name}
-                id={index}
-                mailsNum={mailsNum}
-              ></MailBox>
-            </Grid>
-          ))}
+        <SearchBox
+          id="searchMemberNameInput"
+          label="이름"
+          width={300}
+          onChange={(e) => setSearchMemberName(e)}
+        />
+        <Grid container sx={{ width: 1, px: 3, pt: 5 }}>
+          {!searchMemberName
+            ? mails.map(({ name, hasNew, mailsNum }, index) => (
+                <Grid item xs={6} key={index} wrap>
+                  <MailBox
+                    hasNew={hasNew}
+                    name={name}
+                    id={index}
+                    mailsNum={mailsNum}
+                  ></MailBox>
+                </Grid>
+              ))
+            : data
+                .filter((obj) => {
+                  return obj.name.includes(searchMemberName);
+                })
+                .map(({ name, hasNew, mailsNum }, index) => (
+                  <Grid item xs={6} key={index} wrap>
+                    <MailBox
+                      hasNew={hasNew}
+                      name={name}
+                      id={index}
+                      mailsNum={mailsNum}
+                    ></MailBox>
+                  </Grid>
+                ))}
         </Grid>
         {/* {loading && <h1>Loading...</h1>}
         {error && <p>Error!</p>} */}
+
+        {/* {!searchMemberName ? (
+          <div ref={loader}>
+            <div>
+              loader
+              {page}
+            </div>
+          </div>
+        ) : null} */}
         <div ref={loader} />
       </Box>
     </>

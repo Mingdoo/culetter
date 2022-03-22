@@ -20,7 +20,7 @@ export default function MailBox({ hasNew, name, id, mailsNum }) {
   return (
     // 해당 링크 주소로 이동
     <Link href="/mail/[id]" as={`/mail/${id}`}>
-      <Box sx={{ position: "relative" }}>
+      <Box sx={{ position: "relative", mb: 5 }}>
         <Avatar
           sx={{
             bgcolor: "#E2E0A5",

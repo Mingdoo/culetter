@@ -1,0 +1,251 @@
+import { useRouter } from "next/router";
+import { Box, Typography } from "@mui/material";
+import Footer from "../../components/Footer";
+import MenuList from "../../components/menu/MenuList";
+import BackButton from "../../components/mail/inbox/BackButton";
+import Letter from "../../components/main/Letter";
+import Photocard from "../../components/mail/inbox/Photocard";
+import axios from "axios";
+import React, { useEffect, useState, useRef, useCallback } from "react";
+
+// 재호출?
+const SERVER_URL = "https://j6a201.p.ssafy.io:3000";
+const token = "temp";
+export default function Post() {
+  const [data, setData] = useState([]);
+
+  // axios로 받아오기까지 시간 걸리니 loading 필요
+  const fetchMails = useCallback(async () => {
+    try {
+      const res = await axios.get(`${SERVER_URL}/recv`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setData(res.data);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setData([
+        {
+          hasNew: true,
+          senderName: "홍길동",
+          createdDate: "20220315",
+          mailType: "GENERAL",
+          mailsNum: 2,
+        },
+        {
+          hasNew: true,
+          senderName: "홍길동",
+          createdDate: "20220315",
+          mailType: "POST",
+          mailsNum: 2,
+        },
+        {
+          hasNew: false,
+          senderName: "홍길동",
+          createdDate: "20220315",
+          mailType: "PHOTOCARD",
+          mailsNum: 2,
+        },
+        {
+          hasNew: true,
+          senderName: "홍길동",
+          createdDate: "20220315",
+          mailType: "GENERAL",
+          mailsNum: 2,
+        },
+        {
+          hasNew: true,
+          senderName: "홍길동",
+          createdDate: "20220315",
+          mailType: "PHOTOCARD",
+          mailsNum: 2,
+        },
+        {
+          hasNew: false,
+          senderName: "홍길동",
+          createdDate: "20220315",
+          mailType: "GENERAL",
+          mailsNum: 1,
+        },
+        {
+          hasNew: false,
+          senderName: "홍길동",
+          createdDate: "20220315",
+          mailType: "PHOTOCARD",
+          mailsNum: 2,
+        },
+        {
+          hasNew: false,
+          senderName: "홍길동",
+          createdDate: "20220315",
+          mailType: "PHOTOCARD",
+          mailsNum: 3,
+        },
+        {
+          hasNew: true,
+          senderName: "홍길동",
+          createdDate: "20220315",
+          mailType: "POST",
+          mailsNum: 4,
+        },
+        {
+          hasNew: true,
+          senderName: "홍길동",
+          createdDate: "20220315",
+          mailType: "PHOTOCARD",
+          mailsNum: 5,
+        },
+        {
+          hasNew: true,
+          senderName: "고길동",
+          createdDate: "20220315",
+          mailType: "POST",
+          mailsNum: 2,
+        },
+        {
+          hasNew: true,
+          senderName: "고길동",
+          createdDate: "20220315",
+          mailType: "PHOTOCARD",
+          mailsNum: 2,
+        },
+        {
+          hasNew: false,
+          senderName: "고길동",
+          createdDate: "20220315",
+          mailType: "PHOTOCARD",
+          mailsNum: 2,
+        },
+        {
+          hasNew: true,
+          senderName: "고길동",
+          createdDate: "20220315",
+          mailType: "PHOTOCARD",
+          mailsNum: 2,
+        },
+        {
+          hasNew: true,
+          senderName: "고길동",
+          createdDate: "20220315",
+          mailType: "PHOTOCARD",
+          mailsNum: 2,
+        },
+        {
+          hasNew: false,
+          senderName: "고길동",
+          createdDate: "20220315",
+          mailType: "PHOTOCARD",
+          mailsNum: 1,
+        },
+        {
+          hasNew: false,
+          senderName: "고길동",
+          createdDate: "20220315",
+          mailType: "PHOTOCARD",
+          mailsNum: 2,
+        },
+        {
+          hasNew: false,
+          senderName: "고길동",
+          createdDate: "20220315",
+          mailType: "PHOTOCARD",
+          mailsNum: 3,
+        },
+        {
+          hasNew: true,
+          senderName: "고길동",
+          createdDate: "20220315",
+          mailType: "PHOTOCARD",
+          mailsNum: 4,
+        },
+        {
+          hasNew: true,
+          senderName: "고길동",
+          createdDate: "20220315",
+          mailType: "PHOTOCARD",
+          mailsNum: 5,
+        },
+        {
+          hasNew: true,
+          senderName: "마지막",
+          createdDate: "20220315",
+          mailType: "PHOTOCARD",
+          mailsNum: 5,
+        },
+      ]);
+    }
+  });
+
+  useEffect(() => {
+    fetchMails();
+  }, []);
+  return (
+    <>
+      <Box sx={{ width: 420, mx: "auto" }}>
+        <Box
+          sx={{
+            width: 420,
+            mx: "auto",
+            bgcolor: "#FCFAEF",
+            position: "relative",
+            minHeight: "100vh",
+          }}
+        >
+          <BackButton href="/mail/inbox"></BackButton>
+          <MenuList></MenuList>
+          <Typography
+            variant="h4"
+            className="Dodum"
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              py: "2vh",
+              fontSize: 36,
+            }}
+          >
+            받은 편지
+          </Typography>
+          {data.map(({ senderName, mailType, createdDate }, index) => {
+            if (mailType === "PHOTOCARD") {
+              return (
+                <Photocard
+                  senderName={senderName}
+                  createdDate={createdDate}
+                  key={index}
+                ></Photocard>
+              );
+            } else if (mailType === "GENERAL") {
+              return (
+                <Letter
+                  senderName={senderName}
+                  index={0}
+                  createdDate={createdDate}
+                  key={index}
+                ></Letter>
+              );
+            } else {
+              return (
+                <Letter
+                  senderName={senderName}
+                  index={1}
+                  createdDate={createdDate}
+                  key={index}
+                ></Letter>
+              );
+            }
+          })}
+          <Box>
+            {/* letter margin, padding 조정해줘야 함. */}
+            {/* 일반 편지면 */}
+            <Letter index={0} key={0}></Letter>
+            {/* 엽서라면 */}
+            <Letter index={1} key={1}></Letter>
+            {/* 포토카드라면 */}
+            {/* <Photocard></Photocard> */}
+          </Box>
+        </Box>
+      </Box>
+      <Footer />
+    </>
+  );
+}
