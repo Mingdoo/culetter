@@ -1,5 +1,7 @@
 package com.culetter.api.controller;
 
+import com.culetter.exception.member.AuthEmailMessagingException;
+import com.culetter.exception.member.NotFoundAuthEmailException;
 import com.culetter.exception.member.UnauthenticatedMemberException;
 import com.culetter.exception.member.DuplicateMemberException;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -70,6 +72,20 @@ public class ExceptionController {
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<String> IllegalArgumentExceptionHandler(IllegalArgumentException e) {
         log.error("IllegalArgumentException - {}", e.getMessage());
+        // 400
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+
+    @ExceptionHandler(NotFoundAuthEmailException.class)
+    public ResponseEntity<String> NotFoundAuthEmailExceptionHandler(NotFoundAuthEmailException e) {
+        log.error("NotFoundAuthEmailException - {}", e.getMessage());
+        // 404
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+
+    @ExceptionHandler(AuthEmailMessagingException.class)
+    public ResponseEntity<String> AuthEmailMessagingExceptionHandler(AuthEmailMessagingException e) {
+        log.error("AuthEmailMessagingException - {}", e.getMessage());
         // 400
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
