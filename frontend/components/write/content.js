@@ -9,7 +9,21 @@ import {
 } from "@mui/material";
 import SaveIcon from "@mui/icons-material/Save";
 const content = () => {
-  const [textCount, setTextcount] = useState(0);
+  const [title, setTitle] = useState("");
+  const [textLength, setTextLength] = useState(0);
+
+  const handleClick = (event) => {};
+  const handleInput = (event) => {
+    setTitle(event.target.value);
+  };
+  const checkByte = (event) => {
+    const maxByte = 65535;
+    const inputText = event.target.value;
+    const inputLength = inputText.length;
+    setTextLength(inputLength);
+    console.log(event.target.value);
+  };
+
   return (
     <Box className="Dodum" sx={{ padding: "0.8rem" }}>
       <Box>
@@ -26,7 +40,8 @@ const content = () => {
           InputProps={{
             style: { fontFamily: "Gowun Batang" },
           }}
-          sx={{ mb: "1.5rem" }}
+          sx={{ mb: "1.5rem", ml: "1rem" }}
+          onChange={handleInput}
         />
       </Box>
       <TextareaAutosize
@@ -44,6 +59,10 @@ const content = () => {
           border: "none",
           resize: "none",
           marginBottom: "-1rem",
+          padding: "1rem",
+        }}
+        onKeyUp={(event) => {
+          checkByte(event);
         }}
       />
       <Box
@@ -58,12 +77,16 @@ const content = () => {
         }}
       >
         <Box sx={{}}>
-          <Button className="Dodum" sx={{ color: "#000000" }}>
+          <Button
+            className="Dodum"
+            sx={{ color: "#000000" }}
+            onclick={handleClick}
+          >
             <SaveIcon />
             임시저장
           </Button>
         </Box>
-        {textCount}자
+        {textLength}자
       </Box>
     </Box>
   );
