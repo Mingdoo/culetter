@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import newmailbox from "../../../assests/newmailbox.png";
+// import newmailbox from "../../../assests/newmailbox.PNG";
 
 export default function Photocard({ senderName, createdDate }) {
   return (
@@ -8,7 +8,7 @@ export default function Photocard({ senderName, createdDate }) {
         display: "flex",
         justifyContent: "center",
         fontSize: 26,
-        mb: 3,
+        height: "204px",
       }}
     >
       <Box
@@ -16,20 +16,22 @@ export default function Photocard({ senderName, createdDate }) {
           border: "1px solid black",
           bgcolor: "white",
           width: "320px",
-          height: "204px",
+          height: "186px",
+          mt: "9px",
         }}
       >
         {/* 포토카드 이미지 */}
         <Box sx={{ width: 1 }}>
           <Box
             component="img"
-            src={newmailbox.src}
+            // src={newmailbox.src}
             sx={{
               objectFit: "cover",
               width: 1,
-              height: "160px",
-              px: 1,
-              py: 1,
+              height: "150px",
+              px: 0.5,
+              pt: 0.5,
+              borderRadius: 5,
             }}
           ></Box>
         </Box>
