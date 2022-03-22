@@ -5,7 +5,7 @@ const link = ["photocard", "normal", "postcard"];
 const type = (props) => {
   const { text, index, describe, imgsrc, href } = props;
   return (
-    <Link href={`/${href}`}>
+    <Link href={"/write"}>
       <Box
         className="Dodum"
         sx={{
@@ -25,10 +25,6 @@ const type = (props) => {
         <Box
           component="div"
           sx={{
-            // width: "140px",
-            // height: "160px",
-            // mt: 2.5,
-            // mr: index === 2 ? "2.2rem" : "0rem",
             borderRadius: index === 2 ? "1rem" : "0rem",
           }}
         >

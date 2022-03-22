@@ -13,20 +13,16 @@ import SaveIcon from "@mui/icons-material/Save";
 
 const content = () => {
   const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   const [contentLength, setContentLength] = useState(0);
   const [titleLength, setTitleLength] = useState(0);
   const { setTextValid } = useContext(ContentsContext);
 
   useEffect(() => {}, [contentLength]);
 
-  const handleClick = (event) => {};
-
-  const handleInput = (event) => {
-    setTitle(event.target.value);
-  };
+  const handleSave = (event) => {};
 
   const checkInput = (event) => {
-    console.log("id : " + event.target.id + " value : " + event.target.value);
     const maxTitleLength = 100;
     const maxContentByte = 65535;
     const maxContentLength = 32768;
@@ -35,10 +31,12 @@ const content = () => {
     switch (event.target.id) {
       case "title":
         setTitleLength(inputLength);
+        setTitle(inputText);
         console.log(inputLength);
         break;
       case "contents":
         setContentLength(inputLength);
+        setContent(inputText);
         break;
     }
     if (
@@ -112,7 +110,7 @@ const content = () => {
           <Button
             className="Dodum"
             sx={{ color: "#000000" }}
-            onclick={handleClick}
+            onclick={handleSave}
           >
             <SaveIcon />
             임시저장
