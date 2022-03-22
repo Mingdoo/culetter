@@ -13,7 +13,7 @@ const header = (props) => {
         sx={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
+          justifyContent: title === "편지 형식" ? null : "space-between",
         }}
       >
         <Box component="div" sx={{ pt: "2rem", mb: "1rem", ml: "1rem" }}>
@@ -23,11 +23,11 @@ const header = (props) => {
           variant="p"
           component="div"
           className="Gowun Batang"
-          sx={{ ml: "0rem", fontSize: "28px" }}
+          sx={{ ml: title === "편지 형식" ? "7rem" : "0rem", fontSize: "28px" }}
         >
           {title}
         </Typography>
-        <NextPage href={"music"} />
+        {title === "편지 형식" ? null : <NextPage href={"music"} />}
       </Box>
       <Box component="div" sx={{ ml: "2rem" }}>
         <Typography
