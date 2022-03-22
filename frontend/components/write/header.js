@@ -2,7 +2,7 @@ import { Typography } from "@mui/material";
 import React from "react";
 import { Box } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import NextPage from "./nextPage";
 const header = (props) => {
   const { title, detail1, detail2 } = props;
 
@@ -16,38 +16,18 @@ const header = (props) => {
           justifyContent: "space-between",
         }}
       >
-        <Box component="div" sx={{ pt: "2rem", mb: "2rem", ml: "1rem" }}>
+        <Box component="div" sx={{ pt: "2rem", mb: "1rem", ml: "1rem" }}>
           <ArrowBackIosIcon />
         </Box>
         <Typography
-          variant="h4"
+          variant="p"
           component="div"
           className="Gowun Batang"
-          sx={{ ml: "0rem" }}
+          sx={{ ml: "0rem", fontSize: "28px" }}
         >
           {title}
         </Typography>
-        <Box
-          component="div"
-          sx={{
-            pt: "2rem",
-            mb: "2rem",
-            mr: "1rem",
-            textAlign: "center",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <Typography
-            variant="p"
-            component="span"
-            className="Gowun Batang"
-            sx={{ mr: "0.5rem" }}
-          >
-            다음
-          </Typography>
-          <ArrowForwardIosIcon />
-        </Box>
+        <NextPage href={"music"} />
       </Box>
       <Box component="div" sx={{ ml: "2rem" }}>
         <Typography
