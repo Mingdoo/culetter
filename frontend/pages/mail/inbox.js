@@ -1,41 +1,79 @@
-import React, { useEffect, useState } from "react";
-import { Container, Box, Typography, Button } from "@mui/material";
+import React, { useEffect, useState, useRef, useCallback } from "react";
+import { Container, Box, Typography, Grid } from "@mui/material";
 import MenuList from "../../components/menu/MenuList";
 import axios from "axios";
+import useFetch from "../../hooks/inbox";
 
 const SERVER_URL = "https://j6a201.p.ssafy.io:3000";
 const token = "temp";
 
 export default function inbox() {
-  const [mails, setMails] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  // 왜 0으로 시작하는 지는 찾아야 함
+  const [page, setPage] = useState(0);
+  const [query, setQuery] = useState("");
+  // 통신으로 받은 데이터
+  const [data, setData] = useState([]);
+  // 보여주는 데이터 (스크롤!)
+  const [mails, setMails] = useState([]);
+  // const { loading, error, list } = useFetch(query, page);
 
-  const fetchMails = async () => {
+  // const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState(null);
+  const loader = useRef(null);
+
+  const fetchMails = useCallback(async () => {
     try {
-      setError(null);
+      setError(false);
       setMails(null);
-      setLoading(true);
+      // setLoading(true);
 
       const res = await axios.get(`${SERVER_URL}/recv`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setMails(res.data);
+      setData(res.data);
     } catch (e) {
       console.log(e);
-      setError(e);
+      // setError(e);
+    } finally {
+      // setMails([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]);
+      setData([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]);
+      // setLoading(false);
     }
-    setLoading(false);
-  };
+  });
   // 최초 한 번 시도해본다!
   useEffect(() => {
     fetchMails();
   }, []);
 
-  if (loading) return <div>로딩중...</div>;
-  if (error) return <div>에러가 발생했습니다.</div>;
+  const handleObserver = useCallback((entries) => {
+    const target = entries[0];
+    if (target.isIntersecting) {
+      console.log("is InterSecting");
+      setPage((prev) => prev + 1);
+    }
+  }, []);
 
-  if (!mails) return null;
+  useEffect(() => {
+    const option = {
+      root: null,
+      rootMargin: "20px",
+      threshold: 0,
+    };
+    const observer = new IntersectionObserver(handleObserver, option);
+    if (loader.current) observer.observe(loader.current);
+  }, [handleObserver]);
+
+  // 처음 로딩 돌 떄 작동함.
+  useEffect(() => {
+    console.log(data);
+    setMails(data.slice(0, page * 8));
+    console.log(mails);
+  }, [page]);
+
+  // if (loading) return <div>로딩중...</div>;
+  // if (error) return <div>에러가 발생했습니다.</div>;
+
+  // if (!mails) return null;
 
   return (
     <>
@@ -45,6 +83,7 @@ export default function inbox() {
           mx: "auto",
           bgcolor: "#FCFAEF",
           position: "relative",
+          minHeight: "100vh",
         }}
       >
         <MenuList></MenuList>
@@ -60,6 +99,28 @@ export default function inbox() {
         >
           받은 편지
         </Typography>
+        {data}
+        {mails}
+        <Grid container sx={{ width: 1, px: 3, pt: 10 }}>
+          {mails.map((text, index) => (
+            <Grid item xs={6} key={index} wrap>
+              <Box
+                sx={{
+                  width: "200px",
+                  height: "200px",
+                  bgcolor: "black",
+                  m: 1,
+                  color: "white",
+                }}
+              >
+                {text}
+              </Box>
+            </Grid>
+          ))}
+        </Grid>
+        {/* {loading && <h1>Loading...</h1>}
+        {error && <p>Error!</p>} */}
+        <div ref={loader} />
       </Box>
     </>
   );
