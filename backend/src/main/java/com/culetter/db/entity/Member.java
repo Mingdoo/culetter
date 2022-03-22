@@ -75,4 +75,8 @@ public class Member {
         this.updatedDate = null;
         this.password = null;
     }
+
+    public void updatePassword(String password) {
+        this.password = password;
+    }
 }

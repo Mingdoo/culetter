@@ -10,5 +10,7 @@ public interface MemberService {
     Map<String,String> authenticateMember(String email, String password);
     Member getMemberByAuthentication();
     MemberDto.Response getMemberInfoByAuthentication();
+    void checkPassword(String password);
+    void updatePassword(String password);
     void deleteMember();
 }

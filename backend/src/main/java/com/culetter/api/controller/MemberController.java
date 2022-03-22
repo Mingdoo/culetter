@@ -30,8 +30,8 @@ public class MemberController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<Map<String,String>> signinMember(@RequestBody Map<String,String> signinRequest) {
-        Map<String,String> map = memberService.authenticateMember(signinRequest.get("email"), signinRequest.get("password"));
+    public ResponseEntity<Map<String,String>> signinMember(@Valid @RequestBody MemberDto.SigninRequest signinRequest) {
+        Map<String,String> map = memberService.authenticateMember(signinRequest.getEmail(), signinRequest.getPassword());
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + map.get("jwt"));
         map.remove("jwt");
@@ -41,6 +41,18 @@ public class MemberController {
     @GetMapping
     public ResponseEntity<MemberDto.Response> getMember() {
         return ResponseEntity.status(HttpStatus.OK).body(memberService.getMemberInfoByAuthentication());
+    }
+
+    @PostMapping("/pwcheck")
+    public ResponseEntity<String> verifyPassword(@Valid @RequestBody MemberDto.PasswordRequest passwordRequest) {
+        memberService.checkPassword(passwordRequest.getPassword());
+        return ResponseEntity.status(HttpStatus.OK).body("비밀번호가 확인되었습니다.");
+    }
+
+    @PatchMapping("/password")
+    public ResponseEntity<String> modifyPassword(@Valid @RequestBody MemberDto.PasswordRequest passwordRequest) {
+        memberService.updatePassword(passwordRequest.getPassword());
+        return ResponseEntity.status(HttpStatus.OK).body("비밀번호 변경이 완료되었습니다.");
     }
 
     @DeleteMapping

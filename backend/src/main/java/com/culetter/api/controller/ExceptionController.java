@@ -1,7 +1,7 @@
 package com.culetter.api.controller;
 
 import com.culetter.exception.member.AuthEmailMessagingException;
-import com.culetter.exception.member.NotFoundAuthEmailException;
+import com.culetter.exception.member.AuthEmailNotFoundException;
 import com.culetter.exception.member.UnauthenticatedMemberException;
 import com.culetter.exception.member.DuplicateMemberException;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -21,6 +23,13 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestControllerAdvice
 public class ExceptionController {
+
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseEntity<String> NullPointerExceptionHandler(NullPointerException e) {
+        log.error("NullPointerException - {}", e.getMessage());
+        // 400
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<List<String>> MethodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
@@ -43,7 +52,14 @@ public class ExceptionController {
 
     @ExceptionHandler(UnauthenticatedMemberException.class)
     public ResponseEntity<String> UnauthenticatedMemberExceptionHandler(UnauthenticatedMemberException e) {
-        log.error("AuthenticateMemberException - {}", e.getMessage());
+        log.error("UnauthenticatedMemberException - {}", e.getMessage());
+        // 401
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<String> BadCredentialsExceptionHandler(BadCredentialsException e) {
+        log.error("BadCredentialsException - {}", e.getMessage());
         // 401
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
     }
@@ -69,16 +85,16 @@ public class ExceptionController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<String> IllegalArgumentExceptionHandler(IllegalArgumentException e) {
-        log.error("IllegalArgumentException - {}", e.getMessage());
-        // 400
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ResponseEntity<String> UsernameNotFoundExceptionHandler(UsernameNotFoundException e) {
+        log.error("UsernameNotFoundException - {}", e.getMessage());
+        // 404
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 
-    @ExceptionHandler(NotFoundAuthEmailException.class)
-    public ResponseEntity<String> NotFoundAuthEmailExceptionHandler(NotFoundAuthEmailException e) {
-        log.error("NotFoundAuthEmailException - {}", e.getMessage());
+    @ExceptionHandler(AuthEmailNotFoundException.class)
+    public ResponseEntity<String> AuthEmailNotFoundExceptionHandler(AuthEmailNotFoundException e) {
+        log.error("AuthEmailNotFoundException - {}", e.getMessage());
         // 404
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
@@ -89,4 +105,5 @@ public class ExceptionController {
         // 400
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
+
 }
