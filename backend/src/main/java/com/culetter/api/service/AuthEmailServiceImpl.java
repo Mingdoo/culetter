@@ -3,7 +3,7 @@ package com.culetter.api.service;
 import com.culetter.db.entity.AuthEmail;
 import com.culetter.db.repository.AuthEmailRepository;
 import com.culetter.exception.member.AuthEmailMessagingException;
-import com.culetter.exception.member.NotFoundAuthEmailException;
+import com.culetter.exception.member.AuthEmailNotFoundException;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
@@ -67,7 +67,7 @@ public class AuthEmailServiceImpl implements AuthEmailService {
     @Override
     public boolean checkCode(String email, String code) {
         AuthEmail authEmail = authEmailRepository.findFirstByEmailOrderByAuthEmailIdDesc(email)
-                .orElseThrow(() -> new NotFoundAuthEmailException("인증 요청을 보내지 않은 이메일입니다."));
+                .orElseThrow(() -> new AuthEmailNotFoundException("인증 요청을 보내지 않은 이메일입니다."));
         return authEmail.getCode().equals(code);
     }
 

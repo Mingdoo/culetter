@@ -10,6 +10,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,7 +51,7 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public Map<String,String> authenticateMember(String email, String password) {
-        Member member = memberRepository.findByEmail(email).orElse(Member.builder().build());
+        Member member = memberRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(email + "은(는) 존재하지 않는 회원입니다."));
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(member.getMemberId(), password);
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
@@ -74,6 +75,20 @@ public class MemberServiceImpl implements MemberService{
     public MemberDto.Response getMemberInfoByAuthentication() {
         Member member = getMemberByAuthentication();
         return new MemberDto.Response(member.getEmail(), member.getName(), member.getProfileImage());
+    }
+
+    @Override
+    public void checkPassword(String password) {
+        UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(getMemberByAuthentication().getMemberId(), password);
+        authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updatePassword(String password) {
+        Member member = getMemberByAuthentication();
+        member.updatePassword(passwordEncoder.encode(password));
     }
 
     @Override
