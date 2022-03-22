@@ -3,7 +3,7 @@ import { Container, Box, Typography, Grid, Button } from "@mui/material";
 import MenuList from "../../components/menu/MenuList";
 import axios from "axios";
 import MailBox from "../../components/mail/inbox/MailBox";
-import SearchBox from "../../components/user/SearchBox";
+import SearchBox from "../../components/mail/inbox/SearchBox";
 import Footer from "../../components/Footer";
 
 const SERVER_URL = "https://j6a201.p.ssafy.io:3000";
