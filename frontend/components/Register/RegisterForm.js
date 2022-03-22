@@ -15,21 +15,24 @@ import {
 
 const useStyles = makeStyles({
   root: {
-    marginBlock: "0px",
+    margin: "3px",
     color: "#eeee",
-    backgroundColor: "",
+    fontFamily: "Gowun Batang",
     "&.Mui-focused": {
       color: "#eeee",
       backgroundColor: "#d3504a",
     },
     "&:before": {
+      color: "#eeee",
       borderBottomColor: "#eeee",
     },
     "&:hover:not(.Mui-focused):before": {
+      color: "#eeee",
       borderBottomColor: "#eeee",
     },
     "&:after": {
       // focused
+      color: "#eeee",
       borderBottomColor: "#eeee",
     },
   },
@@ -51,6 +54,13 @@ const useLabelStyles = makeStyles({
     fontSize: 14,
   },
 });
+
+const msgStyle = {
+  fontSize: 11,
+  color: "#E2E0A5",
+  fontFamily: "Gowun Batang",
+  marginBottom: "3px",
+};
 
 const SignupForm = () => {
   const [input, setInput] = useState({
@@ -155,11 +165,14 @@ const SignupForm = () => {
             autoFocus
             variant="standard"
             size="small"
+            className="textfield"
             style={{
-              marginLeft: "1rem",
+              marginLeft: "1.0rem",
             }}
+            sx={{ color: "white" }}
             InputProps={{ classes: classes }}
             InputLabelProps={{
+              style: { fontFamily: "Gowun Batang" },
               classes: labelClasses,
             }}
             onChange={handleInput}
@@ -175,8 +188,8 @@ const SignupForm = () => {
               backgroundColor: "#FCFAEF",
               color: "#3A1D1D",
               fontSize: "0.5rem",
-              // ms: "auto",
               margin: "1rem",
+              fontFamily: "Gowun Dodum",
             }}
           >
             전송
@@ -184,10 +197,7 @@ const SignupForm = () => {
         </Grid>
         <Grid item xs={12}>
           {emailCheck ? null : (
-            <Typography
-              component="p"
-              sx={{ fontSize: 11, color: "#E2E0A5", mb: 1 }}
-            >
+            <Typography component="p" style={msgStyle}>
               {emailMsg}
             </Typography>
           )}
@@ -215,6 +225,7 @@ const SignupForm = () => {
                 }}
                 InputProps={{ classes: classes }}
                 InputLabelProps={{
+                  style: { fontFamily: "Gowun Batang" },
                   classes: labelClasses,
                 }}
                 onChange={handleInput}
@@ -253,6 +264,7 @@ const SignupForm = () => {
             size="small"
             InputProps={{ classes: classes }}
             InputLabelProps={{
+              style: { fontFamily: "Gowun Batang" },
               classes: labelClasses,
             }}
             onChange={handleInput}
@@ -260,10 +272,7 @@ const SignupForm = () => {
         </Grid>
         <Grid item xs={12}>
           {pwdCheck ? null : (
-            <Typography
-              component="p"
-              sx={{ fontSize: 11, color: "#E2E0A5", mb: 1 }}
-            >
+            <Typography component="p" style={msgStyle}>
               {pwdMsg}
             </Typography>
           )}
@@ -282,6 +291,7 @@ const SignupForm = () => {
             size="small"
             InputProps={{ classes: classes }}
             InputLabelProps={{
+              style: { fontFamily: "Gowun Batang" },
               classes: labelClasses,
             }}
             onChange={handleInput}
@@ -289,10 +299,7 @@ const SignupForm = () => {
         </Grid>
         <Grid item xs={12}>
           {confirmPwdCheck ? null : (
-            <Typography
-              component="p"
-              sx={{ fontSize: 11, color: "#E2E0A5", mb: 1 }}
-            >
+            <Typography component="p" style={msgStyle}>
               {confirmPwdMsg}
             </Typography>
           )}
@@ -311,6 +318,7 @@ const SignupForm = () => {
             size="small"
             InputProps={{ classes: classes }}
             InputLabelProps={{
+              style: { fontFamily: "Gowun Batang" },
               classes: labelClasses,
             }}
             // style={{ marginTop: 70 }}
@@ -319,7 +327,7 @@ const SignupForm = () => {
         </Grid>
         <Grid item xs={12}>
           {nameCheck ? null : (
-            <Typography component="p" sx={{ fontSize: 11, color: "#E2E0A5" }}>
+            <Typography component="p" style={msgStyle}>
               {nameMsg}
             </Typography>
           )}
@@ -341,6 +349,7 @@ const SignupForm = () => {
                 backgroundColor: "#E2E0A5",
                 color: "#3A1D1D",
                 marginTop: "1rem",
+                fontFamily: "Gowun Batang",
               }}
             >
               회원가입

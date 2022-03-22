@@ -42,3 +42,10 @@ a {
 .Arvo {
   font-family: "Arvo";
 }
+
+.textfield {
+  color: "#FCFAEF";
+}
+
+.textfield__label {
+}
