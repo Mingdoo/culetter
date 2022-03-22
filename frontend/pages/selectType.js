@@ -6,6 +6,26 @@ import Type from "../components/write/type";
 
 const selectType = (props) => {
   const { describe, detail } = props;
+  const source = [
+    {
+      text: "포토 카드",
+      describe: "사진, 그리고 글을 앞 뒷면으로 나누어 보내보세요",
+      imgsrc: "/img/photocardImg.png",
+      href: "photocard",
+    },
+    {
+      text: "일반 편지",
+      describe: "글로 당신의 마음을 표현해보세요",
+      imgsrc: "/img/normalImg.png",
+      href: "normal",
+    },
+    {
+      text: "엽서",
+      describe: "당신의 글과 어울리는 사진을 함께 보내드릴게요",
+      imgsrc: "/img/postcardImg.png",
+      href: "postcard",
+    },
+  ];
   return (
     <Box
       component="div"
@@ -28,8 +48,15 @@ const selectType = (props) => {
           alignItems: "center",
         }}
       >
-        {["포토 카드", "일반 편지", "엽서"].map((text, index) => (
-          <Type text={text} index={index} key={index}></Type>
+        {source.map((data, index) => (
+          <Type
+            text={data.text}
+            index={index}
+            key={index}
+            describe={data.describe}
+            imgsrc={data.imgsrc}
+            href={data.href}
+          ></Type>
         ))}
       </Box>
     </Box>
