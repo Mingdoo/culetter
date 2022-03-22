@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ContentsContext from "../../contexts/ContentsContext";
-import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   Box,
   Button,
@@ -17,29 +17,6 @@ const content = () => {
   const [titleLength, setTitleLength] = useState(0);
   const { setTextValid } = useContext(ContentsContext);
 
-  useEffect(() => {
-    if (titleLength < 1) {
-      toast.error(
-        <div style={{ width: "400px" }}>
-          <div>제목을 1글자 이상 입력해주세요</div>
-        </div>,
-        {
-          position: toast.POSITION.TOP_CENTER,
-          role: "alert",
-        }
-      );
-    } else if (titleLength > 100) {
-      toast.error(
-        <div style={{ width: "400px" }}>
-          <div>제목은 100자 이하입니다</div>
-        </div>,
-        {
-          position: toast.POSITION.TOP_CENTER,
-          role: "alert",
-        }
-      );
-    }
-  }, [titleLength]);
   useEffect(() => {}, [contentLength]);
 
   const handleClick = (event) => {};
