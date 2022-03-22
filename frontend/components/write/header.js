@@ -23,11 +23,19 @@ const header = (props) => {
           variant="p"
           component="div"
           className="Gowun Batang"
-          sx={{ ml: title === "편지 형식" ? "7rem" : "0rem", fontSize: "28px" }}
+          sx={{
+            ml: title === "편지 형식" ? "7rem" : "0rem",
+            fontSize: "28px",
+            mt: "0.8rem",
+          }}
         >
           {title}
         </Typography>
-        {title === "편지 형식" ? null : <NextPage href={"music"} />}
+        {title === "편지쓰기" ? (
+          <NextPage href={"music"} />
+        ) : title === "편지와 어울리는 노래들" ? (
+          <NextPage href={""} />
+        ) : null}
       </Box>
       <Box component="div" sx={{ ml: "2rem" }}>
         <Typography
