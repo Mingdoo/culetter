@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import Link from "next/link";
 import { Box, Typography } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ContentsContext from "../../contexts/ContentsContext";
 
 const nextPage = (props) => {
   const { href } = props;
+  const { textValid } = useContext(ContentsContext);
   return (
     <Box
       component="div"
@@ -22,7 +24,7 @@ const nextPage = (props) => {
           variant="p"
           component="span"
           className="Gowun Batang"
-          sx={{ mr: "0.5rem" }}
+          sx={{ mr: "0.5rem", color: textValid ? "#000000" : "#C6C6C6" }}
         >
           다음
         </Typography>

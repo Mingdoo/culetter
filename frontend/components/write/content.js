@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ContentsContext from "../../contexts/ContentsContext";
+import { toast } from "react-toastify";
 import {
   Box,
   Button,
@@ -8,20 +10,70 @@ import {
   TextareaAutosize,
 } from "@mui/material";
 import SaveIcon from "@mui/icons-material/Save";
+
 const content = () => {
   const [title, setTitle] = useState("");
-  const [textLength, setTextLength] = useState(0);
+  const [contentLength, setContentLength] = useState(0);
+  const [titleLength, setTitleLength] = useState(0);
+  const { setTextValid } = useContext(ContentsContext);
+
+  useEffect(() => {
+    if (titleLength < 1) {
+      toast.error(
+        <div style={{ width: "400px" }}>
+          <div>제목을 1글자 이상 입력해주세요</div>
+        </div>,
+        {
+          position: toast.POSITION.TOP_CENTER,
+          role: "alert",
+        }
+      );
+    } else if (titleLength > 100) {
+      toast.error(
+        <div style={{ width: "400px" }}>
+          <div>제목은 100자 이하입니다</div>
+        </div>,
+        {
+          position: toast.POSITION.TOP_CENTER,
+          role: "alert",
+        }
+      );
+    }
+  }, [titleLength]);
+  useEffect(() => {}, [contentLength]);
 
   const handleClick = (event) => {};
+
   const handleInput = (event) => {
     setTitle(event.target.value);
   };
-  const checkByte = (event) => {
-    const maxByte = 65535;
+
+  const checkInput = (event) => {
+    console.log("id : " + event.target.id + " value : " + event.target.value);
+    const maxTitleLength = 100;
+    const maxContentByte = 65535;
+    const maxContentLength = 32768;
     const inputText = event.target.value;
     const inputLength = inputText.length;
-    setTextLength(inputLength);
-    console.log(event.target.value);
+    switch (event.target.id) {
+      case "title":
+        setTitleLength(inputLength);
+        console.log(inputLength);
+        break;
+      case "contents":
+        setContentLength(inputLength);
+        break;
+    }
+    if (
+      contentLength > 0 &&
+      contentLength < maxContentLength &&
+      titleLength > 0 &&
+      titleLength < maxTitleLength
+    ) {
+      setTextValid(true);
+    } else {
+      setTextValid(false);
+    }
   };
 
   return (
@@ -41,12 +93,13 @@ const content = () => {
             style: { fontFamily: "Gowun Batang" },
           }}
           sx={{ mb: "1.5rem", ml: "1rem" }}
-          onChange={handleInput}
+          onChange={checkInput}
         />
       </Box>
       <TextareaAutosize
         component="div"
         aria-label="minimum height"
+        id="contents"
         minRows={3}
         maxRows={10}
         placeholder="편지 내용을 입력해주세요"
@@ -63,7 +116,7 @@ const content = () => {
           padding: "1rem",
         }}
         onKeyUp={(event) => {
-          checkByte(event);
+          checkInput(event);
         }}
       />
       <Box
@@ -88,7 +141,7 @@ const content = () => {
             임시저장
           </Button>
         </Box>
-        {textLength}자
+        {contentLength}자
       </Box>
     </Box>
   );
