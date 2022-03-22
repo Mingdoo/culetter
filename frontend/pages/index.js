@@ -1,10 +1,19 @@
 import React from "react";
-import { Container, Box, Typography, Button } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import LandingDiv from "../components/landing/LandingDiv";
 import StartButton from "../components/landing/StartButton";
 import Footer from "../components/Footer";
 
 export default function landing() {
+  console.log(
+    "        ____ _   _       _     _____ _____ _____ _____ ____\n\
+       / ___| | | |  _  | |   | ____|_   _|_   _| ____|  _  \\\n\
+      | |   | | | | (_) | |   |  _|   | |   | | |  _| | |_) |\n\
+      | |___| |_| |  _  | |___| |___  | |   | | | |___|  _ < \n\
+       \\____|____/  ( ) |_____|_____| |_|   |_| |_____|_| \\_\\\n\
+                    |/",
+  );
+
   return (
     <>
       <Box sx={{ width: 420, mx: "auto" }}>

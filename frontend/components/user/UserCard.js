@@ -1,4 +1,4 @@
-import React from "react";
+import { React } from "react";
 import { Box, Typography, Button, IconButton } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PersonIcon from "@mui/icons-material/Person";
@@ -50,7 +50,7 @@ export default function UserCard(props) {
               color="error"
               size="small"
               startIcon={<PersonIcon />}
-              onClick={(e) => HandleFriencAcceptClick(e, obj)}
+              onClick={(e) => HandleFriencAcceptClick(e, props.obj)}
             >
               수락
             </Button>
@@ -61,7 +61,7 @@ export default function UserCard(props) {
               color="error"
               size="small"
               startIcon={<DeleteIcon />}
-              onClick={(e) => HandleFriencRejectClick(e, obj)}
+              onClick={(e) => HandleFriendRejectClick(e, props.obj)}
             >
               거절
             </Button>
@@ -81,6 +81,7 @@ export default function UserCard(props) {
             <IconButton
               size=""
               onClick={(e) => handleFriendFavoriteClick(e, props.obj)}
+              color={props.obj.favorite ? "warning" : "default"}
             >
               <StarIcon fontSize="inherit" />
             </IconButton>
@@ -99,11 +100,13 @@ export default function UserCard(props) {
 const HandleFriencAcceptClick = (e, obj) => {
   e.preventDefault();
   // 그거
+  console.log(obj.memberId);
 };
 
-const HandleFriencRejectClick = (e, obj) => {
+const HandleFriendRejectClick = (e, obj) => {
   e.preventDefault();
   // 그으거
+  console.log(obj.memberId);
 };
 
 const handleMailClick = (e, obj) => {
@@ -115,9 +118,11 @@ const handleMailClick = (e, obj) => {
 const handleFriendFavoriteClick = (e, obj) => {
   e.preventDefault();
   // 그거 부분
+  console.log(obj.memberId);
 };
 
 const handleFriendDeleteClick = (e, obj) => {
   e.preventDefault();
   // 그거그거 부분
+  console.log(obj.memberId);
 };
