@@ -28,7 +28,7 @@ const hrefs = [
   "/",
   "/write",
   "/sent",
-  "/inbox",
+  "/mail/inbox",
   "/ing",
   "/friends",
   "/settings",
