@@ -12,20 +12,19 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 const SERVER_URL = "https://j6a201.p.ssafy.io:3000";
 const token = "temp";
 export default function Post() {
+  const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [mails, setMails] = useState([]);
+  const loader = useRef(null);
   // axios로 받아오기까지 시간 걸리니 loading 필요
   const fetchMails = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`${SERVER_URL}/recv`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setData(res.data);
-    } catch (e) {
-      console.log(e);
-    } finally {
-      setData([
+      // const res = await axios.get(`${SERVER_URL}/recv`, {
+      //   headers: { Authorization: `Bearer ${token}` },
+      // });
+      const res = [
         {
           hasNew: true,
           title: "홍길동",
@@ -173,7 +172,161 @@ export default function Post() {
           mailType: "PHOTOCARD",
           mailsNum: 5,
         },
-      ]);
+      ];
+      setData(res);
+      // setData(res.data);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      // setData([
+      //   {
+      //     hasNew: true,
+      //     title: "홍길동",
+      //     createdDate: "20220315",
+      //     mailType: "GENERAL",
+      //     mailsNum: 2,
+      //   },
+      //   {
+      //     hasNew: true,
+      //     title: "홍길동",
+      //     createdDate: "20220315",
+      //     mailType: "POST",
+      //     mailsNum: 2,
+      //   },
+      //   {
+      //     hasNew: false,
+      //     title: "홍길동",
+      //     createdDate: "20220315",
+      //     mailType: "PHOTOCARD",
+      //     mailsNum: 2,
+      //   },
+      //   {
+      //     hasNew: true,
+      //     title: "홍길동",
+      //     createdDate: "20220315",
+      //     mailType: "GENERAL",
+      //     mailsNum: 2,
+      //   },
+      //   {
+      //     hasNew: true,
+      //     title: "홍길동",
+      //     createdDate: "20220315",
+      //     mailType: "PHOTOCARD",
+      //     mailsNum: 2,
+      //   },
+      //   {
+      //     hasNew: false,
+      //     title: "홍길동",
+      //     createdDate: "20220315",
+      //     mailType: "GENERAL",
+      //     mailsNum: 1,
+      //   },
+      //   {
+      //     hasNew: false,
+      //     title: "홍길동",
+      //     createdDate: "20220315",
+      //     mailType: "PHOTOCARD",
+      //     mailsNum: 2,
+      //   },
+      //   {
+      //     hasNew: false,
+      //     title: "홍길동",
+      //     createdDate: "20220315",
+      //     mailType: "PHOTOCARD",
+      //     mailsNum: 3,
+      //   },
+      //   {
+      //     hasNew: true,
+      //     title: "홍길동",
+      //     createdDate: "20220315",
+      //     mailType: "POST",
+      //     mailsNum: 4,
+      //   },
+      //   {
+      //     hasNew: true,
+      //     title: "홍길동",
+      //     createdDate: "20220315",
+      //     mailType: "PHOTOCARD",
+      //     mailsNum: 5,
+      //   },
+      //   {
+      //     hasNew: true,
+      //     title: "고길동",
+      //     createdDate: "20220315",
+      //     mailType: "POST",
+      //     mailsNum: 2,
+      //   },
+      //   {
+      //     hasNew: true,
+      //     title: "고길동",
+      //     createdDate: "20220315",
+      //     mailType: "PHOTOCARD",
+      //     mailsNum: 2,
+      //   },
+      //   {
+      //     hasNew: false,
+      //     title: "고길동",
+      //     createdDate: "20220315",
+      //     mailType: "PHOTOCARD",
+      //     mailsNum: 2,
+      //   },
+      //   {
+      //     hasNew: true,
+      //     title: "고길동",
+      //     createdDate: "20220315",
+      //     mailType: "PHOTOCARD",
+      //     mailsNum: 2,
+      //   },
+      //   {
+      //     hasNew: true,
+      //     title: "고길동",
+      //     createdDate: "20220315",
+      //     mailType: "PHOTOCARD",
+      //     mailsNum: 2,
+      //   },
+      //   {
+      //     hasNew: false,
+      //     title: "고길동",
+      //     createdDate: "20220315",
+      //     mailType: "PHOTOCARD",
+      //     mailsNum: 1,
+      //   },
+      //   {
+      //     hasNew: false,
+      //     title: "고길동",
+      //     createdDate: "20220315",
+      //     mailType: "PHOTOCARD",
+      //     mailsNum: 2,
+      //   },
+      //   {
+      //     hasNew: false,
+      //     title: "고길동",
+      //     createdDate: "20220315",
+      //     mailType: "PHOTOCARD",
+      //     mailsNum: 3,
+      //   },
+      //   {
+      //     hasNew: true,
+      //     title: "고길동",
+      //     createdDate: "20220315",
+      //     mailType: "PHOTOCARD",
+      //     mailsNum: 4,
+      //   },
+      //   {
+      //     hasNew: true,
+      //     title: "고길동",
+      //     createdDate: "20220315",
+      //     mailType: "PHOTOCARD",
+      //     mailsNum: 5,
+      //   },
+      //   {
+      //     hasNew: true,
+      //     title: "마지막",
+      //     createdDate: "20220315",
+      //     mailType: "PHOTOCARD",
+      //     mailsNum: 5,
+      //   },
+      // ]);
       setLoading(false);
     }
   });
@@ -181,6 +334,31 @@ export default function Post() {
   useEffect(() => {
     fetchMails();
   }, []);
+  const handleObserver = useCallback((entries) => {
+    const target = entries[0];
+    if (target.isIntersecting) {
+      console.log("is InterSecting");
+      setPage((prev) => prev + 1);
+    }
+  }, []);
+
+  useEffect(() => {
+    const option = {
+      root: null,
+      rootMargin: "20px",
+      threshold: 0,
+    };
+    const observer = new IntersectionObserver(handleObserver, option);
+    if (loader.current) observer.observe(loader.current);
+  }, [handleObserver]);
+
+  // 처음 로딩 돌 떄 작동함.
+  useEffect(() => {
+    console.log(data);
+    setMails(data.slice(0, page * 3));
+    console.log(mails);
+  }, [page]);
+
   return (
     <>
       <Box sx={{ width: 420, mx: "auto" }}>
@@ -191,9 +369,10 @@ export default function Post() {
             bgcolor: "#FCFAEF",
             position: "relative",
             minHeight: "100vh",
+            pb: 5,
           }}
         >
-          <BackButton href="/mail/inbox"></BackButton>
+          <BackButton sx={{ pt: 1 }} href="/mail/inbox"></BackButton>
           <MenuList></MenuList>
           <Typography
             variant="h4"
@@ -201,14 +380,15 @@ export default function Post() {
             sx={{
               display: "flex",
               justifyContent: "center",
-              py: "2vh",
-              fontSize: 36,
+              py: "3.5vh",
+              fontSize: 28,
             }}
           >
             받은 편지
           </Typography>
+
           {loading && <Typography>loading</Typography>}
-          {data.map(({ title, mailType, createdDate }, index) => {
+          {mails.map(({ title, mailType, createdDate }, index) => {
             if (mailType === "PHOTOCARD") {
               return (
                 <Photocard
@@ -239,6 +419,7 @@ export default function Post() {
           })}
         </Box>
       </Box>
+      <Box ref={loader}></Box>
       <Footer />
     </>
   );

@@ -139,7 +139,7 @@ export default function inbox() {
             searchMemberName={searchMemberName}
           />
         </Box>
-        <Grid container sx={{ width: 1, px: 3, pt: 5 }}>
+        <Grid container sx={{ width: 1, pt: 5 }}>
           {!searchMemberName
             ? mails.map(({ name, hasNew, mailsNum }, index) => (
                 <Grid item xs={6} key={index} wrap>
@@ -177,6 +177,14 @@ export default function inbox() {
             </div>
           </div>
         ) : null} */}
+        {console.log(
+          mails.length !== data.length,
+          "mails:",
+          mails.length,
+          "data:",
+          data.length
+        )}
+        {/* {mails.length !== data.length ? <div ref={loader}></div> : <div></div>} */}
         {!searchMemberName ? <div ref={loader}></div> : <div></div>}
         <Footer></Footer>
       </Box>
