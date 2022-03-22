@@ -4,6 +4,7 @@ import MenuList from "../../components/menu/MenuList";
 import axios from "axios";
 import MailBox from "../../components/mail/inbox/MailBox";
 import SearchBox from "../../components/user/SearchBox";
+import Footer from "../../components/Footer";
 
 const SERVER_URL = "https://j6a201.p.ssafy.io:3000";
 const token = "temp";
@@ -115,25 +116,29 @@ export default function inbox() {
         }}
       >
         <MenuList></MenuList>
-        {/* <Button onClick={(e) => setSearchMemberName(e)}>test</Button> */}
         <Typography
           variant="h4"
           className="Dodum"
           sx={{
             display: "flex",
             justifyContent: "center",
-            pb: "2vh",
-            fontSize: 36,
+            py: "3.5vh",
+            fontSize: 28,
           }}
         >
           받은 편지
         </Typography>
-        <SearchBox
-          id="searchMemberNameInput"
-          label="이름"
-          width={300}
-          onChange={(e) => setSearchMemberName(e)}
-        />
+        {searchMemberName}
+        <Box sx={{ display: "flex" }}>
+          <SearchBox
+            id="searchMemberNameInput"
+            label="이름"
+            width={225}
+            onChange={(e) => setSearchMemberName(e)}
+            inbox={true}
+            searchMemberName={searchMemberName}
+          />
+        </Box>
         <Grid container sx={{ width: 1, px: 3, pt: 5 }}>
           {!searchMemberName
             ? mails.map(({ name, hasNew, mailsNum }, index) => (
@@ -172,7 +177,8 @@ export default function inbox() {
             </div>
           </div>
         ) : null} */}
-        <div ref={loader} />
+        {!searchMemberName ? <div ref={loader}></div> : <div></div>}
+        <Footer></Footer>
       </Box>
     </>
   );

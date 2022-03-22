@@ -13,9 +13,10 @@ const SERVER_URL = "https://j6a201.p.ssafy.io:3000";
 const token = "temp";
 export default function Post() {
   const [data, setData] = useState([]);
-
+  const [loading, setLoading] = useState(false);
   // axios로 받아오기까지 시간 걸리니 loading 필요
   const fetchMails = useCallback(async () => {
+    setLoading(true);
     try {
       const res = await axios.get(`${SERVER_URL}/recv`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -27,152 +28,153 @@ export default function Post() {
       setData([
         {
           hasNew: true,
-          senderName: "홍길동",
+          title: "홍길동",
           createdDate: "20220315",
           mailType: "GENERAL",
           mailsNum: 2,
         },
         {
           hasNew: true,
-          senderName: "홍길동",
+          title: "홍길동",
           createdDate: "20220315",
           mailType: "POST",
           mailsNum: 2,
         },
         {
           hasNew: false,
-          senderName: "홍길동",
+          title: "홍길동",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
           mailsNum: 2,
         },
         {
           hasNew: true,
-          senderName: "홍길동",
+          title: "홍길동",
           createdDate: "20220315",
           mailType: "GENERAL",
           mailsNum: 2,
         },
         {
           hasNew: true,
-          senderName: "홍길동",
+          title: "홍길동",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
           mailsNum: 2,
         },
         {
           hasNew: false,
-          senderName: "홍길동",
+          title: "홍길동",
           createdDate: "20220315",
           mailType: "GENERAL",
           mailsNum: 1,
         },
         {
           hasNew: false,
-          senderName: "홍길동",
+          title: "홍길동",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
           mailsNum: 2,
         },
         {
           hasNew: false,
-          senderName: "홍길동",
+          title: "홍길동",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
           mailsNum: 3,
         },
         {
           hasNew: true,
-          senderName: "홍길동",
+          title: "홍길동",
           createdDate: "20220315",
           mailType: "POST",
           mailsNum: 4,
         },
         {
           hasNew: true,
-          senderName: "홍길동",
+          title: "홍길동",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
           mailsNum: 5,
         },
         {
           hasNew: true,
-          senderName: "고길동",
+          title: "고길동",
           createdDate: "20220315",
           mailType: "POST",
           mailsNum: 2,
         },
         {
           hasNew: true,
-          senderName: "고길동",
+          title: "고길동",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
           mailsNum: 2,
         },
         {
           hasNew: false,
-          senderName: "고길동",
+          title: "고길동",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
           mailsNum: 2,
         },
         {
           hasNew: true,
-          senderName: "고길동",
+          title: "고길동",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
           mailsNum: 2,
         },
         {
           hasNew: true,
-          senderName: "고길동",
+          title: "고길동",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
           mailsNum: 2,
         },
         {
           hasNew: false,
-          senderName: "고길동",
+          title: "고길동",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
           mailsNum: 1,
         },
         {
           hasNew: false,
-          senderName: "고길동",
+          title: "고길동",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
           mailsNum: 2,
         },
         {
           hasNew: false,
-          senderName: "고길동",
+          title: "고길동",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
           mailsNum: 3,
         },
         {
           hasNew: true,
-          senderName: "고길동",
+          title: "고길동",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
           mailsNum: 4,
         },
         {
           hasNew: true,
-          senderName: "고길동",
+          title: "고길동",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
           mailsNum: 5,
         },
         {
           hasNew: true,
-          senderName: "마지막",
+          title: "마지막",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
           mailsNum: 5,
         },
       ]);
+      setLoading(false);
     }
   });
 
@@ -205,11 +207,12 @@ export default function Post() {
           >
             받은 편지
           </Typography>
-          {data.map(({ senderName, mailType, createdDate }, index) => {
+          {loading && <Typography>loading</Typography>}
+          {data.map(({ title, mailType, createdDate }, index) => {
             if (mailType === "PHOTOCARD") {
               return (
                 <Photocard
-                  senderName={senderName}
+                  title={title}
                   createdDate={createdDate}
                   key={index}
                 ></Photocard>
@@ -217,7 +220,7 @@ export default function Post() {
             } else if (mailType === "GENERAL") {
               return (
                 <Letter
-                  senderName={senderName}
+                  text={title}
                   index={0}
                   createdDate={createdDate}
                   key={index}
@@ -226,7 +229,7 @@ export default function Post() {
             } else {
               return (
                 <Letter
-                  senderName={senderName}
+                  text={title}
                   index={1}
                   createdDate={createdDate}
                   key={index}
@@ -234,15 +237,6 @@ export default function Post() {
               );
             }
           })}
-          <Box>
-            {/* letter margin, padding 조정해줘야 함. */}
-            {/* 일반 편지면 */}
-            <Letter index={0} key={0}></Letter>
-            {/* 엽서라면 */}
-            <Letter index={1} key={1}></Letter>
-            {/* 포토카드라면 */}
-            {/* <Photocard></Photocard> */}
-          </Box>
         </Box>
       </Box>
       <Footer />
