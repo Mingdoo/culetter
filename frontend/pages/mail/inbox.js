@@ -2,24 +2,47 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import { Container, Box, Typography, Grid } from "@mui/material";
 import MenuList from "../../components/menu/MenuList";
 import axios from "axios";
-import useFetch from "../../hooks/inbox";
-
+import MailBox from "../../components/mail/inbox/MailBox";
 const SERVER_URL = "https://j6a201.p.ssafy.io:3000";
 const token = "temp";
 
 export default function inbox() {
   // 왜 0으로 시작하는 지는 찾아야 함
   const [page, setPage] = useState(0);
-  const [query, setQuery] = useState("");
   // 통신으로 받은 데이터
   const [data, setData] = useState([]);
   // 보여주는 데이터 (스크롤!)
   const [mails, setMails] = useState([]);
   // const { loading, error, list } = useFetch(query, page);
 
+  // loading, error 있으면 안 됨?!
   // const [loading, setLoading] = useState(false);
   // const [error, setError] = useState(null);
   const loader = useRef(null);
+
+  const tempData = [
+    { hasNew: true, name: "홍길동", mailsNum: 2 },
+    { hasNew: true, name: "홍길동", mailsNum: 2 },
+    { hasNew: false, name: "홍길동", mailsNum: 2 },
+    { hasNew: true, name: "홍길동", mailsNum: 2 },
+    { hasNew: true, name: "홍길동", mailsNum: 2 },
+    { hasNew: false, name: "홍길동", mailsNum: 1 },
+    { hasNew: false, name: "홍길동", mailsNum: 2 },
+    { hasNew: false, name: "홍길동", mailsNum: 3 },
+    { hasNew: true, name: "홍길동", mailsNum: 4 },
+    { hasNew: true, name: "홍길동", mailsNum: 5 },
+    { hasNew: true, name: "고길동", mailsNum: 2 },
+    { hasNew: true, name: "고길동", mailsNum: 2 },
+    { hasNew: false, name: "고길동", mailsNum: 2 },
+    { hasNew: true, name: "고길동", mailsNum: 2 },
+    { hasNew: true, name: "고길동", mailsNum: 2 },
+    { hasNew: false, name: "고길동", mailsNum: 1 },
+    { hasNew: false, name: "고길동", mailsNum: 2 },
+    { hasNew: false, name: "고길동", mailsNum: 3 },
+    { hasNew: true, name: "고길동", mailsNum: 4 },
+    { hasNew: true, name: "고길동", mailsNum: 5 },
+    { hasNew: true, name: "마지막", mailsNum: 5 },
+  ];
 
   const fetchMails = useCallback(async () => {
     try {
@@ -36,7 +59,8 @@ export default function inbox() {
       // setError(e);
     } finally {
       // setMails([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]);
-      setData([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]);
+      // setData([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]);
+      setData(tempData);
       // setLoading(false);
     }
   });
@@ -99,22 +123,15 @@ export default function inbox() {
         >
           받은 편지
         </Typography>
-        {data}
-        {mails}
         <Grid container sx={{ width: 1, px: 3, pt: 10 }}>
-          {mails.map((text, index) => (
+          {mails.map(({ name, hasNew, mailsNum }, index) => (
             <Grid item xs={6} key={index} wrap>
-              <Box
-                sx={{
-                  width: "200px",
-                  height: "200px",
-                  bgcolor: "black",
-                  m: 1,
-                  color: "white",
-                }}
-              >
-                {text}
-              </Box>
+              <MailBox
+                hasNew={hasNew}
+                name={name}
+                id={index}
+                mailsNum={mailsNum}
+              ></MailBox>
             </Grid>
           ))}
         </Grid>
