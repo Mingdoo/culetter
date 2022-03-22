@@ -59,6 +59,7 @@ const content = () => {
           border: "none",
           resize: "none",
           marginBottom: "-1rem",
+          marginLeft: "0.6rem",
           padding: "1rem",
         }}
         onKeyUp={(event) => {
@@ -74,6 +75,7 @@ const content = () => {
           justifyContent: "space-between",
           alignItems: "center",
           padding: "0 1.5rem 0 1.5rem",
+          marginLeft: "0.6rem",
         }}
       >
         <Box sx={{}}>
