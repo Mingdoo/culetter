@@ -52,7 +52,6 @@ export default function MailBox({ hasNew, name, id, mailsNum }) {
           className="Dodum"
           sx={{ display: "flex", justifyContent: "center", width: 200, px: 5 }}
         >
-          {hasNew}
           {name}
         </Typography>
       </Box>

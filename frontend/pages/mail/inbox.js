@@ -51,7 +51,7 @@ export default function inbox() {
 
   const fetchMails = useCallback(async () => {
     try {
-      setError(false);
+      // setError(false);
       setMails(null);
       // setLoading(true);
 
@@ -71,7 +71,10 @@ export default function inbox() {
   });
   // 최초 한 번 시도해본다!
   useEffect(() => {
+    console.log("STart");
     fetchMails();
+    setData(tempData);
+    setPage((prev) => prev + 1);
   }, []);
 
   const handleObserver = useCallback((entries) => {
@@ -128,21 +131,20 @@ export default function inbox() {
         >
           받은 편지
         </Typography>
-        {searchMemberName}
         <Box sx={{ display: "flex" }}>
           <SearchBox
             id="searchMemberNameInput"
             label="이름"
             width={225}
             onChange={(e) => setSearchMemberName(e)}
-            inbox={true}
+            // inbox={true}
             searchMemberName={searchMemberName}
           />
         </Box>
-        <Grid container sx={{ width: 1, pt: 5 }}>
+        <Grid container sx={{ width: 1, pt: 5, minHeight: "87vh" }}>
           {!searchMemberName
             ? mails.map(({ name, hasNew, mailsNum }, index) => (
-                <Grid item xs={6} key={index} wrap>
+                <Grid item xs={6} key={index}>
                   <MailBox
                     hasNew={hasNew}
                     name={name}
@@ -156,7 +158,7 @@ export default function inbox() {
                   return obj.name.includes(searchMemberName);
                 })
                 .map(({ name, hasNew, mailsNum }, index) => (
-                  <Grid item xs={6} key={index} wrap>
+                  <Grid item xs={6} key={index}>
                     <MailBox
                       hasNew={hasNew}
                       name={name}
@@ -185,7 +187,11 @@ export default function inbox() {
           data.length
         )}
         {/* {mails.length !== data.length ? <div ref={loader}></div> : <div></div>} */}
-        {!searchMemberName ? <div ref={loader}></div> : <div></div>}
+        {searchMemberName === "" ? (
+          <Box ref={loader} sx={{ height: 10 }}></Box>
+        ) : (
+          <Box sx={{ height: 10 }}></Box>
+        )}
         <Footer></Footer>
       </Box>
     </>
