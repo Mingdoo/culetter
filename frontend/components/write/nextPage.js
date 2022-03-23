@@ -8,7 +8,6 @@ import { ToastContainer, toast } from "react-toastify";
 const nextPage = (props) => {
   const { href, title } = props;
   const { textValid, musicSelected } = useContext(ContentsContext);
-  console.log(title);
   return (
     <Box
       component="div"
