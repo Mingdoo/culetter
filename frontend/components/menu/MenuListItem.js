@@ -28,7 +28,7 @@ const hrefs = [
   "/",
   "/write",
   "/sent",
-  "/inbox",
+  "/mail/inbox",
   "/ing",
   "/friends",
   "/settings",
@@ -43,7 +43,7 @@ function MenuListItem({ text, index }) {
           button
           key={index}
           sx={{
-            "white-space": "nowrap",
+            whiteSpace: "nowrap",
           }}
         >
           <ListItemIcon sx={{ color: "white" }}>{icons[index]}</ListItemIcon>
