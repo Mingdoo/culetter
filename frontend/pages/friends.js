@@ -1,12 +1,5 @@
 import { React, useState } from "react";
-import {
-  Box,
-  Typography,
-  Divider,
-  IconButton,
-  Button,
-  Fade,
-} from "@mui/material";
+import { Box, Typography, Divider, IconButton, Button } from "@mui/material";
 
 import { landingBoxStyle } from "./index";
 import MenuList from "../components/menu/MenuList";
