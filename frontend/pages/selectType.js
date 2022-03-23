@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Typography } from "@mui/material";
 import { Box } from "@mui/material";
 import Header from "../components/write/header";
 import Type from "../components/write/type";

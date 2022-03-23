@@ -165,7 +165,7 @@ const SignupForm = () => {
             autoFocus
             variant="standard"
             size="small"
-            className="textfield"
+            // className="textfield"
             style={{
               marginLeft: "1.0rem",
             }}
@@ -339,7 +339,7 @@ const SignupForm = () => {
             mb: 0,
           }}
         >
-          <Grid button xs={12}>
+          <Grid item button xs={12}>
             <Button
               variant="contained"
               size="small"

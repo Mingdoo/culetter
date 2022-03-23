@@ -6,52 +6,85 @@ import ContentsContext from "../../contexts/ContentsContext";
 import { ToastContainer, toast } from "react-toastify";
 
 const nextPage = (props) => {
-  const { href } = props;
-  const { textValid } = useContext(ContentsContext);
+  const { href, title } = props;
+  const { textValid, musicSelected } = useContext(ContentsContext);
+  console.log(title);
   return (
     <Box
       component="div"
       sx={{
-        pt: "2rem",
-        mb: "1rem",
-        mr: "1rem",
         textAlign: "center",
         display: "flex",
         alignItems: "center",
       }}
     >
-      {textValid ? (
-        <Link href={`/${href}`}>
+      {title === "편지쓰기" ? (
+        !textValid ? (
           <Typography
             variant="p"
             component="span"
             className="Gowun Batang"
-            sx={{ mr: "0.5rem", color: "#000000" }}
+            sx={{ mr: "0.5rem", color: "#C6C6C6" }}
+            onClick={() => {
+              toast.error(
+                <div style={{ width: "100%", fontSize: "1rem" }}>
+                  <div>제목 또는 내용을 확인해주세요</div>
+                </div>,
+                {
+                  position: toast.POSITION.TOP_CENTER,
+                  role: "alert",
+                }
+              );
+            }}
           >
             다음
           </Typography>
-        </Link>
-      ) : (
-        <Typography
-          variant="p"
-          component="span"
-          className="Gowun Batang"
-          sx={{ mr: "0.5rem", color: "#C6C6C6" }}
-          onClick={() => {
-            toast.error(
-              <div style={{ width: "330px" }}>
-                <div>제목 또는 내용을 확인해주세요</div>
-              </div>,
-              {
-                position: toast.POSITION.TOP_CENTER,
-                role: "alert",
-              }
-            );
-          }}
-        >
-          다음
-        </Typography>
-      )}
+        ) : (
+          <Link href={`/${href}`}>
+            <Typography
+              variant="p"
+              component="span"
+              className="Gowun Batang"
+              sx={{ mr: "0.5rem", color: "#000000" }}
+            >
+              다음
+            </Typography>
+          </Link>
+        )
+      ) : title === "편지와 어울리는 노래" ? (
+        musicSelected ? (
+          <Link href={`/${href}`}>
+            <Typography
+              variant="p"
+              component="span"
+              className="Gowun Batang"
+              sx={{ mr: "0.5rem", color: "#000000" }}
+            >
+              다음
+            </Typography>
+          </Link>
+        ) : (
+          <Typography
+            variant="p"
+            component="span"
+            className="Gowun Batang"
+            sx={{ mr: "0.5rem", color: "#C6C6C6" }}
+            onClick={() => {
+              toast.error(
+                <div style={{ width: "100%", fontSize: "1rem" }}>
+                  <div>음악을 선택해주세요</div>
+                </div>,
+                {
+                  position: toast.POSITION.TOP_CENTER,
+                  role: "alert",
+                }
+              );
+            }}
+          >
+            다음
+          </Typography>
+        )
+      ) : null}
       <ArrowForwardIosIcon />
       <ToastContainer />
     </Box>
