@@ -145,7 +145,7 @@ public class FriendServiceImpl implements FriendService {
                 () -> new ValueNotExistException("존재하지 않는 사용자입니다."));
 
         Friend cur_stat = friendRepository.findByRequest(req_member.getMemberId(),cur_member.getMemberId())
-                .orElseThrow(() -> new ValueNotExistException(""));
+                .orElseThrow(() -> new ValueNotExistException("존재하지 않는 친구 요청입니다."));
         int res = friendRepository.updateByFriendId(cur_stat.getFriendId(), (byte) 1);
 
         validateChangeMade(res,"친구 추가 수락");
