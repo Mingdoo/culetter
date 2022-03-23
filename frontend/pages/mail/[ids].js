@@ -27,76 +27,104 @@ export default function Post() {
       const res = [
         {
           hasNew: true,
-          title: "홍길동",
+
+          img: "temp",
+          title: "제목이제목모모모모모모모모모모모모모모모모",
+          senderName: "김은송",
           createdDate: "20220315",
           mailType: "GENERAL",
           mailsNum: 2,
         },
         {
           hasNew: true,
-          title: "홍길동",
+
+          img: "temp",
+          title: "제목이제목모모모모모모모모모모모모모모모모",
+          senderName: "김은송",
           createdDate: "20220315",
           mailType: "POST",
           mailsNum: 2,
         },
         {
           hasNew: false,
-          title: "홍길동",
+          img: "temp",
+          title: "제목이제목모모모모모모모모모모모모모모모모",
+          senderName: "김은송",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
           mailsNum: 2,
         },
         {
           hasNew: true,
-          title: "홍길동",
+
+          img: "temp",
+          title: "제목이제목모모모모모모모모모모모모모모모모",
+          senderName: "김은송",
           createdDate: "20220315",
           mailType: "GENERAL",
           mailsNum: 2,
         },
         {
           hasNew: true,
-          title: "홍길동",
+
+          img: "temp",
+          title: "제목이제목모모모모모모모모모모모모모모모모",
+          senderName: "김은송",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
           mailsNum: 2,
         },
         {
           hasNew: false,
-          title: "홍길동",
+          img: "temp",
+          title: "제목이제목모모모모모모모모모모모모모모모모",
+          senderName: "김은송",
           createdDate: "20220315",
           mailType: "GENERAL",
           mailsNum: 1,
         },
         {
           hasNew: false,
-          title: "홍길동",
+          img: "temp",
+          title: "제목이제목모모모모모모모모모모모모모모모모",
+          senderName: "김은송",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
           mailsNum: 2,
         },
         {
           hasNew: false,
-          title: "홍길동",
+          img: "temp",
+          title: "제목이제목모모모모모모모모모모모모모모모모",
+          senderName: "김은송",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
           mailsNum: 3,
         },
         {
           hasNew: true,
-          title: "홍길동",
+
+          img: "temp",
+          title: "제목이제목모모모모모모모모모모모모모모모모",
+          senderName: "김은송",
           createdDate: "20220315",
           mailType: "POST",
           mailsNum: 4,
         },
         {
           hasNew: true,
-          title: "홍길동",
+
+          img: "temp",
+          title: "제목이제목모모모모모모모모모모모모모모모모",
+          senderName: "김은송",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
           mailsNum: 5,
         },
         {
           hasNew: true,
+
+          img: "temp",
           title: "고길동",
           createdDate: "20220315",
           mailType: "POST",
@@ -104,6 +132,8 @@ export default function Post() {
         },
         {
           hasNew: true,
+
+          img: "temp",
           title: "고길동",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
@@ -111,6 +141,7 @@ export default function Post() {
         },
         {
           hasNew: false,
+          img: "temp",
           title: "고길동",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
@@ -118,6 +149,8 @@ export default function Post() {
         },
         {
           hasNew: true,
+
+          img: "temp",
           title: "고길동",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
@@ -125,6 +158,7 @@ export default function Post() {
         },
         {
           hasNew: true,
+          img: "temp",
           title: "고길동",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
@@ -132,6 +166,7 @@ export default function Post() {
         },
         {
           hasNew: false,
+          img: "temp",
           title: "고길동",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
@@ -139,6 +174,7 @@ export default function Post() {
         },
         {
           hasNew: false,
+          img: "temp",
           title: "고길동",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
@@ -146,6 +182,7 @@ export default function Post() {
         },
         {
           hasNew: false,
+          img: "temp",
           title: "고길동",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
@@ -153,6 +190,8 @@ export default function Post() {
         },
         {
           hasNew: true,
+
+          img: "temp",
           title: "고길동",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
@@ -160,6 +199,8 @@ export default function Post() {
         },
         {
           hasNew: true,
+
+          img: "temp",
           title: "고길동",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
@@ -167,6 +208,8 @@ export default function Post() {
         },
         {
           hasNew: true,
+
+          img: "temp",
           title: "마지막",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
@@ -390,35 +433,41 @@ export default function Post() {
 
           {loading && <Typography>loading</Typography>}
           <Box sx={{ minHeight: "90vh" }}>
-            {mails.map(({ title, mailType, createdDate }, index) => {
-              if (mailType === "PHOTOCARD") {
-                return (
-                  <Photocard
-                    title={title}
-                    createdDate={createdDate}
-                    key={index}
-                  ></Photocard>
-                );
-              } else if (mailType === "GENERAL") {
-                return (
-                  <Letter
-                    text={title}
-                    index={0}
-                    createdDate={createdDate}
-                    key={index}
-                  ></Letter>
-                );
-              } else {
-                return (
-                  <Letter
-                    text={title}
-                    index={1}
-                    createdDate={createdDate}
-                    key={index}
-                  ></Letter>
-                );
+            {mails.map(
+              ({ title, mailType, createdDate, senderName, img }, index) => {
+                if (mailType === "PHOTOCARD") {
+                  return (
+                    <Photocard
+                      src={img}
+                      title={title}
+                      createdDate={createdDate}
+                      senderName={senderName}
+                      key={index}
+                    ></Photocard>
+                  );
+                } else if (mailType === "GENERAL") {
+                  return (
+                    <Letter
+                      text={title}
+                      index={0}
+                      createdDate={createdDate}
+                      senderName={senderName}
+                      key={index}
+                    ></Letter>
+                  );
+                } else {
+                  return (
+                    <Letter
+                      text={title}
+                      index={1}
+                      createdDate={createdDate}
+                      key={index}
+                      senderName={senderName}
+                    ></Letter>
+                  );
+                }
               }
-            })}
+            )}
           </Box>
           <Box sx={{ height: "10px" }} ref={loader}></Box>
         </Box>
