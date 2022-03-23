@@ -12,6 +12,7 @@ export default function MenuButton({ HandleMenu, open }) {
           bgcolor: "rgba(0,0,0,0.2)",
           position: "absolute",
           top: 0,
+          zIndex: 1,
         }}
         onClick={HandleMenu}
       ></Box>
