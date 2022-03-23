@@ -12,7 +12,7 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 const SERVER_URL = "https://j6a201.p.ssafy.io:3000";
 const token = "temp";
 export default function Post() {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [mails, setMails] = useState([]);
@@ -333,6 +333,7 @@ export default function Post() {
 
   useEffect(() => {
     fetchMails();
+    setPage((prev) => prev + 1);
   }, []);
   const handleObserver = useCallback((entries) => {
     const target = entries[0];
@@ -388,38 +389,40 @@ export default function Post() {
           </Typography>
 
           {loading && <Typography>loading</Typography>}
-          {mails.map(({ title, mailType, createdDate }, index) => {
-            if (mailType === "PHOTOCARD") {
-              return (
-                <Photocard
-                  title={title}
-                  createdDate={createdDate}
-                  key={index}
-                ></Photocard>
-              );
-            } else if (mailType === "GENERAL") {
-              return (
-                <Letter
-                  text={title}
-                  index={0}
-                  createdDate={createdDate}
-                  key={index}
-                ></Letter>
-              );
-            } else {
-              return (
-                <Letter
-                  text={title}
-                  index={1}
-                  createdDate={createdDate}
-                  key={index}
-                ></Letter>
-              );
-            }
-          })}
+          <Box sx={{ minHeight: "90vh" }}>
+            {mails.map(({ title, mailType, createdDate }, index) => {
+              if (mailType === "PHOTOCARD") {
+                return (
+                  <Photocard
+                    title={title}
+                    createdDate={createdDate}
+                    key={index}
+                  ></Photocard>
+                );
+              } else if (mailType === "GENERAL") {
+                return (
+                  <Letter
+                    text={title}
+                    index={0}
+                    createdDate={createdDate}
+                    key={index}
+                  ></Letter>
+                );
+              } else {
+                return (
+                  <Letter
+                    text={title}
+                    index={1}
+                    createdDate={createdDate}
+                    key={index}
+                  ></Letter>
+                );
+              }
+            })}
+          </Box>
+          <Box sx={{ height: "10px" }} ref={loader}></Box>
         </Box>
       </Box>
-      <Box ref={loader}></Box>
       <Footer />
     </>
   );
