@@ -5,12 +5,13 @@ import com.culetter.db.entity.Friend;
 import com.culetter.db.entity.Member;
 import com.culetter.db.repository.FriendRepository;
 import com.culetter.exception.member.ChangeNotMadeException;
-import com.culetter.exception.member.MemberNotExistException;
+import com.culetter.exception.member.ValueNotExistException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -78,13 +79,13 @@ public class FriendServiceImpl implements FriendService {
             byte friend_status = 0;
 
             //현재 사용자가 친구 요청을 보냈는가
-            Friend relation = friendRepository.findByRequest(cur_member.getMemberId(), m.getMemberId());
+            Optional<Friend> relation = friendRepository.findByRequest(cur_member.getMemberId(), m.getMemberId());
 
-            if(relation != null){
-                favorite = relation.getIsFavorite();
+            if(relation.isPresent()){
+                favorite = relation.get().getIsFavorite();
 
                 //친구 요청 보낸 상태이다 하지만 수락은 못받음
-                if(relation.getStatus() == 0) friend_status = 1;
+                if(relation.get().getStatus() == 0) friend_status = 1;
                 //이미 친구다
                 else friend_status = 3;
             }
@@ -93,8 +94,8 @@ public class FriendServiceImpl implements FriendService {
                 //현재 사용자가 친구 요청을 받았는가
                 relation = friendRepository.findByRequest(m.getMemberId(),cur_member.getMemberId());
                 //친구 요청 받은 상태이다
-                if (relation != null) {
-                    favorite = relation.getIsFavorite();
+                if (relation.isPresent()) {
+                    favorite = relation.get().getIsFavorite();
                     friend_status = 2;
                 }
             }
@@ -117,14 +118,13 @@ public class FriendServiceImpl implements FriendService {
     @Transactional(rollbackFor = Exception.class)
     public void requestFriend(long memberId) {
         Member cur_member = memberService.getMemberByAuthentication();
-        Member req_member = friendRepository.findByMemberId(memberId);
+        Member req_member = friendRepository.findByMemberId(memberId).orElseThrow(
+                () -> new ValueNotExistException("존재하지 않는 사용자입니다."));
 
-        validateMemberExist(req_member);
+        Optional<Friend> existCurReq = friendRepository.findByRequest(cur_member.getMemberId(),req_member.getMemberId());
+        Optional<Friend> existReqCur = friendRepository.findByRequest(req_member.getMemberId(), cur_member.getMemberId());
 
-        Friend existCurReq = friendRepository.findByRequest(cur_member.getMemberId(),req_member.getMemberId());
-        Friend existReqCur = friendRepository.findByRequest(req_member.getMemberId(), cur_member.getMemberId());
-
-        if(existCurReq == null && existReqCur == null){
+        if(!existCurReq.isPresent() && !existReqCur.isPresent()){
             friendRepository.save(Friend.builder()
                     .isFavorite(false)
                     .status((byte) 0)
@@ -141,11 +141,11 @@ public class FriendServiceImpl implements FriendService {
     @Transactional(rollbackFor = Exception.class)
     public void acceptRequest(long memberId) {
         Member cur_member = memberService.getMemberByAuthentication();
-        Member req_member = friendRepository.findByMemberId(memberId);
+        Member req_member = friendRepository.findByMemberId(memberId).orElseThrow(
+                () -> new ValueNotExistException("존재하지 않는 사용자입니다."));
 
-        validateMemberExist(req_member);
-
-        Friend cur_stat = friendRepository.findByRequest(req_member.getMemberId(),cur_member.getMemberId());
+        Friend cur_stat = friendRepository.findByRequest(req_member.getMemberId(),cur_member.getMemberId())
+                .orElseThrow(() -> new ValueNotExistException("존재하지 않는 친구 요청입니다."));
         int res = friendRepository.updateByFriendId(cur_stat.getFriendId(), (byte) 1);
 
         validateChangeMade(res,"친구 추가 수락");
@@ -162,9 +162,8 @@ public class FriendServiceImpl implements FriendService {
     @Transactional(rollbackFor = Exception.class)
     public void declineRequest(long memberId) {
         Member cur_member = memberService.getMemberByAuthentication();
-        Member req_member = friendRepository.findByMemberId(memberId);
-
-        validateMemberExist(req_member);
+        Member req_member = friendRepository.findByMemberId(memberId).orElseThrow(
+                () -> new ValueNotExistException("존재하지 않는 사용자입니다."));
 
         int res = friendRepository.deleteByFromFriend(req_member.getMemberId(), cur_member.getMemberId());
 
@@ -175,21 +174,14 @@ public class FriendServiceImpl implements FriendService {
     @Transactional(rollbackFor = Exception.class)
     public void deleteFriend(long memberId) {
         Member cur_member = memberService.getMemberByAuthentication();
-        Member req_member = friendRepository.findByMemberId(memberId);
-
-        validateMemberExist(req_member);
+        Member req_member = friendRepository.findByMemberId(memberId).orElseThrow(
+                () -> new ValueNotExistException("존재하지 않는 사용자입니다."));
 
         int res1 = friendRepository.deleteByFromFriend(cur_member.getMemberId(), req_member.getMemberId());
         int res2 = friendRepository.deleteByToFriend(req_member.getMemberId(), cur_member.getMemberId());
 
         validateChangeMade(res1,"친구 삭제");
         validateChangeMade(res2,"친구 삭제");
-    }
-
-    private void validateMemberExist(Member member) {
-        if(member == null) {
-            throw new MemberNotExistException("존재하지 않는 사용자입니다.");
-        }
     }
 
     private void validateChangeMade(int res, String func) {
