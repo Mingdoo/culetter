@@ -7,6 +7,7 @@ import SearchBox from "../../components/user/SearchBox";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import ContentsContext from "../../contexts/ContentsContext";
 import Router from "next/router";
+import ReceiverButton from "../../components/letter/receiverButton";
 
 export default function select() {
   const { memberId, setMemberId } = useContext(ContentsContext);
@@ -17,8 +18,17 @@ export default function select() {
 
   const handleSubmitMemberId = (e, obj) => {
     e.preventDefault();
-    setMemberId(obj.memberId);
+    setMemberId((memberId) => obj.memberId);
     Router.push("/letter/type");
+  };
+
+  const handlePrevClick = (e) => {
+    e.preventDefault();
+    if (receiver) {
+      setReceiver("");
+    } else {
+      Router.push("/main");
+    }
   };
 
   const userFriends = [
@@ -146,6 +156,7 @@ export default function select() {
 
   const [searchId, setSearchId] = useState("");
   const [filterFavorite, setFilterFavorite] = useState(false);
+  const [receiver, setReceiver] = useState("");
 
   return (
     <>
@@ -169,7 +180,7 @@ export default function select() {
           >
             <Grid item xs={3}>
               <Box sx={{ m: "1rem" }}>
-                <IconButton>
+                <IconButton onClick={(e) => handlePrevClick(e)}>
                   <ArrowBackIosNewIcon />
                 </IconButton>
               </Box>
@@ -208,69 +219,95 @@ export default function select() {
         </>
         <Divider />
 
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "start",
-            alignItems: "center",
-            width: 1,
-          }}
-        >
-          <SearchBox
-            id="searchMemberIdInput"
-            label="아이디"
-            width={300}
-            onChange={(e) => setSearchId(e)}
-          />
-        </Box>
-        <Divider />
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "start",
-            width: 1,
-            ml: "2rem",
-            mt: "0.5rem",
-          }}
-        >
-          <IconButton
-            size="small"
-            onClick={(e) => handleShowFavoriteClick(e)}
-            color={filterFavorite ? "warning" : "default"}
-          >
-            <StarRoundedIcon fontSize="inherit" />
-            <Typography className="Batang"> 즐겨찾기</Typography>
-          </IconButton>
-        </Box>
-        <>
-          {userFriends
-            .filter((obj) => {
-              if (filterFavorite) {
-                return (
-                  (obj.favorite && obj.name.includes(searchId)) ||
-                  (obj.favorite && obj.email.includes(searchId))
-                );
-              } else {
-                return (
-                  obj.name.includes(searchId) || obj.email.includes(searchId)
-                );
-              }
-            })
-            .map((obj, idx) => (
-              <React.Fragment key={idx}>
-                <Box
-                  onClick={(e) => handleSubmitMemberId(e, obj)}
-                  sx={{ "&:hover": { cursor: "pointer" } }}
-                >
-                  <MiniUserCard obj={obj} idx={idx} />
-                </Box>
-                <Divider sx={{ mt: "0.25rem", width: 300 }} />
-              </React.Fragment>
-            ))}
-        </>
-        <Divider sx={{ mt: "2rem" }} />
+        {receiver !== "" ? (
+          <>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "start",
+                alignItems: "center",
+                width: 1,
+              }}
+            >
+              <SearchBox
+                id="searchMemberIdInput"
+                label="아이디"
+                width={300}
+                onChange={(e) => setSearchId(e)}
+              />
+            </Box>
+            <Divider />
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "start",
+                width: 0.85,
+                ml: "2rem",
+                mt: "0.5rem",
+              }}
+            >
+              <IconButton
+                size="small"
+                onClick={(e) => handleShowFavoriteClick(e)}
+                color={filterFavorite ? "warning" : "default"}
+              >
+                <StarRoundedIcon fontSize="inherit" />
+                <Typography className="Batang"> 즐겨찾기</Typography>
+              </IconButton>
+            </Box>
+            <>
+              {userFriends
+                .filter((obj) => {
+                  if (filterFavorite) {
+                    return (
+                      (obj.favorite && obj.name.includes(searchId)) ||
+                      (obj.favorite && obj.email.includes(searchId))
+                    );
+                  } else {
+                    return (
+                      obj.name.includes(searchId) ||
+                      obj.email.includes(searchId)
+                    );
+                  }
+                })
+                .map((obj, idx) => (
+                  <React.Fragment key={idx}>
+                    <Box
+                      onClick={(e) => handleSubmitMemberId(e, obj)}
+                      sx={{ "&:hover": { cursor: "pointer" } }}
+                    >
+                      <MiniUserCard obj={obj} idx={idx} />
+                    </Box>
+                    <Divider sx={{ mt: "0.25rem", width: 300 }} />
+                  </React.Fragment>
+                ))}
+            </>
+            <Divider sx={{ mt: "2rem" }} />
+          </>
+        ) : (
+          <>
+            <Box sx={{ ml: "3rem", mt: "1rem", mb: "1rem", width: 0.85 }}>
+              <Typography className="Dodum">
+                편지를 누구에게 보낼지 선택해주세요
+              </Typography>
+            </Box>
+            <ReceiverButton
+              title="친구에게 보내기"
+              description="CU;LETTER에 가입한 친구에게 편지를 보낼 수 있습니다"
+              target="member"
+              onClick={setReceiver}
+            />
+            <Divider sx={{ my: "1rem" }} />
+            <ReceiverButton
+              title="링크 보내기"
+              description="CU;LETTER에 가입하지 않은 친구에게 링크 전송을 통해 편지를 보낼 수 있습니다"
+              target="anonymous"
+              onClick={setReceiver}
+            />
+          </>
+        )}
       </Box>
     </>
   );
