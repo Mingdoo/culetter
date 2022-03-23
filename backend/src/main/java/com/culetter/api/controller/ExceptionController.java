@@ -103,9 +103,9 @@ public class ExceptionController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
 
-    @ExceptionHandler(MemberNotExistException.class)
-    public ResponseEntity<String> MemberNotExistExceptionHandler(MemberNotExistException e) {
-        log.error("MemberNotExistException - {}", e.getMessage());
+    @ExceptionHandler(ValueNotExistException.class)
+    public ResponseEntity<String> ValueNotExistExceptionHandler(ValueNotExistException e) {
+        log.error("ValueNotExistException - {}", e.getMessage());
         //404
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
