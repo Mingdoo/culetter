@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Grid } from "@mui/material";
 import MenuList from "../../components/menu/MenuList";
 import Footer from "../../components/Footer";
 import SearchBox from "../../components/user/SearchBox";
@@ -33,10 +33,15 @@ export default function mailSent() {
           보낸 편지
         </Typography>
         <SearchBox width={250}></SearchBox>
-        <Box>
-          <Letter></Letter>
-          <Letter></Letter>
-        </Box>
+        <Grid container sx={{ width: 1, pt: 2, px: 2 }}>
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17].map(
+            (test, index) => (
+              <Grid item xs={6} wrap key={index} sx={{ width: 1, pt: 7 }}>
+                <Letter width={150}></Letter>
+              </Grid>
+            )
+          )}
+        </Grid>
       </Box>
       <Footer></Footer>
     </Box>
