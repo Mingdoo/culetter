@@ -26,12 +26,12 @@ const icons = [
 ];
 const hrefs = [
   "/",
-  "/write",
-  "/sent",
+  "/letter/select",
+  "/mail/sent",
   "/mail/inbox",
   "/ing",
   "/friends",
-  "/settings",
+  "/profile",
   "/logout",
 ];
 
