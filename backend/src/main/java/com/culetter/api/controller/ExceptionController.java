@@ -1,9 +1,6 @@
 package com.culetter.api.controller;
 
-import com.culetter.exception.member.AuthEmailMessagingException;
-import com.culetter.exception.member.AuthEmailNotFoundException;
-import com.culetter.exception.member.UnauthenticatedMemberException;
-import com.culetter.exception.member.DuplicateMemberException;
+import com.culetter.exception.member.*;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
@@ -106,4 +103,17 @@ public class ExceptionController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
 
+    @ExceptionHandler(MemberNotExistException.class)
+    public ResponseEntity<String> MemberNotExistExceptionHandler(MemberNotExistException e) {
+        log.error("MemberNotExistException - {}", e.getMessage());
+        //404
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+
+    @ExceptionHandler(ChangeNotMadeException.class)
+    public ResponseEntity<String> ChangeNotMadeExceptionHandler(ChangeNotMadeException e) {
+        log.error("ChangeNotMadeException - {}", e.getMessage());
+        //400
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
 }
