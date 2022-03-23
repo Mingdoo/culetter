@@ -15,7 +15,7 @@ export default function MenuList() {
           height: 1,
           width: open ? 240 : 0,
           position: "absolute",
-          zIndex: 1,
+          zIndex: 2,
           top: 0,
           right: 0,
           bgcolor: "#a63636",

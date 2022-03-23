@@ -1,12 +1,12 @@
 import { useRouter } from "next/router";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 const color1 = ["#DA4C1F", "#8A3EC6", "#3EA5C6", "#FF0000"];
 const color2 = ["#76E3FB", "#391FDA", "#FFCC49", "#391FDA"];
 const bg = ["white", "#ECDDBE", "#FDF1E3", "#FFFFE1"];
 const href = ["write", "inbox", "sent", "ing"];
 
-function Letter({ text, index }) {
+function Letter({ text, index, createdDate }) {
   const router = useRouter();
   const handleClick = (e) => {
     e.preventDefault();
@@ -18,6 +18,7 @@ function Letter({ text, index }) {
       sx={{
         display: "flex",
         justifyContent: "center",
+        position: "relative",
         fontSize: 26,
         mb: index === 3 ? 3 : 0,
       }}
@@ -50,6 +51,7 @@ function Letter({ text, index }) {
         <line x1="220" y1="169.305" x2="314.629" y2="169.305" stroke="black" />
         <line x1="220" y1="156.37" x2="314.629" y2="156.37" stroke="black" />
         <line x1="220" y1="143.435" x2="314.629" y2="143.435" stroke="black" />
+
         <path d="M341 7V21L333 29V15L341 7Z" fill={color1[index]} />
         <path d="M341 23V37L333 45V31L341 23Z" fill={color2[index]} />
         <path d="M341 39V53L333 61V47L341 39Z" fill={color1[index]} />
@@ -131,6 +133,15 @@ function Letter({ text, index }) {
           {text}
         </text>
       </svg>
+      {createdDate ? (
+        <Typography
+          sx={{ position: "absolute", top: 85, left: 102, fontSize: 12 }}
+          className="Dodum"
+        >
+          {createdDate.slice(0, 4)}년 {createdDate.slice(4, 6)}월{" "}
+          {createdDate.slice(6)}일
+        </Typography>
+      ) : null}
     </Box>
   );
 }
