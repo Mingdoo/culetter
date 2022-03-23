@@ -27,24 +27,24 @@ public interface FriendRepository extends JpaRepository<Friend, Long> {
 
     //사용자가 친구 요청을 받거나 보냄
     @Query("select f from Friend f where f.fromMember.memberId=:a and f.toMember.memberId=:b")
-    Friend findByRequest(@Param("a")Long from, @Param("b")Long to);
+    Optional<Friend> findByRequest(@Param("a")Long from, @Param("b")Long to);
 
     //사용자 검색
     @Query("select m from Member m where m.memberId=:memberId and m.status=1")
-    Member findByMemberId(@Param("memberId") long memberId);
+    Optional<Member> findByMemberId(@Param("memberId") Long memberId);
 
     //정보 변경
     @Modifying
     @Query("update Friend f set f.status=:status where f.friendId=:friendId")
-    int updateByFriendId(@Param("friendId") Long friendId, @Param("status") Byte status);
+    Integer updateByFriendId(@Param("friendId") Long friendId, @Param("status") Byte status);
 
     //친구 삭제 A to B
     @Modifying
     @Query("delete from Friend f where f.fromMember.memberId=:a and f.toMember.memberId=:b")
-    int deleteByFromFriend(@Param("a") long fromMemberId, @Param("b") long toMemberId);
+    Integer deleteByFromFriend(@Param("a") Long fromMemberId, @Param("b") Long toMemberId);
 
     //친구 삭제 B to A
     @Modifying
     @Query("delete from Friend f where f.fromMember.memberId=:a and f.toMember.memberId=:b")
-    int deleteByToFriend(@Param("a") long toMemberId, @Param("b") long fromMemberId);
+    Integer deleteByToFriend(@Param("a") Long toMemberId, @Param("b") Long fromMemberId);
 }
