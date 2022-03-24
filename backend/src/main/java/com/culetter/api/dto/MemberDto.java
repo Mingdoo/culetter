@@ -38,6 +38,15 @@ public class MemberDto {
 
     @Getter
     @NoArgsConstructor
+    public static class InfoRequest {
+        @NotBlank(message = "이름 입력은 필수입니다.")
+        @Pattern(regexp = "^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]*$", message = "올바른 이름 형식(한글/영문/숫자를 포함할 수 있음)이 아닙니다.")
+        @Size(min = 2, max = 12, message = "올바른 이름 형식(2자이상 12자이하)이 아닙니다.")
+        private String name;
+    }
+
+    @Getter
+    @NoArgsConstructor
     public static class PasswordRequest {
         @NotBlank(message = "비밀번호 입력은 필수입니다.")
         @Size(min = 8, max = 16, message = "올바른 비밀번호 형식(8자이상 16자이하)이 아닙니다.")
