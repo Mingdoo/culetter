@@ -8,7 +8,6 @@
         "displayName": true,
         "preprocess": false,
         "fileName": true,
-        "displayName": true,
         "pure": true
       }
     ]
