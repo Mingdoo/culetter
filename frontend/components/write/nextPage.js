@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import Link from "next/link";
+import Link from "next/Link";
 import { Box, Typography, Button } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ContentsContext from "../../contexts/ContentsContext";
