@@ -1,6 +1,7 @@
 import { Grid, Box, Typography } from "@mui/material";
-import { useState } from "react";
+import { useState, useContext } from "react";
 
+import ContentsContext from "../../../contexts/ContentsContext";
 import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
 import PauseIcon from "@mui/icons-material/Pause";
 import AlbumIcon from "@mui/icons-material/Album";
@@ -9,6 +10,9 @@ import AlbumIcon from "@mui/icons-material/Album";
 
 // })
 export default function miniPlayer() {
+  // const { musicSelected } = useContext(ContentsContext);
+  const musicSelected = { title: "라일락", singer: "아이유" };
+
   const [isPlaying, setIsPlaying] = useState(true);
   return (
     <Grid
@@ -22,7 +26,7 @@ export default function miniPlayer() {
         color: "white",
         width: "90%",
         mx: "auto",
-        mb: 10,
+        // mb: 10,
         alignItems: "center",
       }}
     >
@@ -32,7 +36,9 @@ export default function miniPlayer() {
         </Box>
       </Grid>
       <Grid item xs={10}>
-        <Typography className="Batang">라일락 - 아이유</Typography>
+        <Typography className="Batang">
+          {musicSelected.title} - {musicSelected.singer}
+        </Typography>
       </Grid>
       <Grid item xs={1}>
         {isPlaying ? (
