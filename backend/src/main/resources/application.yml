@@ -1,0 +1,27 @@
+# AWS Config
+cloud:
+  aws:
+    credentials:
+      accessKey: AKIAYC7KPZ4GV662LLXP
+      secretKey: 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
+    s3:
+      bucket: culetter
+      folder:
+        profileImage: profile_image/
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+# File Size
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+## EC2가 아닌 환경에서 실행시 발생하는 에러 메시지X
+#logging:
+#  level:
+#    com:
+#      amazonaws:
+#        util:
+#          EC2MetadataUtils: error

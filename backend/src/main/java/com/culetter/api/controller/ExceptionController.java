@@ -116,4 +116,11 @@ public class ExceptionController {
         //400
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> IllegalArgumentExceptionHandler(IllegalArgumentException e) {
+        log.error("IllegalArgumentException - {}", e.getMessage());
+        //400
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
 }

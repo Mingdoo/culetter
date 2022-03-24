@@ -6,6 +6,8 @@ import com.culetter.common.util.SecurityUtil;
 import com.culetter.db.entity.Member;
 import com.culetter.db.repository.MemberRepository;
 import com.culetter.exception.member.DuplicateMemberException;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -14,9 +16,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
 
+@Slf4j
 @Service
 @Transactional(readOnly = true)
 public class MemberServiceImpl implements MemberService{
@@ -25,16 +29,22 @@ public class MemberServiceImpl implements MemberService{
     private final PasswordEncoder passwordEncoder;
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
+    private final FileService fileService;
+    private final String profileImagePath;
 
     public MemberServiceImpl(MemberRepository memberRepository,
                              PasswordEncoder passwordEncoder,
                              TokenProvider tokenProvider,
-                             AuthenticationManagerBuilder authenticationManagerBuilder
+                             AuthenticationManagerBuilder authenticationManagerBuilder,
+                             FileService fileService,
+                             @Value("${cloud.aws.s3.folder.profileImage}") String profileImagePath
     ) {
         this.memberRepository = memberRepository;
         this.passwordEncoder = passwordEncoder;
         this.tokenProvider = tokenProvider;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
+        this.fileService = fileService;
+        this.profileImagePath = profileImagePath;
     }
 
     @Override
@@ -75,6 +85,18 @@ public class MemberServiceImpl implements MemberService{
     public MemberDto.Response getMemberInfoByAuthentication() {
         Member member = getMemberByAuthentication();
         return new MemberDto.Response(member.getEmail(), member.getName(), member.getProfileImage());
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateMember(MemberDto.InfoRequest infoRequest, MultipartFile multipartFile) {
+        Member member = getMemberByAuthentication();
+        member.updateName(infoRequest.getName());
+        if (!multipartFile.isEmpty()) {
+            String imageUrl = fileService.uploadImage(multipartFile, profileImagePath);
+            if (member.getProfileImage() != null) fileService.deleteImage(member.getProfileImage());
+            member.updateProfileImage(imageUrl);
+        };
     }
 
     @Override

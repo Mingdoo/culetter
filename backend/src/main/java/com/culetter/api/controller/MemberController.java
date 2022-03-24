@@ -8,6 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.Map;
@@ -41,6 +42,14 @@ public class MemberController {
     @GetMapping
     public ResponseEntity<MemberDto.Response> getMember() {
         return ResponseEntity.status(HttpStatus.OK).body(memberService.getMemberInfoByAuthentication());
+    }
+
+    @PutMapping
+    public ResponseEntity<String> modifyMember(@Valid @RequestPart(value = "info") MemberDto.InfoRequest infoRequest,
+                                               @RequestPart(value = "profileImage", required = false) MultipartFile multipartFile) {
+        log.debug("modifyMember - {}", multipartFile.isEmpty());
+        memberService.updateMember(infoRequest, multipartFile);
+        return ResponseEntity.status(HttpStatus.OK).body("회원정보 변경이 완료되었습니다.");
     }
 
     @PostMapping("/pwcheck")

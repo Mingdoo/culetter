@@ -21,7 +21,11 @@ public class AuthEmailServiceImpl implements AuthEmailService {
     private final MailUtil mailUtil;
     private final PasswordEncoder passwordEncoder;
 
-    public AuthEmailServiceImpl(AuthEmailRepository authEmailRepository, MemberRepository memberRepository, MailUtil mailUtil, PasswordEncoder passwordEncoder) {
+    public AuthEmailServiceImpl(AuthEmailRepository authEmailRepository,
+                                MemberRepository memberRepository,
+                                MailUtil mailUtil,
+                                PasswordEncoder passwordEncoder
+    ) {
         this.authEmailRepository = authEmailRepository;
         this.memberRepository = memberRepository;
         this.mailUtil = mailUtil;
