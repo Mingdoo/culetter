@@ -7,6 +7,7 @@ function MyApp({ Component, pageProps }) {
   const [textValid, setTextValid] = useState(false);
   const [memberId, setMemberId] = useState("");
   const [musicSelected, setMusicSelected] = useState(false);
+  const [type, setType] = useState("");
   return (
     <ContentsContext.Provider
       value={{
@@ -16,6 +17,8 @@ function MyApp({ Component, pageProps }) {
         setMemberId,
         musicSelected,
         setMusicSelected,
+        type,
+        setType,
       }}
     >
       <Component {...pageProps} />

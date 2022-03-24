@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Box } from "@mui/material";
 const link = ["photocard", "normal", "postcard"];
 const type = (props) => {
-  const { text, index, describe, imgsrc, href } = props;
+  const { text, index, describe, imgsrc } = props;
   return (
     <Link href={"/write"}>
       <Box
