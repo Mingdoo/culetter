@@ -91,6 +91,12 @@ const music = () => {
     }
   }, [checked]);
 
+  useEffect(() => {
+    setTitle(musicList[0].title);
+    setSinger(musicList[0].singer);
+  }),
+    [musicList];
+
   return (
     <Box
       component="div"
@@ -224,19 +230,24 @@ const music = () => {
                         inputProps={{ "aria-labelledby": item }}
                       />
                     </ListItemIcon>
-                    <ListItemText
-                      id={index}
-                      primary={item.title}
-                      primaryTypographyProps={{ className: "Dodum" }}
-                    />
-                    <ListItemText
-                      id={index}
-                      primary={item.singer}
-                      primaryTypographyProps={{ className: "Dodum" }}
-                    />
+                    <Grid container>
+                      <Grid item xs={8}>
+                        <ListItemText
+                          id={index}
+                          primary={item.title}
+                          primaryTypographyProps={{ className: "Dodum" }}
+                        />
+                      </Grid>
+                      <Grid item xs={4}>
+                        <ListItemText
+                          id={index}
+                          primary={item.singer}
+                          primaryTypographyProps={{ className: "Dodum" }}
+                        />
+                      </Grid>
+                    </Grid>
                   </ListItemButton>
                 </ListItem>
-                <Divider />
               </>
             ))}
           </List>
