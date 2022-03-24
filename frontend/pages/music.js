@@ -217,37 +217,35 @@ const music = () => {
         <Box sx={{ width: "380px", height: "330px", overflow: "auto" }}>
           <List className="Dodum" sx={{ width: "100%" }}>
             {musicList.map((item, index) => (
-              <>
-                <ListItem key={index} disablePadding>
-                  <ListItemButton onClick={handleToggle(item)} dense>
-                    <ListItemIcon>
-                      <Checkbox
-                        value={[item.title, item.singer]}
-                        edge="start"
-                        disableRipple
-                        checked={checked === item.title}
-                        inputProps={{ "aria-labelledby": item }}
+              <ListItem key={index} disablePadding>
+                <ListItemButton onClick={handleToggle(item)} dense>
+                  <ListItemIcon>
+                    <Checkbox
+                      value={[item.title, item.singer]}
+                      edge="start"
+                      disableRipple
+                      checked={checked === item.title}
+                      inputProps={{ "aria-labelledby": item }}
+                    />
+                  </ListItemIcon>
+                  <Grid container>
+                    <Grid item xs={8}>
+                      <ListItemText
+                        id={index}
+                        primary={item.title}
+                        primaryTypographyProps={{ className: "Dodum" }}
                       />
-                    </ListItemIcon>
-                    <Grid container>
-                      <Grid item xs={8}>
-                        <ListItemText
-                          id={index}
-                          primary={item.title}
-                          primaryTypographyProps={{ className: "Dodum" }}
-                        />
-                      </Grid>
-                      <Grid item xs={4}>
-                        <ListItemText
-                          id={index}
-                          primary={item.singer}
-                          primaryTypographyProps={{ className: "Dodum" }}
-                        />
-                      </Grid>
                     </Grid>
-                  </ListItemButton>
-                </ListItem>
-              </>
+                    <Grid item xs={4}>
+                      <ListItemText
+                        id={index}
+                        primary={item.singer}
+                        primaryTypographyProps={{ className: "Dodum" }}
+                      />
+                    </Grid>
+                  </Grid>
+                </ListItemButton>
+              </ListItem>
             ))}
           </List>
         </Box>

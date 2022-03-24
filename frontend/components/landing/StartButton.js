@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "@mui/material";
-import Link from "next/Link";
+import Link from "next/link";
 
 export default function StartButton(props) {
   return (
