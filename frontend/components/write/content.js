@@ -110,7 +110,7 @@ const content = () => {
           <Button
             className="Dodum"
             sx={{ color: "#000000" }}
-            onclick={handleSave}
+            onClick={handleSave}
           >
             <SaveIcon />
             임시저장
