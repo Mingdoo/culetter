@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import LoginForm from "../login/LoginForm";
-import LoginBtn from "../login/LoginBtn";
-import RegisterBtn from "../register/RegisterBtn";
 import RegisterForm from "../register/RegisterForm";
 
-import { Button, Grid, Box, Icon, SvgIcon, Typography } from "@mui/material";
-import { makeStyles } from "@material-ui/core/styles";
+import { Box, Typography } from "@mui/material";
 
 const PostBox = (props) => {
   const { title, size } = props;

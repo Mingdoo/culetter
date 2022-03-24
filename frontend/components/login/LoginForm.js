@@ -3,7 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LockIcon from "@mui/icons-material/Lock";
 import { Grid, TextField, FormControl, Button, Link, Box } from "@mui/material";
-import PersonIcon from "@mui/icons-material/Person";
 
 const useStyles = makeStyles({
   root: {
@@ -87,7 +86,7 @@ const LoginForm = () => {
             autoFocus
             variant="standard"
             size="small"
-            className="textfield"
+            // className="textfield"
             InputProps={{ classes: classes }}
             InputLabelProps={{
               classes: labelClasses,
@@ -123,7 +122,7 @@ const LoginForm = () => {
             ml: 1,
           }}
         >
-          <Grid button xs={6}>
+          <Grid item xs={6}>
             <Button
               variant="contained"
               size="small"
@@ -137,8 +136,8 @@ const LoginForm = () => {
               로그인
             </Button>
           </Grid>
-          <Grid button xs={6}>
-            <Link href="/register" passHref>
+          <Grid item xs={6}>
+            <Link href="/register">
               <Button
                 variant="contained"
                 size="small"

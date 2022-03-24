@@ -1,39 +1,51 @@
 import { Typography } from "@mui/material";
 import React from "react";
-import { Box } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import NextPage from "./nextPage";
 const header = (props) => {
   const { title, detail1, detail2 } = props;
 
   return (
-    <Box>
-      <Box
+    <Box sx={{ mt: "1rem" }}>
+      <Grid
+        container
+        spacing={3}
+        columns={12}
         component="div"
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: title === "편지 형식" ? null : "space-between",
-        }}
+        sx={{ textAlign: "center", display: "flex", alignItems: "center" }}
       >
-        <Box component="div" sx={{ pt: "2rem", mb: "1rem", ml: "1rem" }}>
-          <ArrowBackIosIcon />
-        </Box>
-        <Typography
-          variant="p"
-          component="div"
-          className="Gowun Batang"
-          sx={{ ml: title === "편지 형식" ? "7rem" : "0rem", fontSize: "28px" }}
-        >
-          {title}
-        </Typography>
-        {title === "편지 형식" ? null : <NextPage href={"music"} />}
-      </Box>
+        <Grid item xs={3}>
+          <Box component="div">
+            <ArrowBackIosIcon />
+          </Box>
+        </Grid>
+        <Grid item xs={6}>
+          <Typography
+            variant="p"
+            component="div"
+            className="Gowun Batang"
+            sx={{
+              // ml: title === "편지 형식" ? "7rem" : "0rem",
+              fontSize: "22px",
+            }}
+          >
+            {title}
+          </Typography>
+        </Grid>
+        <Grid item xs={3}>
+          {title === "편지쓰기" ? (
+            <NextPage href={"music"} title={title} />
+          ) : title === "편지와 어울리는 노래" ? (
+            <NextPage href={"edit"} title={title} />
+          ) : null}
+        </Grid>
+      </Grid>
       <Box component="div" sx={{ ml: "2rem" }}>
         <Typography
           component="p"
           className="Dodum"
-          sx={{ fontSize: "1.3rem", mb: "0.2rem" }}
+          sx={{ fontSize: "1.3rem", mb: "0.2rem", mt: "1.5rem" }}
         >
           {detail1}
         </Typography>
