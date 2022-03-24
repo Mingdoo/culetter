@@ -94,8 +94,7 @@ const music = () => {
   useEffect(() => {
     setTitle(musicList[0].title);
     setSinger(musicList[0].singer);
-  }),
-    [musicList];
+  }, []);
 
   return (
     <Box
