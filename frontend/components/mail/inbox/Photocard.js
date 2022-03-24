@@ -1,11 +1,7 @@
 import { Box, Typography } from "@mui/material";
 // import newmailbox from "../../../assests/newmailbox.PNG";
 
-<<<<<<< HEAD
 export default function Photocard({ senderName, createdDate, src }) {
-=======
-export default function Photocard({ senderName, createdDate }) {
->>>>>>> 1a652990f3cf95f67b75864cb3ec9cc3c139086e
   return (
     <Box
       sx={{
@@ -28,11 +24,7 @@ export default function Photocard({ senderName, createdDate }) {
         <Box sx={{ width: 1 }}>
           <Box
             component="img"
-<<<<<<< HEAD
             src={src}
-=======
-            // src={newmailbox.src}
->>>>>>> 1a652990f3cf95f67b75864cb3ec9cc3c139086e
             sx={{
               objectFit: "cover",
               width: 1,
@@ -43,7 +35,6 @@ export default function Photocard({ senderName, createdDate }) {
             }}
           ></Box>
         </Box>
-<<<<<<< HEAD
         <Box sx={{ display: "flex", justifyContent: "space-between", px: 2 }}>
           <Typography className="Dodum">{senderName}</Typography>
           <Typography className="Dodum">
@@ -51,15 +42,6 @@ export default function Photocard({ senderName, createdDate }) {
             {createdDate.slice(6)}일
           </Typography>
         </Box>
-=======
-        <Typography
-          className="Dodum"
-          sx={{ display: "flex", justifyContent: "end", px: 1 }}
-        >
-          포토카드, {createdDate.slice(0, 4)}년 {createdDate.slice(4, 6)}월{" "}
-          {createdDate.slice(6)}일
-        </Typography>
->>>>>>> 1a652990f3cf95f67b75864cb3ec9cc3c139086e
       </Box>
     </Box>
   );

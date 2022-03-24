@@ -44,6 +44,7 @@ function MenuListItem({ text, index }) {
           key={index}
           sx={{
             whiteSpace: "nowrap",
+            // position: "fixed",
           }}
         >
           <ListItemIcon sx={{ color: "white" }}>{icons[index]}</ListItemIcon>

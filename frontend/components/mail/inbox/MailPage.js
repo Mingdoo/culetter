@@ -1,17 +1,15 @@
 import { useRouter } from "next/router";
 import { Box, Typography } from "@mui/material";
-import Footer from "../../components/Footer";
-import MenuList from "../../components/menu/MenuList";
-import BackButton from "../../components/mail/inbox/BackButton";
-import Letter from "../../components/main/Letter";
-import Photocard from "../../components/mail/inbox/Photocard";
 import axios from "axios";
 import React, { useEffect, useState, useRef, useCallback } from "react";
+
+import Letter from "../../main/Letter";
+import Photocard from "./Photocard";
 
 // 재호출?
 const SERVER_URL = "https://j6a201.p.ssafy.io:3000";
 const token = "temp";
-export default function Post() {
+export default function LetterPage() {
   const [page, setPage] = useState(0);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -27,7 +25,6 @@ export default function Post() {
       const res = [
         {
           hasNew: true,
-
           img: "temp",
           title: "제목이제목모모모모모모모모모모모모모모모모",
           senderName: "김은송",
@@ -37,7 +34,6 @@ export default function Post() {
         },
         {
           hasNew: true,
-
           img: "temp",
           title: "제목이제목모모모모모모모모모모모모모모모모",
           senderName: "김은송",
@@ -56,7 +52,6 @@ export default function Post() {
         },
         {
           hasNew: true,
-
           img: "temp",
           title: "제목이제목모모모모모모모모모모모모모모모모",
           senderName: "김은송",
@@ -66,7 +61,6 @@ export default function Post() {
         },
         {
           hasNew: true,
-
           img: "temp",
           title: "제목이제목모모모모모모모모모모모모모모모모",
           senderName: "김은송",
@@ -113,7 +107,6 @@ export default function Post() {
         },
         {
           hasNew: true,
-
           img: "temp",
           title: "제목이제목모모모모모모모모모모모모모모모모",
           senderName: "김은송",
@@ -123,7 +116,6 @@ export default function Post() {
         },
         {
           hasNew: true,
-
           img: "temp",
           title: "고길동",
           createdDate: "20220315",
@@ -132,7 +124,6 @@ export default function Post() {
         },
         {
           hasNew: true,
-
           img: "temp",
           title: "고길동",
           createdDate: "20220315",
@@ -149,7 +140,6 @@ export default function Post() {
         },
         {
           hasNew: true,
-
           img: "temp",
           title: "고길동",
           createdDate: "20220315",
@@ -208,7 +198,6 @@ export default function Post() {
         },
         {
           hasNew: true,
-
           img: "temp",
           title: "마지막",
           createdDate: "20220315",
@@ -256,74 +245,45 @@ export default function Post() {
 
   return (
     <>
-      <Box sx={{ width: 420, mx: "auto" }}>
-        <Box
-          sx={{
-            width: 420,
-            mx: "auto",
-            bgcolor: "#FCFAEF",
-            position: "relative",
-            minHeight: "100vh",
-            pb: 5,
-          }}
-        >
-          <BackButton sx={{ pt: 1 }} href="/mail/inbox"></BackButton>
-          <MenuList></MenuList>
-          <Typography
-            variant="h4"
-            className="Dodum"
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              py: "3.5vh",
-              fontSize: 28,
-            }}
-          >
-            받은 편지
-          </Typography>
-
-          {loading && <Typography>loading</Typography>}
-          <Box sx={{ minHeight: "90vh" }}>
-            {mails.map(
-              ({ title, mailType, createdDate, senderName, img }, index) => {
-                if (mailType === "PHOTOCARD") {
-                  return (
-                    <Photocard
-                      src={img}
-                      title={title}
-                      createdDate={createdDate}
-                      senderName={senderName}
-                      key={index}
-                    ></Photocard>
-                  );
-                } else if (mailType === "GENERAL") {
-                  return (
-                    <Letter
-                      text={title}
-                      index={0}
-                      createdDate={createdDate}
-                      senderName={senderName}
-                      key={index}
-                    ></Letter>
-                  );
-                } else {
-                  return (
-                    <Letter
-                      text={title}
-                      index={1}
-                      createdDate={createdDate}
-                      key={index}
-                      senderName={senderName}
-                    ></Letter>
-                  );
-                }
-              }
-            )}
-          </Box>
-          <Box sx={{ height: "10px" }} ref={loader}></Box>
-        </Box>
+      {loading && <Typography>loading</Typography>}
+      <Box sx={{ minHeight: "90vh" }}>
+        {mails.map(
+          ({ title, mailType, createdDate, senderName, img }, index) => {
+            if (mailType === "PHOTOCARD") {
+              return (
+                <Photocard
+                  src={img}
+                  title={title}
+                  createdDate={createdDate}
+                  senderName={senderName}
+                  key={index}
+                ></Photocard>
+              );
+            } else if (mailType === "GENERAL") {
+              return (
+                <Letter
+                  text={title}
+                  index={0}
+                  createdDate={createdDate}
+                  senderName={senderName}
+                  key={index}
+                ></Letter>
+              );
+            } else {
+              return (
+                <Letter
+                  text={title}
+                  index={1}
+                  createdDate={createdDate}
+                  key={index}
+                  senderName={senderName}
+                ></Letter>
+              );
+            }
+          }
+        )}
+        <Box sx={{ height: "50px" }} ref={loader}></Box>
       </Box>
-      <Footer />
     </>
   );
 }

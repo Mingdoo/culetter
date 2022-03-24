@@ -195,11 +195,13 @@ function Letter({ text, index, createdDate, main, senderName }) {
           <Typography className="Dodum" sx={{ fontSize: 12 }}>
             {senderName}
           </Typography>
-          <Typography className="Dodum" sx={{ fontSize: 12 }}>
-            {index ? "엽서, " : "일반, "}
-            {createdDate.slice(0, 4)}년 {createdDate.slice(4, 6)}월{" "}
-            {createdDate.slice(6)}일
-          </Typography>
+          {createdDate ? (
+            <Typography className="Dodum" sx={{ fontSize: 12 }}>
+              {index ? "엽서, " : "일반, "}
+              {createdDate.slice(0, 4)}년 {createdDate.slice(4, 6)}월{" "}
+              {createdDate.slice(6)}일
+            </Typography>
+          ) : null}
         </Box>
       ) : null}
     </Box>
