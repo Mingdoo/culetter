@@ -149,17 +149,14 @@
 
 문장을 분석한 뒤 6가지 감정 중 하나로 분류하는 모델을 검색하고, 해당 모델에 대해 학습 및 테스트하고 서버에 올리는 과정을 정리했다.
 
-# AI 모델 분석
-
----
+## AI 모델 분석
 
 ### 사용한 모델: ALBERT
 
 ALBERT는 BERT 모델의 경량화 된 버전으로 이를 이해하려면 BERT 모델을 먼저 이해해야 한다.
 
-## BERT 이해하기
+### BERT 이해하기
 
----
 
 BERT는 Bidrectional Encoder Representations from Transformers의 약자로 Transformer 기반의 자연어 처리를 위한 NLP 모델이다. BERT는 위 사진의 모델 아키텍쳐 중 인코더만 사용하는 모델이다.
 
@@ -190,7 +187,7 @@ BERT 모델의 성능 비교
 
 ![Untitled](README.assets/Ai_1.png)
 
-## ALBERT 이해하기
+### ALBERT 이해하기
 
 ---
 
@@ -204,9 +201,7 @@ ALBERT 모델에서는 BERT와 동일하지만 BERT에 없는 3가지 주요 요
 
 성능 결과표를 봤을 때 BERT 모델보다 Parmeter 개수는 줄이면서 성능은 더 높인걸 확인할 수 있다.
 
-# 환경 설정
-
----
+## 환경 설정
 
 ### 사용할 데이터셋
 
@@ -332,9 +327,7 @@ pip install six~=1.16.0
 
 근데 설치하다 보니깐 scikit-learn 버전이 안 맞는게 python 3.7버전일 수도 있겠다...
 
-# 모델 사용
-
----
+## 모델 사용
 
 ### 모델 실행
 
@@ -343,7 +336,7 @@ pip install six~=1.16.0
 python3 eval_joint_bert_allsents.py -d=data/test -m=save_model/epoch30
 ```
 
-## 이 후 진행 사항
+### 이 후 진행 사항
 
 - 테스트 후 성능 개선 필요 시, 모델 데이터 추가 및 재학습
 - 모델 Input값, Output값 커스터마이징
