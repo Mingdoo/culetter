@@ -1,7 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import ContentsContext from "../../contexts/ContentsContext";
-import Header from "../../components/write/header";
-import Photocard from "../../components/recommend/photocard";
+import Header from "../../components/write/Header";
+import Photocard from "../../components/recommend/Photocard";
+import Postcard from "../../components/recommend/postcard";
+import Normal from "../../components/recommend/Normal";
 import {
   Box,
   List,
@@ -15,8 +17,8 @@ import {
   Grid,
 } from "@mui/material";
 const Recommended = () => {
-  const { type } = useContext(ContentsContext);
-
+  //   const { type } = useContext(ContentsContext);
+  const [type, setType] = useState("photocard");
   return (
     <Box
       component="div"
@@ -28,7 +30,13 @@ const Recommended = () => {
       }}
     >
       <Header title="" detail2="카드를 탭하면 카드가 뒤집힙니다" />
-      {type==="postcard" ? (<Photocard></Photocard>) : (type==="normal" ? () : () )}
+      {type === "photocard" ? (
+        <Photocard></Photocard>
+      ) : type === "normal" ? (
+        <Normal></Normal>
+      ) : (
+        <Postcard></Postcard>
+      )}
     </Box>
   );
 };

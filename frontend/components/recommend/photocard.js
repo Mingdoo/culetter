@@ -1,9 +1,21 @@
 import React from "react";
+import {
+  Box,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Typography,
+  ListItemIcon,
+  Checkbox,
+  Divider,
+  Grid,
+} from "@mui/material";
 
 const photocard = () => {
   return (
-    <Box sx>
-      <Box component="div">
+    <Box classname="card">
+      <Box component="div" className="front face">
         <img
           width="200px"
           height="300px"
@@ -15,11 +27,11 @@ const photocard = () => {
           }}
         ></img>
       </Box>
-      <Box component="div">
+      <Box component="div" className="back face">
         <img
           width="200px"
           height="300px"
-          src={"/img/photocard_front.png"}
+          src={"/img/photocard_back.png"}
           style={{
             borderRadius: "5%",
             animation: "rotate_image 5s linear infinite",

@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import SaveIcon from "@mui/icons-material/Save";
 
-const content = () => {
+const Content = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [contentLength, setContentLength] = useState(0);
@@ -121,4 +121,4 @@ const content = () => {
     </Box>
   );
 };
-export default content;
+export default Content;

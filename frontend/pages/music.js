@@ -11,7 +11,7 @@ import {
   Divider,
   Grid,
 } from "@mui/material";
-import Header from "../components/write/header";
+import Header from "../components/write/Header";
 import SkipPreviousSharpIcon from "@mui/icons-material/SkipPreviousSharp";
 import PlayCircleFilledSharpIcon from "@mui/icons-material/PlayCircleFilledSharp";
 import SkipNextSharpIcon from "@mui/icons-material/SkipNextSharp";

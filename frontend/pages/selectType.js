@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Box } from "@mui/material";
-import Header from "../components/write/header";
+import Header from "../components/write/Header";
 import Type from "../components/write/type";
 
 const selectType = (props) => {

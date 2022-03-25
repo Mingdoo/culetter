@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Header from "../components/write/header";
-import Content from "../components/write/content";
+import Header from "../components/write/Header";
+import Content from "../components/write/Content";
 import { Box } from "@mui/material";
 const writeLetter = () => {
   return (
