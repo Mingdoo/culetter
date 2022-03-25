@@ -29,6 +29,23 @@ function edit() {
     "#FFD93D",
     "#6BCB77",
     "#4D96FF",
+    "#1C0C5B",
+    "#C84B31",
+    "#700B97",
+    "#A12568",
+    "#346751",
+    "#31112C",
+    "#1A1A2E",
+    "#1F4068",
+    "#C70D3A",
+    "#AF0404",
+    "#83142C",
+    "#3E432E",
+    "#DBEDF3",
+    "#FF8BA0",
+    "#14FFEC",
+    "#0E1555",
+    "#E9B5D2",
   ];
 
   const fonts = [
@@ -39,6 +56,16 @@ function edit() {
     { fontfamily: "Nanum Brush", fontname: "나눔 브러쉬", className: "" },
     { fontfamily: "Gowun Dodum", fontname: "고운 돋움", className: "" },
     { fontfamily: "Gowun Batang", fontname: "고운 바탕", className: "" },
+    { fontfamily: "Jua", fontname: "주아", className: "" },
+    { fontfamily: "Sunflower", fontname: "Sunflower", className: "" },
+    { fontfamily: "Dokdo", fontname: "독도", className: "" },
+    { fontfamily: "Gaegu Light", fontname: "개구 라이트", className: "" },
+    { fontfamily: "Gaegu", fontname: "개구", className: "" },
+    { fontfamily: "Cute", fontname: "큐트", className: "" },
+    { fontfamily: "Dongle", fontname: "동글", className: "" },
+    { fontfamily: "Single Day", fontname: "싱글 데이", className: "" },
+    { fontfamily: "Yeon Sung", fontname: "연성", className: "" },
+    { fontfamily: "Hamlet", fontname: "햄릿", className: "" },
   ];
 
   const [isColorOpen, setIsColorOpen] = useState(false);
@@ -50,6 +77,7 @@ function edit() {
   const [isFontSizeOpen, setIsFontSizeOpen] = useState(false);
   const [fontSize, setFontSize] = useState(20);
   const [showDots, setShowDots] = useState(true);
+  const [bold, setBold] = useState(false);
 
   const templateLiteral = `좋은 옷 있으면 생각날 때 입고
   좋은 음식 있으면 먹고 싶을 때 먹고
@@ -66,7 +94,7 @@ function edit() {
   그 사람을 마음껏 그리워하세요`;
   useEffect(() => {
     setShowDots(
-      !(isColorOpen || isFontSizeOpen || isAlignmentOpen || isFontSizeOpen),
+      !(isColorOpen || isFontFamilyOpen || isAlignmentOpen || isFontSizeOpen),
     );
   }, [isColorOpen, isFontFamilyOpen, isAlignmentOpen, isFontSizeOpen]);
 
@@ -116,10 +144,12 @@ function edit() {
         sx={{
           ...landingBoxStyle,
           width: 420,
-          height: 1,
+          // height: 1,
           justifyContent: "start",
           minHeight: "100vh",
+          maxHeight: "100vh",
           position: "relative",
+          bgcolor: "#FCFAEF",
         }}
       >
         <Header
@@ -137,6 +167,8 @@ function edit() {
           textAlign={alignment}
           fontSize={fontSize}
           text={templateLiteral}
+          bold={bold}
+          showDots={showDots}
         />
         {/* 여기까지 편지 */}
         <Box
@@ -144,6 +176,7 @@ function edit() {
             position: "fixed",
             bottom: 0,
             width: 420,
+            display: "block",
             mx: "auto",
           }}
         >
@@ -156,6 +189,7 @@ function edit() {
           <FontFamily
             fonts={fonts}
             isFontFamilyOpen={isFontFamilyOpen}
+            setBold={setBold}
             clickedFont={clickedFont}
             setClickedFont={setClickedFont}
           />
@@ -168,7 +202,10 @@ function edit() {
           >
             <Alignment
               isAlignmentOpen={isAlignmentOpen}
+              alignment={alignment}
               setAlignment={setAlignment}
+              setBold={setBold}
+              bold={bold}
             />
           </Box>
           <Box
@@ -184,13 +221,13 @@ function edit() {
               fontSize={fontSize}
             />
           </Box>
-
           <Grid
             container
             spacing={0}
             direction="row"
             alignItems="center"
             justify="center"
+            sx={{ bgcolor: "#FCFAEF" }}
           >
             <Grid item xs={3}>
               <Box sx={{ mb: "2rem", ml: "1rem", textAlign: "center" }}>

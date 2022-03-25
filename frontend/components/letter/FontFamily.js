@@ -4,7 +4,13 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-function FontFamily({ fonts, isFontFamilyOpen, clickedFont, setClickedFont }) {
+function FontFamily({
+  setBold,
+  fonts,
+  isFontFamilyOpen,
+  clickedFont,
+  setClickedFont,
+}) {
   const settings = {
     arrows: false,
     dots: false,
@@ -39,21 +45,26 @@ function FontFamily({ fonts, isFontFamilyOpen, clickedFont, setClickedFont }) {
               alignItems: "center",
               borderRadius: 5,
               m: 1,
-              backgroundColor: clickedFont === idx ? "#E4AEC5" : "white",
-              width: 30,
+              backgroundColor: clickedFont === idx ? "#FFF8D5" : "white",
+              height: 45,
+              minWidth: 90,
               textAlign: "center",
               boxShadow: 2,
               alignSelf: "center",
             }}
             key={idx}
             onClick={() => {
+              setBold(false);
               setClickedFont(idx);
             }}
           >
-            <Typography variant="" sx={{ fontFamily: font.fontfamily }}>
+            <Typography
+              variant=""
+              sx={{ fontFamily: font.fontfamily, fontSize: 18 }}
+            >
               {font.fontname}
             </Typography>
-            <Typography sx={{ fontFamily: font.fontfamily }}>
+            <Typography sx={{ fontFamily: font.fontfamily, fontSize: 12 }}>
               가나Abg12
             </Typography>
           </Box>

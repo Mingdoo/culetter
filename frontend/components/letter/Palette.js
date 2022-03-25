@@ -4,8 +4,9 @@ import CircleIcon from "@mui/icons-material/Circle";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import $ from "jquery";
 
-function palette({ colors, isColorOpen, clickedColor, setClickedColor }) {
+function palette({ colors, isColorOpen, clickedColor, setClickedColor, size }) {
   const settings = {
     arrows: false,
     infinite: false,
@@ -16,12 +17,15 @@ function palette({ colors, isColorOpen, clickedColor, setClickedColor }) {
   return (
     <Box
       sx={{
-        m: "1rem",
+        mx: "1rem",
+        mb: "1rem",
         border: "2px solid #aaaaaa",
         borderRadius: 5,
         backgroundColor: "#aaaaaa",
         whiteSpace: "nowrap",
         visibility: isColorOpen ? "visible" : "hidden",
+        width: size === "half" ? "40%" : "92%",
+        display: isColorOpen ? "inline-block" : "none",
       }}
     >
       <Slider {...settings}>

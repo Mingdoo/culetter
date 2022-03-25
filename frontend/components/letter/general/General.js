@@ -32,6 +32,7 @@ function General({ props }) {
             minHeight: 560,
             overflowY: "auto",
             whiteSpace: "pre-line",
+            fontWeight: props.bold ? "bold" : "normal",
           }}
         >
           {props.text}

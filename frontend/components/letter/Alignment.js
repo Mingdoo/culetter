@@ -5,7 +5,14 @@ import FormatAlignJustifyIcon from "@mui/icons-material/FormatAlignJustify";
 import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
 import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
 import FormatAlignRightIcon from "@mui/icons-material/FormatAlignRight";
-function Alignment({ isAlignmentOpen, setAlignment }) {
+import FormatBoldIcon from "@mui/icons-material/FormatBold";
+function Alignment({
+  isAlignmentOpen,
+  setAlignment,
+  setBold,
+  bold,
+  alignment,
+}) {
   return (
     <Box
       sx={{
@@ -14,21 +21,31 @@ function Alignment({ isAlignmentOpen, setAlignment }) {
         backgroundColor: "#bbbbbb",
         visibility: isAlignmentOpen ? "visible" : "hidden",
         display: isAlignmentOpen ? "inline-block" : "none",
-
         mb: "1rem",
       }}
     >
       <IconButton onClick={(e) => setAlignment("justify")}>
-        <FormatAlignJustifyIcon />
+        <FormatAlignJustifyIcon
+          sx={{ color: alignment === "justify" ? "#000000" : "default" }}
+        />
       </IconButton>
       <IconButton onClick={(e) => setAlignment("center")}>
-        <FormatAlignCenterIcon />
+        <FormatAlignCenterIcon
+          sx={{ color: alignment === "center" ? "#000000" : "default" }}
+        />
       </IconButton>
       <IconButton onClick={(e) => setAlignment("left")}>
-        <FormatAlignLeftIcon />
+        <FormatAlignLeftIcon
+          sx={{ color: alignment === "left" ? "#000000" : "default" }}
+        />
       </IconButton>
       <IconButton onClick={(e) => setAlignment("right")}>
-        <FormatAlignRightIcon />
+        <FormatAlignRightIcon
+          sx={{ color: alignment === "right" ? "#000000" : "default" }}
+        />
+      </IconButton>
+      <IconButton onClick={(e) => setBold(!bold)}>
+        <FormatBoldIcon sx={{ color: bold ? "#000000" : "default" }} />
       </IconButton>
     </Box>
   );

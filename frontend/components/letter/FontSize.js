@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Slider } from "@mui/material";
 
 function FontSize({ isFontSizeOpen, setFontSize, fontSize }) {
+  const [size, setSize] = useState(fontSize || 20);
   return (
     <Box
       sx={{
@@ -17,13 +18,15 @@ function FontSize({ isFontSizeOpen, setFontSize, fontSize }) {
       }}
     >
       <Slider
-        defaultValue={fontSize}
-        size=""
+        key={size}
+        defaultValue={size}
         valueLabelDisplay="on"
         min={10}
         max={40}
         sx={{ color: "white", width: 360 }}
-        onChange={(e) => setFontSize(e.target.value)}
+        onChange={(e) => {
+          setFontSize(e.target.value);
+        }}
       />
     </Box>
   );

@@ -1,8 +1,9 @@
 import React from "react";
 import General from "./general/General";
+import PostCard from "./postcard/PostCard";
 
 function Letter(props) {
-  return <General props={props}></General>;
+  return <PostCard props={props}></PostCard>;
 }
 
 export default Letter;
