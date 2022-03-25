@@ -87,7 +87,7 @@
 
 ## 🎞 프로젝트 진행상황
 
-### Web - 모바일 뷰 (https://j6a201.p.ssafy.io)
+### Web - 모바일 뷰 (https://www.culetter.site)
 
 #### Front-end
 
