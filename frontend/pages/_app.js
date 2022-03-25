@@ -19,6 +19,7 @@ function MyApp({ Component, pageProps }) {
       }}
     >
       <Component {...pageProps} />
+      <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     </ContentsContext.Provider>
   );
 }
