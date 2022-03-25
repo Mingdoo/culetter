@@ -1,18 +1,16 @@
 import { useRouter } from "next/router";
 import { Box, Typography } from "@mui/material";
-import Footer from "../../components/Footer";
-import MenuList from "../../components/menu/MenuList";
-import BackButton from "../../components/mail/inbox/BackButton";
-import Letter from "../../components/main/Letter";
-import Photocard from "../../components/mail/inbox/Photocard";
 import axios from "axios";
 import React, { useEffect, useState, useRef, useCallback } from "react";
+
+import Letter from "../../main/Letter";
+import Photocard from "./Photocard";
 
 // 재호출?
 const SERVER_URL = "https://j6a201.p.ssafy.io:3000";
 const token = "temp";
-export default function Post() {
-  const [page, setPage] = useState(1);
+export default function LetterPage() {
+  const [page, setPage] = useState(0);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [mails, setMails] = useState([]);
@@ -27,76 +25,98 @@ export default function Post() {
       const res = [
         {
           hasNew: true,
-          title: "홍길동",
+          img: "temp",
+          title: "제목이제목모모모모모모모모모모모모모모모모",
+          senderName: "김은송",
           createdDate: "20220315",
           mailType: "GENERAL",
           mailsNum: 2,
         },
         {
           hasNew: true,
-          title: "홍길동",
+          img: "temp",
+          title: "제목이제목모모모모모모모모모모모모모모모모",
+          senderName: "김은송",
           createdDate: "20220315",
           mailType: "POST",
           mailsNum: 2,
         },
         {
           hasNew: false,
-          title: "홍길동",
+          img: "temp",
+          title: "제목이제목모모모모모모모모모모모모모모모모",
+          senderName: "김은송",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
           mailsNum: 2,
         },
         {
           hasNew: true,
-          title: "홍길동",
+          img: "temp",
+          title: "제목이제목모모모모모모모모모모모모모모모모",
+          senderName: "김은송",
           createdDate: "20220315",
           mailType: "GENERAL",
           mailsNum: 2,
         },
         {
           hasNew: true,
-          title: "홍길동",
+          img: "temp",
+          title: "제목이제목모모모모모모모모모모모모모모모모",
+          senderName: "김은송",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
           mailsNum: 2,
         },
         {
           hasNew: false,
-          title: "홍길동",
+          img: "temp",
+          title: "제목이제목모모모모모모모모모모모모모모모모",
+          senderName: "김은송",
           createdDate: "20220315",
           mailType: "GENERAL",
           mailsNum: 1,
         },
         {
           hasNew: false,
-          title: "홍길동",
+          img: "temp",
+          title: "제목이제목모모모모모모모모모모모모모모모모",
+          senderName: "김은송",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
           mailsNum: 2,
         },
         {
           hasNew: false,
-          title: "홍길동",
+          img: "temp",
+          title: "제목이제목모모모모모모모모모모모모모모모모",
+          senderName: "김은송",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
           mailsNum: 3,
         },
         {
           hasNew: true,
-          title: "홍길동",
+
+          img: "temp",
+          title: "제목이제목모모모모모모모모모모모모모모모모",
+          senderName: "김은송",
           createdDate: "20220315",
           mailType: "POST",
           mailsNum: 4,
         },
         {
           hasNew: true,
-          title: "홍길동",
+          img: "temp",
+          title: "제목이제목모모모모모모모모모모모모모모모모",
+          senderName: "김은송",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
           mailsNum: 5,
         },
         {
           hasNew: true,
+          img: "temp",
           title: "고길동",
           createdDate: "20220315",
           mailType: "POST",
@@ -104,6 +124,7 @@ export default function Post() {
         },
         {
           hasNew: true,
+          img: "temp",
           title: "고길동",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
@@ -111,6 +132,7 @@ export default function Post() {
         },
         {
           hasNew: false,
+          img: "temp",
           title: "고길동",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
@@ -118,6 +140,7 @@ export default function Post() {
         },
         {
           hasNew: true,
+          img: "temp",
           title: "고길동",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
@@ -125,6 +148,7 @@ export default function Post() {
         },
         {
           hasNew: true,
+          img: "temp",
           title: "고길동",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
@@ -132,6 +156,7 @@ export default function Post() {
         },
         {
           hasNew: false,
+          img: "temp",
           title: "고길동",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
@@ -139,6 +164,7 @@ export default function Post() {
         },
         {
           hasNew: false,
+          img: "temp",
           title: "고길동",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
@@ -146,6 +172,7 @@ export default function Post() {
         },
         {
           hasNew: false,
+          img: "temp",
           title: "고길동",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
@@ -153,6 +180,8 @@ export default function Post() {
         },
         {
           hasNew: true,
+
+          img: "temp",
           title: "고길동",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
@@ -160,6 +189,8 @@ export default function Post() {
         },
         {
           hasNew: true,
+
+          img: "temp",
           title: "고길동",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
@@ -167,6 +198,7 @@ export default function Post() {
         },
         {
           hasNew: true,
+          img: "temp",
           title: "마지막",
           createdDate: "20220315",
           mailType: "PHOTOCARD",
@@ -184,6 +216,7 @@ export default function Post() {
 
   useEffect(() => {
     fetchMails();
+    setPage((prev) => prev + 1);
   }, []);
   const handleObserver = useCallback((entries) => {
     const target = entries[0];
@@ -212,39 +245,17 @@ export default function Post() {
 
   return (
     <>
-      <Box sx={{ width: 420, mx: "auto" }}>
-        <Box
-          sx={{
-            width: 420,
-            mx: "auto",
-            bgcolor: "#FCFAEF",
-            position: "relative",
-            minHeight: "100vh",
-            pb: 5,
-          }}
-        >
-          <BackButton sx={{ pt: 1 }} href="/mail/inbox"></BackButton>
-          <MenuList></MenuList>
-          <Typography
-            variant="h4"
-            className="Dodum"
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              py: "3.5vh",
-              fontSize: 28,
-            }}
-          >
-            받은 편지
-          </Typography>
-
-          {loading && <Typography>loading</Typography>}
-          {mails.map(({ title, mailType, createdDate }, index) => {
+      {loading && <Typography>loading</Typography>}
+      <Box sx={{ minHeight: "90vh" }}>
+        {mails.map(
+          ({ title, mailType, createdDate, senderName, img }, index) => {
             if (mailType === "PHOTOCARD") {
               return (
                 <Photocard
+                  src={img}
                   title={title}
                   createdDate={createdDate}
+                  senderName={senderName}
                   key={index}
                 ></Photocard>
               );
@@ -254,6 +265,7 @@ export default function Post() {
                   text={title}
                   index={0}
                   createdDate={createdDate}
+                  senderName={senderName}
                   key={index}
                 ></Letter>
               );
@@ -264,14 +276,14 @@ export default function Post() {
                   index={1}
                   createdDate={createdDate}
                   key={index}
+                  senderName={senderName}
                 ></Letter>
               );
             }
-          })}
-        </Box>
+          }
+        )}
+        <Box sx={{ height: "50px" }} ref={loader}></Box>
       </Box>
-      <Box ref={loader}></Box>
-      <Footer />
     </>
   );
 }
