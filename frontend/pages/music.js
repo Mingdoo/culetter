@@ -62,9 +62,6 @@ const music = () => {
   };
 
   const handleToggle = (item) => () => {
-    const currentIndex = checked;
-    console.log(checked);
-
     //선택 해제
     if (item.title === checked) {
       setChecked("");

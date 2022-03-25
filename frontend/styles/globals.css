@@ -75,9 +75,8 @@ a {
   float: left;
   margin: 1em;
   position: relative;
-  width: 189px;
-  height: 328px;
   perspective: 600px;
+  border-radius: 10px;
 }
 
 .face {
@@ -99,12 +98,16 @@ a {
 
 .card:hover .front {
   transform: rotateY(-180deg);
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
   z-index: 0;
 }
 
 .card:hover .back {
   transform: rotateY(-180deg);
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
   z-index: 1;
+}
+
+.innerText {
+  transform: rotateY(-180deg);
 }

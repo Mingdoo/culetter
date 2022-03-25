@@ -1,45 +1,38 @@
-import React from "react";
-import {
-  Box,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  Typography,
-  ListItemIcon,
-  Checkbox,
-  Divider,
-  Grid,
-} from "@mui/material";
+import React, { useState } from "react";
+import { Box, Typography } from "@mui/material";
 
-const photocard = () => {
+const photocard = (props) => {
+  const { front, back, content } = props;
   return (
-    <Box classname="card">
+    <Box
+      className="card"
+      sx={{ width: "250px", height: "400px", mt: "2rem", position: "relative" }}
+    >
       <Box component="div" className="front face">
         <img
-          width="200px"
-          height="300px"
-          src={"/img/photocard_front.png"}
-          style={{
-            borderRadius: "5%",
-            animation: "rotate_image 5s linear infinite",
-            transformOrigin: " 50% 50%",
-          }}
+          width="250px"
+          height="400px"
+          src={front}
+          style={{ borderRadius: "2rem" }}
         ></img>
       </Box>
       <Box component="div" className="back face">
         <img
-          width="200px"
-          height="300px"
-          src={"/img/photocard_back.png"}
-          style={{
-            borderRadius: "5%",
-            animation: "rotate_image 5s linear infinite",
-            transformOrigin: " 50% 50%",
-          }}
+          className="image"
+          width="250px"
+          height="400px"
+          src={back}
+          style={{ borderRadius: "2rem" }}
         ></img>
-        <Box>
-          <Typography></Typography>
+        <Box
+          sx={{ position: "absolute", top: "0", margin: "1rem", mt: "2rem" }}
+        >
+          <Typography
+            className="innerText Dodum"
+            sx={{ textAlign: "center", fontSize: "1rem" }}
+          >
+            {content}
+          </Typography>
         </Box>
       </Box>
     </Box>
