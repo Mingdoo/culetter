@@ -1,9 +1,9 @@
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography, Button, TextField } from "@mui/material";
 import Slider from "@mui/material/Slider";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { styled, alpha } from "@mui/material/styles";
 
-import Letter from "../../components/main/Letter";
+import Letter from "../../components/mail/sent/Letter";
 
 const SuccessSlider = styled(Button)(({ theme }) => ({
   color: "#00000080",
@@ -56,6 +56,24 @@ export default function Send() {
       ],
     });
   };
+  const shareData = {
+    title: "test",
+    text: "test",
+    url: "document.location.href",
+  };
+  const shareMobile = async () => {
+    if (navigator.canShare(shareData)) {
+      try {
+        await navigator.share(shareData);
+        console.log("successfully shared");
+      } catch (err) {
+        console.error("Something went wrong sharing the blog", error);
+      }
+    } else {
+      console.log("cant share");
+    }
+  };
+  const [test, setTest] = useState("http://localhost:3000/letter/send");
   return (
     <Box
       component="div"
@@ -94,13 +112,21 @@ export default function Send() {
       <Box component="div">
         {/* 편지 봉투 디자인 좀 바꾸자.... */}
         {/* letter 쓸거면 click 막아야 함 */}
-        <Letter index={1}></Letter>
+        <Letter date=""></Letter>
         <Box sx={{ width: 1, display: "flex", justifyContent: "center" }}>
           <Button sx={{ backgroundColor: "#FEE500" }} onClick={shareKakao}>
             카카오톡으로 알리기
           </Button>
-          <SuccessSlider>test</SuccessSlider>
         </Box>
+        <TextField
+          disabled
+          id="standard-disabled"
+          // label="Disabled"
+          defaultValue={test}
+          variant="outlined"
+          sx={{ color: "black" }}
+        />
+        <SuccessSlider onClick={shareMobile}>test</SuccessSlider>
       </Box>
     </Box>
   );
