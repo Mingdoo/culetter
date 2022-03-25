@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import { Box, Grid } from "@mui/material";
 import axios from "axios";
 
-import MailBox from "./MailBox";
+import MailBox from "./Postbox";
 import SearchBox from "../../user/SearchBox";
 
 const SERVER_URL = "https://j6a201.p.ssafy.io:3000";
