@@ -2,15 +2,17 @@ import { Box, Typography } from "@mui/material";
 
 import stamp from "../../../public/img/stamp.PNG";
 
-export default function Letter({ type, date, name, title }) {
+export default function Letter({ type, date, name, title, width }) {
+  const height = (width * 2) / 3;
+
   return (
     <>
       <Box component="div" sx={{ width: "100%", position: "relative" }}>
         <Box
           component="div"
           sx={{
-            width: 150,
-            height: 100,
+            width: { width },
+            height: { height },
             backgroundColor: "white",
             textAlign: "center",
             border: "1.5px solid black",
@@ -20,8 +22,6 @@ export default function Letter({ type, date, name, title }) {
           <Box
             component="div"
             sx={{
-              width: 146,
-              height: 96,
               backgroundColor: "white",
               border: "1.5px solid black",
               mx: "auto",
@@ -31,6 +31,8 @@ export default function Letter({ type, date, name, title }) {
               justifyContent: "space-between",
               px: "3px",
               py: "2px",
+              width: `${width - 4}px`,
+              height: `${height - 4}px`,
             }}
           >
             <Box
