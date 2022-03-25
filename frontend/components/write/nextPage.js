@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import Link from "next/Link";
+import Link from "next/link";
 import { Box, Typography, Button } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ContentsContext from "../../contexts/ContentsContext";
@@ -32,7 +32,7 @@ const nextPage = (props) => {
                 {
                   position: toast.POSITION.TOP_CENTER,
                   role: "alert",
-                }
+                },
               );
             }}
           >
@@ -76,7 +76,7 @@ const nextPage = (props) => {
                 {
                   position: toast.POSITION.TOP_CENTER,
                   role: "alert",
-                }
+                },
               );
             }}
           >

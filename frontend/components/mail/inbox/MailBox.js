@@ -5,7 +5,7 @@ import newmailbox from "../../../public/img/newmailbox.PNG";
 
 import Avatar from "@mui/material/Avatar";
 
-import Link from "next/Link";
+import Link from "next/link";
 const shapeStyles = {
   bgcolor: "primary.main",
   width: 20,

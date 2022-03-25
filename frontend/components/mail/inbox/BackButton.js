@@ -1,5 +1,6 @@
 import IconButton from "@mui/material/IconButton";
 import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
+import Link from "next/link";
 
 export default function BackButton({ setIsPostBox }) {
   return (
