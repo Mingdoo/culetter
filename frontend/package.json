@@ -24,7 +24,10 @@
     "react-input-autosize": "^3.0.0",
     "react-intersection-observer": "^8.33.1",
     "react-mobile-detect": "^0.1.23",
-    "react-toastify": "^8.2.0"
+    "react-router-dom": "^6.2.2",
+    "react-slick": "^0.28.1",
+    "react-toastify": "^8.2.0",
+    "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
     "babel-plugin-styled-components": "^2.0.6",
