@@ -113,7 +113,7 @@ export default function PostboxPage({ setIsPostBox, isPostBox }) {
       <Grid container sx={{ width: 1, pt: 5, minHeight: "87vh" }}>
         {!searchMemberName
           ? mails.map(({ name, hasNew, mailsNum }, index) => (
-              <Grid item xs={6} key={index}>
+              <Grid item xs={6} key={index} sx={{ height: 188 }}>
                 <MailBox
                   hasNew={hasNew}
                   name={name}
