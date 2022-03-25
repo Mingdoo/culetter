@@ -79,7 +79,7 @@ function SearchBox(props) {
                   }}
                 >
                   <HighlightOffRoundedIcon
-                    sx={{ fontSize: "16px" }}
+                    sx={{ fontSize: "16px", color: "#e0e0e0" }}
                   ></HighlightOffRoundedIcon>
                 </IconButton>
               ) : null,
