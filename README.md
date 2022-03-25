@@ -145,11 +145,14 @@
   > 친구로 등록해놓은 사용자, 친구 요청, 즐겨찾기로 등록한 친구를 확인
 
   ![친구](/uploads/d7cef8492784173d4396bc3aa51fdb5a/친구.gif)
+
 #### Back-end
 > [API 명세서](https://docs.google.com/spreadsheets/d/1PFSrwoFqF-2cbXGW0iAQ9UX8ulqPsUkS6NJEa9XhySA/edit#gid=0)
 - 회원 관리 API 구현
 - 친구 관리 API 구현
 - 편지 관리 API 구현 (진행 중)
+
+------
 
 ### AI
 > [자연어 처리-감정 분석 모델 정리](https://caramel-garden-eaf.notion.site/83b84e4471a2481492976fdd87dc0cb4)
