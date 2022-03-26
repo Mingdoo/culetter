@@ -1,4 +1,7 @@
 import { Box, Typography } from "@mui/material";
+
+import stamp from "../../../public/img/stamp.PNG";
+
 export default function Letter({ type, date, name, title }) {
   return (
     <>
@@ -37,6 +40,11 @@ export default function Letter({ type, date, name, title }) {
                 alignItems: "flex-start",
               }}
             >
+              {/* <Box
+                component="img"
+                src={stamp.src}
+                sx={{ width: 60, right: 0, top: 0 }}
+              ></Box> */}
               <Typography
                 sx={{
                   fontSize: 14,
