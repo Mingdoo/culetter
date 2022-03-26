@@ -9,12 +9,12 @@ const Recommended = () => {
   //   const { type } = useContext(ContentsContext);
   const [type, setType] = useState("normal");
   const [checked, setChecked] = useState(0);
-  const { content, setContent } = useState(
-    "이름을 알고 나면 이웃이 되고\n" +
-      "색깔을 알고 나면 친구가 되고\n" +
-      "모양까지 알고 나면 연인이 된다\n" +
-      "아, 이것은 비밀\n"
-  );
+  // const { content, setContent } = useState(
+  //   "이름을 알고 나면 이웃이 되고\n" +
+  //     "색깔을 알고 나면 친구가 되고\n" +
+  //     "모양까지 알고 나면 연인이 된다\n" +
+  //     "아, 이것은 비밀\n"
+  // );
 
   const photocardList = [
     { front: "/img/photocard_front1.jpg", back: "/img/photocard_back.png" },
@@ -66,7 +66,11 @@ const Recommended = () => {
       )}
       <Box
         component="div"
-        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+        sx={{
+          display: type === "normal" ? "inline-block" : "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
       >
         {type === "photocard" ? (
           photocardList.map((data, index) => (
@@ -75,18 +79,27 @@ const Recommended = () => {
                 key={index}
                 front={data.front}
                 back={data.back}
-                content={content}
               ></Photocard>
               <Checkbox
                 value={index}
                 onChange={handleChange}
                 checked={checked == index}
+                labelStyle={{ color: "white" }}
+                iconStyle={{ fill: "white" }}
               />
             </Box>
           ))
         ) : type === "normal" ? (
           letterList.map((data, index) => (
-            <Box key={index} sx={{ display: "flex", flexDirection: "column" }}>
+            <Box
+              component="div"
+              key={index}
+              sx={{
+                display: "inline-block",
+                flexDirection: "column",
+                margin: "0rem 1.5rem 0rem 1.5rem",
+              }}
+            >
               <Grid container component="div">
                 <Box sx={{ display: "flex", flexDirection: "column" }}>
                   <Normal imgsrc={data.imgsrc}></Normal>
@@ -94,14 +107,7 @@ const Recommended = () => {
                     value={index}
                     onChange={handleChange}
                     checked={checked == index}
-                  />
-                </Box>
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
-                  <Normal imgsrc={data.imgsrc} content={content}></Normal>
-                  <Checkbox
-                    value={index}
-                    onChange={handleChange}
-                    checked={checked == index}
+                    iconStyle={{ fill: "white" }}
                   />
                 </Box>
               </Grid>

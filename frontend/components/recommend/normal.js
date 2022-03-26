@@ -14,12 +14,7 @@ const Normal = (props) => {
       }}
     >
       <Box component="div" sx={{ position: "relative" }}>
-        <img
-          width="125px"
-          height="200px"
-          src={imgsrc}
-          style={{ borderRadius: "2rem" }}
-        ></img>
+        <img width="125px" height="200px" src={imgsrc} style={{}}></img>
         <Typography sx={{ position: "absolute", top: 0 }}>{content}</Typography>
       </Box>
     </Box>
