@@ -1,65 +1,32 @@
 import {
   Box,
   Button,
-  Icon,
   IconButton,
   Input,
   InputLabel,
-  Dialog,
-  DialogActions,
-  DialogTitle,
-  DialogContent,
-  Typography,
+  TextField,
+  Grid,
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
 import nomailbox from "../../public/img/nomailbox.PNG";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
-import { useState, useRef, useCallback } from "react";
-import { styled } from "@mui/material/styles";
-import ReactCrop, {
-  centerCrop,
-  makeAspectCrop,
-  Crop,
-  PixelCrop,
-} from "react-image-crop";
-import "react-image-crop/dist/ReactCrop.css";
-import PropTypes from "prop-types";
+import { useState, useRef, useCallback, useEffect } from "react";
+import PWCheckField from "./PWCheckField";
+import BadgeIcon from "@mui/icons-material/Badge";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import CropEasy from "../crop/CropEasy";
 
 export default function MyPage() {
-  const [open, setOpen] = useState(false);
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   const res = {
     email: "ssafy@ssafy.com",
     name: "ssafy",
-    // profileImage: { lpImg1 },
+    profileImage: nomailbox.src,
   };
 
   const [imgFile, setImgFile] = useState(null);
-  // const [crop, setCrop] = useState();
-  const [croppedImageUrl, setCroppedImgUrl] = useState();
-  const [imageRef, setImageRef] = useState(null);
-  const [crop, setCrop] = useState(null);
+  const [name, setName] = useState(res.name);
+  const [email, setEmail] = useState(res.email);
+  const [openCrop, setOpenCrop] = useState(false);
 
-  const onCropChange = (crop) => setCrop(crop);
-  const onCropComplete = (crop) => makeClientCrop(crop);
-
-  const onImageLoaded = (image) => {
-    setImageRef(image);
-  };
-  // const onCropComplete = (crop, percentCrop) => makeClientCrop(crop);
-
-  const makeClientCrop = useCallback(async (crop) => {
-    if (imageRef && crop.width && crop.height) {
-      const test = await getCroppedImg(imageRef, crop, "newFile.jpeg");
-      setCroppedImgUrl(test);
-    }
-  });
   const handleChangeFile = (event) => {
     // lastModified, name, size, type, webkitrelativepath
     // console.log(event.target.files[0]);
@@ -67,80 +34,155 @@ export default function MyPage() {
     // 1. 파일이 있다면 확인 & 파일 크기 확인하고 너무 크면 거절!
 
     // 2. 파일 크기 적당하면 크롭~
-    const reader = new FileReader();
-    reader.readAsDataURL(event.target.files[0]);
-    reader.onloadend = () => {
-      setImgFile(reader.result);
-      // console.log(reader.result);
-      // reader.result에 data:image/png;base64,~~ 형태로 담김
-      // setImgFile(event.target.files[0]);
-    };
+    const file = event.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setImgFile(reader.result);
+        // 임시
+        res.profileImage = imgFile;
+        setOpenCrop(true);
+      };
+    }
   };
 
-  const getCroppedImg = function (image, crop, fileName) {
-    const canvas = document.createElement("canvas");
-    const scaleX = image.naturalWidth / image.width;
-    const scaleY = image.naturalWidth / image.height;
-    canvas.width = crop.width;
-    canvas.height = crop.height;
-    const ctx = canvas.getContext("2d");
+  const nameValidationCheck = (e) => {
+    setName(e.target.value);
+    const namePattern = /^[가-힣]+$/;
 
-    ctx.drawImage(
-      // 원본 이미지 영역
-      image, // 원본 이미지
-      crop.x * scaleX, // 크롭한 이미지 x 좌표
-      crop.y * scaleY, // 크롭한 이미지 y 좌표
-      crop.width * scaleX, // 크롭한 이미지 가로 길이
-      crop.height * scaleY, // 크롭한 이미지 세로 길이
-      // 캔버스 영역
-      0, // 캔버스에서 이미지 시작 x 좌표
-      0, // 캔버스에서 이미지 시작 y 좌표
-      crop.width, // 캔버스에서 이미지 가로 길이
-      crop.height //  캔버스에서 이미지 세로 길이
-    );
-    return new Promise((resolve) => resolve(canvas.toDataURL()));
+    // 한글 적어도 console.log 뜸
+    // if (!namePattern.test(e.target.value)) {
+    //   console.log("이름이 한글이 아님");
+    // }
+  };
+
+  const emailValidationCheck = (e) => {
+    setEmail(e.target.value);
+    const emailPattern =
+      /^([0-9a-zA-Z_.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+    if (!emailPattern.test(email)) {
+      console.log("형식에 안 맞음");
+    }
   };
 
   return (
     <Box>
-      {/* 
-      트위터: 업로드-400x400, 보이는 건 200 
-      페북: 160
-      인스타: 110
-      */}
       <Box
-        component="img"
-        src={nomailbox.src}
-        sx={{ width: 110, height: 110 }}
-      ></Box>
-      <IconButton>
-        <InputLabel htmlFor="profileImg">
-          <AddAPhotoIcon></AddAPhotoIcon>
-        </InputLabel>
-      </IconButton>
-      {/* <Label for="profileImg">
-          <AddAPhotoIcon></AddAPhotoIcon>
-        </Label> */}
-      <Input
-        id="profileImg"
-        sx={{ display: "none" }}
-        // component="input"
-        type="file"
-        accept="image/*"
-        onChange={handleChangeFile}
-      ></Input>
-      <Box component="img" src={imgFile}></Box>
-      {imgFile && (
-        <ReactCrop
-          src={imgFile}
+        sx={{
+          backgroundColor: "#E2E0A5",
+          padding: 3,
+          borderRadius: 2,
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <Box>
+          {/* <CropDialog></CropDialog> */}
+          {/* cropper를 modal에 넣어야 함! */}
+          {/* <Cropper
+          image={imgFile}
           crop={crop}
-          onImageLoaded={onImageLoaded}
-          onComplete={onCropComplete}
-          onChange={onCropChange}
-        ></ReactCrop>
-      )}
-      <Box>test</Box>
-      <Box component="img" src={croppedImageUrl}></Box>
+          zoom={zoom}
+          aspect={4 / 3}
+          onCropChange={setCrop}
+          onCropComplete={onCropComplete}
+          onZoomChange={setZoom}
+        /> */}
+          {/* 프로필 이미지 */}
+          <Box sx={{ display: "flex", mb: 3 }}>
+            <Box sx={{ mx: "auto", position: "relative" }}>
+              <Box
+                component="img"
+                src={imgFile ? imgFile : res.profileImage}
+                sx={{
+                  width: 110,
+                  height: 110,
+                  borderRadius: "70%",
+                  border: "1px solid black",
+                }}
+              ></Box>
+              <IconButton sx={{ position: "absolute", bottom: -4, right: 0 }}>
+                <InputLabel htmlFor="profileImg">
+                  <AddAPhotoIcon></AddAPhotoIcon>
+                </InputLabel>
+              </IconButton>
+              <Input
+                id="profileImg"
+                sx={{ display: "none" }}
+                type="file"
+                accept="image/*"
+                onChange={handleChangeFile}
+              ></Input>
+            </Box>
+            {/* <Box component="img" src={imgFile}></Box> */}
+          </Box>
+          {/* 이메일 textfield */}
+          <Grid container>
+            <Grid item xs={1} sx={{ display: "flex", alignItems: "flex-end" }}>
+              <AccountCircleIcon sx={{ color: "white", mr: 1, my: 0.5 }} />
+            </Grid>
+            <Grid item xs={11} sx={{ pl: 1 }}>
+              <TextField
+                id="email"
+                label="이메일"
+                type="email"
+                autoComplete="off"
+                variant="standard"
+                size="small"
+                value={email}
+                onChange={(e) => emailValidationCheck(e)}
+                InputLabelProps={{
+                  style: { fontFamily: "Gowun Batang" },
+                }}
+                sx={{ width: 1 }}
+              />
+            </Grid>
+          </Grid>
+          {/* 비밀번호 textfield */}
+          <PWCheckField withBtn={true}></PWCheckField>
+          {/* 이름 textfield */}
+          <Grid container>
+            <Grid item xs={1} sx={{ display: "flex", alignItems: "flex-end" }}>
+              <BadgeIcon sx={{ color: "white", mr: 1, my: 0.5 }} />
+            </Grid>
+            <Grid sx={{ pl: 1 }} xs={11}>
+              <TextField
+                id="name"
+                label="이름"
+                type="name"
+                autoComplete="off"
+                variant="standard"
+                size="small"
+                value={name}
+                onChange={(e) => nameValidationCheck(e)}
+                InputLabelProps={{
+                  style: { fontFamily: "Gowun Batang" },
+                }}
+                sx={{ width: 1 }}
+              />
+            </Grid>
+          </Grid>
+        </Box>
+      </Box>
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <Button
+          variant="contained"
+          size="small"
+          sx={{
+            minWidth: "200px",
+            minHeight: "30px",
+            backgroundColor: "#E2E0A5",
+            color: "#3A1D1D",
+            marginTop: "1rem",
+            fontFamily: "Gowun Batang",
+          }}
+        >
+          확인
+        </Button>
+      </Box>
+      {/* {openCrop ? <CropEasy></CropEasy> : null} */}
     </Box>
   );
 }
