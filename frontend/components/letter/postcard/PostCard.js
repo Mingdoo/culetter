@@ -4,8 +4,8 @@ import { colors } from "../../../components/Variables";
 import Palette from "../Palette";
 
 function PostCard({ props }) {
-  const [bgColor, setBgColor] = useState(0);
-  const [underlineColor, setUnderlineColor] = useState(1);
+  const [bgColor, setBgColor] = useState(1);
+  const [underlineColor, setUnderlineColor] = useState(0);
 
   return (
     <Box
