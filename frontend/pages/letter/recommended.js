@@ -31,9 +31,9 @@ const useCheckboxStyles = makeStyles({
 
 const Recommended = () => {
   //   const { type } = useContext(ContentsContext);
-  const [type, setType] = useState("photocard");
+  // const [type, setType] = useState("photocard");
   // const [type, setType] = useState("normal");
-  // const [type, setType] = useState("postcard");
+  const [type, setType] = useState("postcard");
 
   const [checked, setChecked] = useState(0);
   const [content, setContent] = useState(
@@ -95,6 +95,13 @@ const Recommended = () => {
 
   useEffect(() => {}, [prevImg]);
 
+  const handleNextClick = (e) => {
+    e.preventDefault();
+  };
+  const handlePrevClick = (e) => {
+    e.preventDefault();
+    Router.push("/letter/music");
+  };
   return (
     <Box
       component="div"
@@ -105,17 +112,38 @@ const Recommended = () => {
       }}
     >
       {type === "photocard" ? (
-        <Header
-          title="포토카드 선택"
-          detail2="카드를 탭하면 카드가 뒤집힙니다"
-        />
+        <>
+          <Header
+            handlePrevClick={handlePrevClick}
+            title="포토카드 선택"
+            handleNextClick={handleNextClick}
+          />
+          <Typography className="Batang" sx={{ textAlign: "center" }}>
+            카드를 탭하면 카드가 뒤집힙니다
+          </Typography>
+        </>
       ) : type === "normal" ? (
-        <Header title="편지지 선택" />
+        <>
+          <Header
+            handlePrevClick={handlePrevClick}
+            title="편지지 선택"
+            handleNextClick={handleNextClick}
+          />
+          <Typography className="Batang" sx={{ textAlign: "center" }}>
+            편지 내용에 어울리는 편지지를 선택해주세요
+          </Typography>
+        </>
       ) : (
-        <Header
-          title="엽서 선택"
-          detail2="당신의 편지 내용에 어울리는 사진입니다"
-        />
+        <>
+          <Header
+            handlePrevClick={handlePrevClick}
+            title="엽서 선택"
+            handleNextClick={handleNextClick}
+          />
+          <Typography className="Batang" sx={{ textAlign: "center" }}>
+            편지 내용에 어울리는 엽서를 선택해주세요
+          </Typography>
+        </>
       )}
       <Box
         component="div"

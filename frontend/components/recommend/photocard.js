@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box, Typography } from "@mui/material";
 
-const photocard = (props) => {
+const Photocard = (props) => {
   const { front, back, content } = props;
 
   const [isClicked, setIsClicked] = useState(false);
@@ -46,4 +46,4 @@ const photocard = (props) => {
   );
 };
 
-export default photocard;
+export default Photocard;
