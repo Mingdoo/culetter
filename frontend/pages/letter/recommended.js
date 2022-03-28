@@ -31,7 +31,9 @@ const useCheckboxStyles = makeStyles({
 
 const Recommended = () => {
   //   const { type } = useContext(ContentsContext);
-  const [type, setType] = useState("postcard");
+  // const [type, setType] = useState("photocard");
+  const [type, setType] = useState("normal");
+  // const [type, setType] = useState("postcard");
   const [checked, setChecked] = useState(0);
   // const { content, setContent } = useState(
   //   "이름을 알고 나면 이웃이 되고\n" +
@@ -65,6 +67,8 @@ const Recommended = () => {
     { imgsrc: "/img/postcardImg2.jpg" },
     { imgsrc: "/img/postcardImg3.jpg" },
   ];
+
+  const [prevImg, setPrevImg] = useState("");
 
   const handleChange = (event) => {
     const curIndex = event.target.value;
@@ -123,7 +127,13 @@ const Recommended = () => {
                 value={index}
                 onChange={handleChange}
                 checked={checked == index}
-                labelStyle={{ color: "white" }}
+                icon={<RadioButtonUncheckedIcon />}
+                checkedIcon={<CheckCircleIcon />}
+                style={{
+                  marginTop: "50%",
+                  height: "10%",
+                  color: checked == index ? "#dc816c  " : "#ECDDBE",
+                }}
               />
             </Box>
           ))
@@ -140,9 +150,19 @@ const Recommended = () => {
             >
               <Normal imgsrc={data.imgsrc}></Normal>
               <Checkbox
+                component="div"
                 value={index}
                 onChange={handleChange}
                 checked={checked == index}
+                icon={<RadioButtonUncheckedIcon />}
+                checkedIcon={<CheckCircleOutlineIcon />}
+                style={{
+                  display: "inline-block",
+                  textAlign: "center",
+                  width: "100%",
+                  height: "4%",
+                  color: checked == index ? "#dc816c " : "#f0c8bf",
+                }}
               />
             </Box>
           ))
@@ -172,7 +192,9 @@ const Recommended = () => {
                     checked={checked == index}
                     icon={<RadioButtonUncheckedIcon />}
                     checkedIcon={<CheckCircleOutlineIcon />}
-                    style={{ color: "#f0c8bf" }}
+                    style={{
+                      color: checked == index ? "#dc816c " : "#ECDDBE",
+                    }}
                   />
                 </Box>
               ))}
