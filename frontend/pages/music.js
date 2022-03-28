@@ -8,7 +8,6 @@ import {
   Typography,
   ListItemIcon,
   Checkbox,
-  Divider,
   Grid,
 } from "@mui/material";
 import Header from "../components/write/Header";
@@ -21,6 +20,8 @@ import LinearProgress, {
 import { styled } from "@mui/material/styles";
 import ContentsContext from "../contexts/ContentsContext";
 import "react-toastify/dist/ReactToastify.css";
+import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
+import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 7,
@@ -223,6 +224,9 @@ const music = () => {
                       disableRipple
                       checked={checked === item.title}
                       inputProps={{ "aria-labelledby": item }}
+                      icon={<RadioButtonUncheckedIcon />}
+                      checkedIcon={<RadioButtonCheckedIcon />}
+                      style={{ color: "#FCFAEF" }}
                     />
                   </ListItemIcon>
                   <Grid container>

@@ -172,6 +172,7 @@ const Recommended = () => {
                     checked={checked == index}
                     icon={<RadioButtonUncheckedIcon />}
                     checkedIcon={<CheckCircleOutlineIcon />}
+                    style={{ color: "#f0c8bf" }}
                   />
                 </Box>
               ))}
