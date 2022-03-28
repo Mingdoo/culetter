@@ -2,12 +2,12 @@ import React, { useState, useContext } from "react";
 import { Box, IconButton, Typography, Grid, Divider } from "@mui/material";
 import MiniUserCard from "../../components/user/MiniUserCard";
 import { landingBoxStyle } from "../index";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import SearchBox from "../../components/user/SearchBox";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import ContentsContext from "../../contexts/ContentsContext";
 import Router from "next/router";
 import ReceiverButton from "../../components/letter/receiverButton";
+import Header from "../../components/Header";
 
 export default function select() {
   const { memberId, setMemberId } = useContext(ContentsContext);
@@ -18,7 +18,7 @@ export default function select() {
 
   const handleSubmitMemberId = (e, obj) => {
     e.preventDefault();
-    setMemberId((memberId) => obj.memberId);
+    setMemberId(obj.memberId);
     Router.push("/letter/type");
   };
 
@@ -170,53 +170,7 @@ export default function select() {
           minHeight: "100vh",
         }}
       >
-        <>
-          <Grid
-            container
-            spacing={0}
-            direction="row"
-            alignItems="center"
-            justify="center"
-          >
-            <Grid item xs={3}>
-              <Box sx={{ m: "1rem" }}>
-                <IconButton onClick={(e) => handlePrevClick(e)}>
-                  <ArrowBackIosNewIcon />
-                </IconButton>
-              </Box>
-            </Grid>
-            <Grid item xs={6}>
-              <Box
-                sx={{
-                  m: "1rem",
-                }}
-              >
-                <Typography
-                  className="Dodum"
-                  sx={{ textAlign: "center", fontSize: "1.5rem" }}
-                >
-                  수신인 선택
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={3}>
-              {/* <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "end",
-                mr: "1rem",
-              }}
-            >
-            <Link href="/">
-
-              <Typography className="Batang">다음</Typography>
-              <ArrowForwardIosIcon></ArrowForwardIosIcon>
-            </Link>
-            </Box> */}
-            </Grid>
-          </Grid>
-        </>
+        <Header handlePrevClick={handlePrevClick} title="수신인 선택" />
         <Divider />
 
         {receiver !== "" ? (
