@@ -4,18 +4,16 @@ const Normal = (props) => {
   const { imgsrc, content } = props;
   return (
     <Box
-      className="card"
       sx={{
-        width: "125px",
-        height: "200px",
+        width: "175px",
+        height: "280px",
+        margin: "auto",
         mt: "2rem",
         position: "relative",
-        float: "left",
       }}
     >
       <Box component="div" sx={{ position: "relative" }}>
-        <img width="125px" height="200px" src={imgsrc} style={{}}></img>
-        <Typography sx={{ position: "absolute", top: 0 }}>{content}</Typography>
+        <img width="175px" height="280px" src={imgsrc} style={{}}></img>
       </Box>
     </Box>
   );
