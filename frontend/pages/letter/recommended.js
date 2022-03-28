@@ -31,19 +31,17 @@ const useCheckboxStyles = makeStyles({
 
 const Recommended = () => {
   //   const { type } = useContext(ContentsContext);
-  // const [type, setType] = useState("photocard");
+  const [type, setType] = useState("photocard");
   // const [type, setType] = useState("normal");
-  const [type, setType] = useState("postcard");
+  // const [type, setType] = useState("postcard");
 
   const [checked, setChecked] = useState(0);
-  // const { content, setContent } = useState(
-  //   "이름을 알고 나면 이웃이 되고\n" +
-  //     "색깔을 알고 나면 친구가 되고\n" +
-  //     "모양까지 알고 나면 연인이 된다\n" +
-  //     "아, 이것은 비밀\n"
-  // );
-
-  const checkboxClasses = useCheckboxStyles();
+  const [content, setContent] = useState(
+    "이름을 알고 나면 이웃이 되고\n" +
+      "색깔을 알고 나면 친구가 되고\n" +
+      "모양까지 알고 나면 연인이 된다\n" +
+      "아, 이것은 비밀\n"
+  );
 
   const photocardList = [
     { front: "/img/photocard_front1.jpg", back: "/img/photocard_back.png" },
@@ -84,6 +82,7 @@ const Recommended = () => {
 
   const handlePrevImage = (url) => {
     setPrevImg(url);
+    setChecked(-1);
   };
 
   useEffect(() => {
@@ -94,7 +93,7 @@ const Recommended = () => {
     setPrevImg("/img/prevImg.png");
   }, []);
 
-  // useEffect(() => {}, [prevImg]);
+  useEffect(() => {}, [prevImg]);
 
   return (
     <Box
@@ -130,11 +129,19 @@ const Recommended = () => {
       >
         {type === "photocard" ? (
           photocardList.map((data, index) => (
-            <Box key={index} sx={{ display: "flex", flexDirection: "row" }}>
+            <Box
+              key={index}
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
               <Photocard
                 key={index}
                 front={data.front}
                 back={data.back}
+                content={content}
               ></Photocard>
               <Checkbox
                 value={index}
@@ -143,7 +150,6 @@ const Recommended = () => {
                 icon={<RadioButtonUncheckedIcon />}
                 checkedIcon={<CheckCircleIcon />}
                 style={{
-                  marginTop: "50%",
                   height: "10%",
                   color: checked == index ? "#dc816c  " : "#ECDDBE",
                 }}

@@ -55,7 +55,7 @@ const Imgupload = (props) => {
         sx={{
           display: "inline-block",
           textAlign: "center",
-          margin: "1rem 0rem",
+          margin: "1rem 0rem 2rem 0rem",
           width: "50%",
           backgroundColor: "#f0c8bf",
           color: "#3A1D1D",

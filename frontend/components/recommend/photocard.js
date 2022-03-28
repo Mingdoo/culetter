@@ -2,14 +2,10 @@ import React, { useState } from "react";
 import { Box, Typography } from "@mui/material";
 
 const photocard = (props) => {
-  const { front, back } = props;
-  const { content, setContent } = useState(
-    "이름을 알고 나면 이웃이 되고\n" +
-      "색깔을 알고 나면 친구가 되고\n" +
-      "모양까지 알고 나면 연인이 된다\n" +
-      "아, 이것은 비밀\n"
-  );
-  console.log(content);
+  const { front, back, content } = props;
+
+  const [isClicked, setIsClicked] = useState(false);
+
   return (
     <Box
       className="card"
@@ -36,7 +32,11 @@ const photocard = (props) => {
         >
           <Typography
             className="innerText Dodum"
-            sx={{ textAlign: "center", fontSize: "1rem" }}
+            sx={{
+              textAlign: "center",
+              fontSize: "1rem",
+              whiteSpace: "pre-wrap",
+            }}
           >
             {content}
           </Typography>
