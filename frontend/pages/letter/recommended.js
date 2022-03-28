@@ -32,8 +32,9 @@ const useCheckboxStyles = makeStyles({
 const Recommended = () => {
   //   const { type } = useContext(ContentsContext);
   // const [type, setType] = useState("photocard");
-  const [type, setType] = useState("normal");
-  // const [type, setType] = useState("postcard");
+  // const [type, setType] = useState("normal");
+  const [type, setType] = useState("postcard");
+
   const [checked, setChecked] = useState(0);
   // const { content, setContent } = useState(
   //   "이름을 알고 나면 이웃이 되고\n" +
@@ -74,14 +75,26 @@ const Recommended = () => {
     const curIndex = event.target.value;
     if (curIndex == checked) {
       setChecked(-1);
+      setPrevImg("/img/prevImg.png");
     } else {
       setChecked(curIndex);
+      setPrevImg(`/img/postcardImg${curIndex}.jpg`);
     }
+  };
+
+  const handlePrevImage = (url) => {
+    setPrevImg(url);
   };
 
   useEffect(() => {
     console.log(checked);
   }, [checked]);
+
+  useEffect(() => {
+    setPrevImg("/img/prevImg.png");
+  }, []);
+
+  // useEffect(() => {}, [prevImg]);
 
   return (
     <Box
@@ -199,16 +212,16 @@ const Recommended = () => {
                 </Box>
               ))}
             </Box>
-            <Typography component="div" sx={{ mt: "1rem", mb: "0.5rem" }}>
-              미리보기
+            <Typography
+              component="div"
+              className="Dodum"
+              sx={{ mt: "1rem", mb: "0.5rem" }}
+            >
+              엽서 미리보기
             </Typography>
             <Box>
               <Box component="div" sx={{ position: "relative" }}>
-                <img
-                  width="125px"
-                  height="200px"
-                  src={`/img/postcardImg${checked}.jpg`}
-                ></img>
+                <img width="125px" height="200px" src={prevImg}></img>
                 <img
                   width="200px"
                   height="200px"
@@ -216,7 +229,7 @@ const Recommended = () => {
                 ></img>
               </Box>
             </Box>
-            <Imgupload />
+            <Imgupload handlePrevImage={handlePrevImage} />
           </>
         )}
       </Box>
