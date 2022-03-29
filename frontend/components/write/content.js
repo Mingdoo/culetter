@@ -11,7 +11,8 @@ import {
 } from "@mui/material";
 import SaveIcon from "@mui/icons-material/Save";
 
-const Content = () => {
+const Content = (props) => {
+  const { checkTextValid } = props;
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [contentLength, setContentLength] = useState(0);
@@ -32,7 +33,6 @@ const Content = () => {
       case "title":
         setTitleLength(inputLength);
         setTitle(inputText);
-        console.log(inputLength);
         break;
       case "contents":
         setContentLength(inputLength);
@@ -45,9 +45,9 @@ const Content = () => {
       titleLength > 0 &&
       titleLength < maxTitleLength
     ) {
-      setTextValid(true);
+      checkTextValid(true);
     } else {
-      setTextValid(false);
+      checkTextValid(false);
     }
   };
 
@@ -58,7 +58,6 @@ const Content = () => {
           component="div"
           label="제목"
           id="title"
-          // defaultValue="제목을 입력해주세요"
           size="small"
           variant="standard"
           InputLabelProps={{

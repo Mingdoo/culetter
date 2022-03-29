@@ -29,6 +29,7 @@ const type = (props) => {
 
   const handleNextClick = (e) => {
     e.preventDefault();
+    Router.push("/letter/write");
   };
   const handlePrevClick = (e) => {
     e.preventDefault();
@@ -45,11 +46,7 @@ const type = (props) => {
         bgcolor: "#FCFAEF",
       }}
     >
-      <Header
-        handlePrevClick={handlePrevClick}
-        title="형식 선택"
-        handleNextClick={handleNextClick}
-      />
+      <Header handlePrevClick={handlePrevClick} title="형식 선택" />
       <Box
         sx={{
           display: "flex",

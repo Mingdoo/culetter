@@ -10,7 +10,7 @@ import {
   Checkbox,
   Grid,
 } from "@mui/material";
-import Header from "../components/write/Header";
+import Header from "../../components/Header";
 import SkipPreviousSharpIcon from "@mui/icons-material/SkipPreviousSharp";
 import PlayCircleFilledSharpIcon from "@mui/icons-material/PlayCircleFilledSharp";
 import SkipNextSharpIcon from "@mui/icons-material/SkipNextSharp";
@@ -18,10 +18,13 @@ import LinearProgress, {
   linearProgressClasses,
 } from "@mui/material/LinearProgress";
 import { styled } from "@mui/material/styles";
-import ContentsContext from "../contexts/ContentsContext";
+import ContentsContext from "../../contexts/ContentsContext";
 import "react-toastify/dist/ReactToastify.css";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
+import Router from "next/router";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 7,
@@ -94,6 +97,23 @@ const music = () => {
     setSinger(musicList[0].singer);
   }, []);
 
+  const handleNextClick = (e) => {
+    e.preventDefault();
+    if (checked != "") {
+      Router.push("/letter/edit");
+    } else {
+      toast.error("노래를 선택해주세요", {
+        position: toast.POSITION.TOP_CENTER,
+        role: "alert",
+      });
+    }
+  };
+
+  const handlePrevClick = (e) => {
+    e.preventDefault();
+    Router.push("/letter/recommended");
+  };
+
   return (
     <Box
       component="div"
@@ -104,7 +124,11 @@ const music = () => {
         bgcolor: "#FCFAEF",
       }}
     >
-      <Header title="편지와 어울리는 노래" />
+      <Header
+        handlePrevClick={handlePrevClick}
+        title="노래 선택"
+        handleNextClick={handleNextClick}
+      />
       <Box
         sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
       >
@@ -257,6 +281,7 @@ const music = () => {
           </List>
         </Box>
       </Box>
+      <ToastContainer />
     </Box>
   );
 };

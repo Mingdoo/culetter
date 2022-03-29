@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import ContentsContext from "../../contexts/ContentsContext";
 import Header from "../../components/Header";
 import Photocard from "../../components/recommend/Photocard";
 import Imgupload from "../../components/recommend/Imgupload";
@@ -8,6 +7,8 @@ import Normal from "../../components/recommend/Normal";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Checkbox, Grid, Typography } from "@mui/material";
 import Router from "next/router";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
@@ -34,8 +35,8 @@ const Recommended = () => {
   // const { type } = useContext(ContentsContext);
 
   // const [type, setType] = useState("photocard");
-  // const [type, setType] = useState("normal");
-  const [type, setType] = useState("postcard");
+  const [type, setType] = useState("normal");
+  // const [type, setType] = useState("postcard");
 
   const [checked, setChecked] = useState(0);
   const [content, setContent] = useState(
@@ -110,10 +111,18 @@ const Recommended = () => {
 
   const handleNextClick = (e) => {
     e.preventDefault();
+    if (checked != -1) {
+      Router.push("/letter/music");
+    } else {
+      toast.error("사진을 선택해주세요", {
+        position: toast.POSITION.TOP_CENTER,
+        role: "alert",
+      });
+    }
   };
   const handlePrevClick = (e) => {
     e.preventDefault();
-    Router.push("/letter/write");
+    Router.push("/letter/type");
   };
   return (
     <Box
@@ -146,7 +155,7 @@ const Recommended = () => {
             className="Batang"
             sx={{ textAlign: "center", mb: "1rem" }}
           >
-            편지 내용에 어울리는 편지지를 선택해주세요
+            편지 내용에 어울리는 편지지 입니다
           </Typography>
         </>
       ) : (
@@ -160,7 +169,7 @@ const Recommended = () => {
             className="Batang"
             sx={{ textAlign: "center", mb: "1rem" }}
           >
-            편지 내용에 어울리는 엽서를 선택해주세요
+            편지 내용에 어울리는 엽서사진 입니다
           </Typography>
         </>
       )}
@@ -282,7 +291,7 @@ const Recommended = () => {
               엽서 미리보기
             </Typography>
             <Box component="div" sx={{ position: "relative" }}>
-              <img width="320px" height="160px" src={prevImg}></img>
+              <img width="288px" height="180px" src={prevImg}></img>
               <Typography
                 sx={{
                   position: "relative",
@@ -293,10 +302,10 @@ const Recommended = () => {
               >
                 {prevImg === "/img/prevImg.png" ? "미리보기 이미지" : null}
               </Typography>
-              <Box sx={{ position: "relative", top: "-2rem" }}>
+              <Box sx={{ position: "relative", mt: "-1.8rem" }}>
                 <img
-                  width="320px"
-                  height="200px"
+                  width="288px"
+                  height="180px"
                   src={"/img/postcardbg.png"}
                 ></img>
               </Box>
@@ -305,6 +314,7 @@ const Recommended = () => {
           </>
         )}
       </Box>
+      <ToastContainer />
     </Box>
   );
 };

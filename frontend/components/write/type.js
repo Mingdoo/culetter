@@ -5,7 +5,7 @@ const link = ["photocard", "normal", "postcard"];
 const type = (props) => {
   const { text, index, describe, imgsrc } = props;
   return (
-    <Link href={"/write"}>
+    <Link href={"/letter/write"}>
       <Box
         sx={{
           display: "flex",

@@ -7,13 +7,13 @@ const Postcard = (props) => {
     <Box
       sx={{
         width: "320px",
-        height: "160px",
+        height: "200px",
         position: "relative",
         alignItems: "center",
       }}
     >
       <Box component="div" sx={{ position: "relative" }}>
-        <img width="320px" height="160px" src={imgsrc}></img>
+        <img width="320px" height="200px" src={imgsrc}></img>
       </Box>
     </Box>
   );
