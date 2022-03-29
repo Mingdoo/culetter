@@ -47,7 +47,20 @@ export default function Preview() {
       }}
     >
       <Header title="미리보기"></Header>
+      {/* 1. 포토카드 */}
+      <Box
+        sx={{
+          width: 300,
+          height: 480,
+          bgcolor: "#fff",
+          my: "1rem",
+          mx: "auto",
+          borderRadius: 5,
+        }}
+      ></Box>
+      {/* 2. general */}
       {/* 내용은 저장하고 가는 게 아니라 다시 받아오는가 */}
+
       <Box
         className="Batang"
         sx={{
