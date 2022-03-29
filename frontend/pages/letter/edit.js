@@ -105,7 +105,7 @@ function edit() {
         </Typography>
         {/* 여기부터 편지 */}
         <Letter
-          type="PostCard"
+          type="PhotoCard"
           fontFamily={fonts[clickedFont].fontfamily}
           color={colors[clickedColor]}
           textAlign={alignment}
