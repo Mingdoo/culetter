@@ -7,12 +7,15 @@ import {
   TextField,
   Grid,
 } from "@mui/material";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
 import nomailbox from "../../public/img/nomailbox.PNG";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { useState, useRef, useCallback, useEffect } from "react";
 import PWCheckField from "./PWCheckField";
 import BadgeIcon from "@mui/icons-material/Badge";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import CloseIcon from "@mui/icons-material/Close";
 import CropEasy from "../crop/CropEasy";
 
 export default function MyPage() {
@@ -21,16 +24,15 @@ export default function MyPage() {
     name: "ssafy",
     profileImage: nomailbox.src,
   };
-
-  const [imgFile, setImgFile] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [photoURL, setPhotoURL] = useState(null);
   const [name, setName] = useState(res.name);
   const [email, setEmail] = useState(res.email);
-  const [openCrop, setOpenCrop] = useState(false);
 
-  const handleChangeFile = (event) => {
+  const handleChangePhoto = (event) => {
     // lastModified, name, size, type, webkitrelativepath
     // console.log(event.target.files[0]);
-    // setImgFile(event.target.files[0]);
+    // setPhotoURL(event.target.files[0]);
     // 1. 파일이 있다면 확인 & 파일 크기 확인하고 너무 크면 거절!
 
     // 2. 파일 크기 적당하면 크롭~
@@ -40,12 +42,18 @@ export default function MyPage() {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onloadend = () => {
-        setImgFile(reader.result);
+        setPhotoURL(reader.result);
         // 임시
-        res.profileImage = imgFile;
-        setOpenCrop(true);
+        setOpen(true);
       };
     }
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
   };
 
   const nameValidationCheck = (e) => {
@@ -79,23 +87,12 @@ export default function MyPage() {
         }}
       >
         <Box>
-          {/* <CropDialog></CropDialog> */}
-          {/* cropper를 modal에 넣어야 함! */}
-          {/* <Cropper
-          image={imgFile}
-          crop={crop}
-          zoom={zoom}
-          aspect={4 / 3}
-          onCropChange={setCrop}
-          onCropComplete={onCropComplete}
-          onZoomChange={setZoom}
-        /> */}
           {/* 프로필 이미지 */}
           <Box sx={{ display: "flex", mb: 3 }}>
             <Box sx={{ mx: "auto", position: "relative" }}>
               <Box
                 component="img"
-                src={imgFile ? imgFile : res.profileImage}
+                src={photoURL ? photoURL : res.profileImage}
                 sx={{
                   width: 110,
                   height: 110,
@@ -113,11 +110,35 @@ export default function MyPage() {
                 sx={{ display: "none" }}
                 type="file"
                 accept="image/*"
-                onChange={handleChangeFile}
+                onChange={handleChangePhoto}
               ></Input>
             </Box>
-            {/* <Box component="img" src={imgFile}></Box> */}
+            <Box component="img" src={photoURL}></Box>
           </Box>
+
+          {/* 모달 */}
+          <Dialog
+            onClose={handleClose}
+            aria-labelledby="customized-dialog-title"
+            open={open}
+          >
+            <DialogTitle
+              id="customized-dialog-title"
+              onClose={handleClose}
+              sx={{ display: "flex", justifyContent: "space-between" }}
+            >
+              프로필 사진 변경
+              <IconButton aria-label="Close" onClick={handleClose}>
+                <CloseIcon></CloseIcon>
+              </IconButton>
+            </DialogTitle>
+            <CropEasy
+              photoURL={photoURL}
+              setOpen={setOpen}
+              setPhotoURL={setPhotoURL}
+            ></CropEasy>
+          </Dialog>
+
           {/* 이메일 textfield */}
           <Grid container>
             <Grid item xs={1} sx={{ display: "flex", alignItems: "flex-end" }}>
@@ -182,7 +203,6 @@ export default function MyPage() {
           확인
         </Button>
       </Box>
-      {/* {openCrop ? <CropEasy></CropEasy> : null} */}
     </Box>
   );
 }

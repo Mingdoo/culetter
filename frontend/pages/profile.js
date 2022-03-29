@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import PasswordCheck from "../components/profile/PasswordCheck";
 import MyPage from "../components/profile/MyPage";
 import { useState } from "react";
-import TestProfile from "../components/profile/TestProfile";
+
 export default function Profile() {
   const [pwConfirm, setPwConfirm] = useState(false);
 

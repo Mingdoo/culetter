@@ -12,10 +12,9 @@ import React, { useState } from "react";
 import Cropper from "react-easy-crop";
 import getCroppedImg from "./utils/cropImage";
 
-const CropEasy = ({ photoURL, setOpenCrop, setPhotoURL, setFile }) => {
+const CropEasy = ({ photoURL, setOpen, setPhotoURL }) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
-  const [rotation, setRotation] = useState(0);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
 
   const cropComplete = (croppedArea, croppedAreaPixels) => {
@@ -23,16 +22,10 @@ const CropEasy = ({ photoURL, setOpenCrop, setPhotoURL, setFile }) => {
   };
 
   const cropImage = async () => {
-    console.log(photoURL, setOpenCrop, setPhotoURL, setFile);
     try {
-      const { file, url } = await getCroppedImg(
-        photoURL,
-        croppedAreaPixels,
-        rotation
-      );
+      const { url } = await getCroppedImg(photoURL, croppedAreaPixels);
       setPhotoURL(url);
-      setFile(file);
-      setOpenCrop(false);
+      setOpen(false);
     } catch (error) {
       console.log(error);
     }
@@ -53,10 +46,8 @@ const CropEasy = ({ photoURL, setOpenCrop, setPhotoURL, setFile }) => {
           image={photoURL}
           crop={crop}
           zoom={zoom}
-          rotation={rotation}
           aspect={1}
           onZoomChange={setZoom}
-          onRotationChange={setRotation}
           onCropChange={setCrop}
           onCropComplete={cropComplete}
         />
@@ -75,16 +66,6 @@ const CropEasy = ({ photoURL, setOpenCrop, setPhotoURL, setFile }) => {
               onChange={(e, zoom) => setZoom(zoom)}
             />
           </Box>
-          <Box>
-            <Typography>Rotation: {rotation + "°"}</Typography>
-            <Slider
-              valueLabelDisplay="auto"
-              min={0}
-              max={360}
-              value={rotation}
-              onChange={(e, rotation) => setRotation(rotation)}
-            />
-          </Box>
         </Box>
         <Box
           sx={{
@@ -96,16 +77,16 @@ const CropEasy = ({ photoURL, setOpenCrop, setPhotoURL, setFile }) => {
           <Button
             variant="outlined"
             startIcon={<Cancel />}
-            onClick={() => setOpenCrop(false)}
+            onClick={() => setOpen(false)}
           >
-            Cancel
+            취소
           </Button>
           <Button
             variant="contained"
             startIcon={<CropIcon />}
             onClick={cropImage}
           >
-            Crop
+            사진 자르기
           </Button>
         </Box>
       </DialogActions>

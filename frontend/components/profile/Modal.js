@@ -1,19 +1,15 @@
-import TestProfile from "../components/profile/TestProfile";
 import * as React from "react";
 import PropTypes from "prop-types";
-import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-import Typography from "@mui/material/Typography";
-import { Divider, InputLabel, Input, Box } from "@mui/material";
-import CropEasy from "../components/crop/CropEasy";
-import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+import { Divider, Box } from "@mui/material";
+import CropEasy from "../crop/CropEasy";
 import Close from "@mui/icons-material/Close";
+import { useState } from "react";
+
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
     padding: theme.spacing(2),
@@ -52,18 +48,9 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default function CustomizedDialogs() {
-  const [imgFile, setImgFile] = React.useState(null);
-  const [open, setOpen] = React.useState(false);
-
-  const handleChangeFile = (event) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(event.target.files[0]);
-    reader.onloadend = () => setImgFile(reader.result);
-    // if (imgFile) {
-    handleClickOpen();
-    // }
-  };
+export default function Modal({ imgFile }) {
+  console.log(imgFile);
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -74,19 +61,6 @@ export default function CustomizedDialogs() {
 
   return (
     <Box>
-      <Button variant="outlined">
-        <InputLabel htmlFor="profileImg">
-          <AddAPhotoIcon></AddAPhotoIcon>
-        </InputLabel>
-      </Button>
-      <Input
-        id="profileImg"
-        sx={{ display: "none" }}
-        type="file"
-        accept="image/*"
-        onChange={handleChangeFile}
-      ></Input>
-
       <Dialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
