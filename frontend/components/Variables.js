@@ -57,7 +57,7 @@ export const fonts = [
 ];
 
 export const DEFAULT_SEO = {
-  title: "CU;LETTER",
+  title: "CU;LETTER, 큐레터",
   description: "큐레터; 커스텀 편지 작성, 전송을 쉽게 해보세요!",
   canonical: "https://www.culetter.site/",
   openGraph: {

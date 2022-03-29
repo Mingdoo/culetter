@@ -5,7 +5,7 @@ import PhotoCard from "./photocard/PhotoCard";
 
 function Letter(props) {
   switch (props.type) {
-    case "general":
+    case "General":
       return <General props={props} />;
       break;
     case "PostCard":
