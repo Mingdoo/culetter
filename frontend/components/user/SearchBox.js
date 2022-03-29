@@ -66,7 +66,7 @@ function SearchBox(props) {
             style: { fontFamily: "Gowun Batang" },
             classes: labelClasses,
           }}
-          value={props.inbox ? inboxSearch : null}
+          value={props.inbox ? inboxSearch : ""}
           InputProps={{
             style: { fontFamily: "Gowun Batang" },
             classes: classes,

@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, IconButton } from "@mui/material";
 import CircleIcon from "@mui/icons-material/Circle";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-function palette({ colors, isColorOpen, clickedColor, setClickedColor, size }) {
+function emojipalette({ isColorOpen, emojis, handleClickEmoji }) {
+  useEffect(() => {
+    console.log(isColorOpen);
+  }, []);
   const settings = {
     arrows: false,
     infinite: false,
@@ -24,25 +27,23 @@ function palette({ colors, isColorOpen, clickedColor, setClickedColor, size }) {
         whiteSpace: "nowrap",
         visibility: isColorOpen ? "visible" : "hidden",
         display: isColorOpen ? "inline-block" : "none",
-        width: size === "half" ? "40%" : "92%",
+        width: "40%",
       }}
     >
       <Slider {...settings}>
-        {colors.map((color, idx) => (
+        {emojis.map((Emoji, idx) => (
           <React.Fragment key={idx}>
             <IconButton
               sx={{}}
               id={idx}
               onClick={(e) => {
                 e.preventDefault();
-                setClickedColor(idx);
+                handleClickEmoji(idx);
               }}
             >
-              <CircleIcon
+              <Emoji.icon
                 sx={{
-                  color: { color },
-                  border: clickedColor === idx ? "2px solid black" : null,
-                  borderRadius: clickedColor === idx ? 5 : null,
+                  color: Emoji.color,
                 }}
                 size="inherit"
               />
@@ -54,4 +55,4 @@ function palette({ colors, isColorOpen, clickedColor, setClickedColor, size }) {
   );
 }
 
-export default palette;
+export default emojipalette;
