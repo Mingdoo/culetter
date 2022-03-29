@@ -6,15 +6,14 @@ const Postcard = (props) => {
   return (
     <Box
       sx={{
-        width: "125px",
-        height: "200px",
-        mt: "2rem",
+        width: "320px",
+        height: "160px",
         position: "relative",
-        float: "left",
+        alignItems: "center",
       }}
     >
       <Box component="div" sx={{ position: "relative" }}>
-        <img width="125px" height="200px" src={imgsrc}></img>
+        <img width="320px" height="160px" src={imgsrc}></img>
       </Box>
     </Box>
   );

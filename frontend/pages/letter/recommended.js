@@ -31,10 +31,11 @@ const useCheckboxStyles = makeStyles({
 });
 
 const Recommended = () => {
-  //   const { type } = useContext(ContentsContext);
-  const [type, setType] = useState("photocard");
+  // const { type } = useContext(ContentsContext);
+
+  // const [type, setType] = useState("photocard");
   // const [type, setType] = useState("normal");
-  // const [type, setType] = useState("postcard");
+  const [type, setType] = useState("postcard");
 
   const [checked, setChecked] = useState(0);
   const [content, setContent] = useState(
@@ -66,22 +67,29 @@ const Recommended = () => {
   ];
 
   const postcardList = [
-    { imgsrc: "/img/postcardImg0.jpg" },
-    { imgsrc: "/img/postcardImg1.jpg" },
-    { imgsrc: "/img/postcardImg2.jpg" },
-    { imgsrc: "/img/postcardImg3.jpg" },
+    { imgsrc: "/img/postcard1.jpg" },
+    { imgsrc: "/img/postcard2.jpg" },
+    { imgsrc: "/img/postcard3.jpg" },
+    { imgsrc: "/img/postcard4.jpg" },
+    { imgsrc: "/img/postcard5.jpg" },
+    { imgsrc: "/img/postcard6.jpg" },
+    { imgsrc: "/img/postcard7.jpg" },
+    { imgsrc: "/img/postcard8.jpg" },
+    { imgsrc: "/img/postcard9.jpg" },
+    { imgsrc: "/img/postcard10.jpg" },
   ];
 
   const [prevImg, setPrevImg] = useState("");
 
   const handleChange = (event) => {
     const curIndex = event.target.value;
-    if (curIndex == checked) {
+    if (curIndex === checked) {
       setChecked(-1);
       setPrevImg("/img/prevImg.png");
     } else {
+      const index = parseInt(curIndex) + 1;
       setChecked(curIndex);
-      setPrevImg(`/img/postcardImg${curIndex}.jpg`);
+      setPrevImg(`/img/postcard${index}.jpg`);
     }
   };
 
@@ -148,7 +156,10 @@ const Recommended = () => {
             title="엽서 선택"
             handleNextClick={handleNextClick}
           />
-          <Typography className="Batang" sx={{ textAlign: "center" }}>
+          <Typography
+            className="Batang"
+            sx={{ textAlign: "center", mb: "1rem" }}
+          >
             편지 내용에 어울리는 엽서를 선택해주세요
           </Typography>
         </>
@@ -170,7 +181,7 @@ const Recommended = () => {
               sx={{
                 display: "flex",
                 flexDirection: "row",
-                alignItems: "center",
+                // alignItems: "center",
               }}
             >
               <Photocard
@@ -213,9 +224,9 @@ const Recommended = () => {
                 checkedIcon={<CheckCircleOutlineIcon />}
                 style={{
                   display: "inline-block",
-                  textAlign: "center",
-                  width: "100%",
-                  height: "4%",
+                  alignSelf: "center",
+                  width: "25%",
+                  height: "1%",
                   color: checked == index ? "#dc816c " : "#f0c8bf",
                 }}
               />
@@ -225,15 +236,21 @@ const Recommended = () => {
           <>
             <Box
               component="div"
-              sx={{ display: "flex", flexWrap: "wrap", margin: "0rem 3rem" }}
+              sx={{
+                height: "65vh",
+                display: "flex",
+                flexDirection: "column",
+                overflow: "auto",
+              }}
             >
               {postcardList.map((data, index) => (
                 <Box
                   key={index}
                   sx={{
                     display: "flex",
-                    flexDirection: "column",
-                    margin: " 0rem 1rem",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    mb: "1rem",
                   }}
                 >
                   <Postcard
@@ -248,6 +265,9 @@ const Recommended = () => {
                     icon={<RadioButtonUncheckedIcon />}
                     checkedIcon={<CheckCircleOutlineIcon />}
                     style={{
+                      display: "inline-block",
+                      width: "12%",
+                      height: "20%",
                       color: checked == index ? "#dc816c " : "#ECDDBE",
                     }}
                   />
@@ -257,15 +277,25 @@ const Recommended = () => {
             <Typography
               component="div"
               className="Dodum"
-              sx={{ mt: "1rem", mb: "0.5rem" }}
+              sx={{ mt: "2rem", mb: "1rem" }}
             >
               엽서 미리보기
             </Typography>
-            <Box>
-              <Box component="div" sx={{ position: "relative" }}>
-                <img width="125px" height="200px" src={prevImg}></img>
+            <Box component="div" sx={{ position: "relative" }}>
+              <img width="320px" height="160px" src={prevImg}></img>
+              <Typography
+                sx={{
+                  position: "relative",
+                  top: "-6rem",
+                  left: "6rem",
+                  fontSize: "1rem",
+                }}
+              >
+                {prevImg === "/img/prevImg.png" ? "미리보기 이미지" : null}
+              </Typography>
+              <Box sx={{ position: "relative", top: "-2rem" }}>
                 <img
-                  width="200px"
+                  width="320px"
                   height="200px"
                   src={"/img/postcardbg.png"}
                 ></img>

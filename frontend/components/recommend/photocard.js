@@ -18,10 +18,6 @@ const Photocard = (props) => {
     setIsClicked(false);
   };
 
-  useEffect(() => {
-    console.log(isClicked);
-  }, [isClicked]);
-
   return (
     <Box
       className="card"
