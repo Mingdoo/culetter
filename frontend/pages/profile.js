@@ -2,9 +2,15 @@ import { Box, Typography } from "@mui/material";
 import PasswordCheck from "../components/profile/PasswordCheck";
 import MyPage from "../components/profile/MyPage";
 import { useState } from "react";
+import Header from "../components/Header";
+import Router from "next/router";
 
 export default function Profile() {
   const [pwConfirm, setPwConfirm] = useState(false);
+  const handlePrevClick = (e) => {
+    e.preventDefault();
+    Router.push("/");
+  };
 
   return (
     <Box sx={{ width: 420, mx: "auto" }}>
@@ -19,13 +25,7 @@ export default function Profile() {
           alignItems: "center",
         }}
       >
-        <Typography
-          sx={{ mx: "2rem", my: "2rem" }}
-          className="Dodum"
-          variant="h5"
-        >
-          마이페이지
-        </Typography>
+        <Header title="마이페이지" handlePrevClick={handlePrevClick}></Header>
         <Box sx={{ width: "85%" }}>
           <Typography className="Batang" sx={{ fontSize: 18 }}>
             {!pwConfirm ? "비밀번호 확인" : "회원정보 수정"}

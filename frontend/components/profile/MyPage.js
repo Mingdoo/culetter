@@ -1,22 +1,16 @@
-import {
-  Box,
-  Button,
-  IconButton,
-  Input,
-  InputLabel,
-  TextField,
-  Grid,
-} from "@mui/material";
+import { Box, IconButton, Input, InputLabel, Grid } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import nomailbox from "../../public/img/nomailbox.PNG";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState } from "react";
 import PWCheckField from "./PWCheckField";
 import BadgeIcon from "@mui/icons-material/Badge";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import CloseIcon from "@mui/icons-material/Close";
 import CropEasy from "../crop/CropEasy";
+import ConfirmBtn from "./ConfirmBtn";
+import StyledTextField from "./StyledTextField";
 
 export default function MyPage() {
   const res = {
@@ -24,10 +18,12 @@ export default function MyPage() {
     name: "ssafy",
     profileImage: nomailbox.src,
   };
+
   const [open, setOpen] = useState(false);
   const [photoURL, setPhotoURL] = useState(null);
   const [name, setName] = useState(res.name);
   const [email, setEmail] = useState(res.email);
+  const [nameErrorMsg, setNameErrorMsg] = useState(false);
 
   const handleChangePhoto = (event) => {
     // lastModified, name, size, type, webkitrelativepath
@@ -49,29 +45,19 @@ export default function MyPage() {
     }
   };
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
   const handleClose = () => {
     setOpen(false);
   };
 
   const nameValidationCheck = (e) => {
     setName(e.target.value);
-    const namePattern = /^[가-힣]+$/;
+    const namePattern = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
 
     // 한글 적어도 console.log 뜸
-    // if (!namePattern.test(e.target.value)) {
-    //   console.log("이름이 한글이 아님");
-    // }
-  };
-
-  const emailValidationCheck = (e) => {
-    setEmail(e.target.value);
-    const emailPattern =
-      /^([0-9a-zA-Z_.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
-    if (!emailPattern.test(email)) {
-      console.log("형식에 안 맞음");
+    if (!namePattern.test(e.target.value)) {
+      setNameErrorMsg("*한글만 입력 가능합니다.");
+    } else {
+      setNameErrorMsg("");
     }
   };
 
@@ -113,17 +99,16 @@ export default function MyPage() {
                 onChange={handleChangePhoto}
               ></Input>
             </Box>
-            <Box component="img" src={photoURL}></Box>
           </Box>
 
           {/* 모달 */}
           <Dialog
             onClose={handleClose}
-            aria-labelledby="customized-dialog-title"
+            aria-labelledby="cropDialog"
             open={open}
           >
             <DialogTitle
-              id="customized-dialog-title"
+              id="cropDialog"
               onClose={handleClose}
               sx={{ display: "flex", justifyContent: "space-between" }}
             >
@@ -138,71 +123,75 @@ export default function MyPage() {
               setPhotoURL={setPhotoURL}
             ></CropEasy>
           </Dialog>
+          {/* 모달 끝 */}
 
-          {/* 이메일 textfield */}
-          <Grid container>
-            <Grid item xs={1} sx={{ display: "flex", alignItems: "flex-end" }}>
-              <AccountCircleIcon sx={{ color: "white", mr: 1, my: 0.5 }} />
-            </Grid>
-            <Grid item xs={11} sx={{ pl: 1 }}>
-              <TextField
-                id="email"
-                label="이메일"
-                type="email"
-                autoComplete="off"
-                variant="standard"
-                size="small"
-                value={email}
-                onChange={(e) => emailValidationCheck(e)}
-                InputLabelProps={{
-                  style: { fontFamily: "Gowun Batang" },
-                }}
-                sx={{ width: 1 }}
-              />
-            </Grid>
-          </Grid>
-          {/* 비밀번호 textfield */}
-          <PWCheckField withBtn={true}></PWCheckField>
-          {/* 이름 textfield */}
-          <Grid container>
-            <Grid item xs={1} sx={{ display: "flex", alignItems: "flex-end" }}>
-              <BadgeIcon sx={{ color: "white", mr: 1, my: 0.5 }} />
-            </Grid>
-            <Grid sx={{ pl: 1 }} xs={11}>
-              <TextField
-                id="name"
-                label="이름"
-                type="name"
-                autoComplete="off"
-                variant="standard"
-                size="small"
-                value={name}
-                onChange={(e) => nameValidationCheck(e)}
-                InputLabelProps={{
-                  style: { fontFamily: "Gowun Batang" },
-                }}
-                sx={{ width: 1 }}
-              />
-            </Grid>
-          </Grid>
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
+            {/* 이메일 textfield */}
+            <Box sx={{ mt: 1 }}>
+              <Grid container>
+                <Grid
+                  item
+                  xs={1}
+                  sx={{ display: "flex", alignItems: "flex-end" }}
+                >
+                  <AccountCircleIcon sx={{ color: "white", mr: 1, my: 0.5 }} />
+                </Grid>
+                <Grid item xs={11} sx={{ pl: 1 }}>
+                  <StyledTextField
+                    id="email"
+                    label="이메일"
+                    value={email}
+                    disabled={true}
+                  ></StyledTextField>
+                </Grid>
+              </Grid>
+            </Box>
+            {/* 비밀번호 textfield */}
+            {/* 비밀번호 숫자 계산해서 넘기던가 */}
+            <Box sx={{ mt: 1 }}>
+              <PWCheckField
+                withBtn={true}
+                pwInput="********"
+                labelValue="비밀번호"
+              ></PWCheckField>
+            </Box>
+            {/* 이름 textfield */}
+            <Box sx={{ mt: 1 }}>
+              <Grid container>
+                <Grid
+                  item
+                  xs={1}
+                  sx={{ display: "flex", alignItems: "flex-end" }}
+                >
+                  <BadgeIcon sx={{ color: "white", mr: 1, my: 0.5 }} />
+                </Grid>
+                <Grid sx={{ pl: 1 }} xs={11}>
+                  <StyledTextField
+                    id="name"
+                    label="이름"
+                    value={name}
+                    disabled={false}
+                    onChange={(e) => nameValidationCheck(e)}
+                  ></StyledTextField>
+                </Grid>
+              </Grid>
+            </Box>
+            <Box
+              sx={{
+                color: "#A63636",
+                height: "18px",
+                fontFamily: "Gowun Batang",
+                px: "35px",
+                fontSize: 11,
+                pt: "3px",
+              }}
+            >
+              <Box> {nameErrorMsg}</Box>
+            </Box>
+          </Box>
         </Box>
       </Box>
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <Button
-          variant="contained"
-          size="small"
-          sx={{
-            minWidth: "200px",
-            minHeight: "30px",
-            backgroundColor: "#E2E0A5",
-            color: "#3A1D1D",
-            marginTop: "1rem",
-            fontFamily: "Gowun Batang",
-          }}
-        >
-          확인
-        </Button>
-      </Box>
+      <ConfirmBtn></ConfirmBtn>
     </Box>
   );
 }

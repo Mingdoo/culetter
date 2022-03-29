@@ -1,7 +1,36 @@
 import { Box, Button, TextField, Typography, Grid } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+
+import Router from "next/router";
+
+const useStyles = makeStyles({
+  root: {
+    color: "#3A1D1D",
+    "&.Mui-focused": {
+      color: "#3A1D1D",
+    },
+    "&:before": {
+      borderBottomColor: "#3A1D1D",
+    },
+    "&:hover:not(.Mui-focused):before": {
+      borderBottomColor: "#3A1D1D",
+    },
+    "&:after": {
+      borderBottomColor: "#3A1D1D",
+    },
+  },
+});
+const useLabelStyles = makeStyles({
+  root: {
+    color: "#3A1D1D",
+    "&.Mui-focused": {
+      color: "#3A1D1D",
+    },
+    fontSize: 14,
+  },
+});
 
 export default function PWCheckField({
   pwInput,
@@ -9,32 +38,36 @@ export default function PWCheckField({
   pwCheck,
   setPwCheck,
   withBtn,
+  labelValue,
+  gridLength,
+  id,
 }) {
   const [pwMsg, setPwMsg] = useState(true);
 
-  // 이상함!!!!
+  // 변경 버튼 눌렀을 때
+  const toPwChange = (e) => {
+    e.preventDefault();
+    Router.push("/password");
+  };
+
+  //
   const pwValidationCheck = (e) => {
     setPwInput(e.target.value);
     const pwdPattern =
       /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/;
+    console.log(">>>>", !pwdPattern.test(pwInput), pwCheck);
     if (!pwdPattern.test(pwInput)) {
       setPwCheck(false);
-      setPwMsg("8 ~ 20자 영어, 숫자, 특수문자의 조합");
+      setPwMsg("* 8 ~ 20자 영어, 숫자, 특수문자의 조합");
     } else {
       setPwCheck(true);
       setPwMsg("");
     }
   };
-  // const useLabelStyles = makeStyles({
-  //   root: {
-  //     color: "#eeee",
-  //     "&.Mui-focused": {
-  //       color: "#eeee",
-  //     },
-  //     fontSize: 14,
-  //   },
-  // });
-  // const labelClasses = useLabelStyles();
+
+  const classes = useStyles();
+  const labelClasses = useLabelStyles();
+
   return (
     <Box>
       <Grid container>
@@ -45,18 +78,18 @@ export default function PWCheckField({
           <TextField
             InputLabelProps={{
               style: { fontFamily: "Gowun Batang" },
-              // classes: labelClasses,
+              classes: labelClasses,
             }}
             sx={{ width: 1 }}
             disabled={withBtn ? true : false}
-            id="password"
+            id={id}
             type="password"
-            label="비밀번호"
             variant="standard"
-            defaultValue={pwInput}
+            label={labelValue}
+            defaultValue={pwInput ? pwInput : ""}
             onChange={(e) => pwValidationCheck(e)}
-            className="Batang"
             InputProps={{
+              classes: classes,
               endAdornment: withBtn ? (
                 <Button
                   variant="contained"
@@ -66,7 +99,11 @@ export default function PWCheckField({
                     color: "#3A1D1D",
                     fontSize: "10px",
                     fontFamily: "Gowun Dodum",
+                    "&:hover": {
+                      backgroundColor: "#FCFAEF",
+                    },
                   }}
+                  onClick={toPwChange}
                 >
                   변경
                 </Button>
@@ -76,22 +113,27 @@ export default function PWCheckField({
         </Grid>
       </Grid>
       <Grid container>
+        {/* grid로 안 가는 게 나을 수도 */}
         <Grid item xs={2} />
         <Grid item xs={10}>
-          {/* {console.log(pwCheck)} */}
-          {pwCheck ? null : (
-            <Typography
-              component="p"
-              sx={{
-                fontSize: 11,
-                color: "#E2E0A5",
-                fontFamily: "Gowun Batang",
-                marginBottom: "3px",
-              }}
-            >
-              {pwMsg}
-            </Typography>
-          )}
+          {/* {pwCheck ? null : ( */}
+          <Box
+            component="div"
+            sx={{
+              fontSize: 11,
+              color: "#A63636",
+              fontFamily: "Gowun Batang",
+              height: "18px,",
+              pt: "2px",
+              "&:hover": {
+                backgroundColor: "#f6f4b2",
+              },
+            }}
+          >
+            {/* 메세지 뜰때 높이 변하지 않도록 */}
+            <Box>{pwCheck ? "" : pwMsg}</Box>
+          </Box>
+          {/* )} */}
         </Grid>
       </Grid>
     </Box>

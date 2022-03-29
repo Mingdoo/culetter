@@ -2,7 +2,7 @@ import { Button, FormControl, Box } from "@mui/material";
 import axios from "axios";
 import { useCallback, useState } from "react";
 import PWCheckField from "./PWCheckField";
-
+import ConfirmBtn from "./ConfirmBtn";
 const SERVER_URL = "https://j6a201.p.ssafy.io:8080";
 const token = "temp";
 
@@ -39,29 +39,14 @@ export default function PasswordCheck({ pwConfirm, setPwConfirm }) {
         }}
       >
         <PWCheckField
+          labelValue="비밀번호"
           pwInput={pwInput}
-          setPwInput={(e) => setPwInput(e)}
           pwCheck={pwCheck}
+          setPwInput={(e) => setPwInput(e)}
           setPwCheck={(e) => setPwCheck(e)}
         ></PWCheckField>
       </Box>
-      <Button
-        variant="contained"
-        size="small"
-        sx={{
-          minWidth: "200px",
-          minHeight: "30px",
-          backgroundColor: "#E2E0A5",
-          color: "#3A1D1D",
-          marginTop: "1rem",
-          fontFamily: "Gowun Batang",
-          mx: "auto",
-        }}
-        onClick={sendPw}
-        disabled={!pwCheck}
-      >
-        확인
-      </Button>
+      <ConfirmBtn onClick={sendPw}></ConfirmBtn>
     </FormControl>
   );
 }
