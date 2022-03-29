@@ -165,7 +165,6 @@ const SignupForm = () => {
             autoFocus
             variant="standard"
             size="small"
-            // className="textfield"
             style={{
               marginLeft: "1.0rem",
             }}

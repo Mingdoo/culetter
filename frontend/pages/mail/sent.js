@@ -20,6 +20,48 @@ const tempData = [
   { name: "정유환", title: "서시", type: "PHOTOCARD", date: "20220323" },
   { name: "김도현", title: "서시", type: "PHOTOCARD", date: "20220323" },
   { name: "김경협", title: "서시", type: "PHOTOCARD", date: "20220323" },
+  { name: "홍길동", title: "서시", type: "PHOTOCARD", date: "20220323" },
+  { name: "김정연", title: "서시", type: "POSTCARD", date: "20220323" },
+  { name: "강민수", title: "서시", type: "PHOTOCARD", date: "20220323" },
+  { name: "김은송", title: "서시", type: "GENERAL", date: "20220323" },
+  { name: "정유환", title: "서시", type: "PHOTOCARD", date: "20220323" },
+  { name: "김도현", title: "서시", type: "PHOTOCARD", date: "20220323" },
+  { name: "김경협", title: "서시", type: "PHOTOCARD", date: "20220323" },
+  { name: "홍길동", title: "서시", type: "PHOTOCARD", date: "20220323" },
+  { name: "김정연", title: "서시", type: "POSTCARD", date: "20220323" },
+  { name: "강민수", title: "서시", type: "PHOTOCARD", date: "20220323" },
+  { name: "김은송", title: "서시", type: "GENERAL", date: "20220323" },
+  { name: "정유환", title: "서시", type: "PHOTOCARD", date: "20220323" },
+  { name: "김도현", title: "서시", type: "PHOTOCARD", date: "20220323" },
+  { name: "김경협", title: "서시", type: "PHOTOCARD", date: "20220323" },
+  { name: "홍길동", title: "서시", type: "PHOTOCARD", date: "20220323" },
+  { name: "김정연", title: "서시", type: "POSTCARD", date: "20220323" },
+  { name: "강민수", title: "서시", type: "PHOTOCARD", date: "20220323" },
+  { name: "김은송", title: "서시", type: "GENERAL", date: "20220323" },
+  { name: "정유환", title: "서시", type: "PHOTOCARD", date: "20220323" },
+  { name: "김도현", title: "서시", type: "PHOTOCARD", date: "20220323" },
+  { name: "김경협", title: "서시", type: "PHOTOCARD", date: "20220323" },
+  { name: "홍길동", title: "서시", type: "PHOTOCARD", date: "20220323" },
+  { name: "김정연", title: "서시", type: "POSTCARD", date: "20220323" },
+  { name: "강민수", title: "서시", type: "PHOTOCARD", date: "20220323" },
+  { name: "김은송", title: "서시", type: "GENERAL", date: "20220323" },
+  { name: "정유환", title: "서시", type: "PHOTOCARD", date: "20220323" },
+  { name: "김도현", title: "서시", type: "PHOTOCARD", date: "20220323" },
+  { name: "김경협", title: "서시", type: "PHOTOCARD", date: "20220323" },
+  { name: "홍길동", title: "서시", type: "PHOTOCARD", date: "20220323" },
+  { name: "김정연", title: "서시", type: "POSTCARD", date: "20220323" },
+  { name: "강민수", title: "서시", type: "PHOTOCARD", date: "20220323" },
+  { name: "김은송", title: "서시", type: "GENERAL", date: "20220323" },
+  { name: "정유환", title: "서시", type: "PHOTOCARD", date: "20220323" },
+  { name: "김도현", title: "서시", type: "PHOTOCARD", date: "20220323" },
+  { name: "김경협", title: "서시", type: "PHOTOCARD", date: "20220323" },
+  { name: "홍길동", title: "서시", type: "PHOTOCARD", date: "20220323" },
+  { name: "김정연", title: "서시", type: "POSTCARD", date: "20220323" },
+  { name: "강민수", title: "서시", type: "PHOTOCARD", date: "20220323" },
+  { name: "김은송", title: "서시", type: "GENERAL", date: "20220323" },
+  { name: "정유환", title: "서시", type: "PHOTOCARD", date: "20220323" },
+  { name: "김도현", title: "서시", type: "PHOTOCARD", date: "20220323" },
+  { name: "김경협", title: "서시", type: "PHOTOCARD", date: "20220323" },
 ];
 export default function mailSent() {
   const [searchName, setSearchName] = useState("");
@@ -42,12 +84,12 @@ export default function mailSent() {
         <MenuList></MenuList>
         <Typography
           variant="h4"
-          className="Dodum"
           sx={{
             display: "flex",
             justifyContent: "center",
             py: "3.5vh",
             fontSize: 28,
+            fontFamily: "Gowun Dodum",
           }}
         >
           보낸 편지

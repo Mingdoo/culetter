@@ -3,6 +3,8 @@ import { Box, Typography } from "@mui/material";
 import LandingDiv from "../components/landing/LandingDiv";
 import StartButton from "../components/landing/StartButton";
 import Footer from "../components/Footer";
+import { DefaultSeo } from "next-seo";
+import { INDEX_DEFAULT_SEO } from "../components/Variables";
 
 export default function landing() {
   console.log(
@@ -21,8 +23,7 @@ export default function landing() {
           <Typography
             variant="h3"
             gutterBottom
-            sx={{ pb: "4rem" }}
-            className="Arvo"
+            sx={{ pb: "4rem", fontFamily: "Arvo" }}
           >
             CU;LETTER
           </Typography>
@@ -32,8 +33,8 @@ export default function landing() {
               px: "3rem",
               textAlign: "center",
               lineHeight: "2rem",
+              fontFamily: "Gowun Dodum",
             }}
-            className="Dodum"
             gutterBottom
           >
             문득 생각나는 사람에게 <br />

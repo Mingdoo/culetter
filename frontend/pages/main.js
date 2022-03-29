@@ -23,12 +23,12 @@ export default function Main() {
             <MenuList></MenuList>
             <Typography
               variant="h4"
-              className="Arvo"
               sx={{
                 display: "flex",
                 justifyContent: "center",
                 pb: "2vh",
                 fontSize: 36,
+                fontFamily: "Arvo",
               }}
             >
               CU;LETTER
@@ -36,8 +36,13 @@ export default function Main() {
             <Box>
               {["편지 쓰기", "받은 편지", "보낸 편지", "작성중인 편지"].map(
                 (text, index) => (
-                  <Letter text={text} index={index} key={index}></Letter>
-                )
+                  <Letter
+                    text={text}
+                    index={index}
+                    key={index}
+                    main={true}
+                  ></Letter>
+                ),
               )}
             </Box>
             <Footer />

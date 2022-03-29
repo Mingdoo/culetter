@@ -79,7 +79,7 @@ function SearchBox(props) {
                   }}
                 >
                   <HighlightOffRoundedIcon
-                    sx={{ fontSize: "16px" }}
+                    sx={{ fontSize: "16px", color: "#e0e0e0" }}
                   ></HighlightOffRoundedIcon>
                 </IconButton>
               ) : null,
@@ -88,8 +88,11 @@ function SearchBox(props) {
         <Button
           variant="contained"
           size="small"
-          className="Dodum"
-          sx={{ backgroundColor: "#A63636", ml: 1.5 }}
+          sx={{
+            backgroundColor: "#A63636",
+            ml: 1.5,
+            fontFamily: "Gowun Dodum",
+          }}
           color="error"
           onClick={() => props.onChange(test)}
         >

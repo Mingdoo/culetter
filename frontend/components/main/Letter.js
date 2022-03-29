@@ -6,21 +6,26 @@ const color2 = ["#76E3FB", "#391FDA", "#FFCC49", "#391FDA"];
 const bg = ["white", "#ECDDBE", "#FDF1E3", "#FFFFE1"];
 const href = ["write", "inbox", "sent", "ing"];
 
-function Letter({ text, index, createdDate }) {
+function Letter({ text, index, createdDate, main, senderName }) {
   const router = useRouter();
-  const handleClick = (e) => {
+  const handleMainClick = (e) => {
     e.preventDefault();
     router.push(href[index]);
   };
+  const handleInboxClick = (e) => {
+    e.preventDefault();
+    // router.push("/");
+  };
+
   return (
     <Box
-      className="Dodum"
       sx={{
         display: "flex",
         justifyContent: "center",
         position: "relative",
         fontSize: 26,
-        mb: index === 3 ? 3 : 0,
+        fontFamily: "Gowun Dodum",
+        mb: main ? (index === 3 ? 3 : 0) : null,
       }}
     >
       <svg
@@ -29,7 +34,7 @@ function Letter({ text, index, createdDate }) {
         viewBox="0 0 348 204"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        onClick={handleClick}
+        onClick={main ? handleMainClick : handleInboxClick}
       >
         <rect
           x="0.5"
@@ -47,11 +52,31 @@ function Letter({ text, index, createdDate }) {
           fill={bg[index]}
           stroke="black"
         />
-        <line x1="220" y1="130.5" x2="314.629" y2="130.5" stroke="black" />
-        <line x1="220" y1="169.305" x2="314.629" y2="169.305" stroke="black" />
-        <line x1="220" y1="156.37" x2="314.629" y2="156.37" stroke="black" />
-        <line x1="220" y1="143.435" x2="314.629" y2="143.435" stroke="black" />
 
+        {main && (
+          <line x1="200" y1="130.5" x2="314.629" y2="130.5" stroke="black" />
+        )}
+        {main && (
+          <line
+            x1="200"
+            y1="169.305"
+            x2="314.629"
+            y2="169.305"
+            stroke="black"
+          />
+        )}
+        {main && (
+          <line x1="200" y1="156.37" x2="314.629" y2="156.37" stroke="black" />
+        )}
+        {main && (
+          <line
+            x1="200"
+            y1="143.435"
+            x2="314.629"
+            y2="143.435"
+            stroke="black"
+          />
+        )}
         <path d="M341 7V21L333 29V15L341 7Z" fill={color1[index]} />
         <path d="M341 23V37L333 45V31L341 23Z" fill={color2[index]} />
         <path d="M341 39V53L333 61V47L341 39Z" fill={color1[index]} />
@@ -129,18 +154,55 @@ function Letter({ text, index, createdDate }) {
         <path d="M14 174L14 188L6 196V182L14 174Z" fill={color1[index]} />
         <path d="M341 197H327L341 183V197Z" fill={color2[index]} />
         <path d="M6 6H20L6 20V6Z" fill={color2[index]} />
-        <text fill="black" x="50" y="75">
-          {text}
-        </text>
+        {main ? (
+          <text fill="black" x="50" y="75">
+            {text}
+          </text>
+        ) : null}
       </svg>
-      {createdDate ? (
+      {!main ? (
         <Typography
-          sx={{ position: "absolute", top: 85, left: 102, fontSize: 12 }}
-          className="Dodum"
+          sx={{
+            position: "absolute",
+            width: 1,
+            top: 50,
+            left: 80,
+            width: "250px",
+            display: "flex",
+            textOverflow: "ellipsis",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            display: "block",
+            fontSize: 18,
+            fontFamily: "Gowun Dodum",
+          }}
         >
-          {createdDate.slice(0, 4)}년 {createdDate.slice(4, 6)}월{" "}
-          {createdDate.slice(6)}일
+          {text}
         </Typography>
+      ) : null}
+      {!main ? (
+        <Box
+          sx={{
+            position: "absolute",
+            top: 130,
+            right: 80,
+            width: 1,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-end",
+          }}
+        >
+          <Typography sx={{ fontSize: 12, fontFamily: "Gowun Dodum" }}>
+            {senderName}
+          </Typography>
+          {createdDate ? (
+            <Typography sx={{ fontSize: 12, fontFamily: "Gowun Dodum" }}>
+              {index ? "엽서, " : "일반, "}
+              {createdDate.slice(0, 4)}년 {createdDate.slice(4, 6)}월{" "}
+              {createdDate.slice(6)}일
+            </Typography>
+          ) : null}
+        </Box>
       ) : null}
     </Box>
   );

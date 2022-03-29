@@ -46,8 +46,7 @@ const PostBox = (props) => {
             variant="h4"
             color="#FFFFFF"
             align="center"
-            sx={{ mt: 10, mb: 10, fontWeight: "100" }}
-            className="Arvo"
+            sx={{ mt: 10, mb: 10, fontWeight: "100", fontFamily: "Arvo" }}
           >
             {title}
           </Typography>

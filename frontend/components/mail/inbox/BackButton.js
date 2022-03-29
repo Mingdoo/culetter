@@ -1,18 +1,15 @@
-import MenuIcon from "@mui/icons-material/Menu";
 import IconButton from "@mui/material/IconButton";
-import { Box, Typography } from "@mui/material";
 import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
 import Link from "next/link";
 
-export default function BackButton({ href }) {
+export default function BackButton({ setIsPostBox }) {
   return (
-    <Link href={href}>
-      <IconButton
-        aria-label="go back"
-        sx={{ position: "absolute", left: "2vh", top: "3vh" }}
-      >
-        <ArrowBackIosRoundedIcon></ArrowBackIosRoundedIcon>
-      </IconButton>
-    </Link>
+    <IconButton
+      aria-label="go back"
+      sx={{ position: "absolute", left: "2vh", top: "3vh" }}
+      onClick={() => setIsPostBox(true)}
+    >
+      <ArrowBackIosRoundedIcon></ArrowBackIosRoundedIcon>
+    </IconButton>
   );
 }

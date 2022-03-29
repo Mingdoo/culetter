@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 // import newmailbox from "../../../assests/newmailbox.PNG";
 
-export default function Photocard({ senderName, createdDate }) {
+export default function Photocard({ senderName, createdDate, src }) {
   return (
     <Box
       sx={{
@@ -24,7 +24,7 @@ export default function Photocard({ senderName, createdDate }) {
         <Box sx={{ width: 1 }}>
           <Box
             component="img"
-            // src={newmailbox.src}
+            src={src}
             sx={{
               objectFit: "cover",
               width: 1,
@@ -35,13 +35,15 @@ export default function Photocard({ senderName, createdDate }) {
             }}
           ></Box>
         </Box>
-        <Typography
-          className="Dodum"
-          sx={{ display: "flex", justifyContent: "end", px: 1 }}
-        >
-          포토카드, {createdDate.slice(0, 4)}년 {createdDate.slice(4, 6)}월{" "}
-          {createdDate.slice(6)}일
-        </Typography>
+        <Box sx={{ display: "flex", justifyContent: "space-between", px: 2 }}>
+          <Typography sx={{ fontFamily: "Gowun Dodum" }}>
+            {senderName}
+          </Typography>
+          <Typography sx={{ fontFamily: "Gowun Dodum" }}>
+            포토카드, {createdDate.slice(0, 4)}년 {createdDate.slice(4, 6)}월{" "}
+            {createdDate.slice(6)}일
+          </Typography>
+        </Box>
       </Box>
     </Box>
   );
