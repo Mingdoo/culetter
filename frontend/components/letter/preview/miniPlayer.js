@@ -9,7 +9,7 @@ import AlbumIcon from "@mui/icons-material/Album";
 // const styles = theme => ({
 
 // })
-export default function miniPlayer() {
+export default function miniPlayer({ play, pause }) {
   // const { musicSelected } = useContext(ContentsContext);
   const musicSelected = { title: "라일락", singer: "아이유" };
 
@@ -44,12 +44,17 @@ export default function miniPlayer() {
         {isPlaying ? (
           <PlayArrowRoundedIcon
             sx={{ display: "flex", justifyContent: "center" }}
-            onClick={() => setIsPlaying(false)}
+            onClick={() => {
+              play();
+              setIsPlaying(true);
+            }}
           ></PlayArrowRoundedIcon>
         ) : (
           <PauseIcon
             sx={{ display: "flex", justifyContent: "center" }}
-            onClick={() => setIsPlaying(true)}
+            onClick={() => {
+              setIsPlaying(false);
+            }}
           ></PauseIcon>
         )}
       </Grid>
