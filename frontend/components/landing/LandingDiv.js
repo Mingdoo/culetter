@@ -17,8 +17,8 @@ export default function LandingDiv(props) {
             textAlign: "center",
             mx: "auto",
             mb: "2rem",
+            fontFamily: "Gowun Batang",
           }}
-          className="Batang"
           gutterBottom
         >
           CU;LETTER를 통해 <br /> 다른 사람에게 마음을 전해보겠습니까?
@@ -31,15 +31,13 @@ export default function LandingDiv(props) {
       <Typography
         variant="h5"
         gutterBottom
-        sx={{ px: "1rem", color: "#A63636" }}
-        className="Dodum"
+        sx={{ px: "1rem", color: "#A63636", fontFamily: "Gowun Dodum" }}
       >
         {props.title}
       </Typography>
       <Typography
-        sx={{ px: "2rem", mb: "2rem" }}
+        sx={{ px: "2rem", mb: "2rem", fontFamily: "Gowun Batang" }}
         gutterBottom
-        className="Batang"
       >
         {props.description}
       </Typography>

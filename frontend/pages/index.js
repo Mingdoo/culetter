@@ -23,8 +23,7 @@ export default function landing() {
           <Typography
             variant="h3"
             gutterBottom
-            sx={{ pb: "4rem" }}
-            className="Arvo"
+            sx={{ pb: "4rem", fontFamily: "Arvo" }}
           >
             CU;LETTER
           </Typography>
@@ -34,8 +33,8 @@ export default function landing() {
               px: "3rem",
               textAlign: "center",
               lineHeight: "2rem",
+              fontFamily: "Gowun Dodum",
             }}
-            className="Dodum"
             gutterBottom
           >
             문득 생각나는 사람에게 <br />

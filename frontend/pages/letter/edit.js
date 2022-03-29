@@ -100,7 +100,7 @@ function edit() {
           title="스타일 변경"
           handleNextClick={handleNextClick}
         />
-        <Typography className="Batang" sx={{ mb: "1rem" }}>
+        <Typography sx={{ mb: "1rem", fontFamily: "Gowun Batang" }}>
           글꼴과 글자색을 변경할 수 있습니다
         </Typography>
         {/* 여기부터 편지 */}
@@ -179,7 +179,9 @@ function edit() {
                   onClick={(e) => handleOpenPalette(e, "text")}
                   sx={{ "&:hover": { cursor: "pointer" } }}
                 >
-                  <Typography className="Dodum">글자색</Typography>
+                  <Typography sx={{ fontFamily: "Gowun Dodum" }}>
+                    글자색
+                  </Typography>
                 </Box>
               </Box>
             </Grid>
@@ -189,7 +191,9 @@ function edit() {
                   onClick={(e) => handleOpenPalette(e, "fontfamily")}
                   sx={{ "&:hover": { cursor: "pointer" } }}
                 >
-                  <Typography className="Dodum">글꼴</Typography>
+                  <Typography sx={{ fontFamily: "Gowun Dodum" }}>
+                    글꼴
+                  </Typography>
                 </Box>
               </Box>
             </Grid>
@@ -199,7 +203,9 @@ function edit() {
                   onClick={(e) => handleOpenPalette(e, "alignment")}
                   sx={{ "&:hover": { cursor: "pointer" } }}
                 >
-                  <Typography className="Dodum">정렬</Typography>
+                  <Typography sx={{ fontFamily: "Gowun Dodum" }}>
+                    정렬
+                  </Typography>
                 </Box>
               </Box>
             </Grid>
@@ -209,7 +215,9 @@ function edit() {
                   onClick={(e) => handleOpenPalette(e, "fontsize")}
                   sx={{ "&:hover": { cursor: "pointer" } }}
                 >
-                  <Typography className="Dodum">글자 크기</Typography>
+                  <Typography sx={{ fontFamily: "Gowun Dodum" }}>
+                    글자 크기
+                  </Typography>
                 </Box>
               </Box>
             </Grid>
