@@ -52,6 +52,7 @@ const type = (props) => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          bgcolor: "#FCFAEF",
         }}
       >
         {source.map((data, index) => (
