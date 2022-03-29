@@ -1,21 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Typography } from "@mui/material";
 
 const Photocard = (props) => {
   const { front, back, content } = props;
 
   const [isClicked, setIsClicked] = useState(false);
+  const [showFront, setShowFront] = useState(false);
+  const [showBack, setShowBack] = useState(false);
 
-  const handleFrontClick = () => {};
+  const handleFrontClick = () => {
+    setShowFront(true);
+    setShowBack(true);
+    setIsClicked(true);
+  };
 
-  const handleBackClick = () => {};
+  const handleBackClick = () => {
+    setIsClicked(false);
+  };
+
+  useEffect(() => {
+    console.log(isClicked);
+  }, [isClicked]);
 
   return (
     <Box
       className="card"
       sx={{ width: "250px", height: "400px", mt: "2rem", position: "relative" }}
     >
-      <Box component="div" className="front face" onClick={handleFrontClick}>
+      <Box
+        component="div"
+        className={
+          "front face " + (isClicked && showFront ? "rotateFront" : null)
+        }
+        onClick={handleFrontClick}
+      >
         <img
           width="250px"
           height="400px"
@@ -23,7 +41,10 @@ const Photocard = (props) => {
           style={{ borderRadius: "2rem" }}
         ></img>
       </Box>
-      <Box component="div" className="back face">
+      <Box
+        component="div"
+        className={"back face " + (isClicked && showBack ? "rotateBack" : null)}
+      >
         <img
           className="image"
           width="250px"

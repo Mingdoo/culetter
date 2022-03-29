@@ -172,19 +172,13 @@ a {
   z-index: 0;
 }
 
-.card:active .front {
-  transform: rotateY(-180deg);
-  transition: all 0.4s ease;
-  z-index: 0;
-}
-
 .rotateFront {
   transform: rotateY(-180deg);
   transition: all 0.4s ease;
   z-index: 0;
 }
 
-.card:active .back {
+.rotateBack {
   transform: rotateY(-180deg);
   transition: all 0.4s ease;
   z-index: 1;
