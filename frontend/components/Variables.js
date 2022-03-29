@@ -55,3 +55,24 @@ export const fonts = [
   { fontfamily: "Yeon Sung", fontname: "연성", className: "" },
   { fontfamily: "Hamlet", fontname: "햄릿", className: "" },
 ];
+
+export const DEFAULT_SEO = {
+  title: "CU;LETTER",
+  description: "큐레터; 커스텀 편지 작성, 전송을 쉽게 해보세요!",
+  canonical: "https://www.culetter.site/",
+  openGraph: {
+    type: "website",
+    locale: "ko_KR",
+    url: "/img/stamp.PNG",
+    title: "큐레터",
+    site_name: "CU;LETTER",
+    images: [
+      {
+        url: "/img/stamp.PNG",
+        width: 285,
+        height: 167,
+        alt: "큐레터 로고",
+      },
+    ],
+  },
+};
