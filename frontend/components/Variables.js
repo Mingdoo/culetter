@@ -68,7 +68,7 @@ export const DEFAULT_SEO = {
     site_name: "CU;LETTER",
     images: [
       {
-        url: "/img/stamp.PNG",
+        url: "/img/Mailbox.png",
         width: 285,
         height: 167,
         alt: "큐레터 로고",

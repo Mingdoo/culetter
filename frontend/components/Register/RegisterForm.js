@@ -338,7 +338,7 @@ const SignupForm = () => {
             mb: 0,
           }}
         >
-          <Grid item button xs={12}>
+          <Grid item xs={12}>
             <Button
               variant="contained"
               size="small"
