@@ -89,8 +89,11 @@ function SearchBox(props) {
           <Button
             variant="contained"
             size="small"
-            className="Dodum"
-            sx={{ backgroundColor: "#A63636", ml: 1.5 }}
+            sx={{
+              backgroundColor: "#A63636",
+              ml: 1.5,
+              fontFamily: "Gowun Dodum",
+            }}
             color="error"
             onClick={() => props.onChange(inboxSearch)}
           >

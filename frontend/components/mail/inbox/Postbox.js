@@ -32,8 +32,8 @@ export default function MailBox({ hasNew, name, id, mailsNum, setIsPostBox }) {
           color: "black",
           fontSize: "18px",
           boxShadow: "1px 1px 3px rgba(0, 0, 0, 0.5)",
+          fontFamily: "Gowun Dodum",
         }}
-        className="Dodum"
       >
         {mailsNum}
       </Avatar>
@@ -50,8 +50,13 @@ export default function MailBox({ hasNew, name, id, mailsNum, setIsPostBox }) {
         component="img"
       ></Box>
       <Typography
-        className="Dodum"
-        sx={{ display: "flex", justifyContent: "center", width: 200, px: 5 }}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          width: 200,
+          px: 5,
+          fontFamily: "Gowun Dodum",
+        }}
       >
         {name}
       </Typography>

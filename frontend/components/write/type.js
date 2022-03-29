@@ -7,7 +7,6 @@ const type = (props) => {
   return (
     <Link href={"/write"}>
       <Box
-        className="Dodum"
         sx={{
           display: "flex",
           justifyContent: "space-evenly",
@@ -18,6 +17,7 @@ const type = (props) => {
           boxShadow: "5px 2px 2px rgba(0, 0, 0, 0.25)",
           borderRadius: "0.5rem",
           alignItems: "center",
+          fontFamily: "Gowun Dodum",
           mb: index === 2 ? "0rem" : "1.2rem",
           mt: index === 0 ? "1.5rem" : "0rem",
         }}

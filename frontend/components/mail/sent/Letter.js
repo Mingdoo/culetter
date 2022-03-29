@@ -55,12 +55,12 @@ export default function Letter({ type, date, name, title }) {
                   width: 1,
                   display: "flex",
                   justifyContent: "flex-start",
+                  fontFamily: "Gowun Dodum",
                 }}
-                className="Dodum"
               >
                 {title}
               </Typography>
-              <Typography sx={{ fontSize: 10 }} className="Dodum">
+              <Typography sx={{ fontSize: 10 }}>
                 {type === "POSTCARD"
                   ? "엽서"
                   : type === "PHOTOCARD"
@@ -78,10 +78,10 @@ export default function Letter({ type, date, name, title }) {
                 alignItems: "flex-end",
               }}
             >
-              <Typography sx={{ fontSize: 11 }} className="Dodum">
+              <Typography sx={{ fontSize: 11, fontFamily: "Gowun Dodum" }}>
                 {name}
               </Typography>
-              <Typography sx={{ fontSize: 11 }} className="Dodum">
+              <Typography sx={{ fontSize: 11, fontFamily: "Gowun Dodum" }}>
                 {date.slice(0, 4)}년 {date.slice(4, 6)}월 {date.slice(6)}일
               </Typography>
             </Box>

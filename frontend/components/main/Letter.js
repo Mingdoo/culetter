@@ -19,12 +19,12 @@ function Letter({ text, index, createdDate, main, senderName }) {
 
   return (
     <Box
-      className="Dodum"
       sx={{
         display: "flex",
         justifyContent: "center",
         position: "relative",
         fontSize: 26,
+        fontFamily: "Gowun Dodum",
         mb: main ? (index === 3 ? 3 : 0) : null,
       }}
     >
@@ -174,8 +174,8 @@ function Letter({ text, index, createdDate, main, senderName }) {
             whiteSpace: "nowrap",
             display: "block",
             fontSize: 18,
+            fontFamily: "Gowun Dodum",
           }}
-          className="Dodum"
         >
           {text}
         </Typography>
@@ -192,11 +192,11 @@ function Letter({ text, index, createdDate, main, senderName }) {
             alignItems: "flex-end",
           }}
         >
-          <Typography className="Dodum" sx={{ fontSize: 12 }}>
+          <Typography sx={{ fontSize: 12, fontFamily: "Gowun Dodum" }}>
             {senderName}
           </Typography>
           {createdDate ? (
-            <Typography className="Dodum" sx={{ fontSize: 12 }}>
+            <Typography sx={{ fontSize: 12, fontFamily: "Gowun Dodum" }}>
               {index ? "엽서, " : "일반, "}
               {createdDate.slice(0, 4)}년 {createdDate.slice(4, 6)}월{" "}
               {createdDate.slice(6)}일

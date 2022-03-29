@@ -36,8 +36,10 @@ export default function Photocard({ senderName, createdDate, src }) {
           ></Box>
         </Box>
         <Box sx={{ display: "flex", justifyContent: "space-between", px: 2 }}>
-          <Typography className="Dodum">{senderName}</Typography>
-          <Typography className="Dodum">
+          <Typography sx={{ fontFamily: "Gowun Dodum" }}>
+            {senderName}
+          </Typography>
+          <Typography sx={{ fontFamily: "Gowun Dodum" }}>
             포토카드, {createdDate.slice(0, 4)}년 {createdDate.slice(4, 6)}월{" "}
             {createdDate.slice(6)}일
           </Typography>

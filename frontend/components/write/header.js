@@ -24,10 +24,10 @@ const header = (props) => {
           <Typography
             variant="p"
             component="div"
-            className="Gowun Batang"
             sx={{
               // ml: title === "편지 형식" ? "7rem" : "0rem",
               fontSize: "22px",
+              fontFamily: "Gowun Batang",
             }}
           >
             {title}
@@ -44,15 +44,18 @@ const header = (props) => {
       <Box component="div" sx={{ ml: "2rem" }}>
         <Typography
           component="p"
-          className="Dodum"
-          sx={{ fontSize: "1.3rem", mb: "0.2rem", mt: "1.5rem" }}
+          sx={{
+            fontSize: "1.3rem",
+            mb: "0.2rem",
+            mt: "1.5rem",
+            fontFamily: "Gowun Dodum",
+          }}
         >
           {detail1}
         </Typography>
         <Typography
           component="p"
-          className="Dodum"
-          sx={{ fontSize: "0.8rem", ml: "1rem" }}
+          sx={{ fontSize: "0.8rem", ml: "1rem", fontFamily: "Gowun Dodum" }}
         >
           {detail2}
         </Typography>
