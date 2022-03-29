@@ -8,7 +8,6 @@ const Normal = (props) => {
         width: "175px",
         height: "280px",
         margin: "auto",
-        mt: "2rem",
         position: "relative",
       }}
     >

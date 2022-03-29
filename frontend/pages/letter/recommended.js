@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import ContentsContext from "../../contexts/ContentsContext";
-import Header from "../../components/write/Header";
+import Header from "../../components/Header";
 import Photocard from "../../components/recommend/Photocard";
 import Imgupload from "../../components/recommend/Imgupload";
 import Postcard from "../../components/recommend/Postcard";
 import Normal from "../../components/recommend/Normal";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Checkbox, Grid, Typography } from "@mui/material";
+import Router from "next/router";
 
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
@@ -31,9 +32,9 @@ const useCheckboxStyles = makeStyles({
 
 const Recommended = () => {
   //   const { type } = useContext(ContentsContext);
-  // const [type, setType] = useState("photocard");
+  const [type, setType] = useState("photocard");
   // const [type, setType] = useState("normal");
-  const [type, setType] = useState("postcard");
+  // const [type, setType] = useState("postcard");
 
   const [checked, setChecked] = useState(0);
   const [content, setContent] = useState(
@@ -58,6 +59,10 @@ const Recommended = () => {
     { imgsrc: "/img/letterImg4.png" },
     { imgsrc: "/img/letterImg5.png" },
     { imgsrc: "/img/letterImg6.png" },
+    { imgsrc: "/img/letterImg7.png" },
+    { imgsrc: "/img/letterImg8.png" },
+    { imgsrc: "/img/letterImg9.png" },
+    { imgsrc: "/img/letterImg10.png" },
   ];
 
   const postcardList = [
@@ -100,7 +105,7 @@ const Recommended = () => {
   };
   const handlePrevClick = (e) => {
     e.preventDefault();
-    Router.push("/letter/music");
+    Router.push("/letter/write");
   };
   return (
     <Box
@@ -129,7 +134,10 @@ const Recommended = () => {
             title="편지지 선택"
             handleNextClick={handleNextClick}
           />
-          <Typography className="Batang" sx={{ textAlign: "center" }}>
+          <Typography
+            className="Batang"
+            sx={{ textAlign: "center", mb: "1rem" }}
+          >
             편지 내용에 어울리는 편지지를 선택해주세요
           </Typography>
         </>

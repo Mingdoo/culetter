@@ -6,12 +6,16 @@ const Photocard = (props) => {
 
   const [isClicked, setIsClicked] = useState(false);
 
+  const handleFrontClick = () => {};
+
+  const handleBackClick = () => {};
+
   return (
     <Box
       className="card"
       sx={{ width: "250px", height: "400px", mt: "2rem", position: "relative" }}
     >
-      <Box component="div" className="front face">
+      <Box component="div" className="front face" onClick={handleFrontClick}>
         <img
           width="250px"
           height="400px"
@@ -26,6 +30,7 @@ const Photocard = (props) => {
           height="400px"
           src={back}
           style={{ borderRadius: "2rem" }}
+          onClick={handleBackClick}
         ></img>
         <Box
           sx={{ position: "absolute", top: "0", margin: "1rem", mt: "2rem" }}

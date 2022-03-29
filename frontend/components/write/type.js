@@ -20,6 +20,7 @@ const type = (props) => {
           alignItems: "center",
           mb: index === 2 ? "0rem" : "1.2rem",
           mt: index === 0 ? "1.5rem" : "0rem",
+          "&:hover": { cursor: "pointer" },
         }}
       >
         <Box
@@ -39,7 +40,14 @@ const type = (props) => {
           }}
         >
           <Box>{text}</Box>
-          <Box sx={{ fontSize: "0.6rem", textAlign: "center", mt: "1rem" }}>
+          <Box
+            sx={{
+              fontSize: "0.6rem",
+              textAlign: "center",
+              mt: "1rem",
+              whiteSpace: "pre-wrap",
+            }}
+          >
             {describe}
           </Box>
         </Box>
