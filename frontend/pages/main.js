@@ -23,12 +23,12 @@ export default function Main() {
             <MenuList></MenuList>
             <Typography
               variant="h4"
-              className="Arvo"
               sx={{
                 display: "flex",
                 justifyContent: "center",
                 pb: "2vh",
                 fontSize: 36,
+                fontFamily: "Arvo",
               }}
             >
               CU;LETTER
@@ -42,7 +42,7 @@ export default function Main() {
                     key={index}
                     main={true}
                   ></Letter>
-                )
+                ),
               )}
             </Box>
             <Footer />

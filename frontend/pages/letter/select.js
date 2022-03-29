@@ -208,7 +208,10 @@ export default function select() {
                 color={filterFavorite ? "warning" : "default"}
               >
                 <StarRoundedIcon fontSize="inherit" />
-                <Typography className="Batang"> 즐겨찾기</Typography>
+                <Typography sx={{ fontFamily: "Gowun Batang" }}>
+                  {" "}
+                  즐겨찾기
+                </Typography>
               </IconButton>
             </Box>
             <>
@@ -243,7 +246,7 @@ export default function select() {
         ) : (
           <>
             <Box sx={{ ml: "3rem", mt: "1rem", mb: "1rem", width: 0.85 }}>
-              <Typography className="Dodum">
+              <Typography sx={{ fontFamily: "Gowun Dodum" }}>
                 편지를 누구에게 보낼지 선택해주세요
               </Typography>
             </Box>

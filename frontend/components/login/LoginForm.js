@@ -86,7 +86,6 @@ const LoginForm = () => {
             autoFocus
             variant="standard"
             size="small"
-            // className="textfield"
             InputProps={{ classes: classes }}
             InputLabelProps={{
               classes: labelClasses,

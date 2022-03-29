@@ -33,26 +33,46 @@ export default function Letter({ width }) {
             }}
           >
             <Typography
-              sx={{ position: "absolute", top: 10, left: 30, fontSize: 14 }}
-              className="Dodum"
+              sx={{
+                position: "absolute",
+                top: 10,
+                left: 30,
+                fontSize: 14,
+                fontFamily: "Gowun Dodum",
+              }}
             >
               [이름]에게
             </Typography>
             <Typography
-              sx={{ position: "absolute", top: 30, left: 30, fontSize: 12 }}
-              className="Dodum"
+              sx={{
+                position: "absolute",
+                top: 30,
+                left: 30,
+                fontSize: 12,
+                fontFamily: "Gowun Dodum",
+              }}
             >
               제목
             </Typography>
             <Typography
-              sx={{ position: "absolute", bottom: 25, right: 30, fontSize: 10 }}
-              className="Dodum"
+              sx={{
+                position: "absolute",
+                bottom: 25,
+                right: 30,
+                fontSize: 10,
+                fontFamily: "Gowun Dodum",
+              }}
             >
               엽서
             </Typography>
             <Typography
-              sx={{ position: "absolute", bottom: 10, right: 30, fontSize: 10 }}
-              className="Dodum"
+              sx={{
+                position: "absolute",
+                bottom: 10,
+                right: 30,
+                fontSize: 10,
+                fontFamily: "Gowun Dodum",
+              }}
             >
               2022년 3월 23일
             </Typography>

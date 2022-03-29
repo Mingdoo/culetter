@@ -22,8 +22,7 @@ const nextPage = (props) => {
           <Typography
             variant="p"
             component="span"
-            className="Gowun Batang"
-            sx={{ mr: "0.5rem", color: "#C6C6C6" }}
+            sx={{ mr: "0.5rem", color: "#C6C6C6", fontFamily: "Gowun Batang" }}
             onClick={() => {
               toast.error(
                 <div style={{ width: "100%", fontSize: "1rem" }}>
@@ -43,8 +42,11 @@ const nextPage = (props) => {
             <Typography
               variant="p"
               component="span"
-              className="Gowun Batang"
-              sx={{ mr: "0.5rem", color: "#000000" }}
+              sx={{
+                mr: "0.5rem",
+                color: "#000000",
+                fontFamily: "Gowun Batang",
+              }}
             >
               다음
             </Typography>
@@ -56,8 +58,11 @@ const nextPage = (props) => {
             <Typography
               variant="p"
               component="span"
-              className="Gowun Batang"
-              sx={{ mr: "0.5rem", color: "#000000" }}
+              sx={{
+                mr: "0.5rem",
+                color: "#000000",
+                fontFamily: "Gowun Batang",
+              }}
             >
               다음
             </Typography>
@@ -66,8 +71,7 @@ const nextPage = (props) => {
           <Typography
             variant="p"
             component="span"
-            className="Gowun Batang"
-            sx={{ mr: "0.5rem", color: "#C6C6C6" }}
+            sx={{ mr: "0.5rem", color: "#C6C6C6", fontFamily: "Gowun Batang" }}
             onClick={() => {
               toast.error(
                 <div style={{ width: "100%", fontSize: "1rem" }}>
