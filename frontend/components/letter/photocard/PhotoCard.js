@@ -36,7 +36,7 @@ function PhotoCard({ props }) {
   const [stickers, updateStickers] = useState([]);
   const [isfixed, setIsfixed] = useState(false);
   const [text, setText] = useState({});
-  const [backgroundColor, setBackgroundColor] = useState(0);
+  const [backgroundColor, setBackgroundColor] = useState(1);
   const [isMoving, setIsMoving] = useState(false);
 
   useEffect(() => {
@@ -193,7 +193,6 @@ function PhotoCard({ props }) {
                 }),
               );
             }}
-            className="Batang"
             variant="contained"
             sx={{
               alignSelf: "center",
@@ -201,6 +200,7 @@ function PhotoCard({ props }) {
               "&:hover": {
                 bgcolor: "#FF8176",
               },
+              fontFamily: "Gowun Batang",
             }}
           >
             확인

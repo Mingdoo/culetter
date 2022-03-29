@@ -20,7 +20,7 @@ function MiniUserCard(props) {
           justifyContent: "center",
         }}
       >
-        <Typography className="Batang" sx={{ ml: "3rem" }}>
+        <Typography sx={{ ml: "3rem", fontFamily: "Gowun Batang" }}>
           {props.obj.name}
         </Typography>
       </Box>

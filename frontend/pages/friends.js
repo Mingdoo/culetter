@@ -256,8 +256,7 @@ function friends() {
         >
           <MenuList />
           <Typography
-            sx={{ mx: "2rem", my: "2rem" }}
-            className="Dodum"
+            sx={{ mx: "2rem", my: "2rem", fontFamily: "Gowun Dodum" }}
             variant="h5"
           >
             {addOpen ? "친구 추가" : "친구 목록"}
@@ -300,7 +299,7 @@ function friends() {
 
           <br />
           <Box sx={{ display: "flex", flexDirection: "column", mx: "1rem" }}>
-            <Typography variant="span" className="Dodum">
+            <Typography variant="span" sx={{ fontFamily: "Gowun Dodum" }}>
               {addOpen ? "" : "들어온 친구 요청"}
             </Typography>
 
@@ -347,7 +346,9 @@ function friends() {
                   color={filterFavorite ? "warning" : "default"}
                 >
                   <StarIcon fontSize="inherit" />
-                  <Typography className="Batang"> 즐겨찾기</Typography>
+                  <Typography sx={{ fontFamily: "Gowun Batang" }}>
+                    즐겨찾기
+                  </Typography>
                 </IconButton>
               )}
             </Box>
@@ -370,7 +371,7 @@ function friends() {
               layoutId="underline"
             >
               <IconButton onClick={(e) => handleAddFriendClick(e)}>
-                <Typography className="Batang">
+                <Typography sx={{ fontFamily: "Gowun Batang" }}>
                   {addOpen ? "친구 목록" : "친구 추가"}
                 </Typography>
               </IconButton>

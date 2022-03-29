@@ -27,8 +27,11 @@ function Header({ handlePrevClick, title, handleNextClick }) {
             }}
           >
             <Typography
-              className="Dodum"
-              sx={{ textAlign: "center", fontSize: "1.5rem" }}
+              sx={{
+                textAlign: "center",
+                fontSize: "1.5rem",
+                fontFamily: "Gowun Dodum",
+              }}
             >
               {title}
             </Typography>
@@ -54,7 +57,9 @@ function Header({ handlePrevClick, title, handleNextClick }) {
                   },
                 }}
               >
-                <Typography className="Batang">다음</Typography>
+                <Typography sx={{ fontFamily: "Gowun Batang" }}>
+                  다음
+                </Typography>
                 <IconButton onClick={(e) => handleNextClick(e)}>
                   <ArrowForwardIosIcon />
                 </IconButton>
