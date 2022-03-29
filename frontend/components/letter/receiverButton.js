@@ -20,13 +20,12 @@ function receiverButton(props) {
       onClick={() => props.onClick(props.target)}
     >
       <Typography
-        className="Dodum"
-        sx={{ fontWeight: "bold", ml: "1rem" }}
+        sx={{ fontWeight: "bold", ml: "1rem", fontFamily: "Gowun Dodum" }}
         variant="h6"
       >
         {props.title}
       </Typography>
-      <Typography className="Batang" sx={{ fontSize: 10, ml: "1rem" }}>
+      <Typography sx={{ fontSize: 10, ml: "1rem", fontFamily: "Gowun Batang" }}>
         {props.description}
       </Typography>
     </Box>

@@ -74,12 +74,12 @@ export default function Storage() {
 }" */}
         <MenuList></MenuList>
         <Typography
-          className="Dodum"
           sx={{
             display: "flex",
             justifyContent: "center",
             py: "3.5vh",
             fontSize: 28,
+            fontFamily: "Gowun Dodum",
           }}
         >
           작성 중인 편지

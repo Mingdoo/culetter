@@ -17,10 +17,10 @@ export default function Footer() {
         mx: "auto",
       }}
     >
-      <Typography variant="h4" gutterBottom className="Arvo">
+      <Typography variant="h4" gutterBottom sx={{ fontFamily: "Arvo" }}>
         CU;LETTER
       </Typography>
-      <Typography sx={{ fontSize: 10 }} className="Batang">
+      <Typography sx={{ fontSize: 10, fontFamily: "Gowun Batang" }}>
         (주) CU;LETTER 주소 : 서울특별시 강남구 역삼동 테헤란로 212 <br />
         이메일 : official.CU;LETTER@gmail.com <br />© CU;LETTER. All rights
         reserved.

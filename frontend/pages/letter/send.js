@@ -69,7 +69,6 @@ export default function Send() {
     if (navigator.canShare(shareData)) {
       try {
         await navigator.share(shareData);
-
         console.log("successfully shared");
       } catch (err) {
         console.error("Something went wrong sharing the blog", error);
@@ -108,25 +107,32 @@ export default function Send() {
     >
       <Box
         component="span"
-        className="Dodum"
         sx={{
           fontSize: 24,
           display: "flex",
           justifyContent: "center",
           pt: "1rem",
+          fontFamily: "Gowun Dodum",
         }}
       >
         전송
       </Box>
       <Typography
-        className="Batang"
-        sx={{ display: "flex", justifyContent: "center", mt: "0.5rem" }}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          mt: "0.5rem",
+          fontFamily: "Gowun Batang",
+        }}
       >
         편지를 전달할 준비를 마쳤습니다.
       </Typography>
       <Typography
-        className="Batang"
-        sx={{ display: "flex", justifyContent: "center" }}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          fontFamily: "Gowun Batang",
+        }}
       >
         공유를 통해 다른 사람에게 편지를 전달해주세요!
       </Typography>
