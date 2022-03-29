@@ -25,7 +25,7 @@ function receiverButton(props) {
       >
         {props.title}
       </Typography>
-      <Typography sx={{ fontSize: 10, ml: "1rem", fontFamily: "Batang" }}>
+      <Typography sx={{ fontSize: 10, ml: "1rem", fontFamily: "Gowun Batang" }}>
         {props.description}
       </Typography>
     </Box>
