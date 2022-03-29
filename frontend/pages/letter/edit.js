@@ -8,66 +8,9 @@ import Alignment from "../../components/letter/Alignment";
 import Header from "../../components/Header";
 import FontSize from "../../components/letter/FontSize";
 import Letter from "../../components/letter/Letter";
+import { colors, fonts } from "../../components/Variables";
 
 function edit() {
-  const colors = [
-    "#000000",
-    "#ffffff",
-    "#733C3C",
-    "#8479E1",
-    "#B4ECE3",
-    "#FFF8D5",
-    "#FD5D5D",
-    "#FF8080",
-    "#FFF7BC",
-    "#C0EDA6",
-    "#FAD9E6",
-    "#E4AEC5",
-    "#5F7464",
-    "#243D25",
-    "#FF6B6B",
-    "#FFD93D",
-    "#6BCB77",
-    "#4D96FF",
-    "#1C0C5B",
-    "#C84B31",
-    "#700B97",
-    "#A12568",
-    "#346751",
-    "#31112C",
-    "#1A1A2E",
-    "#1F4068",
-    "#C70D3A",
-    "#AF0404",
-    "#83142C",
-    "#3E432E",
-    "#DBEDF3",
-    "#FF8BA0",
-    "#14FFEC",
-    "#0E1555",
-    "#E9B5D2",
-  ];
-
-  const fonts = [
-    { fontfamily: "Noto Sans", fontname: "Noto Sans", className: "" },
-    { fontfamily: "Nanum Gothic", fontname: "나눔 고딕", className: "" },
-    { fontfamily: "Nanum Myeongjo", fontname: "나눔 명조", className: "" },
-    { fontfamily: "Nanum Pen", fontname: "나눔 펜", className: "" },
-    { fontfamily: "Nanum Brush", fontname: "나눔 브러쉬", className: "" },
-    { fontfamily: "Gowun Dodum", fontname: "고운 돋움", className: "" },
-    { fontfamily: "Gowun Batang", fontname: "고운 바탕", className: "" },
-    { fontfamily: "Jua", fontname: "주아", className: "" },
-    { fontfamily: "Sunflower", fontname: "Sunflower", className: "" },
-    { fontfamily: "Dokdo", fontname: "독도", className: "" },
-    { fontfamily: "Gaegu Light", fontname: "개구 라이트", className: "" },
-    { fontfamily: "Gaegu", fontname: "개구", className: "" },
-    { fontfamily: "Cute", fontname: "큐트", className: "" },
-    { fontfamily: "Dongle", fontname: "동글", className: "" },
-    { fontfamily: "Single Day", fontname: "싱글 데이", className: "" },
-    { fontfamily: "Yeon Sung", fontname: "연성", className: "" },
-    { fontfamily: "Hamlet", fontname: "햄릿", className: "" },
-  ];
-
   const [isColorOpen, setIsColorOpen] = useState(false);
   const [isFontFamilyOpen, setIsFontFamilyOpen] = useState(false);
   const [isAlignmentOpen, setisAlignmentOpen] = useState(false);
@@ -157,11 +100,12 @@ function edit() {
           title="스타일 변경"
           handleNextClick={handleNextClick}
         />
-        <Typography className="Batang" sx={{ mb: "1rem" }}>
+        <Typography sx={{ mb: "1rem", fontFamily: "Gowun Batang" }}>
           글꼴과 글자색을 변경할 수 있습니다
         </Typography>
         {/* 여기부터 편지 */}
         <Letter
+          type="PhotoCard"
           fontFamily={fonts[clickedFont].fontfamily}
           color={colors[clickedColor]}
           textAlign={alignment}
@@ -235,7 +179,9 @@ function edit() {
                   onClick={(e) => handleOpenPalette(e, "text")}
                   sx={{ "&:hover": { cursor: "pointer" } }}
                 >
-                  <Typography className="Dodum">글자색</Typography>
+                  <Typography sx={{ fontFamily: "Gowun Dodum" }}>
+                    글자색
+                  </Typography>
                 </Box>
               </Box>
             </Grid>
@@ -245,7 +191,9 @@ function edit() {
                   onClick={(e) => handleOpenPalette(e, "fontfamily")}
                   sx={{ "&:hover": { cursor: "pointer" } }}
                 >
-                  <Typography className="Dodum">글꼴</Typography>
+                  <Typography sx={{ fontFamily: "Gowun Dodum" }}>
+                    글꼴
+                  </Typography>
                 </Box>
               </Box>
             </Grid>
@@ -255,7 +203,9 @@ function edit() {
                   onClick={(e) => handleOpenPalette(e, "alignment")}
                   sx={{ "&:hover": { cursor: "pointer" } }}
                 >
-                  <Typography className="Dodum">정렬</Typography>
+                  <Typography sx={{ fontFamily: "Gowun Dodum" }}>
+                    정렬
+                  </Typography>
                 </Box>
               </Box>
             </Grid>
@@ -265,7 +215,9 @@ function edit() {
                   onClick={(e) => handleOpenPalette(e, "fontsize")}
                   sx={{ "&:hover": { cursor: "pointer" } }}
                 >
-                  <Typography className="Dodum">글자 크기</Typography>
+                  <Typography sx={{ fontFamily: "Gowun Dodum" }}>
+                    글자 크기
+                  </Typography>
                 </Box>
               </Box>
             </Grid>

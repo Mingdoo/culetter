@@ -111,16 +111,19 @@ const music = () => {
         <Typography
           component="div"
           vatiant="p"
-          className="Dodum"
-          sx={{ fontSize: "1.5rem", mb: "0.5rem", mt: "0.5rem" }}
+          sx={{
+            fontSize: "1.5rem",
+            mb: "0.5rem",
+            mt: "0.5rem",
+            fontFamily: "Gowun Dodum",
+          }}
         >
           {title}
         </Typography>
         <Typography
           component="div"
           vatiant="p"
-          className="Dodum"
-          sx={{ mb: "2rem" }}
+          sx={{ mb: "2rem", fontFamily: "Gowun Dodum" }}
         >
           {singer}
         </Typography>
@@ -183,8 +186,11 @@ const music = () => {
         <SkipNextSharpIcon style={playerIcon} />
       </Box>
       <Typography
-        className="Dodum"
-        sx={{ fontSize: "13px", textAlign: "center" }}
+        sx={{
+          fontSize: "13px",
+          textAlign: "center",
+          fontFamily: "Gowun Dodum",
+        }}
       >
         추천된 곡들 중 하나를 선택하고 다음을 눌러주세요.
       </Typography>
@@ -200,20 +206,20 @@ const music = () => {
         }}
       >
         <Box
-          className="Dodum"
           sx={{
             textAlign: "center",
             borderBottom: 2,
             borderColor: "#FCFAEF",
             padding: "0.3rem",
+            fontFamily: "Gowun Dodum",
           }}
         >
-          <Typography variant="p" className="Dodum">
+          <Typography variant="p" sx={{ fontFamily: "Gowun Dodum" }}>
             추천 곡 리스트
           </Typography>
         </Box>
         <Box sx={{ width: "380px", height: "330px", overflow: "auto" }}>
-          <List className="Dodum" sx={{ width: "100%" }}>
+          <List sx={{ width: "100%", fontFamily: "Gowun Dodum" }}>
             {musicList.map((item, index) => (
               <ListItem key={index} disablePadding>
                 <ListItemButton onClick={handleToggle(item)} dense>

@@ -52,7 +52,7 @@ const Content = () => {
   };
 
   return (
-    <Box className="Dodum" sx={{ padding: "0.8rem" }}>
+    <Box sx={{ padding: "0.8rem", fontFamily: "Gowun Dodum" }}>
       <Box>
         <TextField
           component="div"
@@ -108,8 +108,7 @@ const Content = () => {
       >
         <Box sx={{}}>
           <Button
-            className="Dodum"
-            sx={{ color: "#000000" }}
+            sx={{ color: "#000000", fontFamily: "Gowun Dodum" }}
             onClick={handleSave}
           >
             <SaveIcon />

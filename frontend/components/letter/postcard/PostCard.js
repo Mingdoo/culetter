@@ -1,47 +1,11 @@
 import React, { useState } from "react";
 import { Box, Typography } from "@mui/material";
+import { colors } from "../../../components/Variables";
 import Palette from "../Palette";
 
 function PostCard({ props }) {
-  const [bgColor, setBgColor] = useState(0);
-  const [underlineColor, setUnderlineColor] = useState(1);
-  const colors = [
-    "#ffffff",
-    "#000000",
-    "#8479E1",
-    "#0E1555",
-    "#3E432E",
-    "#DBEDF3",
-    "#E9B5D2",
-    "#FF8080",
-    "#FFF7BC",
-    "#FFD93D",
-    "#B4ECE3",
-    "#4D96FF",
-    "#C84B31",
-    "#700B97",
-    "#C0EDA6",
-    "#C70D3A",
-    "#AF0404",
-    "#A12568",
-    "#346751",
-    "#FFF8D5",
-    "#FD5D5D",
-    "#FF6B6B",
-    "#83142C",
-    "#6BCB77",
-    "#1C0C5B",
-    "#31112C",
-    "#FAD9E6",
-    "#1A1A2E",
-    "#E4AEC5",
-    "#5F7464",
-    "#243D25",
-    "#1F4068",
-    "#FF8BA0",
-    "#14FFEC",
-    "#733C3C",
-  ];
+  const [bgColor, setBgColor] = useState(1);
+  const [underlineColor, setUnderlineColor] = useState(0);
 
   return (
     <Box

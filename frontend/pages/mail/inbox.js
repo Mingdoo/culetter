@@ -37,12 +37,12 @@ export default function inbox() {
         <MenuList></MenuList>
         <Typography
           variant="h4"
-          className="Dodum"
           sx={{
             display: "flex",
             justifyContent: "center",
             py: "3.5vh",
             fontSize: 28,
+            fontFamily: "Gowun Dodum",
           }}
         >
           받은 편지

@@ -26,10 +26,15 @@ export default function UserCard(props) {
             flexDirection: "column",
           }}
         >
-          <Typography className="Batang">{props.obj.name}</Typography>
+          <Typography sx={{ fontFamily: "Gowun Batang" }}>
+            {props.obj.name}
+          </Typography>
           <Typography
-            className="Batang"
-            sx={{ fontSize: 12, textDecoration: "underline" }}
+            sx={{
+              fontSize: 12,
+              textDecoration: "underline",
+              fontFamily: "Gowun Batang",
+            }}
           >
             {props.obj.email}
           </Typography>
@@ -44,8 +49,13 @@ export default function UserCard(props) {
             }}
           >
             <Button
-              className="Batang"
-              sx={{ fontSize: 10, borderRadius: 3, height: 25, mr: "0.5rem" }}
+              sx={{
+                fontSize: 10,
+                borderRadius: 3,
+                height: 25,
+                mr: "0.5rem",
+                fontFamily: "Gowun Batang",
+              }}
               variant="contained"
               color="error"
               size="small"
@@ -55,8 +65,12 @@ export default function UserCard(props) {
               수락
             </Button>
             <Button
-              className="Batang"
-              sx={{ fontSize: 10, borderRadius: 3, height: 25 }}
+              sx={{
+                fontSize: 10,
+                borderRadius: 3,
+                height: 25,
+                fontFamily: "Gowun Batang",
+              }}
               variant="outlined"
               color="error"
               size="small"
