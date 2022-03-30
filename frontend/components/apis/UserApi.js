@@ -1,11 +1,9 @@
 import axios from "axios";
 import { BASE_URL } from "./config";
 
-export const userApi = axios.create({
+export const api = axios.create({
   baseURL: `${BASE_URL}`,
 });
-
-const API_URL = "http://j6a201.p.ssafy.io:8080/api";
 
 axios.interceptors.request.use(
   function (config) {
@@ -22,12 +20,24 @@ axios.interceptors.request.use(
 );
 
 const getAuthCode = async (body) => {
-  const result = await userApi.post(`${API_URL}/members/email`, body);
+  const result = await api.post(`/members/email`, body);
+  return result;
+};
+
+const getConfirmAuthCode = async (body) => {
+  const result = await api.post(`/members/email/check`, body);
+  return result;
+};
+
+const getRegister = async (body) => {
+  const result = await api.post(`/members`, body);
   return result;
 };
 
 const UserApi = {
   getAuthCode,
+  getConfirmAuthCode,
+  getRegister,
 };
 
 export default UserApi;
