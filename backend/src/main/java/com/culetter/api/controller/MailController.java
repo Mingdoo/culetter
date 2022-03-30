@@ -40,15 +40,15 @@ public class MailController {
         return ResponseEntity.status(HttpStatus.OK).body(memo);
     }
 
-    //TODO style이랑 song은 AI 완성후 상의
+    //TODO style이랑 music은 AI 완성후 상의
     @GetMapping("/style")
     public ResponseEntity<Map<String,String>> recommendStyle(@RequestBody Map<String,String> emotion){
 
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
-    @GetMapping("/song")
-    public ResponseEntity<Map<String,String>> recommendSong(@RequestBody Map<String,String> emotion){
+    @GetMapping("/music")
+    public ResponseEntity<Map<String,String>> recommendMusic(@RequestBody Map<String,String> emotion){
 
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }

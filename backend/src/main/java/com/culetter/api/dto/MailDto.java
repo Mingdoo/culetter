@@ -21,7 +21,7 @@ public class MailDto {
         private String mail_type;
         private String style_url;
         private String content;
-        private String song_url;
+        private String music_url;
         private String image;
         private String content_position;
         private String stickers;

@@ -8,17 +8,21 @@ cloud:
       bucket: culetter
       folder:
         profileImage: profile_image/
+        letterImage: letter_image/
+        postcardImage: postcard_image/
+        photocardImage: photocard_image/
+        music: music/
+      emotion:
+        happy: happy/
+        angry: angry/
+        sad: sad/
+        panic: panic/
     region:
       static: ap-northeast-2
     stack:
       auto: false
-# File Size
-spring:
-  servlet:
-    multipart:
-      max-file-size: 10MB
-      max-request-size: 10MB
-## EC2가 아닌 환경에서 실행시 발생하는 에러 메시지X
+
+## EC2가 아닌 환경에서 실행시 발생하는 에러 메시지 제거
 #logging:
 #  level:
 #    com:

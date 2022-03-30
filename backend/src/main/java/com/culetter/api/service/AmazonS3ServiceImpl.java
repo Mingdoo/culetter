@@ -4,9 +4,8 @@ import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.*;
+import com.culetter.api.dto.FileDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -67,6 +68,36 @@ public class AmazonS3ServiceImpl implements AmazonS3Service {
     public String getFilePath(String url) {
         String[] paths = url.split("//");
         return paths[1].substring(paths[1].indexOf('/') + 1);
+    }
+
+    @Override
+    public List<FileDto.FileInfo> getFileInfoList(String folderPath) {
+        List<FileDto.FileInfo> fileInfoList = new ArrayList<>();
+
+        ListObjectsRequest listObjectsRequest = new ListObjectsRequest()
+                .withBucketName(bucket)
+                .withPrefix(folderPath)
+                .withMaxKeys(300);
+
+        ObjectListing objectListing = amazonS3Client.listObjects(listObjectsRequest);
+        String fileName, filePath, fileUrl;
+
+        while (true) {
+            for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
+                filePath = objectSummary.getKey();
+                if (filePath.lastIndexOf('/') == filePath.length() - 1) continue;
+                fileName = filePath.substring(filePath.lastIndexOf('/') + 1);
+                fileUrl = amazonS3Client.getUrl(bucket, filePath).toString();
+                fileInfoList.add(new FileDto.FileInfo(fileName, filePath, fileUrl));
+            }
+
+            if (objectListing.isTruncated()) {
+                objectListing = amazonS3Client.listNextBatchOfObjects(objectListing);
+            } else {
+                break;
+            }
+        }
+        return fileInfoList;
     }
 
     @Override
