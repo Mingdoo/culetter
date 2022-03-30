@@ -15,7 +15,14 @@ const shapeStyles = {
   borderRadius: "70%",
 };
 const circle = <Box component="span" sx={{ ...shapeStyles }} />;
-export default function MailBox({ hasNew, name, id, mailsNum, setIsPostBox }) {
+export default function MailBox({
+  hasNew,
+  name,
+  id,
+  mailsNum,
+  setIsPostBox,
+  setSelectedId,
+}) {
   return (
     // 해당 링크 주소로 이동
     // <Link href="/mail/[id]" as={`/mail/${id}`}>
@@ -38,7 +45,10 @@ export default function MailBox({ hasNew, name, id, mailsNum, setIsPostBox }) {
         {mailsNum}
       </Avatar>
       <Box
-        onClick={() => setIsPostBox(false)}
+        onClick={() => {
+          setSelectedId();
+          setIsPostBox(false);
+        }}
         sx={{
           width: 200,
           height: 120,

@@ -7,14 +7,12 @@ import BackButton from "../../components/mail/inbox/BackButton";
 import MailPage from "../../components/mail/inbox/MailPage";
 import PostboxPage from "../../components/mail/inbox/PostboxPage";
 
-const SERVER_URL = "https://j6a201.p.ssafy.io:3000";
-const token = "temp";
-
 export default function inbox() {
   const [isPostBox, setIsPostBox] = useState(true);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [selectedId, setSelectedId] = useState(null);
 
   return (
     <>
@@ -52,10 +50,11 @@ export default function inbox() {
         {isPostBox ? (
           <PostboxPage
             setIsPostBox={(e) => setIsPostBox(e)}
+            setSelectedId={(e) => setSelectedId(e)}
             isPostBox={isPostBox}
           ></PostboxPage>
         ) : (
-          <MailPage></MailPage>
+          <MailPage senderId={selectedId}></MailPage>
         )}
         <Footer></Footer>
       </Box>
