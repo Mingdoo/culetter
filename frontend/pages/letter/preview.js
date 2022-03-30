@@ -9,10 +9,6 @@ import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
 import PauseIcon from "@mui/icons-material/Pause";
 import AlbumIcon from "@mui/icons-material/Album";
 
-const useStyles = makeStyles({
-  animation: "spin 4s linear infinite",
-});
-
 const enterKeyframe = keyframes`
   0% {
     transform: scale(0);
@@ -150,10 +146,11 @@ export default function Preview() {
       {/* 2. general */}
       {/* 내용은 저장하고 가는 게 아니라 다시 받아오는가 */}
 
-      <Box
-        className="Batang"
+      <Typography
         sx={{
-          height: 600,
+          maxHeight: 560,
+          minHeight: 560,
+          whiteSpace: "pre-line",
           width: 1,
           backgroundColor: "white",
           mx: "auto",
@@ -195,6 +192,48 @@ export default function Preview() {
         제공미리보기 편지 형식으로 제공미리보기 편지 형식으로 제공미리보기 편지
         형식으로 제공미리보기 편지 형식으로 제공미리보기 편지 형식으로
         제공미리보기 편지 형식으로 제공미리보기 편지 형식으로 제공
+      </Typography>
+      <Box sx={{ border: "0.5px solid" }}>
+        <img
+          src="/test.png"
+          width={418}
+          height={200}
+          style={{ display: "block" }}
+        />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            position: "relative",
+          }}
+        >
+          <Typography
+            className="text-area"
+            component="div"
+            sx={{
+              maxHeight: 280,
+              minHeight: 280,
+              minWidth: "100%",
+              px: "2rem",
+              py: "1rem",
+              overflowY: "auto",
+              whiteSpace: "pre-line",
+              textUnderlineOffset: 4,
+            }}
+          >
+            제공미리보기 편지 형식으로 제공미리보기 편지 형식으로 제공미리보기
+            편지 형식으로 제공미리보기 편지 형식으로 제공미리보기 편지 형식으로
+            제공미리보기 편지 형식으로 제공미리보기 편지 형식으로 제공미리보기
+            편지 형식으로 제공미리보기 편지 형식으로 제공미리보기 편지 형식으로
+            제공미리보기 편지 형식으로 제공미리보기 편지 형식으로 제공미리보기
+            편지 형식으로 제공미리보기 편지 형식으로 제공미리보기 편지 형식으로
+            제공미리보기 편지 형식으로 제공미리보기 편지 형식으로 제공미리보기
+            편지 형식으로 제공미리보기 편지 형식으로 제공미리보기 편지 형식으로
+            제공미리보기 편지 형식으로 제공미리보기 편지 형식으로 제공
+          </Typography>
+        </Box>
       </Box>
       <MiniPlayer play={() => play()} pause={() => pause()}></MiniPlayer>
       <Box sx={{ display: "flex", justifyContent: "center", mt: 1 }}>
