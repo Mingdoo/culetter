@@ -27,20 +27,18 @@ public class FriendServiceImpl implements FriendService {
 
     @Override
     public List<FriendDto.FriendResponse> selectFriendList() {
-        List<FriendDto.FriendResponse> friendResponse = new ArrayList<>();
-
         Member cur_member = memberService.getMemberByAuthentication();
 
+        List<FriendDto.FriendResponse> friendResponse = new ArrayList<>();
+
         for(Friend f : friendRepository.findByFriend(cur_member.getMemberId())) {
-            FriendDto.FriendResponse friend = new FriendDto.FriendResponse(
+            friendResponse.add(new FriendDto.FriendResponse(
                     f.getToMember().getMemberId(),
                     f.getToMember().getEmail(),
                     f.getToMember().getName(),
                     f.getIsFavorite(),
                     (byte) 3
-            );
-
-            friendResponse.add(friend);
+            ));
         }
 
         return friendResponse;
@@ -48,20 +46,18 @@ public class FriendServiceImpl implements FriendService {
 
     @Override
     public List<FriendDto.FriendResponse> selectGetRequestList() {
-        List<FriendDto.FriendResponse> requestResponse = new ArrayList<>();
-
         Member cur_member = memberService.getMemberByAuthentication();
 
+        List<FriendDto.FriendResponse> requestResponse = new ArrayList<>();
+
         for(Friend req : friendRepository.findByFriendRequest(cur_member.getMemberId())) {
-            FriendDto.FriendResponse request = new FriendDto.FriendResponse(
+            requestResponse.add(new FriendDto.FriendResponse(
                     req.getFromMember().getMemberId(),
                     req.getFromMember().getName(),
                     req.getFromMember().getEmail(),
                     req.getIsFavorite(),
                     (byte) 2
-            );
-
-            requestResponse.add(request);
+            ));
         }
         return requestResponse;
     }
@@ -100,15 +96,13 @@ public class FriendServiceImpl implements FriendService {
                 }
             }
 
-            FriendDto.FriendResponse user = new FriendDto.FriendResponse(
+            memberResponse.add(new FriendDto.FriendResponse(
                     m.getMemberId(),
                     m.getEmail(),
                     m.getName(),
                     favorite,
                     friend_status
-            );
-
-            memberResponse.add(user);
+            ));
         }
 
         return memberResponse;
@@ -116,13 +110,13 @@ public class FriendServiceImpl implements FriendService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void requestFriend(long memberId) {
+    public void requestFriend(Long memberId) {
         Member cur_member = memberService.getMemberByAuthentication();
         Member req_member = friendRepository.findByMemberId(memberId).orElseThrow(
                 () -> new ValueNotExistException("존재하지 않는 사용자입니다."));
 
         Optional<Friend> existCurReq = friendRepository.findByRequest(cur_member.getMemberId(),req_member.getMemberId());
-        Optional<Friend> existReqCur = friendRepository.findByRequest(req_member.getMemberId(), cur_member.getMemberId());
+        Optional<Friend> existReqCur = friendRepository.findByRequest(req_member.getMemberId(),cur_member.getMemberId());
 
         if(!existCurReq.isPresent() && !existReqCur.isPresent()){
             friendRepository.save(Friend.builder()
@@ -139,7 +133,7 @@ public class FriendServiceImpl implements FriendService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void acceptRequest(long memberId) {
+    public void acceptRequest(Long memberId) {
         Member cur_member = memberService.getMemberByAuthentication();
         Member req_member = friendRepository.findByMemberId(memberId).orElseThrow(
                 () -> new ValueNotExistException("존재하지 않는 사용자입니다."));
@@ -160,7 +154,7 @@ public class FriendServiceImpl implements FriendService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void declineRequest(long memberId) {
+    public void declineRequest(Long memberId) {
         Member cur_member = memberService.getMemberByAuthentication();
         Member req_member = friendRepository.findByMemberId(memberId).orElseThrow(
                 () -> new ValueNotExistException("존재하지 않는 사용자입니다."));
@@ -172,7 +166,17 @@ public class FriendServiceImpl implements FriendService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void deleteFriend(long memberId) {
+    public void updateFavoriteFriend(Long memberId) {
+        Member cur_member = memberService.getMemberByAuthentication();
+        Friend friend = friendRepository.findByRequest(cur_member.getMemberId(),memberId)
+                .orElseThrow(()-> new ValueNotExistException("존재하지 않는 사용자입니다."));
+
+        friend.updateFavorite(friend.getIsFavorite());
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteFriend(Long memberId) {
         Member cur_member = memberService.getMemberByAuthentication();
         Member req_member = friendRepository.findByMemberId(memberId).orElseThrow(
                 () -> new ValueNotExistException("존재하지 않는 사용자입니다."));

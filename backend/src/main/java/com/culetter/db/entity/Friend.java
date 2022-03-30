@@ -35,4 +35,8 @@ public class Friend {
         this.fromMember = fromMember;
         this.toMember = toMember;
     }
+
+    public void updateFavorite(Boolean isFavorite){
+        this.isFavorite = !isFavorite;
+    }
 }
