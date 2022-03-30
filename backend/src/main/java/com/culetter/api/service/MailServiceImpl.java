@@ -61,7 +61,7 @@ public class MailServiceImpl implements MailService {
             mail.getTitle(),
             mail.getMailType(),mail.getStyleUrl(),
             mail.getContent(),
-            mail.getSongUrl(),
+            mail.getMusicUrl(),
             mail.getImage(),
             mail.getContentPosition(),
             mail.getStickers(),
@@ -85,7 +85,7 @@ public class MailServiceImpl implements MailService {
                 mail.getTitle(),
                 mail.getMailType(),mail.getStyleUrl(),
                 mail.getContent(),
-                mail.getSongUrl(),
+                mail.getMusicUrl(),
                 mail.getImage(),
                 mail.getContentPosition(),
                 mail.getStickers(),
@@ -113,7 +113,7 @@ public class MailServiceImpl implements MailService {
                 .mailType(mail.getMail_type())
                 .styleUrl(mail.getStyle_url())
                 .content(mail.getContent())
-                .songUrl(mail.getSong_url())
+                .musicUrl(mail.getMusic_url())
                 .image(mail.getImage())
                 .contentPosition(mail.getContent_position())
                 .stickers(mail.getStickers())
@@ -163,7 +163,7 @@ public class MailServiceImpl implements MailService {
                     .mailType(mail.getMail_type())
                     .styleUrl(mail.getStyle_url())
                     .content(mail.getContent())
-                    .songUrl(mail.getSong_url())
+                    .musicUrl(mail.getMusic_url())
                     .image(mail.getImage())
                     .contentPosition(mail.getContent_position())
                     .stickers(mail.getStickers())
@@ -184,7 +184,7 @@ public class MailServiceImpl implements MailService {
                     mail.getReceiver_email(), mail.getReceiver_name(),
                     mail.getTitle(),
                     mail.getMail_type(), mail.getStyle_url(),
-                    mail.getContent(), mail.getSong_url(), mail.getImage(),
+                    mail.getContent(), mail.getMusic_url(), mail.getImage(),
                     mail.getContent_position(), mail.getStickers(),
                     mail.getFont_order(), mail.getFont_type(), mail.getFont_color(),
                     mail.getHandwrite_image()
@@ -215,7 +215,7 @@ public class MailServiceImpl implements MailService {
                 mail.getReceiver_email(), mail.getReceiver_name(),
                 mail.getTitle(),
                 mail.getMail_type(), mail.getStyle_url(),
-                mail.getContent(), mail.getSong_url(), mail.getImage(),
+                mail.getContent(), mail.getMusic_url(), mail.getImage(),
                 mail.getContent_position(), mail.getStickers(),
                 mail.getFont_order(), mail.getFont_type(), mail.getFont_color(),
                 mail.getHandwrite_image()

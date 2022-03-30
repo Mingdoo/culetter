@@ -45,11 +45,10 @@ public class FriendController {
         return ResponseEntity.status(HttpStatus.OK).body(mreq);
     }
 
-    @GetMapping("/search")
+    @PostMapping("/search")
     public ResponseEntity<Map<String,List<FriendDto.FriendResponse>>> searchMemberList(
             @RequestBody Map<String,String> email){
         Map<String, List<FriendDto.FriendResponse>> muser = new HashMap<>();
-
         muser.put("users", friendService.selectMemberList(email.get("email")));
 
         return ResponseEntity.status(HttpStatus.OK).body(muser);

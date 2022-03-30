@@ -33,7 +33,7 @@ public class Mail {
     @Column(columnDefinition = "TEXT")
     private String content;
     private String styleUrl;
-    private String songUrl;
+    private String musicUrl;
     private String image;
     private String contentPosition;
     @Column(columnDefinition = "TEXT")
@@ -48,7 +48,7 @@ public class Mail {
     @Builder
     public Mail(String code, Long senderId, String senderEmail, String senderName, Boolean isRead, String receiverEmail,
                 String receiverName, Byte existCnt, String mailType, String title, String content, String styleUrl,
-                String songUrl, String image, String contentPosition, String stickers, String fontOrder, String fontType, Byte fontColor,
+                String musicUrl, String image, String contentPosition, String stickers, String fontOrder, String fontType, Byte fontColor,
                 String handwriteImage, LocalDateTime createdDate) {
         this.code = code;
         this.senderId = senderId;
@@ -62,7 +62,7 @@ public class Mail {
         this.title = title;
         this.content = content;
         this.styleUrl = styleUrl;
-        this.songUrl = songUrl;
+        this.musicUrl = musicUrl;
         this.image = image;
         this.contentPosition = contentPosition;
         this.stickers = stickers;
@@ -82,7 +82,7 @@ public class Mail {
     }
 
     public void updateTempMail(String receiverEmail, String receiverName, String title,
-                               String mailType, String mailStyle, String content, String songUrl,
+                               String mailType, String mailStyle, String content, String musicUrl,
                                String image, String contentPosition, String stickers,
                                String fontOrder, String fontType, Byte fontColor,
                                String handwriteImage){
@@ -92,7 +92,7 @@ public class Mail {
         this.mailType = mailType;
         this.styleUrl = mailStyle;
         this.content = content;
-        this.songUrl = songUrl;
+        this.musicUrl = musicUrl;
         this.image = image;
         this.contentPosition = contentPosition;
         this.stickers = stickers;
