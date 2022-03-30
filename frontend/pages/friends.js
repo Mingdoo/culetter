@@ -6,6 +6,7 @@ import MenuList from "../components/menu/MenuList";
 import SearchBox from "../components/user/SearchBox";
 import UserCard from "../components/user/UserCard";
 import StarIcon from "@mui/icons-material/Star";
+import { email } from "../components/apis/auth";
 
 function friends() {
   const [searchFriendId, setSearchFriendId] = useState("");
@@ -25,7 +26,9 @@ function friends() {
 
   const handleSearchMemberClick = (e) => {
     e.preventDefault();
-    //검색 api
+    const response = email("alonemint@gmail.com").then((res) => {
+      console.log(res);
+    });
   };
 
   const userFriends = [
