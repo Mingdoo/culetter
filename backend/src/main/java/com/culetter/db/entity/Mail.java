@@ -20,6 +20,7 @@ public class Mail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long mailId;
     private String code;
+    private Long senderId;
     private String senderEmail;
     private String senderName;
     @Convert(converter = BooleanToYNConverter.class)
@@ -31,10 +32,12 @@ public class Mail {
     private String title;
     @Column(columnDefinition = "TEXT")
     private String content;
-    private String mailStyle;
+    private String styleUrl;
     private String songUrl;
     private String image;
     private String contentPosition;
+    @Column(columnDefinition = "TEXT")
+    private String stickers;
     private String fontOrder;
     private String fontType;
     private Byte fontColor;
@@ -43,11 +46,12 @@ public class Mail {
     private LocalDateTime createdDate;
 
     @Builder
-    public Mail(String code, String senderEmail, String senderName, Boolean isRead, String receiverEmail,
-                String receiverName, Byte existCnt, String mailType, String title, String content, String mailStyle,
-                String songUrl, String image, String contentPosition, String fontOrder, String fontType, Byte fontColor,
+    public Mail(String code, Long senderId, String senderEmail, String senderName, Boolean isRead, String receiverEmail,
+                String receiverName, Byte existCnt, String mailType, String title, String content, String styleUrl,
+                String songUrl, String image, String contentPosition, String stickers, String fontOrder, String fontType, Byte fontColor,
                 String handwriteImage, LocalDateTime createdDate) {
         this.code = code;
+        this.senderId = senderId;
         this.senderEmail = senderEmail;
         this.senderName = senderName;
         this.isRead = isRead;
@@ -57,15 +61,45 @@ public class Mail {
         this.mailType = mailType;
         this.title = title;
         this.content = content;
-        this.mailStyle = mailStyle;
+        this.styleUrl = styleUrl;
         this.songUrl = songUrl;
         this.image = image;
         this.contentPosition = contentPosition;
+        this.stickers = stickers;
         this.fontOrder = fontOrder;
         this.fontType = fontType;
         this.fontColor = fontColor;
         this.handwriteImage = handwriteImage;
         this.createdDate = createdDate;
+    }
+
+    public void updateIsRead(Boolean isRead) {
+        this.isRead = isRead;
+    }
+
+    public void updateExistCnt(Byte existCnt) {
+        this.existCnt = existCnt;
+    }
+
+    public void updateTempMail(String receiverEmail, String receiverName, String title,
+                               String mailType, String mailStyle, String content, String songUrl,
+                               String image, String contentPosition, String stickers,
+                               String fontOrder, String fontType, Byte fontColor,
+                               String handwriteImage){
+        this.receiverEmail = receiverEmail;
+        this.receiverName = receiverName;
+        this.title = title;
+        this.mailType = mailType;
+        this.styleUrl = mailStyle;
+        this.content = content;
+        this.songUrl = songUrl;
+        this.image = image;
+        this.contentPosition = contentPosition;
+        this.stickers = stickers;
+        this.fontOrder = fontOrder;
+        this.fontType = fontType;
+        this.fontColor = fontColor;
+        this.handwriteImage = handwriteImage;
     }
 
 //    @OneToOne(mappedBy = "mail")

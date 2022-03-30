@@ -76,6 +76,13 @@ public class FriendController {
         return ResponseEntity.status(HttpStatus.OK).body("친구 추가 요청 거절 성공");
     }
 
+    @PostMapping("/favorite")
+    public ResponseEntity<String> updateFriendFavorite(@RequestBody Map<String,Long> memberId) {
+        friendService.updateFavoriteFriend(memberId.get("member_id"));
+
+        return ResponseEntity.status(HttpStatus.OK).body("친구 즐겨찾기 성공");
+    }
+
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteFriend(@RequestBody Map<String,Long> memberId) {
         friendService.deleteFriend(memberId.get("member_id"));

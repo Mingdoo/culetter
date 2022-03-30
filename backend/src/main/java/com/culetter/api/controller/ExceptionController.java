@@ -1,6 +1,7 @@
 package com.culetter.api.controller;
 
 import com.culetter.exception.member.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
@@ -122,5 +123,12 @@ public class ExceptionController {
         log.error("IllegalArgumentException - {}", e.getMessage());
         //400
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+
+    @ExceptionHandler(JsonProcessingException.class)
+    public ResponseEntity<String> JsonProcessingExceptionHandler(JsonProcessingException e) {
+        log.error("JsonProcessingException - {}", "JSON 처리 에러");
+        //500
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
     }
 }

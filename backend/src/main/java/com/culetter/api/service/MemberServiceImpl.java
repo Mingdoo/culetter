@@ -6,6 +6,7 @@ import com.culetter.common.util.SecurityUtil;
 import com.culetter.db.entity.Member;
 import com.culetter.db.repository.MemberRepository;
 import com.culetter.exception.member.DuplicateMemberException;
+import com.culetter.exception.member.ValueNotExistException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -88,6 +89,12 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
+    public Member findMemberByEmail(String email) {
+        return memberRepository.findByEmail(email)
+                .orElseThrow(() -> new ValueNotExistException("존재하지 않는 사용자입니다."));
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public void updateMember(MemberDto.InfoRequest infoRequest, MultipartFile multipartFile) {
         Member member = getMemberByAuthentication();
@@ -96,7 +103,7 @@ public class MemberServiceImpl implements MemberService{
             String imageUrl = fileService.uploadImage(multipartFile, profileImagePath);
             if (member.getProfileImage() != null) fileService.deleteImage(member.getProfileImage());
             member.updateProfileImage(imageUrl);
-        };
+        }
     }
 
     @Override
