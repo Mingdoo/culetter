@@ -26,3 +26,11 @@ export const getRecvMails = async () => {
 export const getRecvMailsBySender = async (senderId) => {
   return await mailboxesApi.get(`/recv/${senderId}`);
 };
+
+export const getUndoneMail = async () => {
+  return await mailboxesApi.get(`/undone`);
+};
+
+export const getSendMail = async () => {
+  return await mailboxesApi.get(`/send`);
+};

@@ -1,10 +1,13 @@
 import { Box, Typography, Grid } from "@mui/material";
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 
 import MenuList from "../../components/menu/MenuList";
 import Footer from "../../components/Footer";
 import SearchBox from "../../components/user/SearchBox";
 import Letter from "../../components/mail/sent/Letter";
+
+import { getSendMail } from "../../components/apis/mailbox";
+
 const tempData = [
   { name: "홍길동", title: "서시", type: "PHOTOCARD", date: "20220323" },
   { name: "김정연", title: "서시", type: "POSTCARD", date: "20220323" },
@@ -63,8 +66,22 @@ const tempData = [
   { name: "김도현", title: "서시", type: "PHOTOCARD", date: "20220323" },
   { name: "김경협", title: "서시", type: "PHOTOCARD", date: "20220323" },
 ];
+
 export default function mailSent() {
   const [searchName, setSearchName] = useState("");
+
+  const fetch = async () => {
+    try {
+      const res = getSendMail();
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetch();
+  });
 
   return (
     <Box sx={{ width: 420, mx: "auto" }}>
@@ -106,7 +123,7 @@ export default function mailSent() {
               return obj.name.includes(searchName);
             })
             .map(({ type, name, title, date }, index) => (
-              <Grid item xs={6} wrap key={index} sx={{ width: 1, pt: 4 }}>
+              <Grid item xs={6} key={index} sx={{ width: 1, pt: 4 }}>
                 <Letter
                   type={type}
                   name={name}

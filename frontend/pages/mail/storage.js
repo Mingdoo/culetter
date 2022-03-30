@@ -3,51 +3,65 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import MenuList from "../../components/menu/MenuList";
 import Letter from "../../components/main/Letter";
 import Photocard from "../../components/mail/inbox/Photocard";
+import { getUndoneMail } from "../../components/apis/mailbox";
 
 export default function Storage() {
   const [loading, setLoading] = useState(false);
   const [mails, setMails] = useState([]);
 
+  const fetch = async () => {
+    try {
+      const res = getUndoneMail();
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    setMails([
-      {
-        title: "test1",
-        mailType: "PHOTOCARD",
-        createdDate: "20220323",
-        senderName: "김경협",
-      },
-      {
-        title: "test2",
-        mailType: "GENERAL",
-        createdDate: "20220323",
-        senderName: "김도현",
-      },
-      {
-        title: "test3",
-        mailType: "GENERAL",
-        createdDate: "20220323",
-        senderName: "김은송",
-      },
-      {
-        title: "test4",
-        mailType: "POSTCARD",
-        createdDate: "20220323",
-        senderName: "강민수",
-      },
-      {
-        title: "test5",
-        mailType: "PHOTOCARD",
-        createdDate: "20220323",
-        senderName: "김정연",
-      },
-      {
-        title: "test6",
-        mailType: "POSTCARD",
-        createdDate: "20220323",
-        senderName: "김정환",
-      },
-    ]);
-  }, []);
+    fetch();
+  });
+
+  // useEffect(() => {
+  //   setMails([
+  //     {
+  //       title: "test1",
+  //       mailType: "PHOTOCARD",
+  //       createdDate: "20220323",
+  //       senderName: "김경협",
+  //     },
+  //     {
+  //       title: "test2",
+  //       mailType: "GENERAL",
+  //       createdDate: "20220323",
+  //       senderName: "김도현",
+  //     },
+  //     {
+  //       title: "test3",
+  //       mailType: "GENERAL",
+  //       createdDate: "20220323",
+  //       senderName: "김은송",
+  //     },
+  //     {
+  //       title: "test4",
+  //       mailType: "POSTCARD",
+  //       createdDate: "20220323",
+  //       senderName: "강민수",
+  //     },
+  //     {
+  //       title: "test5",
+  //       mailType: "PHOTOCARD",
+  //       createdDate: "20220323",
+  //       senderName: "김정연",
+  //     },
+  //     {
+  //       title: "test6",
+  //       mailType: "POSTCARD",
+  //       createdDate: "20220323",
+  //       senderName: "김정환",
+  //     },
+  //   ]);
+  // }, []);
   return (
     <Box>
       <Box
