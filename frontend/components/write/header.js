@@ -3,7 +3,7 @@ import React from "react";
 import { Box, Grid } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import NextPage from "./nextPage";
-const header = (props) => {
+const Header = (props) => {
   const { title, detail1, detail2 } = props;
 
   return (
@@ -64,4 +64,4 @@ const header = (props) => {
   );
 };
 
-export default header;
+export default Header;
