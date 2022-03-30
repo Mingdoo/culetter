@@ -5,6 +5,8 @@ import LockIcon from "@mui/icons-material/Lock";
 import PersonIcon from "@mui/icons-material/Person";
 import BadgeIcon from "@mui/icons-material/Badge";
 import PasswordIcon from "@mui/icons-material/Password";
+import UserApi from "../apis/UserApi";
+
 import {
   Grid,
   TextField,
@@ -63,6 +65,7 @@ const msgStyle = {
 };
 
 const SignupForm = () => {
+  const { getAuthCode, emailCode } = UserApi;
   const [input, setInput] = useState({
     email: "",
     password: "",
@@ -117,7 +120,6 @@ const SignupForm = () => {
         break;
       case "password":
         setPwd(value);
-        console.log(value);
         if (!pwdPattern.test(value)) {
           setPwdMsg("8 ~ 20자 영어, 숫자, 특수문자의 조합");
         } else {
@@ -135,9 +137,26 @@ const SignupForm = () => {
         }
         break;
     }
-
-    console.log(e.target.id, e.target.value);
   };
+
+  const handleAuthEmail = (e) => {
+    e.preventDefault();
+    sendEmailAuthCode();
+  };
+
+  const sendEmailAuthCode = async () => {
+    const body = {
+      email: email,
+    };
+    try {
+      const response = await getAuthCode(body);
+      setAuthEamil(true);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const classes = useStyles();
   const labelClasses = useLabelStyles();
 
@@ -190,6 +209,7 @@ const SignupForm = () => {
               margin: "1rem",
               fontFamily: "Gowun Dodum",
             }}
+            onClick={handleAuthEmail}
           >
             전송
           </Button>
@@ -205,7 +225,7 @@ const SignupForm = () => {
           <Grid container sx={{ height: "2.5rem" }}>
             <Grid item xs={2}>
               <PasswordIcon
-                sx={{ color: "white", position: "relative", top: 20, left: 7 }}
+                sx={{ color: "white", position: "relative", top: 10, left: 9 }}
               />{" "}
             </Grid>
             <Grid item xs={7}>

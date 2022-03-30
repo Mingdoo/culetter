@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LockIcon from "@mui/icons-material/Lock";
 import { Grid, TextField, FormControl, Button, Link, Box } from "@mui/material";
+import UserApi from "../apis/UserApi";
 
 const useStyles = makeStyles({
   root: {
@@ -56,8 +57,6 @@ const LoginForm = () => {
       ...input,
       [id]: value,
     });
-
-    console.log(e.target.id, e.target.value);
   };
 
   const classes = useStyles();

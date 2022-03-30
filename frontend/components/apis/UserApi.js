@@ -5,6 +5,8 @@ export const userApi = axios.create({
   baseURL: `${BASE_URL}`,
 });
 
+const API_URL = "http://j6a201.p.ssafy.io:8080/api";
+
 axios.interceptors.request.use(
   function (config) {
     const accessToken = localStorage.getItem("accessToken");
@@ -19,8 +21,13 @@ axios.interceptors.request.use(
   }
 );
 
-export const email = async (userEmail) => {
-  return await userApi.post(`/members/email`, {
-    email: userEmail,
-  });
+const getAuthCode = async (body) => {
+  const result = await userApi.post(`${API_URL}/members/email`, body);
+  return result;
 };
+
+const UserApi = {
+  getAuthCode,
+};
+
+export default UserApi;
