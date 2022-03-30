@@ -27,6 +27,9 @@ const Imgupload = (props) => {
       setImgFile(event.target.files[0]);
       setLoaded(true);
     };
+
+    // const formData = new FormData();
+    // formData.append('file', event.target.files[0]);
   };
 
   useEffect(() => {
