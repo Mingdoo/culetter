@@ -3,9 +3,9 @@ import Link from "next/link";
 import { Box } from "@mui/material";
 const link = ["photocard", "normal", "postcard"];
 const type = (props) => {
-  const { text, index, describe, imgsrc, href } = props;
+  const { text, index, describe, imgsrc } = props;
   return (
-    <Link href={"/write"}>
+    <Link href={"/letter/write"}>
       <Box
         sx={{
           display: "flex",
@@ -20,6 +20,7 @@ const type = (props) => {
           fontFamily: "Gowun Dodum",
           mb: index === 2 ? "0rem" : "1.2rem",
           mt: index === 0 ? "1.5rem" : "0rem",
+          "&:hover": { cursor: "pointer" },
         }}
       >
         <Box
@@ -39,7 +40,14 @@ const type = (props) => {
           }}
         >
           <Box>{text}</Box>
-          <Box sx={{ fontSize: "0.6rem", textAlign: "center", mt: "1rem" }}>
+          <Box
+            sx={{
+              fontSize: "0.6rem",
+              textAlign: "center",
+              mt: "1rem",
+              whiteSpace: "pre-wrap",
+            }}
+          >
             {describe}
           </Box>
         </Box>
