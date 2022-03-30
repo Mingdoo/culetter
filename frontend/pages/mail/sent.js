@@ -112,6 +112,7 @@ export default function mailSent() {
                   name={name}
                   title={title}
                   date={date}
+                  width={150}
                 ></Letter>
               </Grid>
             ))}
