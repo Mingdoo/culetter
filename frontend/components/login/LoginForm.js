@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LockIcon from "@mui/icons-material/Lock";
+import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
+import LogoutIcon from "@mui/icons-material/Logout";
 import {
   Grid,
   TextField,
@@ -126,6 +128,16 @@ const LoginForm = () => {
     margin: "1rem",
     fontSize: "1rem",
   };
+
+  const BtnStyle = {
+    width: "35%",
+    fontFamily: "Gowun Batang",
+    backgroundColor: "#E2E0A5",
+    color: "#3A1D1D",
+    fontSize: "1rem",
+    fontWeight: "bold",
+    margin: "1rem 1rem",
+  };
   // const classes = useStyles();
   // const labelClasses = useLabelStyles();
 
@@ -143,17 +155,18 @@ const LoginForm = () => {
           <Box sx={{ mt: "10rem" }}>
             <Typography style={textStyle}>이미 로그인 된 상태입니다</Typography>
             <Typography style={textStyle}>로그아웃 하시겠습니까?</Typography>
+
             <Button
-              sx={{
-                width: "40%",
-                fontFamily: "Gowun Batang",
-                backgroundColor: "#E2E0A5",
-                color: "#3A1D1D",
-                fontSize: "1rem",
-                fontWeight: "bold",
+              style={BtnStyle}
+              onClick={() => {
+                Router.push("/main");
               }}
-              onClick={handleLogout}
             >
+              <HomeRoundedIcon />
+              홈으로
+            </Button>
+            <Button style={BtnStyle} onClick={handleLogout}>
+              <LogoutIcon />
               로그아웃
             </Button>
           </Box>

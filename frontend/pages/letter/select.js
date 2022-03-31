@@ -4,7 +4,7 @@ import MiniUserCard from "../../components/user/MiniUserCard";
 import { landingBoxStyle } from "../index";
 import SearchBox from "../../components/user/SearchBox";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
-import ContentsContext from "../../contexts/ContentsContext";
+import LetterContext from "../../contexts/LetterContext";
 import Router from "next/router";
 import ReceiverButton from "../../components/letter/receiverButton";
 import Header from "../../components/Header";
@@ -12,11 +12,11 @@ import { getFriends } from "../../components/apis/user";
 import { motion, AnimateSharedLayout } from "framer-motion";
 
 export default function select() {
+  const { memberId, setMemberId } = useContext(LetterContext);
   const [searchId, setSearchId] = useState("");
   const [filterFavorite, setFilterFavorite] = useState(false);
   const [receiver, setReceiver] = useState("");
   const [userFriends, setUserFriends] = useState([]);
-  const { memberId, setMemberId } = useContext(ContentsContext);
 
   const handleShowFavoriteClick = (e) => {
     e.preventDefault();

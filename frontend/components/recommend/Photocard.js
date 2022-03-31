@@ -50,7 +50,14 @@ const Photocard = (props) => {
           onClick={handleBackClick}
         ></img>
         <Box
-          sx={{ position: "absolute", top: "0", margin: "1rem", mt: "2rem" }}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            position: "absolute",
+            top: "0",
+            margin: "1rem",
+            mt: "2rem",
+          }}
         >
           <Typography
             className="innerText Dodum"
