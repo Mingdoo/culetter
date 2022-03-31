@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Box, Typography } from "@mui/material";
 const Normal = (props) => {
+  //something changed
   const { imgsrc, content } = props;
   return (
     <Box

@@ -1,38 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, TextField, Button } from "@mui/material";
-import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import HighlightOffRoundedIcon from "@mui/icons-material/HighlightOffRounded";
 
-const useStyles = makeStyles({
-  root: {
-    color: "#222222",
-    backgroundColor: "",
-    "&.Mui-focused": {
-      color: "#222222",
-    },
-    "&:after": {
-      // focused
-      borderBottomColor: "#222222",
-    },
-  },
-});
+// const useStyles = makeStyles({
+//   root: {
+//     color: "#222222",
+//     backgroundColor: "",
+//     "&.Mui-focused": {
+//       color: "#222222",
+//     },
+//     "&:after": {
+//       // focused
+//       borderBottomColor: "#222222",
+//     },
+//   },
+// });
 
-const useLabelStyles = makeStyles({
-  root: {
-    color: "#222222",
-    "&.Mui-focused": {
-      color: "#222222",
-    },
-    fontSize: 14,
-  },
-});
+// const useLabelStyles = makeStyles({
+//   root: {
+//     color: "#222222",
+//     "&.Mui-focused": {
+//       color: "#222222",
+//     },
+//     fontSize: 14,
+//   },
+// });
 
 function SearchBox(props) {
   const [inboxSearch, setInboxSearch] = useState("");
-  const classes = useStyles();
-  const labelClasses = useLabelStyles();
+
+  // const classes = useStyles();
+  // const labelClasses = useLabelStyles();
   return (
     <Box
       sx={{
@@ -64,12 +64,11 @@ function SearchBox(props) {
           }
           InputLabelProps={{
             style: { fontFamily: "Gowun Batang" },
-            classes: labelClasses,
+            // classes: labelClasses,
           }}
-          value={props.inbox ? inboxSearch : ""}
           InputProps={{
             style: { fontFamily: "Gowun Batang" },
-            classes: classes,
+            // classes: classes,
             endAdornment:
               props.inbox && inboxSearch ? (
                 <IconButton

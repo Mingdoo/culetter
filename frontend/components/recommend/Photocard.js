@@ -3,7 +3,7 @@ import { Box, Typography } from "@mui/material";
 
 const Photocard = (props) => {
   const { front, back, content } = props;
-
+  //something changed
   const [isClicked, setIsClicked] = useState(false);
   const [showFront, setShowFront] = useState(false);
   const [showBack, setShowBack] = useState(false);
