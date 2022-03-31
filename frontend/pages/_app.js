@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../styles/globals.css";
 import "../styles/Landing.module.css";
-import ContentsContext from "../contexts/ContentsContext";
+import LetterContext from "../contexts/LetterContext";
 import { DefaultSeo } from "next-seo";
 import { DEFAULT_SEO } from "../components/Variables";
 function MyApp({ Component, pageProps }) {
@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }) {
   const [receiverName, setReceiverName] = useState("");
   const [receiverEmail, setReceiverEmail] = useState("");
   const [title, setTitle] = useState("");
-  const [mailype, setMailType] = useState("");
+  const [mailType, setMailType] = useState("");
   const [styleUrl, setStyleUrl] = useState("");
   const [content, setContent] = useState("");
   const [musicUrl, setMusicUrl] = useState("");
@@ -19,9 +19,10 @@ function MyApp({ Component, pageProps }) {
   const [fontOrder, setFontOrder] = useState("");
   const [fontType, setFontType] = useState("");
   const [fontColor, setFontColor] = useState("");
+  const [memberId, setMemberId] = useState("");
 
   return (
-    <ContentsContext.Provider
+    <LetterContext.Provider
       value={{
         name,
         setName,
@@ -31,7 +32,7 @@ function MyApp({ Component, pageProps }) {
         setReceiverEmail,
         title,
         setTitle,
-        mailype,
+        mailType,
         setMailType,
         styleUrl,
         setStyleUrl,
@@ -51,11 +52,13 @@ function MyApp({ Component, pageProps }) {
         setFontType,
         fontColor,
         setFontColor,
+        memberId,
+        setMemberId,
       }}
     >
       <Component {...pageProps} />
       <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-    </ContentsContext.Provider>
+    </LetterContext.Provider>
   );
 }
 

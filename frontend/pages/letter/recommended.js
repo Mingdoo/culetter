@@ -17,6 +17,7 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CircleIcon from "@mui/icons-material/Circle";
 import CheckCircleTwoToneIcon from "@mui/icons-material/CheckCircleTwoTone";
 import CircleTwoToneIcon from "@mui/icons-material/CircleTwoTone";
+import LetterContext from "../../contexts/LetterContext";
 
 const useCheckboxStyles = makeStyles({
   overrides: {
@@ -32,19 +33,19 @@ const useCheckboxStyles = makeStyles({
 });
 
 const Recommended = () => {
-  // const { type } = useContext(ContentsContext);
+  const { mailType, content, title } = useContext(LetterContext);
 
   // const [type, setType] = useState("photocard");
-  const [type, setType] = useState("normal");
+  // const [type, setType] = useState("normal");
   // const [type, setType] = useState("postcard");
 
   const [checked, setChecked] = useState(0);
-  const [content, setContent] = useState(
-    "이름을 알고 나면 이웃이 되고\n" +
-      "색깔을 알고 나면 친구가 되고\n" +
-      "모양까지 알고 나면 연인이 된다\n" +
-      "아, 이것은 비밀\n"
-  );
+  // const [content, setContent] = useState(
+  //   "이름을 알고 나면 이웃이 되고\n" +
+  //     "색깔을 알고 나면 친구가 되고\n" +
+  //     "모양까지 알고 나면 연인이 된다\n" +
+  //     "아, 이것은 비밀\n"
+  // );
 
   const photocardList = [
     { front: "/img/photocard_front1.jpg", back: "/img/photocard_back.png" },
@@ -133,7 +134,7 @@ const Recommended = () => {
         bgcolor: "#FCFAEF",
       }}
     >
-      {type === "photocard" ? (
+      {mailType === "PHOTOCARD" ? (
         <>
           <Header
             handlePrevClick={handlePrevClick}
@@ -144,7 +145,7 @@ const Recommended = () => {
             카드를 탭하면 카드가 뒤집힙니다
           </Typography>
         </>
-      ) : type === "normal" ? (
+      ) : mailType === "NORMAL" ? (
         <>
           <Header
             handlePrevClick={handlePrevClick}
@@ -177,13 +178,13 @@ const Recommended = () => {
         component="div"
         sx={{
           display: "flex",
-          justifyContent: type === "postcard" ? null : "space-between",
-          flexDirection: type === "normal" ? "row" : "column",
-          flexWrap: type === "photocard" ? null : "wrap",
+          justifyContent: mailType === "POSTCARD" ? null : "space-between",
+          flexDirection: mailType === "NORMAL" ? "row" : "column",
+          flexWrap: mailType === "PHOTOCARD" ? null : "wrap",
           alignItems: "center",
         }}
       >
-        {type === "photocard" ? (
+        {mailType === "PHOTOCARD" ? (
           photocardList.map((data, index) => (
             <Box
               key={index}
@@ -212,7 +213,7 @@ const Recommended = () => {
               />
             </Box>
           ))
-        ) : type === "normal" ? (
+        ) : mailType === "NORMAL" ? (
           letterList.map((data, index) => (
             <Box
               component="div"

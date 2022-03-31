@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Header from "../../components/Header";
 import Content from "../../components/write/Content";
 import { Box } from "@mui/material";
 import Router from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import LetterContext from "../../contexts/LetterContext";
 
 const writeLetter = () => {
   const [textValid, setTextValid] = useState(false);
+  const { mailType } = useContext(LetterContext);
 
   const handleNextClick = (e) => {
     e.preventDefault();
@@ -30,6 +32,10 @@ const writeLetter = () => {
   const checkTextValid = (valid) => {
     setTextValid(valid);
   };
+
+  useEffect(() => {
+    console.log(mailType);
+  }, []);
 
   return (
     <Box
