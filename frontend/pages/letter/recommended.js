@@ -110,6 +110,14 @@ const Recommended = () => {
 
   useEffect(() => {}, [prevImg]);
 
+  useEffect(() => {
+    if (mailType == "") {
+      setTimeout(() => {
+        Router.push("/letter/select");
+      }, 3000);
+    }
+  }, []);
+
   const handleNextClick = (e) => {
     e.preventDefault();
     if (checked != -1) {
@@ -242,7 +250,7 @@ const Recommended = () => {
               />
             </Box>
           ))
-        ) : (
+        ) : mailType === "POSTCARD" ? (
           <>
             <Box
               component="div"
@@ -313,6 +321,33 @@ const Recommended = () => {
             </Box>
             <Imgupload handlePrevImage={handlePrevImage} />
           </>
+        ) : (
+          <Box
+            sx={{
+              height: "100vh",
+              mt: "10rem",
+            }}
+          >
+            <Typography
+              sx={{
+                fontFamily: "Gowun Batang",
+                fontWeight: "bolder",
+                textAlign: "center",
+              }}
+            >
+              형식이 선택되지 않았습니다
+            </Typography>
+
+            <Typography
+              sx={{
+                fontFamily: "Gowun Batang",
+                fontWeight: "bolder",
+                textAlign: "center",
+              }}
+            >
+              형식 선택 페이지로 이동합니다
+            </Typography>
+          </Box>
         )}
       </Box>
       <ToastContainer />
