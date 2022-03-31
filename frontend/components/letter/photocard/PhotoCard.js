@@ -150,19 +150,21 @@ function PhotoCard({ props }) {
                 disabled={Sticker.disabled}
                 key={idx}
               >
-                <Sticker.content.icon
-                  sx={{
-                    color: Sticker.content.color,
-                    position: "absolute",
-                    border: !Sticker.disabled
-                      ? "1px dashed black"
-                      : "1px hidden black",
-                    // "&:hover": {
-                    //   cursor: !Sticker.disabled ? "grab" : "no-drop",
-                    // },
-                  }}
-                  fontSize="large"
-                />
+                <Box>
+                  <Sticker.content.icon
+                    sx={{
+                      color: Sticker.content.color,
+                      position: "absolute",
+                      border: !Sticker.disabled
+                        ? "1px dashed black"
+                        : "1px hidden black",
+                      // "&:hover": {
+                      //   cursor: !Sticker.disabled ? "grab" : "no-drop",
+                      // },
+                    }}
+                    fontSize="large"
+                  />
+                </Box>
               </Draggable>
             ) : null,
           )}
