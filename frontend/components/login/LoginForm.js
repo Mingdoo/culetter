@@ -50,7 +50,11 @@ const LoginForm = () => {
     password: "",
   });
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    loginApi();
+  };
+
   const handleInput = (e) => {
     const { id, value } = e.target;
     setInput({
