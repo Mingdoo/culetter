@@ -1,5 +1,5 @@
 import { Box, Typography, Button, Grid } from "@mui/material";
-import ContentsContext from "../../contexts/ContentsContext";
+import LetterContext from "../../contexts/LetterContext";
 import Header from "../../components/Header";
 import Router from "next/router";
 
