@@ -2,7 +2,6 @@ package com.culetter.api.controller;
 
 import com.culetter.api.dto.FriendDto;
 import com.culetter.api.service.FriendService;
-import com.culetter.common.jwt.TokenProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +24,7 @@ public class FriendController {
 
     private final FriendService friendService;
 
-    public FriendController(FriendService friendService, TokenProvider tokenProvider) {
+    public FriendController(FriendService friendService) {
         this.friendService = friendService;
     }
 
@@ -59,6 +58,13 @@ public class FriendController {
         friendService.requestFriend(memberId.get("member_id"));
 
         return ResponseEntity.status(HttpStatus.OK).body("친구 추가 요청 성공");
+    }
+
+    @PostMapping("/request/cancel")
+    public ResponseEntity<String> cancelFriendRequest(@RequestBody Map<String,Long> memberId) {
+        friendService.cancelRequest(memberId.get("member_id"));
+
+        return ResponseEntity.status(HttpStatus.OK).body("친구 추가 취소 요청 성공");
     }
 
     @PostMapping("/accept")

@@ -9,6 +9,7 @@ public interface FriendService {
     List<FriendDto.FriendResponse> selectGetRequestList();
     List<FriendDto.FriendResponse> selectMemberList(String email);
     void requestFriend(Long memberId);
+    void cancelRequest(Long memberId);
     void acceptRequest(Long memberId);
     void declineRequest(Long memberId);
     void updateFavoriteFriend(Long memberId);

@@ -133,6 +133,25 @@ public class FriendServiceImpl implements FriendService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    public void cancelRequest(Long memberId) {
+        Member cur_member = memberService.getMemberByAuthentication();
+        Member req_member = friendRepository.findByMemberId(memberId).orElseThrow(
+                () -> new ValueNotExistException("존재하지 않는 사용자입니다."));
+
+        Optional<Friend> existCurReq = friendRepository.findByRequest(cur_member.getMemberId(),req_member.getMemberId());
+
+        if(existCurReq.isPresent()){
+            int res = friendRepository.deleteByFromFriend(cur_member.getMemberId(),req_member.getMemberId());
+
+            validateChangeMade(res,"친구 추가 신청");
+        }
+        else {
+            throw new ValueNotExistException("존재하지 않는 관계입니다.");
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public void acceptRequest(Long memberId) {
         Member cur_member = memberService.getMemberByAuthentication();
         Member req_member = friendRepository.findByMemberId(memberId).orElseThrow(
