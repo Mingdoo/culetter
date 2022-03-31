@@ -63,14 +63,14 @@ export const DEFAULT_SEO = {
   openGraph: {
     type: "website",
     locale: "ko_KR",
-    url: "/img/stamp.PNG",
+    url: "/img/Mailbox.png",
     title: "큐레터",
     site_name: "CU;LETTER",
     images: [
       {
         url: "/img/Mailbox.png",
-        width: 285,
-        height: 167,
+        width: 600,
+        height: 315,
         alt: "큐레터 로고",
       },
     ],

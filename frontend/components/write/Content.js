@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import ContentsContext from "../../contexts/ContentsContext";
+import LetterContext from "../../contexts/LetterContext";
 import "react-toastify/dist/ReactToastify.css";
 import {
   Box,
@@ -13,13 +13,12 @@ import SaveIcon from "@mui/icons-material/Save";
 
 const Content = (props) => {
   const { checkTextValid } = props;
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  // const [title, setTitle] = useState("");
+  // const [content, setContent] = useState("");
   const [contentLength, setContentLength] = useState(0);
   const [titleLength, setTitleLength] = useState(0);
-  const { setTextValid } = useContext(ContentsContext);
 
-  useEffect(() => {}, [contentLength]);
+  const { setTitle, setContent } = useContext(LetterContext);
 
   const handleSave = (event) => {};
 
@@ -36,7 +35,7 @@ const Content = (props) => {
         break;
       case "contents":
         setContentLength(inputLength);
-        setContent(inputText);
+        setContent(`${inputText}`);
         break;
     }
     if (
@@ -50,6 +49,8 @@ const Content = (props) => {
       checkTextValid(false);
     }
   };
+
+  useEffect(() => {}, [contentLength]);
 
   return (
     <Box sx={{ padding: "0.8rem", fontFamily: "Gowun Dodum" }}>
