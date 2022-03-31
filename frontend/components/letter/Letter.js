@@ -12,6 +12,8 @@ function Letter(props) {
       return <PostCard props={props} />;
     case "PHOTOCARD":
       return <PhotoCard props={props} />;
+    default:
+      return <></>;
   }
 }
 
