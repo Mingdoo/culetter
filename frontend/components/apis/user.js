@@ -66,6 +66,15 @@ export const setfavoriteFriend = async (memberId) => {
 
 export const deleteFriend = async (memberId) => {
   return await userApi.delete("/friends/delete", {
-    member_id: memberId,
+    data: {
+      member_id: memberId,
+    },
+  });
+};
+
+export const login = async (userId, userPw) => {
+  return await userApi.post("/members/signin", {
+    email: userId,
+    password: userPw,
   });
 };
