@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LockIcon from "@mui/icons-material/Lock";
-import PersonIcon from "@mui/icons-material/Person";
+import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import BadgeIcon from "@mui/icons-material/Badge";
 import PasswordIcon from "@mui/icons-material/Password";
+import UserApi from "../apis/UserApi";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Router from "next/router";
+
 import {
   Grid,
   TextField,
@@ -13,47 +18,47 @@ import {
   Typography,
 } from "@mui/material";
 
-const useStyles = makeStyles({
-  root: {
-    margin: "3px",
-    color: "#eeee",
-    fontFamily: "Gowun Batang",
-    "&.Mui-focused": {
-      color: "#eeee",
-      backgroundColor: "#d3504a",
-    },
-    "&:before": {
-      color: "#eeee",
-      borderBottomColor: "#eeee",
-    },
-    "&:hover:not(.Mui-focused):before": {
-      color: "#eeee",
-      borderBottomColor: "#eeee",
-    },
-    "&:after": {
-      // focused
-      color: "#eeee",
-      borderBottomColor: "#eeee",
-    },
-  },
-  input: {
-    "&::selection": {
-      backgroundColor: "lightgreen",
-      color: "#eeee",
-      fontSize: 12,
-    },
-  },
-});
+// const useStyles = makeStyles({
+//   root: {
+//     margin: "3px",
+//     color: "#eeee",
+//     fontFamily: "Gowun Batang",
+//     "&.Mui-focused": {
+//       color: "#eeee",
+//       backgroundColor: "#d3504a",
+//     },
+//     "&:before": {
+//       color: "#eeee",
+//       borderBottomColor: "#eeee",
+//     },
+//     "&:hover:not(.Mui-focused):before": {
+//       color: "#eeee",
+//       borderBottomColor: "#eeee",
+//     },
+//     "&:after": {
+//       // focused
+//       color: "#eeee",
+//       borderBottomColor: "#eeee",
+//     },
+//   },
+//   input: {
+//     "&::selection": {
+//       backgroundColor: "lightgreen",
+//       color: "#eeee",
+//       fontSize: 12,
+//     },
+//   },
+// });
 
-const useLabelStyles = makeStyles({
-  root: {
-    color: "#eeee",
-    "&.Mui-focused": {
-      color: "#eeee",
-    },
-    fontSize: 14,
-  },
-});
+// const useLabelStyles = makeStyles({
+//   root: {
+//     color: "#eeee",
+//     "&.Mui-focused": {
+//       color: "#eeee",
+//     },
+//     fontSize: 14,
+//   },
+// });
 
 const msgStyle = {
   fontSize: 11,
@@ -62,7 +67,14 @@ const msgStyle = {
   marginBottom: "3px",
 };
 
+const labelStyle = {
+  color: "#eeee",
+  fontSize: 14,
+  fontFamily: "Gowun Batang",
+};
+
 const SignupForm = () => {
+  const { getAuthCode, getConfirmAuthCode, getRegister } = UserApi;
   const [input, setInput] = useState({
     email: "",
     password: "",
@@ -76,6 +88,7 @@ const SignupForm = () => {
   const [pwd, setPwd] = useState("");
   const [confirmPwd, setConfirmPwd] = useState("");
   const [name, setName] = useState("");
+  const [code, setCode] = useState("");
 
   // 유효성 검사 메시지
   const [emailMsg, setEmailMsg] = useState("");
@@ -83,6 +96,7 @@ const SignupForm = () => {
   const [pwdMsg, setPwdMsg] = useState("");
   const [confirmPwdMsg, setConfirmPwdMsg] = useState("");
   const [nameMsg, setNameMsg] = useState("");
+  const [registMsg, setRegistMsg] = useState("");
 
   // 유효성 검사 통과 flag
   const [emailCheck, setEmailCheck] = useState(false);
@@ -92,16 +106,18 @@ const SignupForm = () => {
 
   //이메일 인증여부
   const [authEmail, setAuthEamil] = useState(false);
+  //코드 확인 여부
+  const [authCode, setAuthCode] = useState(false);
 
   const handleSubmit = () => {};
   const handleInput = (e) => {
     //유효성 검사 정규식
     const idPattern = /^[a-zA-Z0-9]*$/;
-    const pwdPattern =
-      /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/;
+    //8자이상 16자이하
+    const pwdPattern = /^.{8,16}$/;
     const emailPattern =
       /^([0-9a-zA-Z_.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
-    const namePattern = /^[가-힣]+$/;
+    const namePattern = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|\*]{2,12}$/;
 
     const { id, value } = e.target;
 
@@ -110,6 +126,7 @@ const SignupForm = () => {
         setEmail(value);
         if (!emailPattern.test(value)) {
           setEmailMsg("이메일 형식을 확인해주세요.");
+          setEmailCheck(false);
         } else {
           setEmailMsg("");
           setEmailCheck(true);
@@ -117,9 +134,9 @@ const SignupForm = () => {
         break;
       case "password":
         setPwd(value);
-        console.log(value);
         if (!pwdPattern.test(value)) {
-          setPwdMsg("8 ~ 20자 영어, 숫자, 특수문자의 조합");
+          setPwdMsg("8자 이상 16자 이하");
+          setPwdCheck(false);
         } else {
           setPwdMsg("");
           setPwdCheck(true);
@@ -129,17 +146,162 @@ const SignupForm = () => {
         setConfirmPwd(value);
         if (pwd !== value) {
           setConfirmPwdMsg("비밀번호가 일치하지 않습니다.");
+          setConfirmPwdCheck(false);
         } else {
           setConfirmPwdMsg("");
           setConfirmPwdCheck(true);
         }
         break;
+      case "name":
+        setName(value);
+        if (!namePattern.test(value)) {
+          setNameMsg("2자 이상 12자 이하로 특수문자는 포함하지 않습니다");
+          setNameCheck(false);
+        } else {
+          setNameMsg("");
+          setNameCheck(true);
+        }
+        break;
+      case "code":
+        setCode(value);
+        break;
     }
-
-    console.log(e.target.id, e.target.value);
   };
-  const classes = useStyles();
-  const labelClasses = useLabelStyles();
+
+  const handleBtn = (e) => {
+    e.preventDefault();
+    switch (e.target.id) {
+      case "sendBtn":
+        sendEmailAuthCodeApi();
+        break;
+      case "confirmBtn":
+        checkEmailAuthCodeApi();
+        break;
+      case "registerBtn":
+        //입력 형식 체크필요
+        if (registMsg != "") {
+          toast.error(registMsg, {
+            position: toast.POSITION.TOP_CENTER,
+            role: "alert",
+          });
+        } else {
+          registerApi();
+        }
+        break;
+    }
+  };
+
+  const sendEmailAuthCodeApi = async () => {
+    const body = {
+      email: email,
+    };
+    try {
+      const response = await getAuthCode(body);
+      setAuthEamil(true);
+      toast.success(
+        <div>
+          인증코드를 메일로 전송했습니다 <br />
+        </div>,
+        {
+          position: toast.POSITION.TOP_CENTER,
+          role: "alert",
+        }
+      );
+      console.log(response);
+    } catch (error) {
+      //이메일 인증 코드 전송 실패시 처리
+      toast.error(" 이메일을 확인해주세요", {
+        position: toast.POSITION.TOP_CENTER,
+        role: "alert",
+      });
+    }
+  };
+
+  const checkEmailAuthCodeApi = async () => {
+    const body = {
+      email: email,
+      code: code,
+    };
+    try {
+      const response = await getConfirmAuthCode(body);
+      setAuthCode(true);
+      console.log(response);
+    } catch (error) {
+      toast.error(" 인증코드를 확인해주세요", {
+        position: toast.POSITION.TOP_CENTER,
+        role: "alert",
+      });
+      console.log(error);
+    }
+  };
+
+  const registerApi = async () => {
+    const body = {
+      email: email,
+      password: pwd,
+      name: name,
+    };
+    try {
+      const response = await getRegister(body);
+      console.log(response);
+      toast.success(
+        <div>
+          회원가입에 성공했습니다 <br />
+          로그인 페이지로 이동합니다
+        </div>,
+        {
+          position: toast.POSITION.TOP_CENTER,
+          role: "alert",
+        }
+      );
+      setTimeout(function () {
+        Router.push("/login");
+      }, 3000);
+    } catch (error) {
+      // console.log(error.response.status);
+      const status = error.response.status;
+      let msg = "";
+      switch (status) {
+        case 400:
+          msg = "입력 형식을 확인해주세요";
+          break;
+        case 409:
+          msg = "이미 존재하는 회원입니다";
+          break;
+        case 500:
+          msg = "회원가입에 실패했습니다";
+          break;
+      }
+      toast.error(msg, {
+        position: toast.POSITION.TOP_CENTER,
+        role: "alert",
+      });
+    }
+  };
+
+  // const classes = useStyles();
+  // const labelClasses = useLabelStyles();
+
+  const styles = (theme) => ({
+    multilineColor: {
+      color: "red",
+    },
+  });
+  useEffect(() => {
+    if (authEmail === false) {
+      setRegistMsg("이메일 인증을 진행해주세요");
+    } else if (authCode === false) {
+      setRegistMsg("코드 인증을 진행해주세요");
+    } else if (emailCheck === false) {
+      setRegistMsg(" 이메일을 확인해주세요");
+    } else if (pwdCheck === false) {
+      setRegistMsg(" 비밀번호를 확인해주세요");
+    } else if (nameCheck === false) {
+      setRegistMsg(" 이름을 확인해주세요");
+    } else {
+      setRegistMsg("");
+    }
+  }, [authEmail, authCode, emailCheck, pwdCheck, nameCheck]);
 
   return (
     <FormControl
@@ -169,16 +331,28 @@ const SignupForm = () => {
               marginLeft: "1.0rem",
             }}
             sx={{ color: "white" }}
-            InputProps={{ classes: classes }}
+            InputProps={{
+              style: {
+                color: "#eeee",
+                fontFamily: "Gowun Batang",
+              },
+            }}
             InputLabelProps={{
-              style: { fontFamily: "Gowun Batang" },
-              classes: labelClasses,
+              style: {
+                fontFamily: "Gowun Batang",
+                color: "#eeee",
+                fontSize: "0.9rem",
+                "&::after": {
+                  border: "2px solid red",
+                },
+              },
             }}
             onChange={handleInput}
           />
         </Grid>
         <Grid item xs={3}>
           <Button
+            id="sendBtn"
             variant="contained"
             size="small"
             style={{
@@ -190,6 +364,7 @@ const SignupForm = () => {
               margin: "1rem",
               fontFamily: "Gowun Dodum",
             }}
+            onClick={handleBtn}
           >
             전송
           </Button>
@@ -201,16 +376,16 @@ const SignupForm = () => {
             </Typography>
           )}
         </Grid>
-        {authEmail === true ? (
+        {authEmail === true && authCode === false ? (
           <Grid container sx={{ height: "2.5rem" }}>
             <Grid item xs={2}>
               <PasswordIcon
-                sx={{ color: "white", position: "relative", top: 20, left: 7 }}
+                sx={{ color: "white", position: "relative", top: 10, left: 9 }}
               />{" "}
             </Grid>
             <Grid item xs={7}>
               <TextField
-                id="authCode"
+                id="code"
                 // label="인증코드"
                 type="text"
                 autoComplete="off"
@@ -222,9 +397,20 @@ const SignupForm = () => {
                   fontSize: "10px",
                   height: "10px",
                 }}
-                InputProps={{ classes: classes }}
+                InputProps={{
+                  style: {
+                    color: "#eeee",
+                    fontFamily: "Gowun Batang",
+                  },
+                }}
                 InputLabelProps={{
-                  style: { fontFamily: "Gowun Batang" },
+                  style: {
+                    style: {
+                      fontFamily: "Gowun Batang",
+                      color: "#eeee",
+                      fontSize: "0.9rem",
+                    },
+                  },
                   classes: labelClasses,
                 }}
                 onChange={handleInput}
@@ -232,6 +418,7 @@ const SignupForm = () => {
             </Grid>
             <Grid item xs={3}>
               <Button
+                id="confirmBtn"
                 variant="contained"
                 size="small"
                 style={{
@@ -242,9 +429,31 @@ const SignupForm = () => {
                   fontSize: "0.2rem",
                   margin: "1rem",
                 }}
+                onClick={handleBtn}
               >
                 확인
               </Button>
+            </Grid>
+          </Grid>
+        ) : authCode === true && authEmail === true ? (
+          <Grid container sx={{ height: "2.5rem" }}>
+            <Grid item xs={2}>
+              <ThumbUpAltIcon
+                sx={{ color: "white", position: "relative", top: 10, left: 9 }}
+              />{" "}
+            </Grid>
+            <Grid item xs={9}>
+              <Typography
+                sx={{
+                  fontSize: 15,
+                  color: "#FCFAEF",
+                  fontFamily: "Gowun Batang",
+                  // backgroundColor: "#FCFAEF",
+                  mt: "0.6rem",
+                }}
+              >
+                이메일 인증이 완료되었습니다
+              </Typography>
             </Grid>
           </Grid>
         ) : null}
@@ -252,7 +461,7 @@ const SignupForm = () => {
         <Grid item xs={12}>
           {/* 비밀번호 입력 */}
           <LockIcon
-            sx={{ color: "white", position: "relative", top: 20, left: -15 }}
+            sx={{ color: "white", position: "relative", top: 20, left: -17 }}
           />{" "}
           <TextField
             id="password"
@@ -261,10 +470,18 @@ const SignupForm = () => {
             autoComplete="off"
             variant="standard"
             size="small"
-            InputProps={{ classes: classes }}
+            InputProps={{
+              style: {
+                color: "#eeee",
+                fontFamily: "Gowun Batang",
+              },
+            }}
             InputLabelProps={{
-              style: { fontFamily: "Gowun Batang" },
-              classes: labelClasses,
+              style: {
+                fontFamily: "Gowun Batang",
+                color: "#eeee",
+                fontSize: "0.9rem",
+              },
             }}
             onChange={handleInput}
           />
@@ -279,7 +496,7 @@ const SignupForm = () => {
         <Grid item xs={12}>
           {/* 비밀번호 확인 입력 */}
           <LockIcon
-            sx={{ color: "white", position: "relative", top: 20, left: -15 }}
+            sx={{ color: "white", position: "relative", top: 20, left: -17 }}
           />{" "}
           <TextField
             id="passwordCheck"
@@ -288,10 +505,18 @@ const SignupForm = () => {
             autoComplete="off"
             variant="standard"
             size="small"
-            InputProps={{ classes: classes }}
+            InputProps={{
+              style: {
+                color: "#eeee",
+                fontFamily: "Gowun Batang",
+              },
+            }}
             InputLabelProps={{
-              style: { fontFamily: "Gowun Batang" },
-              classes: labelClasses,
+              style: {
+                fontFamily: "Gowun Batang",
+                color: "#eeee",
+                fontSize: "0.9rem",
+              },
             }}
             onChange={handleInput}
           />
@@ -306,7 +531,7 @@ const SignupForm = () => {
         <Grid item xs={12}>
           {/* 이름 입력 */}
           <BadgeIcon
-            sx={{ color: "white", position: "relative", top: 20, left: -15 }}
+            sx={{ color: "white", position: "relative", top: 20, left: -19 }}
           />
           <TextField
             id="name"
@@ -315,10 +540,18 @@ const SignupForm = () => {
             autoComplete="off"
             variant="standard"
             size="small"
-            InputProps={{ classes: classes }}
+            InputProps={{
+              style: {
+                color: "#eeee",
+                fontFamily: "Gowun Batang",
+              },
+            }}
             InputLabelProps={{
-              style: { fontFamily: "Gowun Batang" },
-              classes: labelClasses,
+              style: {
+                fontFamily: "Gowun Batang",
+                color: "#eeee",
+                fontSize: "0.9rem",
+              },
             }}
             // style={{ marginTop: 70 }}
             onChange={handleInput}
@@ -340,6 +573,7 @@ const SignupForm = () => {
         >
           <Grid item xs={12}>
             <Button
+              id="registerBtn"
               variant="contained"
               size="small"
               style={{
@@ -350,12 +584,14 @@ const SignupForm = () => {
                 marginTop: "1rem",
                 fontFamily: "Gowun Batang",
               }}
+              onClick={handleBtn}
             >
               회원가입
             </Button>
           </Grid>
         </Grid>
       </Grid>
+      <ToastContainer />
     </FormControl>
   );
 };

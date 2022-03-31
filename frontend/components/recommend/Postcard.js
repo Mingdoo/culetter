@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Input, Typography, Button } from "@mui/material";
 
 const Postcard = (props) => {
+  //something changed
   const { imgsrc } = props;
   return (
     <Box
