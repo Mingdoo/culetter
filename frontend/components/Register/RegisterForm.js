@@ -192,10 +192,15 @@ const SignupForm = () => {
     try {
       const response = await getAuthCode(body);
       setAuthEamil(true);
-      toast.success(" 인증코드를 이메일로 전송했습니다 ", {
-        position: toast.POSITION.TOP_CENTER,
-        role: "alert",
-      });
+      toast.success(
+        <div>
+          인증코드를 메일로 전송했습니다 <br />
+        </div>,
+        {
+          position: toast.POSITION.TOP_CENTER,
+          role: "alert",
+        }
+      );
       console.log(response);
     } catch (error) {
       //이메일 인증 코드 전송 실패시 처리
