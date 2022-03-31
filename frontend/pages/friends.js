@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { Box, Typography, Divider, IconButton, Button } from "@mui/material";
 
 import { landingBoxStyle } from "./index";
@@ -7,16 +7,47 @@ import SearchBox from "../components/user/SearchBox";
 import UserCard from "../components/user/UserCard";
 import StarIcon from "@mui/icons-material/Star";
 import { motion, AnimateSharedLayout } from "framer-motion";
-import { email } from "../components/apis/auth";
+import {
+  lookUpRequest,
+  getFriends,
+  searchUsers,
+} from "../components/apis/user";
 
 function friends() {
+  const [incomingFriends, setIncomingFriends] = useState([]);
+  const [userFriends, setUserFriends] = useState([]);
+  const [searchedMembers, setSearchedMembers] = useState([]);
   const [searchFriendId, setSearchFriendId] = useState("");
   const [searchMemberId, setSearchMemberId] = useState("");
   const [filterFavorite, setFilterFavorite] = useState(false);
   const [addOpen, setAddOpen] = useState(false);
 
+  useEffect(() => {
+    lookUpRequest()
+      .then((res) => {
+        setIncomingFriends(res.data.requests);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    getFriends()
+      .then((res) => {
+        setUserFriends(res.data.friends);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  // useEffect(() => {
+  //   console.log(searchFriendId);
+  // }, [searchFriendId]);
+
   const handleAddFriendClick = (e) => {
     e.preventDefault();
+    setSearchFriendId("");
+    setSearchMemberId("");
     setAddOpen(!addOpen);
   };
 
@@ -27,223 +58,10 @@ function friends() {
 
   const handleSearchMemberClick = (e) => {
     e.preventDefault();
-    const response = email("alonemint@gmail.com").then((res) => {
-      console.log(res);
+    searchUsers(searchMemberId).then((res) => {
+      setSearchedMembers(res.data.users);
     });
   };
-
-  const userFriends = [
-    {
-      memberId: "10",
-      email: "honggildong@gildong.com",
-      name: "홍길동",
-      favorite: 0,
-    },
-    {
-      memberId: "11",
-      email: "gogildong@gildong.com",
-      name: "고길동",
-      favorite: 1,
-    },
-    {
-      memberId: "11",
-      email: "gogildong@gildong.com",
-      name: "고길동",
-      favorite: 1,
-    },
-    {
-      memberId: "11",
-      email: "gogildong@gildong.com",
-      name: "고길동",
-      favorite: 1,
-    },
-    {
-      memberId: "11",
-      email: "gogildong@gildong.com",
-      name: "고길동",
-      favorite: 1,
-    },
-    {
-      memberId: "11",
-      email: "gogildong@gildong.com",
-      name: "고길동",
-      favorite: 1,
-    },
-    {
-      memberId: "11",
-      email: "gogildong@gildong.com",
-      name: "고길동",
-      favorite: 1,
-    },
-    {
-      memberId: "11",
-      email: "gogildong@gildong.com",
-      name: "고길동",
-      favorite: 1,
-    },
-    {
-      memberId: "11",
-      email: "gogildong@gildong.com",
-      name: "고길동",
-      favorite: 1,
-    },
-    {
-      memberId: "11",
-      email: "gogildong@gildong.com",
-      name: "고길동",
-      favorite: 1,
-    },
-    {
-      memberId: "11",
-      email: "gogildong@gildong.com",
-      name: "고길동",
-      favorite: 1,
-    },
-    {
-      memberId: "11",
-      email: "gogildong@gildong.com",
-      name: "고길동",
-      favorite: 1,
-    },
-    {
-      memberId: "11",
-      email: "gogildong@gildong.com",
-      name: "고길동",
-      favorite: 1,
-    },
-    {
-      memberId: "11",
-      email: "gogildong@gildong.com",
-      name: "고길동",
-      favorite: 1,
-    },
-    {
-      memberId: "11",
-      email: "gogildong@gildong.com",
-      name: "고길동",
-      favorite: 1,
-    },
-    {
-      memberId: "11",
-      email: "gogildong@gildong.com",
-      name: "고길동",
-      favorite: 1,
-    },
-    {
-      memberId: "11",
-      email: "gogildong@gildong.com",
-      name: "고길동",
-      favorite: 1,
-    },
-    {
-      memberId: "11",
-      email: "gogildong@gildong.com",
-      name: "고길동",
-      favorite: 1,
-    },
-    {
-      memberId: "11",
-      email: "gogildong@gildong.com",
-      name: "고길동",
-      favorite: 1,
-    },
-    {
-      memberId: "11",
-      email: "gogildong@gildong.com",
-      name: "고길동",
-      favorite: 1,
-    },
-    {
-      memberId: "11",
-      email: "gogildong@gildong.com",
-      name: "고길동",
-      favorite: 1,
-    },
-    {
-      memberId: "11",
-      email: "gogildong@gildong.com",
-      name: "고길동",
-      favorite: 1,
-    },
-    {
-      memberId: "11",
-      email: "gogildong@gildong.com",
-      name: "고길동",
-      favorite: 1,
-    },
-    {
-      memberId: "11",
-      email: "gogildong@gildong.com",
-      name: "고길동",
-      favorite: 1,
-    },
-    {
-      memberId: "11",
-      email: "gogildong@gildong.com",
-      name: "고길동",
-      favorite: 1,
-    },
-    {
-      memberId: "11",
-      email: "gogildong@gildong.com",
-      name: "고길동",
-      favorite: 1,
-    },
-    {
-      memberId: "11",
-      email: "gogildong@gildong.com",
-      name: "고길동",
-      favorite: 1,
-    },
-    {
-      memberId: "11",
-      email: "gogildong@gildong.com",
-      name: "고길동",
-      favorite: 1,
-    },
-    {
-      memberId: "11",
-      email: "gogildong@gildong.com",
-      name: "고길동",
-      favorite: 1,
-    },
-  ];
-
-  const incomingFriends = [
-    {
-      memberId: "20",
-      email: "honggildong@gildong.com",
-      name: "홍길동",
-    },
-    {
-      memberId: "21",
-      email: "gogildong@gildong.com",
-      name: "고길동",
-    },
-    {
-      memberId: "22",
-      email: "gogildong@gildong.com",
-      name: "고길동",
-    },
-  ];
-
-  const searchedMembers = [
-    {
-      memberId: "20",
-      email: "honggildong@gildong.com",
-      name: "홍길동",
-    },
-    {
-      memberId: "21",
-      email: "gogildong@gildong.com",
-      name: "고길동",
-    },
-    {
-      memberId: "22",
-      email: "gogildong@gildong.com",
-      name: "고길동",
-    },
-  ];
 
   return (
     <AnimateSharedLayout layout>
@@ -280,6 +98,7 @@ function friends() {
                 label="아이디"
                 width={225}
                 onChange={(e) => setSearchMemberId(e)}
+                searchMemberId={searchMemberId}
               />
               <Button
                 sx={{ fontSize: 10, borderRadius: 2, height: 25, mr: "2rem" }}
@@ -297,6 +116,7 @@ function friends() {
               label="아이디 또는 이름"
               width={300}
               onChange={(e) => setSearchFriendId(e)}
+              searchMemberId={searchFriendId}
             />
           )}
 
@@ -316,7 +136,13 @@ function friends() {
                     );
                   })
                   .map((obj, idx) => (
-                    <UserCard obj={obj} idx={idx} key={idx} />
+                    <UserCard
+                      obj={obj}
+                      idx={idx}
+                      key={idx}
+                      searchedMembers={searchedMembers}
+                      setSearchedMembers={setSearchedMembers}
+                    />
                   ))}
                 <Divider sx={{ mt: "1rem", width: 370 }} />
               </>
@@ -417,14 +243,26 @@ function friends() {
                       }
                     })
                     .map((obj, idx) => (
-                      <UserCard obj={obj} idx={idx} key={idx} />
+                      <UserCard
+                        obj={obj}
+                        idx={idx}
+                        key={idx}
+                        searchedMembers={searchedMembers}
+                        setSearchedMembers={setSearchedMembers}
+                      />
                     ))
                 : searchedMembers
                     .filter((obj) => {
                       return obj.email.includes(searchMemberId);
                     })
                     .map((obj, idx) => (
-                      <UserCard obj={obj} idx={idx} key={idx} />
+                      <UserCard
+                        obj={obj}
+                        idx={idx}
+                        key={idx}
+                        searchedMembers={searchedMembers}
+                        setSearchedMembers={setSearchedMembers}
+                      />
                     ))}
 
               <Divider sx={{ mt: "2rem" }} />
