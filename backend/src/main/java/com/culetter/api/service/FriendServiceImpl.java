@@ -163,12 +163,15 @@ public class FriendServiceImpl implements FriendService {
 
         validateChangeMade(res,"친구 추가 수락");
 
-        friendRepository.save(Friend.builder()
-                .isFavorite(false)
-                .status((byte) 1)
-                .fromMember(cur_member)
-                .toMember(req_member)
-                .build());
+        if(!friendRepository.findByRequest(cur_member.getMemberId(),req_member.getMemberId()).isPresent()){
+            friendRepository.save(Friend.builder()
+                    .isFavorite(false)
+                    .status((byte) 1)
+                    .fromMember(cur_member)
+                    .toMember(req_member)
+                    .build()
+            );
+        }
     }
 
     @Override

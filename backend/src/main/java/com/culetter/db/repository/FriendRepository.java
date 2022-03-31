@@ -27,7 +27,7 @@ public interface FriendRepository extends JpaRepository<Friend, Long> {
 
     //사용자가 친구 요청을 받거나 보냄
     @Query("select f from Friend f where f.fromMember.memberId=:a and f.toMember.memberId=:b")
-    Optional<Friend> findByRequest(@Param("a")Long from, @Param("b")Long to);
+    Optional<Friend> findByRequest(@Param("a") Long from, @Param("b") Long to);
 
     //사용자 검색
     @Query("select m from Member m where m.memberId=:memberId and m.status=1")

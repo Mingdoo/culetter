@@ -1,5 +1,6 @@
 package com.culetter.api.service;
 
+import com.culetter.api.dto.FileDto;
 import com.culetter.api.dto.MailDto;
 import com.culetter.db.entity.*;
 import com.culetter.db.repository.MailRepository;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -32,17 +34,19 @@ public class MailServiceImpl implements MailService {
     private final UndoneMailboxRepository undoneMailboxRepository;
     private final MemberService memberService;
     private final ObjectMapper objectMapper;
+    private final FileService fileService;
 
     public MailServiceImpl(MailRepository mailRepository,
                            RecvMailboxRepository recvMailboxRepository, SendMailboxRepository sendMailboxRepository,
                            UndoneMailboxRepository undoneMailboxRepository,
-                           MemberService memberService, ObjectMapper objectMapper) {
+                           MemberService memberService, ObjectMapper objectMapper, FileService fileService) {
         this.mailRepository = mailRepository;
         this.recvMailboxRepository = recvMailboxRepository;
         this.sendMailboxRepository = sendMailboxRepository;
         this.undoneMailboxRepository = undoneMailboxRepository;
         this.memberService = memberService;
         this.objectMapper = objectMapper;
+        this.fileService = fileService;
     }
 
     @Override
@@ -97,17 +101,31 @@ public class MailServiceImpl implements MailService {
 
     // TODO
     @Override
-    public List<String> styleRecommendation(String emotion) {
+    public List<String> styleRecommendation(Map<String,String> style) {
         memberService.getMemberByAuthentication();
 
-        return null;
+        List<FileDto.FileInfoWithEmotion> recommends = fileService.getFileInfoWithEmotionListByType(style.get("type"),style.get("emotion"));
+        List<String> styleList = new ArrayList<>();
+
+        for(FileDto.FileInfoWithEmotion r : recommends) {
+            styleList.add(r.getUrl());
+        }
+
+        return styleList;
     }
 
     @Override
-    public List<String> musicRecommendation(String emotion) {
+    public List<String> musicRecommendation(Map<String,String> music) {
         memberService.getMemberByAuthentication();
 
-        return null;
+        List<FileDto.FileInfoWithEmotion> recommends = fileService.getFileInfoWithEmotionListByType(music.get("type"),music.get("emotion"));
+        List<String> musicList = new ArrayList<>();
+
+        for(FileDto.FileInfoWithEmotion r : recommends) {
+            musicList.add(r.getUrl());
+        }
+
+        return musicList;
     }
 
     @Override
@@ -139,7 +157,6 @@ public class MailServiceImpl implements MailService {
                 .handwriteImage(mail.getHandwrite_image())
                 .build()
         );
-        System.out.println(m.getCreatedDate());
 
         //cur_member send & recv_member recv mailbox 저장
         sendMailboxRepository.save(SendMailbox.builder()
@@ -241,6 +258,7 @@ public class MailServiceImpl implements MailService {
             throw new ChangeNotMadeException("임시 편지 전송 에러");
             //사용자와 편지 작성자가 다름
         }
+
         sendMailboxRepository.save(SendMailbox.builder()
                 .member(temp.getMember())
                 .mail(temp.getMail())

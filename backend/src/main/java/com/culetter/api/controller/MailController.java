@@ -43,15 +43,19 @@ public class MailController {
 
     // TODO
     @GetMapping("/style")
-    public ResponseEntity<Map<String, List<String>>> recommendStyle(@RequestBody Map<String,String> emotion){
+    public ResponseEntity<Map<String, List<String>>> recommendStyle(@RequestBody Map<String,String> style){
+        Map<String,List<String>> mrs = new HashMap<>();
+        mrs.put("style_list",mailService.styleRecommendation(style));
 
-        return ResponseEntity.status(HttpStatus.OK).body(null);
+        return ResponseEntity.status(HttpStatus.OK).body(mrs);
     }
 
     @GetMapping("/music")
-    public ResponseEntity<Map<String,List<String>>> recommendMusic(@RequestBody Map<String,String> emotion){
+    public ResponseEntity<Map<String,List<String>>> recommendMusic(@RequestBody Map<String,String> music){
+        Map<String,List<String>> mrm = new HashMap<>();
+        mrm.put("music_list",mailService.musicRecommendation(music));
 
-        return ResponseEntity.status(HttpStatus.OK).body(null);
+        return ResponseEntity.status(HttpStatus.OK).body(mrm);
     }
 
     @PostMapping("/write")
