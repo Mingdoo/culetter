@@ -12,7 +12,7 @@ import React, { useState } from "react";
 import Cropper from "react-easy-crop";
 import getCroppedImg from "./utils/cropImage";
 
-const CropEasy = ({ photoURL, setOpen, setPhotoURL }) => {
+const CropEasy = ({ photoURL, setOpen, setPhotoURL, setCroppedURL }) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
@@ -23,8 +23,12 @@ const CropEasy = ({ photoURL, setOpen, setPhotoURL }) => {
 
   const cropImage = async () => {
     try {
-      const { url } = await getCroppedImg(photoURL, croppedAreaPixels);
-      setPhotoURL(url);
+      const { url, toDataURL } = await getCroppedImg(
+        photoURL,
+        croppedAreaPixels
+      );
+      setCroppedURL(url);
+      setPhotoURL(toDataURL);
       setOpen(false);
     } catch (error) {
       console.log(error);
@@ -86,7 +90,7 @@ const CropEasy = ({ photoURL, setOpen, setPhotoURL }) => {
             startIcon={<CropIcon />}
             onClick={cropImage}
           >
-            사진 자르기
+            저장
           </Button>
         </Box>
       </DialogActions>

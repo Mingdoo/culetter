@@ -1,9 +1,9 @@
 export const createImage = (url) =>
   new Promise((resolve, reject) => {
     const image = new Image();
-    image.addEventListener('load', () => resolve(image));
-    image.addEventListener('error', (error) => reject(error));
-    image.setAttribute('crossOrigin', 'anonymous'); // needed to avoid cross-origin issues on CodeSandbox
+    image.addEventListener("load", () => resolve(image));
+    image.addEventListener("error", (error) => reject(error));
+    image.setAttribute("crossOrigin", "anonymous"); // needed to avoid cross-origin issues on CodeSandbox
     image.src = url;
   });
 
@@ -35,8 +35,8 @@ export default async function getCroppedImg(
   flip = { horizontal: false, vertical: false }
 ) {
   const image = await createImage(imageSrc);
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
 
   if (!ctx) {
     return null;
@@ -79,15 +79,26 @@ export default async function getCroppedImg(
 
   // paste generated rotate image at the top left corner
   ctx.putImageData(data, 0, 0);
+  return new Promise((resolve, reject) => {
+    canvas.toBlob((file) => {
+      file.name = "cropped.jpeg";
+      resolve({
+        file: file,
+        url: URL.createObjectURL(file),
+        toDataURL: canvas.toDataURL("image/jpeg"),
+      });
+    }, "image/jpeg");
+  });
 
   // As Base64 string
-  // return canvas.toDataURL('image/jpeg');
+  return canvas.toDataURL("image/jpeg");
 
   // As a blob
   return new Promise((resolve, reject) => {
     canvas.toBlob((file) => {
-      file.name = 'cropped.jpeg';
+      console.log(URL.createObjectURL(file));
+      file.name = "cropped.jpeg";
       resolve({ file: file, url: URL.createObjectURL(file) });
-    }, 'image/jpeg');
+    }, "image/jpeg");
   });
 }
