@@ -1,8 +1,10 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { TextField } from "@mui/material";
+import { TextField, Button } from "@mui/material";
+import Router from "next/router";
 
 const useStyles = makeStyles({
   root: {
+    fontFamily: "Gowun Batang",
     color: "#3A1D1D",
     "&.Mui-focused": {
       color: "#3A1D1D",
@@ -18,8 +20,10 @@ const useStyles = makeStyles({
     },
   },
 });
+
 const useLabelStyles = makeStyles({
   root: {
+    fontFamily: "Gowun Batang",
     color: "#3A1D1D",
     "&.Mui-focused": {
       color: "#3A1D1D",
@@ -30,13 +34,20 @@ const useLabelStyles = makeStyles({
 
 export default function StyledTextField({
   id,
+  type,
   label,
   value,
   disabled,
   onChange,
+  defaultValue,
 }) {
   const classes = useStyles();
   const labelClasses = useLabelStyles();
+
+  const toPwChange = (e) => {
+    e.preventDefault();
+    Router.push("/password");
+  };
   return (
     <TextField
       autoComplete="off"
@@ -44,18 +55,33 @@ export default function StyledTextField({
       size="small"
       id={id}
       label={label}
-      type={id}
+      type={type}
       value={value || ""}
       disabled={disabled}
+      defaultValue={defaultValue}
       onChange={onChange ? onChange : null}
       sx={{ width: 1 }}
-      InputLabelProps={{
-        style: { fontFamily: "Gowun Batang" },
-        classes: labelClasses,
-      }}
+      InputLabelProps={{ classes: labelClasses }}
       InputProps={{
         classes: classes,
-        style: { fontFamily: "Gowun Batang" },
+        endAdornment: disabled ? (
+          <Button
+            variant="contained"
+            size="small"
+            sx={{
+              backgroundColor: "#FCFAEF",
+              color: "#3A1D1D",
+              fontSize: "10px",
+              fontFamily: "Gowun Dodum",
+              "&:hover": {
+                backgroundColor: "#FCFAEF",
+              },
+            }}
+            onClick={toPwChange}
+          >
+            변경
+          </Button>
+        ) : null,
       }}
     ></TextField>
   );
