@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Link from "next/link";
 import { Box } from "@mui/material";
+import LetterContext from "../../contexts/LetterContext";
 const link = ["photocard", "normal", "postcard"];
 const type = (props) => {
   const { text, index, describe, imgsrc } = props;
+  const { setMailType } = useContext(LetterContext);
+
   return (
     <Link href={"/letter/write"}>
       <Box
@@ -21,6 +24,19 @@ const type = (props) => {
           mb: index === 2 ? "0rem" : "1.2rem",
           mt: index === 0 ? "1.5rem" : "0rem",
           "&:hover": { cursor: "pointer" },
+        }}
+        onClick={() => {
+          switch (text) {
+            case "포토 카드":
+              setMailType("PHOTOCARD");
+              break;
+            case "일반 편지":
+              setMailType("GENERAL");
+              break;
+            case "엽서":
+              setMailType("POSTCARD");
+              break;
+          }
         }}
       >
         <Box

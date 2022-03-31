@@ -3,7 +3,7 @@ import { Box, Typography } from "@mui/material";
 
 const Photocard = (props) => {
   const { front, back, content } = props;
-
+  //something changed
   const [isClicked, setIsClicked] = useState(false);
   const [showFront, setShowFront] = useState(false);
   const [showBack, setShowBack] = useState(false);
@@ -50,7 +50,14 @@ const Photocard = (props) => {
           onClick={handleBackClick}
         ></img>
         <Box
-          sx={{ position: "absolute", top: "0", margin: "1rem", mt: "2rem" }}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            position: "absolute",
+            top: "0",
+            margin: "1rem",
+            mt: "2rem",
+          }}
         >
           <Typography
             className="innerText Dodum"

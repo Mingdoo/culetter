@@ -62,7 +62,6 @@ const type = (props) => {
             key={index}
             describe={data.describe}
             imgsrc={data.imgsrc}
-            href={data.href}
           ></Type>
         ))}
       </Box>

@@ -9,7 +9,7 @@ axios.interceptors.request.use(
   function (config) {
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
-      config.headers.Authorization = "Bearer " + accessToken;
+      config.headers.Authorization = accessToken;
     }
     return config;
   },
@@ -34,10 +34,16 @@ const getRegister = async (body) => {
   return result;
 };
 
+const getLogin = async (body) => {
+  const result = await api.post(`/members/signin`, body);
+  return result;
+};
+
 const UserApi = {
   getAuthCode,
   getConfirmAuthCode,
   getRegister,
+  getLogin,
 };
 
 export default UserApi;

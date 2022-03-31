@@ -18,7 +18,7 @@ import LinearProgress, {
   linearProgressClasses,
 } from "@mui/material/LinearProgress";
 import { styled } from "@mui/material/styles";
-import ContentsContext from "../../contexts/ContentsContext";
+import LetterContext from "../../contexts/LetterContext";
 import "react-toastify/dist/ReactToastify.css";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
@@ -58,7 +58,7 @@ const music = () => {
   const lpImgList = ["/img/lpImg1.png", "/img/lpImg2.png", "/img/lpImg3.png"];
   const [index, setIndex] = useState(0);
   const [checked, setChecked] = useState(musicList[0].title);
-  const { setMusicSelected } = useContext(ContentsContext);
+  const { setMusicUrl } = useContext(LetterContext);
 
   const playerIcon = {
     fontSize: "2.3rem",
@@ -86,9 +86,9 @@ const music = () => {
 
   useEffect(() => {
     if (checked !== "") {
-      setMusicSelected(true);
+      setMusicUrl("https://musicurl.music");
     } else {
-      setMusicSelected(false);
+      setMusicUrl("");
     }
   }, [checked]);
 
@@ -102,10 +102,15 @@ const music = () => {
     if (checked != "") {
       Router.push("/letter/edit");
     } else {
-      toast.error("노래를 선택해주세요", {
-        position: toast.POSITION.TOP_CENTER,
-        role: "alert",
-      });
+      toast.error(
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          노래를 선택해주세요🎧
+        </div>,
+        {
+          position: toast.POSITION.TOP_CENTER,
+          role: "alert",
+        }
+      );
     }
   };
 
