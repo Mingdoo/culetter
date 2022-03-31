@@ -6,9 +6,12 @@ import { DefaultSeo } from "next-seo";
 import { DEFAULT_SEO } from "../components/Variables";
 function MyApp({ Component, pageProps }) {
   const [name, setName] = useState("");
+  const [receiverName, setReceiverName] = useState("");
+  const [receiverEmail, setReceiverEmail] = useState("");
+  const [title, setTitle] = useState("");
   const [memberId, setMemberId] = useState("");
-  const [musicSelected, setMusicSelected] = useState(false);
   const [type, setType] = useState("");
+  const [music, setMusic] = useState(false);
   return (
     <ContentsContext.Provider
       value={{
@@ -16,10 +19,10 @@ function MyApp({ Component, pageProps }) {
         setName,
         memberId,
         setMemberId,
-        musicSelected,
-        setMusicSelected,
         type,
         setType,
+        music,
+        setMusic,
       }}
     >
       <Component {...pageProps} />
