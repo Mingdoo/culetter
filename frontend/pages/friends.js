@@ -140,8 +140,13 @@ function friends() {
                       obj={obj}
                       idx={idx}
                       key={idx}
+                      searchMemberId={searchMemberId}
                       searchedMembers={searchedMembers}
                       setSearchedMembers={setSearchedMembers}
+                      userFriends={userFriends}
+                      setUserFriends={setUserFriends}
+                      incomingFriends={incomingFriends}
+                      setIncomingFriends={setIncomingFriends}
                     />
                   ))}
                 <Divider sx={{ mt: "1rem", width: 370 }} />
@@ -247,8 +252,13 @@ function friends() {
                         obj={obj}
                         idx={idx}
                         key={idx}
+                        searchMemberId={searchMemberId}
                         searchedMembers={searchedMembers}
                         setSearchedMembers={setSearchedMembers}
+                        userFriends={userFriends}
+                        setUserFriends={setUserFriends}
+                        incomingFriends={incomingFriends}
+                        setIncomingFriends={setIncomingFriends}
                       />
                     ))
                 : searchedMembers
@@ -260,8 +270,13 @@ function friends() {
                         obj={obj}
                         idx={idx}
                         key={idx}
+                        searchMemberId={searchMemberId}
                         searchedMembers={searchedMembers}
                         setSearchedMembers={setSearchedMembers}
+                        userFriends={userFriends}
+                        setUserFriends={setUserFriends}
+                        incomingFriends={incomingFriends}
+                        setIncomingFriends={setIncomingFriends}
                       />
                     ))}
 
