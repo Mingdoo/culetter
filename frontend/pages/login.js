@@ -3,12 +3,19 @@ import LoginForm from "../components/login/LoginForm";
 import LoginBtn from "../components/login/LoginBtn";
 import Postbox from "../components/postbox/Postbox";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 
 const Login = () => {
   return (
-    <Box sx={{ width: 420, mx: "auto" }}>
-      <Postbox title="LOGIN"></Postbox>;
+    <Box
+      sx={{
+        width: 420,
+        height: "100vh",
+        mx: "auto",
+        backgroundColor: "#FCFAEF",
+      }}
+    >
+      <Postbox title="LOGIN"></Postbox>
     </Box>
   );
 };
