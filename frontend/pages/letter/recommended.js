@@ -153,7 +153,7 @@ const Recommended = () => {
             카드를 탭하면 카드가 뒤집힙니다
           </Typography>
         </>
-      ) : mailType === "NORMAL" ? (
+      ) : mailType === "GENERAL" ? (
         <>
           <Header
             handlePrevClick={handlePrevClick}
@@ -187,7 +187,7 @@ const Recommended = () => {
         sx={{
           display: "flex",
           justifyContent: mailType === "POSTCARD" ? null : "space-between",
-          flexDirection: mailType === "NORMAL" ? "row" : "column",
+          flexDirection: mailType === "GENERAL" ? "row" : "column",
           flexWrap: mailType === "PHOTOCARD" ? null : "wrap",
           alignItems: "center",
         }}
@@ -221,7 +221,7 @@ const Recommended = () => {
               />
             </Box>
           ))
-        ) : mailType === "NORMAL" ? (
+        ) : mailType === "GENERAL" ? (
           letterList.map((data, index) => (
             <Box
               component="div"

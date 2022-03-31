@@ -31,7 +31,7 @@ const type = (props) => {
               setMailType("PHOTOCARD");
               break;
             case "일반 편지":
-              setMailType("NORMAL");
+              setMailType("GENERAL");
               break;
             case "엽서":
               setMailType("POSTCARD");

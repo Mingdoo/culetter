@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Box, Grid, Typography, Button, IconButton } from "@mui/material";
 import { landingBoxStyle } from "../index";
 import Palette from "../../components/letter/Palette";
@@ -9,6 +9,7 @@ import Header from "../../components/Header";
 import FontSize from "../../components/letter/FontSize";
 import Letter from "../../components/letter/Letter";
 import { colors, fonts } from "../../components/Variables";
+import LetterContext from "../../contexts/LetterContext";
 
 function edit() {
   const [isColorOpen, setIsColorOpen] = useState(false);
@@ -21,20 +22,8 @@ function edit() {
   const [fontSize, setFontSize] = useState(20);
   const [showDots, setShowDots] = useState(true);
   const [bold, setBold] = useState(false);
-
-  const templateLiteral = `좋은 옷 있으면 생각날 때 입고
-  좋은 음식 있으면 먹고 싶을 때 먹고
-  좋은 음악 있으면 듣고 싶을 때 들으세요
-  더구나 좋은 사람 있으면
-  마음 속에 숨겨두지 말고
-  마음껏 좋아하고 마음껏 그리워하세요
-  그리하여 때로는 얼굴 붉힐 일
-  눈물 글썽일 일 있다한들
-  그게 무슨 대수겠어요!
-  지금도 그대 앞에 꽃이 있고
-  좋은 사람이 있지 않나요
-  그 꽃을 마음껏 좋아하고
-  그 사람을 마음껏 그리워하세요`;
+  const { title, content } = useContext(LetterContext);
+  const templateLiteral = content;
   useEffect(() => {
     setShowDots(
       !(isColorOpen || isFontFamilyOpen || isAlignmentOpen || isFontSizeOpen),

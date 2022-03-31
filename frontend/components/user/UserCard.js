@@ -56,7 +56,7 @@ export default function UserCard(props) {
   const handleMailClick = (e, obj) => {
     e.preventDefault();
     setMemberId(obj.member_id);
-    Router.push("/letter/write");
+    Router.push("/letter/type");
   };
 
   const handleFriendFavoriteClick = (e, obj) => {
