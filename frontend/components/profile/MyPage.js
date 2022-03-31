@@ -3,7 +3,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import nomailbox from "../../public/img/nomailbox.PNG";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PWCheckField from "./PWCheckField";
 import BadgeIcon from "@mui/icons-material/Badge";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -11,19 +11,43 @@ import CloseIcon from "@mui/icons-material/Close";
 import CropEasy from "../crop/CropEasy";
 import ConfirmBtn from "./ConfirmBtn";
 import StyledTextField from "./StyledTextField";
+import { getUserInfo, editUserInfo } from "../apis/profile";
 
 export default function MyPage() {
-  const res = {
-    email: "ssafy@ssafy.com",
-    name: "ssafy",
-    profileImage: nomailbox.src,
-  };
+  // const res = {
+  //   email: "ssafy@ssafy.com",
+  //   name: "ssafy",
+  //   profileImage: nomailbox.src,
+  // };
 
   const [open, setOpen] = useState(false);
   const [photoURL, setPhotoURL] = useState(null);
-  const [name, setName] = useState(res.name);
-  const [email, setEmail] = useState(res.email);
+  const [name, setName] = useState(null);
+  const [email, setEmail] = useState("");
   const [nameErrorMsg, setNameErrorMsg] = useState(false);
+
+  const setUserInfo = async () => {
+    try {
+      const res = await getUserInfo();
+      setEmail(res.data.email);
+      setName(res.data.name);
+      setPhotoURL(res.data.profileImage);
+    } catch (error) {
+      // 토스트 메세지
+      console.log(error);
+    }
+  };
+
+  const edit = async () => {
+    try {
+      const res = await editUserInfo(name, photoURL);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    setUserInfo();
+  }, []);
 
   const handleChangePhoto = (event) => {
     // lastModified, name, size, type, webkitrelativepath
@@ -78,7 +102,7 @@ export default function MyPage() {
             <Box sx={{ mx: "auto", position: "relative" }}>
               <Box
                 component="img"
-                src={photoURL ? photoURL : res.profileImage}
+                // src={photoURL ? photoURL : res.profileImage}
                 sx={{
                   width: 110,
                   height: 110,
@@ -191,7 +215,7 @@ export default function MyPage() {
           </Box>
         </Box>
       </Box>
-      <ConfirmBtn></ConfirmBtn>
+      <ConfirmBtn onClick={edit}></ConfirmBtn>
     </Box>
   );
 }

@@ -3,8 +3,8 @@ import axios from "axios";
 import { useCallback, useState } from "react";
 import PWCheckField from "./PWCheckField";
 import ConfirmBtn from "./ConfirmBtn";
-const SERVER_URL = "https://j6a201.p.ssafy.io:8080";
-const token = "temp";
+
+import { pwValidation } from "../apis/profile";
 
 export default function PasswordCheck({ pwConfirm, setPwConfirm }) {
   const [pwInput, setPwInput] = useState(null);
@@ -13,16 +13,11 @@ export default function PasswordCheck({ pwConfirm, setPwConfirm }) {
   const pwdPattern =
     /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/;
   const sendPw = useCallback(async () => {
-    // console.log(pwInput);
-    // 임시
-    setPwConfirm(true);
     try {
-      const res = await axios.post(`${SERVER_URL}/api/members/pwcheck`, {
-        headers: { Authorization: `Bearer ${token}` },
-        password: { pwInput },
-      });
-      // setPwConfirm(true);
+      const res = await pwValidation(pwInput);
+      setPwConfirm(true);
     } catch (error) {
+      // 토스트 메세지
       console.log(error);
     }
   });

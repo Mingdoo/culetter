@@ -19,6 +19,7 @@ export default function password() {
     e.preventDefault();
     Router.push("/");
   };
+
   return (
     <Box sx={{ width: 420, mx: "auto" }}>
       <Box
@@ -56,8 +57,8 @@ export default function password() {
           <PWCheckField
             id="newPW"
             pwInput={pwInput}
-            setPwInput={(e) => setPwInput(e)}
             pwCheck={pwCheck}
+            setPwInput={(e) => setPwInput(e)}
             setPwCheck={(e) => setPwCheck(e)}
             labelValue="새 비밀번호"
           ></PWCheckField>

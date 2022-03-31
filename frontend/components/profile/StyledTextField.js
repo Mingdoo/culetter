@@ -45,7 +45,7 @@ export default function StyledTextField({
       id={id}
       label={label}
       type={id}
-      value={value}
+      value={value || ""}
       disabled={disabled}
       onChange={onChange ? onChange : null}
       sx={{ width: 1 }}
