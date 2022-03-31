@@ -18,53 +18,59 @@ import {
   Typography,
 } from "@mui/material";
 
-const useStyles = makeStyles({
-  root: {
-    margin: "3px",
-    color: "#eeee",
-    fontFamily: "Gowun Batang",
-    "&.Mui-focused": {
-      color: "#eeee",
-      backgroundColor: "#d3504a",
-    },
-    "&:before": {
-      color: "#eeee",
-      borderBottomColor: "#eeee",
-    },
-    "&:hover:not(.Mui-focused):before": {
-      color: "#eeee",
-      borderBottomColor: "#eeee",
-    },
-    "&:after": {
-      // focused
-      color: "#eeee",
-      borderBottomColor: "#eeee",
-    },
-  },
-  input: {
-    "&::selection": {
-      backgroundColor: "lightgreen",
-      color: "#eeee",
-      fontSize: 12,
-    },
-  },
-});
+// const useStyles = makeStyles({
+//   root: {
+//     margin: "3px",
+//     color: "#eeee",
+//     fontFamily: "Gowun Batang",
+//     "&.Mui-focused": {
+//       color: "#eeee",
+//       backgroundColor: "#d3504a",
+//     },
+//     "&:before": {
+//       color: "#eeee",
+//       borderBottomColor: "#eeee",
+//     },
+//     "&:hover:not(.Mui-focused):before": {
+//       color: "#eeee",
+//       borderBottomColor: "#eeee",
+//     },
+//     "&:after": {
+//       // focused
+//       color: "#eeee",
+//       borderBottomColor: "#eeee",
+//     },
+//   },
+//   input: {
+//     "&::selection": {
+//       backgroundColor: "lightgreen",
+//       color: "#eeee",
+//       fontSize: 12,
+//     },
+//   },
+// });
 
-const useLabelStyles = makeStyles({
-  root: {
-    color: "#eeee",
-    "&.Mui-focused": {
-      color: "#eeee",
-    },
-    fontSize: 14,
-  },
-});
+// const useLabelStyles = makeStyles({
+//   root: {
+//     color: "#eeee",
+//     "&.Mui-focused": {
+//       color: "#eeee",
+//     },
+//     fontSize: 14,
+//   },
+// });
 
 const msgStyle = {
   fontSize: 11,
   color: "#E2E0A5",
   fontFamily: "Gowun Batang",
   marginBottom: "3px",
+};
+
+const labelStyle = {
+  color: "#eeee",
+  fontSize: 14,
+  fontFamily: "Gowun Batang",
 };
 
 const SignupForm = () => {
@@ -111,7 +117,7 @@ const SignupForm = () => {
     const pwdPattern = /^.{8,16}$/;
     const emailPattern =
       /^([0-9a-zA-Z_.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
-    const namePattern = /^[가-힣]+$/;
+    const namePattern = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|\*]{2,12}$/;
 
     const { id, value } = e.target;
 
@@ -252,7 +258,7 @@ const SignupForm = () => {
         Router.push("/login");
       }, 3000);
     } catch (error) {
-      console.log(error.response.status);
+      // console.log(error.response.status);
       const status = error.response.status;
       let msg = "";
       switch (status) {
@@ -273,9 +279,14 @@ const SignupForm = () => {
     }
   };
 
-  const classes = useStyles();
-  const labelClasses = useLabelStyles();
+  // const classes = useStyles();
+  // const labelClasses = useLabelStyles();
 
+  const styles = (theme) => ({
+    multilineColor: {
+      color: "red",
+    },
+  });
   useEffect(() => {
     if (authEmail === false) {
       setRegistMsg("이메일 인증을 진행해주세요");
@@ -320,10 +331,21 @@ const SignupForm = () => {
               marginLeft: "1.0rem",
             }}
             sx={{ color: "white" }}
-            InputProps={{ classes: classes }}
+            InputProps={{
+              style: {
+                color: "#eeee",
+                fontFamily: "Gowun Batang",
+              },
+            }}
             InputLabelProps={{
-              style: { fontFamily: "Gowun Batang" },
-              classes: labelClasses,
+              style: {
+                fontFamily: "Gowun Batang",
+                color: "#eeee",
+                fontSize: "0.9rem",
+                "&::after": {
+                  border: "2px solid red",
+                },
+              },
             }}
             onChange={handleInput}
           />
@@ -375,9 +397,20 @@ const SignupForm = () => {
                   fontSize: "10px",
                   height: "10px",
                 }}
-                InputProps={{ classes: classes }}
+                InputProps={{
+                  style: {
+                    color: "#eeee",
+                    fontFamily: "Gowun Batang",
+                  },
+                }}
                 InputLabelProps={{
-                  style: { fontFamily: "Gowun Batang" },
+                  style: {
+                    style: {
+                      fontFamily: "Gowun Batang",
+                      color: "#eeee",
+                      fontSize: "0.9rem",
+                    },
+                  },
                   classes: labelClasses,
                 }}
                 onChange={handleInput}
@@ -437,10 +470,18 @@ const SignupForm = () => {
             autoComplete="off"
             variant="standard"
             size="small"
-            InputProps={{ classes: classes }}
+            InputProps={{
+              style: {
+                color: "#eeee",
+                fontFamily: "Gowun Batang",
+              },
+            }}
             InputLabelProps={{
-              style: { fontFamily: "Gowun Batang" },
-              classes: labelClasses,
+              style: {
+                fontFamily: "Gowun Batang",
+                color: "#eeee",
+                fontSize: "0.9rem",
+              },
             }}
             onChange={handleInput}
           />
@@ -464,10 +505,18 @@ const SignupForm = () => {
             autoComplete="off"
             variant="standard"
             size="small"
-            InputProps={{ classes: classes }}
+            InputProps={{
+              style: {
+                color: "#eeee",
+                fontFamily: "Gowun Batang",
+              },
+            }}
             InputLabelProps={{
-              style: { fontFamily: "Gowun Batang" },
-              classes: labelClasses,
+              style: {
+                fontFamily: "Gowun Batang",
+                color: "#eeee",
+                fontSize: "0.9rem",
+              },
             }}
             onChange={handleInput}
           />
@@ -491,10 +540,18 @@ const SignupForm = () => {
             autoComplete="off"
             variant="standard"
             size="small"
-            InputProps={{ classes: classes }}
+            InputProps={{
+              style: {
+                color: "#eeee",
+                fontFamily: "Gowun Batang",
+              },
+            }}
             InputLabelProps={{
-              style: { fontFamily: "Gowun Batang" },
-              classes: labelClasses,
+              style: {
+                fontFamily: "Gowun Batang",
+                color: "#eeee",
+                fontSize: "0.9rem",
+              },
             }}
             // style={{ marginTop: 70 }}
             onChange={handleInput}

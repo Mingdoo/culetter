@@ -5,15 +5,15 @@ import ContentsContext from "../contexts/ContentsContext";
 import { DefaultSeo } from "next-seo";
 import { DEFAULT_SEO } from "../components/Variables";
 function MyApp({ Component, pageProps }) {
-  const [textValid, setTextValid] = useState(false);
+  const [name, setName] = useState("");
   const [memberId, setMemberId] = useState("");
   const [musicSelected, setMusicSelected] = useState(false);
   const [type, setType] = useState("");
   return (
     <ContentsContext.Provider
       value={{
-        textValid,
-        setTextValid,
+        name,
+        setName,
         memberId,
         setMemberId,
         musicSelected,
