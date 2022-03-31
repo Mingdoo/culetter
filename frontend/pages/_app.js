@@ -10,21 +10,24 @@ function MyApp({ Component, pageProps }) {
   const [musicSelected, setMusicSelected] = useState(false);
   const [type, setType] = useState("");
   return (
-    <ContentsContext.Provider
-      value={{
-        textValid,
-        setTextValid,
-        memberId,
-        setMemberId,
-        musicSelected,
-        setMusicSelected,
-        type,
-        setType,
-      }}
-    >
-      <Component {...pageProps} />
-      <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-    </ContentsContext.Provider>
+    <>
+      <DefaultSeo {...DEFAULT_SEO} />
+      <ContentsContext.Provider
+        value={{
+          textValid,
+          setTextValid,
+          memberId,
+          setMemberId,
+          musicSelected,
+          setMusicSelected,
+          type,
+          setType,
+        }}
+      >
+        <Component {...pageProps} />
+        <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+      </ContentsContext.Provider>
+    </>
   );
 }
 
