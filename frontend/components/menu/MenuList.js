@@ -1,12 +1,16 @@
 import MenuListItem from "./MenuListItem";
 import { Box } from "@mui/material";
 import MenuButton from "./MenuButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function MenuList() {
   const [open, setOpen] = useState(false);
+  const [name, setName] = useState("");
   const HandleMenu = () => (open ? setOpen(false) : setOpen(true));
 
+  useEffect(() => {
+    setName(localStorage.getItem("name"));
+  });
   return (
     <>
       <MenuButton HandleMenu={HandleMenu} open={open}></MenuButton>
@@ -35,7 +39,7 @@ export default function MenuList() {
             borderBottom: 1,
           }}
         >
-          [이름]
+          [{name}]
         </Box>
         {[
           "홈",
