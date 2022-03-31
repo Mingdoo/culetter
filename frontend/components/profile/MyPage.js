@@ -1,17 +1,24 @@
-import { Box, IconButton, Input, InputLabel, Grid } from "@mui/material";
+import {
+  Box,
+  IconButton,
+  Input,
+  InputLabel,
+  Grid,
+  Button,
+} from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
-import nomailbox from "../../public/img/nomailbox.PNG";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { useEffect, useState } from "react";
-import PWCheckField from "./PWCheckField";
 import BadgeIcon from "@mui/icons-material/Badge";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import CloseIcon from "@mui/icons-material/Close";
 import CropEasy from "../crop/CropEasy";
 import ConfirmBtn from "./ConfirmBtn";
 import StyledTextField from "./StyledTextField";
-import { getUserInfo, editUserInfo } from "../apis/profile";
+import { getUserInfo, editUserInfo, deleteUser } from "../apis/profile";
+import LockIcon from "@mui/icons-material/Lock";
+import Router from "next/router";
 
 export default function MyPage() {
   // const res = {
@@ -22,6 +29,7 @@ export default function MyPage() {
 
   const [open, setOpen] = useState(false);
   const [photoURL, setPhotoURL] = useState(null);
+  const [croppedURL, setCroppedURL] = useState(null);
   const [name, setName] = useState(null);
   const [email, setEmail] = useState("");
   const [nameErrorMsg, setNameErrorMsg] = useState(false);
@@ -39,15 +47,26 @@ export default function MyPage() {
   };
 
   const edit = async () => {
+    console.log(photoURL);
     try {
-      const res = await editUserInfo(name, photoURL);
+      const res = await editUserInfo(name, croppedURL);
     } catch (error) {
       console.log(error);
     }
   };
-  useEffect(() => {
-    setUserInfo();
-  }, []);
+
+  const deleteAccount = async () => {
+    try {
+      const res = await deleteUser();
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // useEffect(() => {
+  //   setUserInfo();
+  // }, []);
 
   const handleChangePhoto = (event) => {
     // lastModified, name, size, type, webkitrelativepath
@@ -72,7 +91,10 @@ export default function MyPage() {
   const handleClose = () => {
     setOpen(false);
   };
-
+  const toPwChange = (e) => {
+    e.preventDefault();
+    Router.push("/password");
+  };
   const nameValidationCheck = (e) => {
     setName(e.target.value);
     const namePattern = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
@@ -98,16 +120,16 @@ export default function MyPage() {
       >
         <Box>
           {/* 프로필 이미지 */}
-          <Box sx={{ display: "flex", mb: 3 }}>
+          <Box sx={{ display: "flex" }}>
             <Box sx={{ mx: "auto", position: "relative" }}>
               <Box
                 component="img"
-                // src={photoURL ? photoURL : res.profileImage}
+                src={croppedURL ? croppedURL : ""}
                 sx={{
-                  width: 110,
-                  height: 110,
-                  borderRadius: "70%",
-                  border: "1px solid black",
+                  width: 130,
+                  height: 130,
+                  // borderRadius: "70%",
+                  // border: "1px solid black",
                 }}
               ></Box>
               <IconButton sx={{ position: "absolute", bottom: -4, right: 0 }}>
@@ -145,13 +167,13 @@ export default function MyPage() {
               photoURL={photoURL}
               setOpen={setOpen}
               setPhotoURL={setPhotoURL}
+              setCroppedURL={setCroppedURL}
             ></CropEasy>
           </Dialog>
           {/* 모달 끝 */}
 
           <Box sx={{ display: "flex", flexDirection: "column" }}>
-            {/* 이메일 textfield */}
-            <Box sx={{ mt: 1 }}>
+            <Box>
               <Grid container>
                 <Grid
                   item
@@ -163,6 +185,7 @@ export default function MyPage() {
                 <Grid item xs={11} sx={{ pl: 1 }}>
                   <StyledTextField
                     id="email"
+                    type="email"
                     label="이메일"
                     value={email}
                     disabled={true}
@@ -170,17 +193,8 @@ export default function MyPage() {
                 </Grid>
               </Grid>
             </Box>
-            {/* 비밀번호 textfield */}
-            {/* 비밀번호 숫자 계산해서 넘기던가 */}
-            <Box sx={{ mt: 1 }}>
-              <PWCheckField
-                withBtn={true}
-                pwInput="********"
-                labelValue="비밀번호"
-              ></PWCheckField>
-            </Box>
             {/* 이름 textfield */}
-            <Box sx={{ mt: 1 }}>
+            <Box sx={{ mt: 1.2 }}>
               <Grid container>
                 <Grid
                   item
@@ -189,9 +203,10 @@ export default function MyPage() {
                 >
                   <BadgeIcon sx={{ color: "white", mr: 1, my: 0.5 }} />
                 </Grid>
-                <Grid sx={{ pl: 1 }} xs={11}>
+                <Grid item sx={{ pl: 1 }} xs={11}>
                   <StyledTextField
                     id="name"
+                    type="name"
                     label="이름"
                     value={name}
                     disabled={false}
@@ -212,10 +227,45 @@ export default function MyPage() {
             >
               <Box> {nameErrorMsg}</Box>
             </Box>
+            {/* 비밀번호 숫자 계산해서 넘기던가 */}
+            <Box sx={{ mt: 1 }}>
+              <Grid container>
+                <Grid
+                  item
+                  xs={1}
+                  sx={{ display: "flex", alignItems: "flex-end" }}
+                >
+                  <LockIcon sx={{ color: "white", mr: 1, my: 0.5 }} />
+                </Grid>
+                <Grid
+                  item
+                  xs={6}
+                  sx={{ pl: 1, display: "flex", alignItems: "flex-end" }}
+                >
+                  <Button
+                    variant="contained"
+                    size="small"
+                    sx={{
+                      backgroundColor: "#FCFAEF",
+                      color: "#3A1D1D",
+                      fontSize: "12px",
+                      fontFamily: "Gowun Dodum",
+                      "&:hover": {
+                        backgroundColor: "#FCFAEF",
+                      },
+                    }}
+                    onClick={toPwChange}
+                  >
+                    비밀번호 변경
+                  </Button>
+                </Grid>
+              </Grid>
+            </Box>
           </Box>
         </Box>
       </Box>
       <ConfirmBtn onClick={edit}></ConfirmBtn>
+      {/* <ConfirmBtn onClick={deleteAccount}></ConfirmBtn> */}
     </Box>
   );
 }

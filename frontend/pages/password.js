@@ -1,25 +1,46 @@
 import { Box, Button, Typography } from "@mui/material";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Header from "../components/Header";
 import Router from "next/router";
 import PWCheckField from "../components/profile/PWCheckField";
 import ConfirmBtn from "../components/profile/ConfirmBtn";
 import { ToastContainer, toast } from "react-toastify";
+import { changePw } from "../components/apis/profile";
+
 export default function password() {
   const [pwInput, setPwInput] = useState(null);
   const [pwCheck, setPwCheck] = useState(true);
 
   const [pwSecondInput, setPwSecondInput] = useState(null);
-  const [pwSecondCheck, setPwSecondCheck] = useState(true);
+  const [samePw, setSamePw] = useState(true);
 
-  const onConfirmBtnClick = (e) => {
+  const onConfirmBtnClick = async (e) => {
     e.preventDefault();
+    try {
+      const res = await changePw(pwInput);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  useEffect(() => {
+    console.log("test");
+    handleSamePw();
+  }, [pwSecondInput]);
   const handlePrevClick = (e) => {
     e.preventDefault();
-    Router.push("/");
+    // router back with parameters... 비밀번호 확인을 또 시킬 순 없음.
+    Router.back();
   };
 
+  const handleSamePw = () => {
+    if (pwInput !== pwSecondInput) {
+      setSamePw(false);
+    } else {
+      setSamePw(true);
+    }
+  };
   return (
     <Box sx={{ width: 420, mx: "auto" }}>
       <Box
@@ -38,7 +59,7 @@ export default function password() {
           handlePrevClick={handlePrevClick}
         ></Header>
         <Box sx={{ width: "85%" }}>
-          <Typography className="Batang" sx={{ fontSize: 12 }}>
+          <Typography className="Batang" sx={{ fontSize: 14 }}>
             변경하실 비밀번호를 입력해주세요
           </Typography>
         </Box>
@@ -51,7 +72,7 @@ export default function password() {
             borderRadius: 2,
             display: "flex",
             flexDirection: "column",
-            pb: 7,
+            pt: 2,
           }}
         >
           <PWCheckField
@@ -65,11 +86,23 @@ export default function password() {
           <PWCheckField
             id="newPWCheck"
             pwInput={pwSecondInput}
-            pwCheck={pwSecondCheck}
+            pwCheck={samePw}
             setPwInput={(e) => setPwSecondInput(e)}
-            setPwCheck={(e) => setPwSecondCheck(e)}
+            setPwCheck={(e) => handleSamePw(e)}
             labelValue="새 비밀번호 확인"
           ></PWCheckField>
+          <Typography
+            sx={{
+              fontSize: 11,
+              color: "#d25858",
+              fontFamily: "Gowun Batang",
+              height: "18px",
+              pt: "2px",
+              ml: 4.7,
+            }}
+          >
+            {samePw ? "" : "비밀번호가 일치하지 않습니다."}
+          </Typography>
         </Box>
         <ConfirmBtn onClick={onConfirmBtnClick}></ConfirmBtn>
       </Box>

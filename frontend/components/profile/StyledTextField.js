@@ -1,6 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { TextField, Button } from "@mui/material";
-import Router from "next/router";
 
 const useStyles = makeStyles({
   root: {
@@ -39,15 +38,10 @@ export default function StyledTextField({
   value,
   disabled,
   onChange,
-  defaultValue,
 }) {
   const classes = useStyles();
   const labelClasses = useLabelStyles();
 
-  const toPwChange = (e) => {
-    e.preventDefault();
-    Router.push("/password");
-  };
   return (
     <TextField
       autoComplete="off"
@@ -58,31 +52,10 @@ export default function StyledTextField({
       type={type}
       value={value || ""}
       disabled={disabled}
-      defaultValue={defaultValue}
       onChange={onChange ? onChange : null}
       sx={{ width: 1 }}
       InputLabelProps={{ classes: labelClasses }}
-      InputProps={{
-        classes: classes,
-        endAdornment: disabled ? (
-          <Button
-            variant="contained"
-            size="small"
-            sx={{
-              backgroundColor: "#FCFAEF",
-              color: "#3A1D1D",
-              fontSize: "10px",
-              fontFamily: "Gowun Dodum",
-              "&:hover": {
-                backgroundColor: "#FCFAEF",
-              },
-            }}
-            onClick={toPwChange}
-          >
-            변경
-          </Button>
-        ) : null,
-      }}
+      InputProps={{ classes: classes }}
     ></TextField>
   );
 }
