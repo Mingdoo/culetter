@@ -205,7 +205,7 @@ const SignupForm = () => {
         {
           position: toast.POSITION.TOP_CENTER,
           role: "alert",
-        }
+        },
       );
       console.log(response);
     } catch (error) {
@@ -252,7 +252,7 @@ const SignupForm = () => {
         {
           position: toast.POSITION.TOP_CENTER,
           role: "alert",
-        }
+        },
       );
       setTimeout(function () {
         Router.push("/login");
@@ -411,7 +411,7 @@ const SignupForm = () => {
                       fontSize: "0.9rem",
                     },
                   },
-                  classes: labelClasses,
+                  // classes: labelClasses,
                 }}
                 onChange={handleInput}
               />
