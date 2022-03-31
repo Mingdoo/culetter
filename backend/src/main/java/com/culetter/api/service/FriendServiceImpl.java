@@ -53,8 +53,8 @@ public class FriendServiceImpl implements FriendService {
         for(Friend req : friendRepository.findByFriendRequest(cur_member.getMemberId())) {
             requestResponse.add(new FriendDto.FriendResponse(
                     req.getFromMember().getMemberId(),
-                    req.getFromMember().getName(),
                     req.getFromMember().getEmail(),
+                    req.getFromMember().getName(),
                     req.getIsFavorite(),
                     (byte) 2
             ));
