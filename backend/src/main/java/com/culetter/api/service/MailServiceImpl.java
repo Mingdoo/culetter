@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.nio.charset.Charset;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -92,6 +93,21 @@ public class MailServiceImpl implements MailService {
                 mail.getFontOrder(),mail.getFontType(),mail.getFontColor(),
                 mail.getHandwriteImage()
         );
+    }
+
+    // TODO
+    @Override
+    public List<String> styleRecommendation(String emotion) {
+        memberService.getMemberByAuthentication();
+
+        return null;
+    }
+
+    @Override
+    public List<String> musicRecommendation(String emotion) {
+        memberService.getMemberByAuthentication();
+
+        return null;
     }
 
     @Override

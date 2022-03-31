@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -40,15 +41,15 @@ public class MailController {
         return ResponseEntity.status(HttpStatus.OK).body(memo);
     }
 
-    //TODO style이랑 music은 AI 완성후 상의
+    // TODO
     @GetMapping("/style")
-    public ResponseEntity<Map<String,String>> recommendStyle(@RequestBody Map<String,String> emotion){
+    public ResponseEntity<Map<String, List<String>>> recommendStyle(@RequestBody Map<String,String> emotion){
 
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
     @GetMapping("/music")
-    public ResponseEntity<Map<String,String>> recommendMusic(@RequestBody Map<String,String> emotion){
+    public ResponseEntity<Map<String,List<String>>> recommendMusic(@RequestBody Map<String,String> emotion){
 
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
