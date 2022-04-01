@@ -27,6 +27,9 @@ import PauseIcon from "@mui/icons-material/Pause";
 import Router from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ReactAudioPlayer from "react-audio-player";
+import ReactPlayer from "react-player";
+import AudioPlayer from "react-h5-audio-player";
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 7,
@@ -41,16 +44,11 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   },
 }));
 
-const handlePreviousMusic = () => {};
-const handleMusicStart = () => {};
-const handleMusicStop = () => {};
-const handleNextMusic = () => {};
-
 const music = () => {
   const [title, setTitle] = useState("라일락");
   const [singer, setSinger] = useState("아이유");
 
-  const [playStatus, setPlayStatus] = useState("play");
+  const [playStatus, setPlayStatus] = useState("stop");
 
   const musicList = [
     { title: "내 맘을 볼 수 있나요", singer: "헤이즈" },
@@ -90,6 +88,15 @@ const music = () => {
     }
   };
 
+  const handlePreviousMusic = () => {};
+  const handleMusicStart = () => {
+    setPlayStatus("play");
+  };
+  const handleMusicStop = () => {
+    setPlayStatus("stop");
+  };
+  const handleNextMusic = () => {};
+
   useEffect(() => {
     let index = Math.floor(Math.random() * 3);
     setIndex(index);
@@ -102,6 +109,10 @@ const music = () => {
       setMusicUrl("");
     }
   }, [checked]);
+
+  useEffect(() => {
+    console.log(playStatus);
+  }, [playStatus]);
 
   useEffect(() => {
     setTitle(musicList[0].title);
@@ -216,6 +227,16 @@ const music = () => {
           </Box>
         </Box>
       </Box>
+
+      <audio
+        src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+        ref={audioPlayer}
+        onTimeUpdate={onPlaying}
+      >
+        Your browser does not support the
+        <code>audio</code> element.
+      </audio>
+
       <Box sx={{ display: "flex", justifyContent: "center", mt: "1.3rem" }}>
         <BorderLinearProgress variant="determinate" value={50} sx={{}} />
       </Box>
