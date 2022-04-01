@@ -39,10 +39,12 @@ export default function Photocard({ senderName, createdDate, src }) {
           <Typography sx={{ fontFamily: "Gowun Dodum" }}>
             {senderName}
           </Typography>
-          <Typography sx={{ fontFamily: "Gowun Dodum" }}>
-            포토카드, {createdDate.slice(0, 4)}년 {createdDate.slice(4, 6)}월{" "}
-            {createdDate.slice(6)}일
-          </Typography>
+          {createdDate ? (
+            <Typography sx={{ fontFamily: "Gowun Dodum" }}>
+              포토카드, {createdDate.slice(0, 4)}년 {createdDate.slice(4, 6)}월{" "}
+              {createdDate.slice(6)}일
+            </Typography>
+          ) : null}
         </Box>
       </Box>
     </Box>
