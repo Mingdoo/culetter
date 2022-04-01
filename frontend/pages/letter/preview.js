@@ -2,8 +2,7 @@ import { Box, Button, Typography, Grid } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { keyframes } from "@emotion/react";
 import { useRef, useState } from "react";
-import ContentsContext from "../../contexts/ContentsContext";
-import Header from "../../components/write/header";
+// import Header from "../../components/write/header";
 import MiniPlayer from "../../components/letter/preview/MiniPlayer";
 import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
 import PauseIcon from "@mui/icons-material/Pause";
@@ -70,7 +69,7 @@ export default function Preview() {
         bgcolor: "#FCFAEF",
       }}
     >
-      <Header title="미리보기"></Header>
+      {/* <Header title="미리보기"></Header> */}
       <audio
         src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
         ref={audioPlayer}

@@ -1,7 +1,6 @@
 import axios from "axios";
-// import { BASE_URL } from "./config";
+import { BASE_URL } from "./config";
 
-const BASE_URL = "https://www.culetter.site/api";
 export const usersApi = axios.create({
   baseURL: `${BASE_URL}/members`,
 });
@@ -27,7 +26,6 @@ export const pwValidation = async (password) => {
 };
 
 export const getUserInfo = async () => {
-  console.log("get user");
   return await usersApi.get();
 };
 
