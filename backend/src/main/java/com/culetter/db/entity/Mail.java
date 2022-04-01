@@ -41,6 +41,7 @@ public class Mail {
     private String fontOrder;
     private String fontType;
     private Byte fontColor;
+    private Byte backgroundColor;
     private String handwriteImage;
     @CreatedDate
     private LocalDateTime createdDate;
@@ -49,7 +50,7 @@ public class Mail {
     public Mail(String code, Long senderId, String senderEmail, String senderName, Boolean isRead, String receiverEmail,
                 String receiverName, Byte existCnt, String mailType, String title, String content, String styleUrl,
                 String musicUrl, String image, String contentPosition, String stickers, String fontOrder, String fontType, Byte fontColor,
-                String handwriteImage, LocalDateTime createdDate) {
+                Byte backgroundColor, String handwriteImage, LocalDateTime createdDate) {
         this.code = code;
         this.senderId = senderId;
         this.senderEmail = senderEmail;
@@ -69,6 +70,7 @@ public class Mail {
         this.fontOrder = fontOrder;
         this.fontType = fontType;
         this.fontColor = fontColor;
+        this.backgroundColor = backgroundColor;
         this.handwriteImage = handwriteImage;
         this.createdDate = createdDate;
     }
@@ -85,7 +87,7 @@ public class Mail {
                                String mailType, String mailStyle, String content, String musicUrl,
                                String image, String contentPosition, String stickers,
                                String fontOrder, String fontType, Byte fontColor,
-                               String handwriteImage){
+                               Byte backgroundColor, String handwriteImage){
         this.receiverEmail = receiverEmail;
         this.receiverName = receiverName;
         this.title = title;
@@ -99,6 +101,7 @@ public class Mail {
         this.fontOrder = fontOrder;
         this.fontType = fontType;
         this.fontColor = fontColor;
+        this.backgroundColor = backgroundColor;
         this.handwriteImage = handwriteImage;
     }
 
