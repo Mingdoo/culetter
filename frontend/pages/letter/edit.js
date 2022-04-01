@@ -26,7 +26,7 @@ function edit() {
   const templateLiteral = content;
   useEffect(() => {
     setShowDots(
-      !(isColorOpen || isFontFamilyOpen || isAlignmentOpen || isFontSizeOpen),
+      !(isColorOpen || isFontFamilyOpen || isAlignmentOpen || isFontSizeOpen)
     );
   }, [isColorOpen, isFontFamilyOpen, isAlignmentOpen, isFontSizeOpen]);
 
@@ -65,6 +65,7 @@ function edit() {
 
   const handleNextClick = (e) => {
     e.preventDefault();
+    Router.push("/letter/preview");
   };
   const handlePrevClick = (e) => {
     e.preventDefault();
