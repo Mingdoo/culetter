@@ -1,7 +1,6 @@
 import { Grid, Box, Typography } from "@mui/material";
 import { useState, useContext } from "react";
 
-import ContentsContext from "../../../contexts/ContentsContext";
 import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
 import PauseIcon from "@mui/icons-material/Pause";
 import AlbumIcon from "@mui/icons-material/Album";
