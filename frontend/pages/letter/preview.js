@@ -1,12 +1,20 @@
 import { Box, Button, Typography, Grid } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { keyframes } from "@emotion/react";
-import { useRef, useState } from "react";
-// import Header from "../../components/write/header";
+import { useRef, useState, useContext } from "react";
+
+import Header from "../../components/Header";
 import MiniPlayer from "../../components/letter/preview/MiniPlayer";
 import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
+
+import Letter from "../../components/letter/Letter";
+import Photocard from "../../components/letter/preview/Photocard";
+import General from "../../components/letter/general/General";
+import Postcard from "../../components/letter/preview/Postcard";
+
 import PauseIcon from "@mui/icons-material/Pause";
 import AlbumIcon from "@mui/icons-material/Album";
+import LetterContext from "../../contexts/LetterContext";
 
 const enterKeyframe = keyframes`
   0% {
@@ -36,7 +44,39 @@ const StyledButton = styled(Button)`
 `;
 
 export default function Preview() {
-  // const { musicSelected } = useContext(ContentsContext);
+  const {
+    memberId,
+    receiverName,
+    receiverEmail,
+    title,
+    mailType,
+    styleUrl,
+    content,
+    musicUrl,
+    image,
+    contentPosition,
+    stickers,
+    fontOrder,
+    fontType,
+    fontColor,
+  } = useContext(LetterContext);
+
+  console.log(
+    memberId,
+    receiverName,
+    receiverEmail,
+    title,
+    mailType,
+    styleUrl,
+    content,
+    musicUrl,
+    image,
+    contentPosition,
+    stickers,
+    fontOrder,
+    fontType,
+    fontColor
+  );
   const audioPlayer = useRef();
   const [currentTime, setCurrentTime] = useState(0);
   const [seekValue, setSeekValue] = useState(0);
@@ -69,7 +109,17 @@ export default function Preview() {
         bgcolor: "#FCFAEF",
       }}
     >
-      {/* <Header title="미리보기"></Header> */}
+      <Header title="미리보기"></Header>
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <Letter></Letter>
+        {/* <Photocard
+          key="previewLetter"
+          front={image}
+          back={image}
+          content="test"
+        ></Photocard> */}
+      </Box>
+
       <audio
         src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
         ref={audioPlayer}
@@ -79,21 +129,8 @@ export default function Preview() {
         <code>audio</code> element.
       </audio>
 
-      <br />
-      <p>{currentTime}</p>
-      <input
-        type="range"
-        min="0"
-        max="100"
-        step="1"
-        value={seekValue}
-        onChange={(e) => {
-          const seekto = audioPlayer.current.duration * (+e.target.value / 100);
-          audioPlayer.current.currentTime = seekto;
-          setSeekValue(e.target.value);
-        }}
-      />
-      <Grid
+      {/* player play 버튼 때문에 빼옴 */}
+      {/* <Grid
         container
         sx={{
           backgroundColor: "#E7A69E",
@@ -137,104 +174,8 @@ export default function Preview() {
             ></PauseIcon>
           )}
         </Grid>
-      </Grid>
-      <div>
-        <button onClick={stop}>stop</button>
-      </div>
-      {/* 1. 포토카드 */}
-      {/* 2. general */}
-      {/* 내용은 저장하고 가는 게 아니라 다시 받아오는가 */}
-
-      <Typography
-        sx={{
-          maxHeight: 560,
-          minHeight: 560,
-          whiteSpace: "pre-line",
-          width: 1,
-          backgroundColor: "white",
-          mx: "auto",
-          overflow: "auto",
-          px: 1,
-          py: 2.5,
-          position: "relative",
-          mb: 4,
-        }}
-      >
-        미리보기 편지 형식으로 제공 미리보기 편지 형식으로 제공 미리보기 편지
-        형식으로 제공 미리보기 편지 형식으로 제공 미리보기 편지 형식으로 제공
-        미리보기 편지 형식으로 제공미리보기 편지 형식으로 제공 미리보기 편지
-        형식으로 제공 미리보기 편지 형식으로 제공미리보기 편지 형식으로 제공
-        미리보기 편지 형식으로 제공미리보기 편지 형식으로 제공미리보기 편지
-        형식으로 제공미리보기 편지 형식으로 제공미리보기 편지 형식으로
-        제공미리보기 편지 형식으로 제공미리보기 편지 형식으로 제공미리보기 편지
-        형식으로 제공미리보기 편지 형식으로 제공미리보기 편지 형식으로
-        제공미리보기 편지 형식으로 제공미리보기 편지 형식으로 제공미리보기 편지
-        형식으로 제공미리보기 편지 형식으로 제공미리보기 편지 형식으로
-        제공미리보기 편지 형식으로 제공미리보기 편지 형식으로 제공미리보기 편지
-        형식으로 제공미리보기 편지 형식으로 제공미리보기 편지 형식으로
-        제공미리보기 편지 형식으로 제공미리보기 편지 형식으로 제공미리보기 편지
-        형식으로 제공미리보기 편지 형식으로 제공미리보기 편지 형식으로
-        제공미리보기 편지 형식으로 제공미리보기 편지 형식으로 제공미리보기 편지
-        형식으로 제공미리보기 편지 형식으로 제공미리보기 편지 형식으로
-        제공미리보기 편지 형식으로 제공미리보기 편지 형식으로 제공미리보기 편지
-        형식으로 제공미리보기 편지 형식으로 제공미리보기 편지 형식으로
-        제공미리보기 편지 형식으로 제공미리보기 편지 형식으로 제공미리보기 편지
-        형식으로 제공미리보기 편지 형식으로 제공미리보기 편지 형식으로
-        제공미리보기 편지 형식으로 제공미리보기 편지 형식으로 제공미리보기 편지
-        형식으로 제공미리보기 편지 형식으로 제공미리보기 편지 형식으로
-        제공미리보기 편지 형식으로 제공미리보기 편지 형식으로 제공미리보기 편지
-        형식으로 제공미리보기 편지 형식으로 제공미리보기 편지 형식으로
-        제공미리보기 편지 형식으로 제공미리보기 편지 형식으로 제공미리보기 편지
-        형식으로 제공미리보기 편지 형식으로 제공미리보기 편지 형식으로
-        제공미리보기 편지 형식으로 제공미리보기 편지 형식으로 제공미리보기 편지
-        형식으로 제공미리보기 편지 형식으로 제공미리보기 편지 형식으로
-        제공미리보기 편지 형식으로 제공미리보기 편지 형식으로 제공미리보기 편지
-        형식으로 제공미리보기 편지 형식으로 제공미리보기 편지 형식으로
-        제공미리보기 편지 형식으로 제공미리보기 편지 형식으로 제공
-      </Typography>
-      <Box sx={{ border: "0.5px solid" }}>
-        <img
-          src="/test.png"
-          width={418}
-          height={200}
-          style={{ display: "block" }}
-        />
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            position: "relative",
-          }}
-        >
-          <Typography
-            className="text-area"
-            component="div"
-            sx={{
-              maxHeight: 280,
-              minHeight: 280,
-              minWidth: "100%",
-              px: "2rem",
-              py: "1rem",
-              overflowY: "auto",
-              whiteSpace: "pre-line",
-              textUnderlineOffset: 4,
-            }}
-          >
-            제공미리보기 편지 형식으로 제공미리보기 편지 형식으로 제공미리보기
-            편지 형식으로 제공미리보기 편지 형식으로 제공미리보기 편지 형식으로
-            제공미리보기 편지 형식으로 제공미리보기 편지 형식으로 제공미리보기
-            편지 형식으로 제공미리보기 편지 형식으로 제공미리보기 편지 형식으로
-            제공미리보기 편지 형식으로 제공미리보기 편지 형식으로 제공미리보기
-            편지 형식으로 제공미리보기 편지 형식으로 제공미리보기 편지 형식으로
-            제공미리보기 편지 형식으로 제공미리보기 편지 형식으로 제공미리보기
-            편지 형식으로 제공미리보기 편지 형식으로 제공미리보기 편지 형식으로
-            제공미리보기 편지 형식으로 제공미리보기 편지 형식으로 제공
-          </Typography>
-        </Box>
-      </Box>
-      <MiniPlayer play={() => play()} pause={() => pause()}></MiniPlayer>
+      </Grid> */}
+      {/* <MiniPlayer play={() => play()} pause={() => pause()}></MiniPlayer> */}
       <Box sx={{ display: "flex", justifyContent: "center", mt: 1 }}>
         <StyledButton color="inherit" className="Batang" sx={{ fontSize: 18 }}>
           편지 전송
