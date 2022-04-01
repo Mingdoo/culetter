@@ -71,6 +71,7 @@ public class MailServiceImpl implements MailService {
             mail.getContentPosition(),
             mail.getStickers(),
             mail.getFontOrder(),mail.getFontType(),mail.getFontColor(),
+            mail.getBackgroundColor(),
             mail.getHandwriteImage()
         );
     }
@@ -95,6 +96,7 @@ public class MailServiceImpl implements MailService {
                 mail.getContentPosition(),
                 mail.getStickers(),
                 mail.getFontOrder(),mail.getFontType(),mail.getFontColor(),
+                mail.getBackgroundColor(),
                 mail.getHandwriteImage()
         );
     }
@@ -154,6 +156,7 @@ public class MailServiceImpl implements MailService {
                 .fontOrder(mail.getFont_order())
                 .fontType(mail.getFont_type())
                 .fontColor(mail.getFont_color())
+                .backgroundColor(mail.getBackground_color())
                 .handwriteImage(mail.getHandwrite_image())
                 .build()
         );
@@ -203,6 +206,7 @@ public class MailServiceImpl implements MailService {
                     .fontOrder(mail.getFont_order())
                     .fontType(mail.getFont_type())
                     .fontColor(mail.getFont_color())
+                    .backgroundColor(mail.getBackground_color())
                     .handwriteImage(mail.getHandwrite_image())
                     .createdDate(mail.getCreated_date())
                     .build()
@@ -220,6 +224,7 @@ public class MailServiceImpl implements MailService {
                     mail.getContent(), mail.getMusic_url(), mail.getImage(),
                     mail.getContent_position(), mail.getStickers(),
                     mail.getFont_order(), mail.getFont_type(), mail.getFont_color(),
+                    mail.getBackground_color(),
                     mail.getHandwrite_image()
             );
         }
@@ -251,6 +256,7 @@ public class MailServiceImpl implements MailService {
                 mail.getContent(), mail.getMusic_url(), mail.getImage(),
                 mail.getContent_position(), mail.getStickers(),
                 mail.getFont_order(), mail.getFont_type(), mail.getFont_color(),
+                mail.getBackground_color(),
                 mail.getHandwrite_image()
         );
 

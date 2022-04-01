@@ -28,6 +28,7 @@ public class MailDto {
         private String font_order;
         private String font_type;
         private Byte font_color;
+        private Byte background_color;
         private String handwrite_image;
     }
 
