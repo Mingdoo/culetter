@@ -6,6 +6,7 @@ import com.culetter.common.jwt.JwtFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -44,7 +45,7 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).body(memberService.getMemberInfoByAuthentication());
     }
 
-    @PutMapping
+    @PutMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<String> modifyMember(@Valid @RequestPart(value = "info") MemberDto.InfoRequest infoRequest,
                                                @RequestPart(value = "profileImage", required = false) MultipartFile multipartFile) {
         log.debug("modifyMember - {}", multipartFile.isEmpty());
