@@ -6,10 +6,10 @@ import Header from "../components/Header";
 import Router from "next/router";
 
 export default function Profile() {
-  const [pwConfirm, setPwConfirm] = useState(false);
+  const [pwConfirm, setPwConfirm] = useState(true);
   const handlePrevClick = (e) => {
     e.preventDefault();
-    Router.push("/");
+    Router.back();
   };
 
   return (
