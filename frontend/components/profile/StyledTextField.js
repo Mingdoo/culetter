@@ -1,8 +1,9 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { TextField } from "@mui/material";
+import { TextField, Button } from "@mui/material";
 
 const useStyles = makeStyles({
   root: {
+    fontFamily: "Gowun Batang",
     color: "#3A1D1D",
     "&.Mui-focused": {
       color: "#3A1D1D",
@@ -18,8 +19,10 @@ const useStyles = makeStyles({
     },
   },
 });
+
 const useLabelStyles = makeStyles({
   root: {
+    fontFamily: "Gowun Batang",
     color: "#3A1D1D",
     "&.Mui-focused": {
       color: "#3A1D1D",
@@ -30,6 +33,7 @@ const useLabelStyles = makeStyles({
 
 export default function StyledTextField({
   id,
+  type,
   label,
   value,
   disabled,
@@ -37,6 +41,7 @@ export default function StyledTextField({
 }) {
   const classes = useStyles();
   const labelClasses = useLabelStyles();
+
   return (
     <TextField
       autoComplete="off"
@@ -44,19 +49,13 @@ export default function StyledTextField({
       size="small"
       id={id}
       label={label}
-      type={id}
-      value={value}
+      type={type}
+      value={value || ""}
       disabled={disabled}
       onChange={onChange ? onChange : null}
       sx={{ width: 1 }}
-      InputLabelProps={{
-        style: { fontFamily: "Gowun Batang" },
-        classes: labelClasses,
-      }}
-      InputProps={{
-        classes: classes,
-        style: { fontFamily: "Gowun Batang" },
-      }}
+      InputLabelProps={{ classes: labelClasses }}
+      InputProps={{ classes: classes }}
     ></TextField>
   );
 }

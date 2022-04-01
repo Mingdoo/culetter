@@ -25,11 +25,11 @@ const icons = [
   <LogoutIcon />,
 ];
 const hrefs = [
-  "/",
+  "/main",
   "/letter/select",
   "/mail/sent",
   "/mail/inbox",
-  "/ing",
+  "/mail/undone",
   "/friends",
   "/profile",
   "/logout",
