@@ -1,19 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import General from "./general/General";
 import PostCard from "./postcard/PostCard";
 import PhotoCard from "./photocard/PhotoCard";
-
+import LetterContext from "../../contexts/LetterContext";
 function Letter(props) {
-  switch (props.type) {
-    case "General":
+  const { mailType } = useContext(LetterContext);
+  switch (mailType) {
+    case "GENERAL":
       return <General props={props} />;
-      break;
-    case "PostCard":
+    case "POSTCARD":
       return <PostCard props={props} />;
-      break;
-    case "PhotoCard":
+    case "PHOTOCARD":
       return <PhotoCard props={props} />;
-      break;
+    default:
+      return <></>;
   }
 }
 

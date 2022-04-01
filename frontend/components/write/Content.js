@@ -35,7 +35,7 @@ const Content = (props) => {
         break;
       case "contents":
         setContentLength(inputLength);
-        setContent(inputText);
+        setContent(`${inputText}`);
         break;
     }
     if (

@@ -16,11 +16,11 @@ import {
   deleteFriend,
   setfavoriteFriend,
 } from "../../components/apis/user";
-import ContentsContext from "../../contexts/ContentsContext";
+import LetterContext from "../../contexts/LetterContext";
 import Router from "next/router";
 
 export default function UserCard(props) {
-  const { memberId, setMemberId } = useContext(ContentsContext);
+  const { memberId, setMemberId } = useContext(LetterContext);
 
   const HandleFriendAcceptClick = (e, obj) => {
     e.preventDefault();
@@ -56,7 +56,7 @@ export default function UserCard(props) {
   const handleMailClick = (e, obj) => {
     e.preventDefault();
     setMemberId(obj.member_id);
-    Router.push("/letter/write");
+    Router.push("/letter/type");
   };
 
   const handleFriendFavoriteClick = (e, obj) => {
@@ -143,7 +143,7 @@ export default function UserCard(props) {
               alignItems: "center",
               justifyContent: "end",
               mx: "auto",
-              width: 140,
+              width: 0.4,
             }}
           >
             <Button
@@ -174,7 +174,7 @@ export default function UserCard(props) {
               alignItems: "center",
               justifyContent: "end",
               mx: "auto",
-              width: 140,
+              width: 0.4,
             }}
           >
             <Button
@@ -239,7 +239,6 @@ export default function UserCard(props) {
             </Button>
           </Box>
         );
-        break;
       case 3:
         return (
           <Box
@@ -247,7 +246,9 @@ export default function UserCard(props) {
               ml: "1rem",
               display: "flex",
               flexDirection: "row",
-              alignContent: "start",
+              alignContent: "center",
+              justifyContent: "end",
+              width: 0.4,
             }}
           >
             <IconButton size="" onClick={(e) => handleMailClick(e, props.obj)}>
@@ -268,7 +269,6 @@ export default function UserCard(props) {
             </IconButton>
           </Box>
         );
-        break;
     }
   };
   return (

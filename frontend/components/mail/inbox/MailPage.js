@@ -1,15 +1,11 @@
 import { useRouter } from "next/router";
 import { Box, Typography } from "@mui/material";
-import axios from "axios";
 import React, { useEffect, useState, useRef, useCallback } from "react";
-
+import { getRecvMailsBySender } from "../../apis/mailbox";
 import Letter from "../../main/Letter";
 import Photocard from "./Photocard";
 
-// 재호출?
-const SERVER_URL = "https://j6a201.p.ssafy.io:3000";
-const token = "temp";
-export default function LetterPage() {
+export default function MailPage({ senderId }) {
   const [page, setPage] = useState(0);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -17,196 +13,19 @@ export default function LetterPage() {
   const loader = useRef(null);
   // axios로 받아오기까지 시간 걸리니 loading 필요
   const fetchMails = useCallback(async () => {
+    console.log(senderId);
     setLoading(true);
     try {
       // const res = await axios.get(`${SERVER_URL}/recv`, {
       //   headers: { Authorization: `Bearer ${token}` },
       // });
-      const res = [
-        {
-          hasNew: true,
-          img: "temp",
-          title: "제목이제목모모모모모모모모모모모모모모모모",
-          senderName: "김은송",
-          createdDate: "20220315",
-          mailType: "GENERAL",
-          mailsNum: 2,
-        },
-        {
-          hasNew: true,
-          img: "temp",
-          title: "제목이제목모모모모모모모모모모모모모모모모",
-          senderName: "김은송",
-          createdDate: "20220315",
-          mailType: "POST",
-          mailsNum: 2,
-        },
-        {
-          hasNew: false,
-          img: "temp",
-          title: "제목이제목모모모모모모모모모모모모모모모모",
-          senderName: "김은송",
-          createdDate: "20220315",
-          mailType: "PHOTOCARD",
-          mailsNum: 2,
-        },
-        {
-          hasNew: true,
-          img: "temp",
-          title: "제목이제목모모모모모모모모모모모모모모모모",
-          senderName: "김은송",
-          createdDate: "20220315",
-          mailType: "GENERAL",
-          mailsNum: 2,
-        },
-        {
-          hasNew: true,
-          img: "temp",
-          title: "제목이제목모모모모모모모모모모모모모모모모",
-          senderName: "김은송",
-          createdDate: "20220315",
-          mailType: "PHOTOCARD",
-          mailsNum: 2,
-        },
-        {
-          hasNew: false,
-          img: "temp",
-          title: "제목이제목모모모모모모모모모모모모모모모모",
-          senderName: "김은송",
-          createdDate: "20220315",
-          mailType: "GENERAL",
-          mailsNum: 1,
-        },
-        {
-          hasNew: false,
-          img: "temp",
-          title: "제목이제목모모모모모모모모모모모모모모모모",
-          senderName: "김은송",
-          createdDate: "20220315",
-          mailType: "PHOTOCARD",
-          mailsNum: 2,
-        },
-        {
-          hasNew: false,
-          img: "temp",
-          title: "제목이제목모모모모모모모모모모모모모모모모",
-          senderName: "김은송",
-          createdDate: "20220315",
-          mailType: "PHOTOCARD",
-          mailsNum: 3,
-        },
-        {
-          hasNew: true,
-
-          img: "temp",
-          title: "제목이제목모모모모모모모모모모모모모모모모",
-          senderName: "김은송",
-          createdDate: "20220315",
-          mailType: "POST",
-          mailsNum: 4,
-        },
-        {
-          hasNew: true,
-          img: "temp",
-          title: "제목이제목모모모모모모모모모모모모모모모모",
-          senderName: "김은송",
-          createdDate: "20220315",
-          mailType: "PHOTOCARD",
-          mailsNum: 5,
-        },
-        {
-          hasNew: true,
-          img: "temp",
-          title: "고길동",
-          createdDate: "20220315",
-          mailType: "POST",
-          mailsNum: 2,
-        },
-        {
-          hasNew: true,
-          img: "temp",
-          title: "고길동",
-          createdDate: "20220315",
-          mailType: "PHOTOCARD",
-          mailsNum: 2,
-        },
-        {
-          hasNew: false,
-          img: "temp",
-          title: "고길동",
-          createdDate: "20220315",
-          mailType: "PHOTOCARD",
-          mailsNum: 2,
-        },
-        {
-          hasNew: true,
-          img: "temp",
-          title: "고길동",
-          createdDate: "20220315",
-          mailType: "PHOTOCARD",
-          mailsNum: 2,
-        },
-        {
-          hasNew: true,
-          img: "temp",
-          title: "고길동",
-          createdDate: "20220315",
-          mailType: "PHOTOCARD",
-          mailsNum: 2,
-        },
-        {
-          hasNew: false,
-          img: "temp",
-          title: "고길동",
-          createdDate: "20220315",
-          mailType: "PHOTOCARD",
-          mailsNum: 1,
-        },
-        {
-          hasNew: false,
-          img: "temp",
-          title: "고길동",
-          createdDate: "20220315",
-          mailType: "PHOTOCARD",
-          mailsNum: 2,
-        },
-        {
-          hasNew: false,
-          img: "temp",
-          title: "고길동",
-          createdDate: "20220315",
-          mailType: "PHOTOCARD",
-          mailsNum: 3,
-        },
-        {
-          hasNew: true,
-
-          img: "temp",
-          title: "고길동",
-          createdDate: "20220315",
-          mailType: "PHOTOCARD",
-          mailsNum: 4,
-        },
-        {
-          hasNew: true,
-
-          img: "temp",
-          title: "고길동",
-          createdDate: "20220315",
-          mailType: "PHOTOCARD",
-          mailsNum: 5,
-        },
-        {
-          hasNew: true,
-          img: "temp",
-          title: "마지막",
-          createdDate: "20220315",
-          mailType: "PHOTOCARD",
-          mailsNum: 5,
-        },
-      ];
-      setData(res);
-      // setData(res.data);
+      const res = getRecvMailsBySender(senderId);
+      console.log(res);
+      setData([
+        { title: "test", mailType: "GENERAL", senderName: "test" },
+        { title: "test", mailType: "PHOTOCARD", senderName: "test" },
+        { title: "test", mailType: "POSTCARD", senderName: "test" },
+      ]);
     } catch (e) {
       console.log(e);
     } finally {
