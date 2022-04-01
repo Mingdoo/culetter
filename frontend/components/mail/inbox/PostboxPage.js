@@ -1,14 +1,14 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { Box, Grid } from "@mui/material";
-import axios from "axios";
-
+// import mailsRecvAPI from "../../apis/mailbox";
 import MailBox from "./Postbox";
 import SearchBox from "../../user/SearchBox";
-
-const SERVER_URL = "https://j6a201.p.ssafy.io:3000";
-const token = "temp";
-
-export default function PostboxPage({ setIsPostBox, isPostBox }) {
+import { getRecvMails } from "../../apis/mailbox";
+export default function PostboxPage({
+  setIsPostBox,
+  isPostBox,
+  setSelectedId,
+}) {
   // 무한 스크롤 보여주는 데이터 자르는 용도. 한 페이지 당 8개
   const [page, setPage] = useState(0);
   // 통신으로 받은 모든 데이터
@@ -23,10 +23,10 @@ export default function PostboxPage({ setIsPostBox, isPostBox }) {
   const loader = useRef(null);
 
   const tempData = [
-    { hasNew: true, name: "홍길동", mailsNum: 2 },
-    { hasNew: true, name: "홍길동", mailsNum: 2 },
-    { hasNew: false, name: "홍길동", mailsNum: 2 },
-    { hasNew: true, name: "홍길동", mailsNum: 2 },
+    { hasNew: true, name: "홍길동", mailsNum: 2, senderId: 1 },
+    { hasNew: true, name: "홍길동", mailsNum: 2, senderId: 11 },
+    { hasNew: false, name: "홍길동", mailsNum: 2, senderId: 12 },
+    { hasNew: true, name: "홍길동", mailsNum: 2, senderId: 13 },
     { hasNew: true, name: "홍길동", mailsNum: 2 },
     { hasNew: false, name: "홍길동", mailsNum: 1 },
     { hasNew: false, name: "홍길동", mailsNum: 2 },
@@ -46,25 +46,34 @@ export default function PostboxPage({ setIsPostBox, isPostBox }) {
     { hasNew: true, name: "마지막", mailsNum: 5 },
   ];
 
-  const fetchMails = useCallback(async () => {
+  const fetchMails = async () => {
     try {
-      // setError(false);
-      setMails(null);
-      setLoading(true);
-
-      // const res = await axios.get(`${SERVER_URL}/recv`, {
-      //   headers: { Authorization: `Bearer ${token}` },
-      // });
-      // setData(res.data);
-    } catch (e) {
-      console.log(e);
-      // setError(e);
+      const res = getRecvMails();
+      console.log(res);
+    } catch (error) {
+      console.log(error);
     } finally {
-      setLoading(false);
+      //   setLoading(false);
       setData(tempData);
       setPage((prev) => prev + 1);
     }
-  });
+    // try {
+    //   // setError(false);
+    //   setMails(null);
+    //   setLoading(true);
+    //   // const res = await axios.get(`${SERVER_URL}/recv`, {
+    //   //   headers: { Authorization: `Bearer ${token}` },
+    //   // });
+    //   // setData(res.data);
+    // } catch (e) {
+    //   console.log(e);
+    //   // setError(e);
+    // } finally {
+    //   setLoading(false);
+    //   setData(tempData);
+    //   setPage((prev) => prev + 1);
+    // }
+  };
 
   useEffect(() => {
     fetchMails();
@@ -112,13 +121,14 @@ export default function PostboxPage({ setIsPostBox, isPostBox }) {
 
       <Grid container sx={{ width: 1, pt: 5, minHeight: "87vh" }}>
         {!searchMemberName
-          ? mails.map(({ name, hasNew, mailsNum }, index) => (
+          ? mails.map(({ name, hasNew, mailsNum, senderId }, index) => (
               <Grid item xs={6} key={index} sx={{ height: 188 }}>
                 <MailBox
                   hasNew={hasNew}
                   name={name}
-                  id={index}
+                  senderId={senderId}
                   mailsNum={mailsNum}
+                  setSelectedId={(e) => setSelectedId(e)}
                   setIsPostBox={(e) => setIsPostBox(e)}
                 ></MailBox>
               </Grid>
@@ -127,12 +137,13 @@ export default function PostboxPage({ setIsPostBox, isPostBox }) {
               .filter((obj) => {
                 return obj.name.includes(searchMemberName);
               })
-              .map(({ name, hasNew, mailsNum }, index) => (
+              .map(({ name, hasNew, mailsNum, senderId }, index) => (
                 <Grid item xs={6} key={index}>
                   <MailBox
                     hasNew={hasNew}
                     name={name}
                     id={index}
+                    senderId={senderId}
                     mailsNum={mailsNum}
                   ></MailBox>
                 </Grid>
