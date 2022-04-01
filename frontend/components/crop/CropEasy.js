@@ -28,6 +28,7 @@ const CropEasy = ({ photoURL, setOpen, setPhotoURL, setCroppedURL }) => {
         croppedAreaPixels
       );
       setCroppedURL(url);
+      console.log(toDataURL);
       setPhotoURL(toDataURL);
       setOpen(false);
     } catch (error) {

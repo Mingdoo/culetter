@@ -19,14 +19,10 @@ import StyledTextField from "./StyledTextField";
 import { getUserInfo, editUserInfo, deleteUser } from "../apis/profile";
 import LockIcon from "@mui/icons-material/Lock";
 import Router from "next/router";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function MyPage() {
-  // const res = {
-  //   email: "ssafy@ssafy.com",
-  //   name: "ssafy",
-  //   profileImage: nomailbox.src,
-  // };
-
   const [open, setOpen] = useState(false);
   const [photoURL, setPhotoURL] = useState(null);
   const [croppedURL, setCroppedURL] = useState(null);
@@ -37,6 +33,7 @@ export default function MyPage() {
   const setUserInfo = async () => {
     try {
       const res = await getUserInfo();
+      console.log(res.data);
       setEmail(res.data.email);
       setName(res.data.name);
       setPhotoURL(res.data.profileImage);
@@ -49,7 +46,7 @@ export default function MyPage() {
   const edit = async () => {
     console.log(photoURL);
     try {
-      const res = await editUserInfo(name, croppedURL);
+      const res = await editUserInfo(name, photoURL);
     } catch (error) {
       console.log(error);
     }
@@ -64,19 +61,25 @@ export default function MyPage() {
     }
   };
 
-  // useEffect(() => {
-  //   setUserInfo();
-  // }, []);
+  useEffect(() => {
+    setUserInfo();
+  }, []);
 
   const handleChangePhoto = (event) => {
-    // lastModified, name, size, type, webkitrelativepath
-    // console.log(event.target.files[0]);
-    // setPhotoURL(event.target.files[0]);
+    console.log("photo");
     // 1. 파일이 있다면 확인 & 파일 크기 확인하고 너무 크면 거절!
-
-    // 2. 파일 크기 적당하면 크롭~
     const file = event.target.files[0];
-
+    if (file.size) {
+      const size = parseFloat(file.size / 1024).toFixed(2);
+      if (size >= 2048) {
+        toast.error("사진 용량이 2MB을 초과할 수 없습니다.", {
+          position: toast.POSITION.TOP_CENTER,
+          role: "alert",
+        });
+        return;
+      }
+    }
+    // 2. 파일 크기 적당하면 크롭~
     if (file) {
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -124,7 +127,7 @@ export default function MyPage() {
             <Box sx={{ mx: "auto", position: "relative" }}>
               <Box
                 component="img"
-                src={croppedURL ? croppedURL : ""}
+                src={croppedURL ? croppedURL : photoURL}
                 sx={{
                   width: 130,
                   height: 130,
@@ -142,7 +145,7 @@ export default function MyPage() {
                 sx={{ display: "none" }}
                 type="file"
                 accept="image/*"
-                onChange={handleChangePhoto}
+                onChange={(e) => handleChangePhoto(e)}
               ></Input>
             </Box>
           </Box>
@@ -265,7 +268,8 @@ export default function MyPage() {
         </Box>
       </Box>
       <ConfirmBtn onClick={edit}></ConfirmBtn>
-      {/* <ConfirmBtn onClick={deleteAccount}></ConfirmBtn> */}
+      {/* <ConfirmBtn onClick={deleteAccount}></ConfirmBtn> */}{" "}
+      <ToastContainer />
     </Box>
   );
 }

@@ -1,6 +1,7 @@
 import axios from "axios";
-import { BASE_URL } from "./config";
+// import { BASE_URL } from "./config";
 
+const BASE_URL = "https://www.culetter.site/api";
 export const usersApi = axios.create({
   baseURL: `${BASE_URL}/members`,
 });
@@ -31,8 +32,8 @@ export const getUserInfo = async () => {
 };
 
 export const editUserInfo = async (name, profileImage) => {
-  console.log(name, profileImage);
-  return await usersApi.put("", {
+  console.log("api", name, profileImage);
+  return await axios.put(`https://www.culetter.site/api/members`, {
     info: { name: name },
     profileImage: profileImage,
   });
