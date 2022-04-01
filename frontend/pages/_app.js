@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps }) {
   const [musicUrl, setMusicUrl] = useState("");
   const [image, setImage] = useState("");
   const [contentPosition, setContentPosition] = useState("");
-  const [stickers, setStickers] = useState({});
+  const [stickersPos, setStickersPos] = useState({});
   const [fontOrder, setFontOrder] = useState("");
   const [fontType, setFontType] = useState("");
   const [fontColor, setFontColor] = useState("");
@@ -44,8 +44,8 @@ function MyApp({ Component, pageProps }) {
         setImage,
         contentPosition,
         setContentPosition,
-        stickers,
-        setStickers,
+        stickersPos,
+        setStickersPos,
         fontOrder,
         setFontOrder,
         fontType,

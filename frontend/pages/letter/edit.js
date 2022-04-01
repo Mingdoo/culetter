@@ -22,8 +22,7 @@ function edit() {
   const [fontSize, setFontSize] = useState(20);
   const [showDots, setShowDots] = useState(true);
   const [bold, setBold] = useState(false);
-  const { title, content } = useContext(LetterContext);
-  const templateLiteral = content;
+  const { title, content, stickersPos } = useContext(LetterContext);
   useEffect(() => {
     setShowDots(
       !(isColorOpen || isFontFamilyOpen || isAlignmentOpen || isFontSizeOpen),
@@ -65,6 +64,7 @@ function edit() {
 
   const handleNextClick = (e) => {
     e.preventDefault();
+    Router.push("/letter/preview");
   };
   const handlePrevClick = (e) => {
     e.preventDefault();
@@ -99,14 +99,15 @@ function edit() {
           color={colors[clickedColor]}
           textAlign={alignment}
           fontSize={fontSize}
-          text={templateLiteral}
+          title={title}
+          text={content}
           bold={bold}
           showDots={showDots}
         />
         {/* 여기까지 편지 */}
         <Box
           sx={{
-            position: "fixed",
+            position: "relative",
             bottom: 0,
             width: 420,
             display: "block",

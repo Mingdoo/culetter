@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Draggable from "react-draggable";
 import { Box, Button, Typography } from "@mui/material";
 import { landingBoxStyle } from "../../../pages/index";
@@ -16,8 +16,10 @@ import LocalFloristRoundedIcon from "@mui/icons-material/LocalFloristRounded";
 import FilterVintageRoundedIcon from "@mui/icons-material/FilterVintageRounded";
 import Palette from "../Palette";
 import { colors } from "../../../components/Variables";
+import LetterContext from "../../../contexts/LetterContext";
 
 function PhotoCard({ props }) {
+  const { setStickersPos } = useContext(LetterContext);
   const emojis = [
     { icon: StarRoundedIcon, color: "#FFD93D" },
     { icon: FavoriteRoundedIcon, color: "#FD5D5D" },
@@ -112,13 +114,16 @@ function PhotoCard({ props }) {
             alignItems: "center",
             bgcolor: "#ffffff",
             my: "1rem",
-            mx: "auto",
+            alignSelf: "center",
             borderRadius: 5,
             bgcolor: colors[backgroundColor],
+            position: "relative",
           }}
         >
           <Draggable
-            bounds={{ left: -80, right: 80, top: -190, bottom: 190 }}
+            axis="both"
+            bounds="parent"
+            defaultPosition={{ x: 0, y: 0 }}
             onDrag={(e, data) => trackPosition("text", data)}
             disabled={isfixed}
             key={999}
@@ -145,12 +150,15 @@ function PhotoCard({ props }) {
           {stickers.map((Sticker, idx) =>
             Sticker.type === "sticker" ? (
               <Draggable
-                bounds={{ left: -138, right: 138, top: -228, bottom: 228 }}
+                axis="both"
+                bounds="parent"
+                handle=".handle"
+                defaultPosition={{ x: 0, y: 0 }}
                 onDrag={(e, data) => trackPosition(Sticker, data)}
                 disabled={Sticker.disabled}
                 key={idx}
               >
-                <Box>
+                <Box className="handle">
                   <Sticker.content.icon
                     sx={{
                       color: Sticker.content.color,
@@ -158,9 +166,9 @@ function PhotoCard({ props }) {
                       border: !Sticker.disabled
                         ? "1px dashed black"
                         : "1px hidden black",
-                      // "&:hover": {
-                      //   cursor: !Sticker.disabled ? "grab" : "no-drop",
-                      // },
+                      "&:hover": {
+                        cursor: !Sticker.disabled ? "grab" : "no-drop",
+                      },
                     }}
                     fontSize="large"
                   />
@@ -196,6 +204,7 @@ function PhotoCard({ props }) {
                   return { ...sticker, disabled: true };
                 }),
               );
+              setStickersPos(stickers);
             }}
             variant="contained"
             sx={{

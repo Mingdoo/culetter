@@ -3,7 +3,6 @@ import General from "./general/General";
 import PostCard from "./postcard/PostCard";
 import PhotoCard from "./photocard/PhotoCard";
 import LetterContext from "../../contexts/LetterContext";
-import Router from "next/router";
 function Letter(props) {
   const { mailType } = useContext(LetterContext);
   switch (mailType) {
@@ -14,7 +13,6 @@ function Letter(props) {
     case "PHOTOCARD":
       return <PhotoCard props={props} />;
     default:
-      Router.push("/main");
       return <></>;
   }
 }
