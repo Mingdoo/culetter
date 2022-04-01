@@ -78,6 +78,7 @@ export default function Preview() {
         bgcolor: "#FCFAEF",
       }}
     >
+<<<<<<< HEAD
       <Header title="미리보기"></Header>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         {/* 포토카드 */}
@@ -89,6 +90,9 @@ export default function Preview() {
         ></Photocard>
       </Box>
 
+=======
+      {/* <Header title="미리보기"></Header> */}
+>>>>>>> bb6164f703972862c2660d000e93edd6911077b3
       <audio
         src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
         ref={audioPlayer}
