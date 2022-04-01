@@ -1,47 +1,17 @@
 import { Box, Button, Typography, Grid } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import { keyframes } from "@emotion/react";
-import { useRef, useState, useContext } from "react";
+import { useRef, useState, useContext, useEffect } from "react";
 
 import Header from "../../components/Header";
 import MiniPlayer from "../../components/letter/preview/MiniPlayer";
 import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
 
-import Letter from "../../components/letter/Letter";
 import Photocard from "../../components/letter/preview/Photocard";
-import General from "../../components/letter/general/General";
-import Postcard from "../../components/letter/preview/Postcard";
 
 import PauseIcon from "@mui/icons-material/Pause";
 import AlbumIcon from "@mui/icons-material/Album";
 import LetterContext from "../../contexts/LetterContext";
 
-const enterKeyframe = keyframes`
-  0% {
-    transform: scale(0);
-    opacity: 0.1;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 0.5;
-  }
-`;
-const StyledButton = styled(Button)`
-  background-color: none;
-  &:hover {
-    background-color: #fcfaef;
-  }
-  && .MuiTouchRipple-child {
-    background-color: #e2e0a5;
-  }
-  && .MuiTouchRipple-rippleVisible {
-    opacity: 0.5;
-    animation-name: ${enterKeyframe};
-    animation-duration: 550ms;
-    animation-timing-function: ${({ theme }) =>
-      theme.transitions.easing.easeInOut};
-  }
-`;
+import { sendLetter } from "../../components/apis/letter";
 
 export default function Preview() {
   const {
@@ -60,23 +30,21 @@ export default function Preview() {
     fontType,
     fontColor,
   } = useContext(LetterContext);
+  // 편지 전송 내용물
+  const body = {};
+  useEffect(() => {
+    send();
+  });
 
-  console.log(
-    memberId,
-    receiverName,
-    receiverEmail,
-    title,
-    mailType,
-    styleUrl,
-    content,
-    musicUrl,
-    image,
-    contentPosition,
-    stickers,
-    fontOrder,
-    fontType,
-    fontColor
-  );
+  const send = async () => {
+    try {
+      const res = await sendLetter(body);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  // 플레이어
   const audioPlayer = useRef();
   const [currentTime, setCurrentTime] = useState(0);
   const [seekValue, setSeekValue] = useState(0);
@@ -99,6 +67,7 @@ export default function Preview() {
   const musicSelected = { title: "라일락", singer: "아이유" };
 
   const [isPlaying, setIsPlaying] = useState(true);
+
   return (
     <Box
       component="div"
@@ -111,13 +80,13 @@ export default function Preview() {
     >
       <Header title="미리보기"></Header>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <Letter></Letter>
-        {/* <Photocard
+        {/* 포토카드 */}
+        <Photocard
           key="previewLetter"
-          front={image}
-          back={image}
+          front="/img/photocard_front1.jpg"
+          back="/img/photocard_front1.jpg"
           content="test"
-        ></Photocard> */}
+        ></Photocard>
       </Box>
 
       <audio
@@ -129,8 +98,8 @@ export default function Preview() {
         <code>audio</code> element.
       </audio>
 
-      {/* player play 버튼 때문에 빼옴 */}
-      {/* <Grid
+      {/* player play 버튼 때문에 임시로 빼옴 */}
+      <Grid
         container
         sx={{
           backgroundColor: "#E7A69E",
@@ -141,7 +110,6 @@ export default function Preview() {
           color: "white",
           width: "90%",
           mx: "auto",
-          // mb: 10,
           alignItems: "center",
         }}
       >
@@ -174,12 +142,17 @@ export default function Preview() {
             ></PauseIcon>
           )}
         </Grid>
-      </Grid> */}
+      </Grid>
       {/* <MiniPlayer play={() => play()} pause={() => pause()}></MiniPlayer> */}
       <Box sx={{ display: "flex", justifyContent: "center", mt: 1 }}>
-        <StyledButton color="inherit" className="Batang" sx={{ fontSize: 18 }}>
+        <Button
+          color="inherit"
+          className="Batang"
+          sx={{ fontSize: 18 }}
+          onClick={send}
+        >
           편지 전송
-        </StyledButton>
+        </Button>
       </Box>
     </Box>
   );
