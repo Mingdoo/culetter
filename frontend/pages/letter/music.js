@@ -9,6 +9,7 @@ import {
   ListItemIcon,
   Checkbox,
   Grid,
+  Button,
 } from "@mui/material";
 import Header from "../../components/Header";
 import SkipPreviousSharpIcon from "@mui/icons-material/SkipPreviousSharp";
@@ -22,6 +23,7 @@ import LetterContext from "../../contexts/LetterContext";
 import "react-toastify/dist/ReactToastify.css";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
+import PauseIcon from "@mui/icons-material/Pause";
 import Router from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -39,9 +41,17 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   },
 }));
 
+const handlePreviousMusic = () => {};
+const handleMusicStart = () => {};
+const handleMusicStop = () => {};
+const handleNextMusic = () => {};
+
 const music = () => {
   const [title, setTitle] = useState("라일락");
   const [singer, setSinger] = useState("아이유");
+
+  const [playStatus, setPlayStatus] = useState("play");
+
   const musicList = [
     { title: "내 맘을 볼 수 있나요", singer: "헤이즈" },
     { title: "라일락", singer: "아이유" },
@@ -63,6 +73,7 @@ const music = () => {
   const playerIcon = {
     fontSize: "2.3rem",
     margin: "1rem",
+    color: "#333333",
   };
 
   const handleToggle = (item) => () => {
@@ -157,6 +168,7 @@ const music = () => {
           {singer}
         </Typography>
         <Box
+          className={"lp " + (playStatus === "play" ? "lpRotate" : null)}
           sx={{
             position: "relative",
             display: "flex",
@@ -172,7 +184,6 @@ const music = () => {
             src={lpImgList[index]}
             style={{
               borderRadius: "50%",
-              animation: "rotate_image 5s linear infinite",
               transformOrigin: " 50% 50%",
             }}
           ></img>
@@ -210,9 +221,21 @@ const music = () => {
       </Box>
 
       <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <SkipPreviousSharpIcon style={playerIcon} />
-        <PlayCircleFilledSharpIcon style={playerIcon} />
-        <SkipNextSharpIcon style={playerIcon} />
+        <Button onClick={handlePreviousMusic}>
+          <SkipPreviousSharpIcon style={playerIcon} />
+        </Button>
+        {playStatus === "stop" ? (
+          <Button onClick={handleMusicStart}>
+            <PlayCircleFilledSharpIcon style={playerIcon} />
+          </Button>
+        ) : (
+          <Button onClick={handleMusicStop}>
+            <PauseIcon style={playerIcon} />
+          </Button>
+        )}
+        <Button onClick={handleNextMusic}>
+          <SkipNextSharpIcon style={playerIcon} />
+        </Button>
       </Box>
       <Typography
         sx={{

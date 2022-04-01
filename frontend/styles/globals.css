@@ -187,3 +187,14 @@ a {
 .innerText {
   transform: rotateY(-180deg);
 }
+
+.lpRotate {
+  animation: rotate_image 20s linear infinite;
+  transform-origin: 50% 50%;
+}
+
+@keyframes rotate_image {
+  100% {
+    transform: rotate(360deg);
+  }
+}

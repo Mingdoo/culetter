@@ -108,7 +108,7 @@ const LoginForm = () => {
         Router.push("/main");
       }, 1000);
     } catch (error) {
-      const status = error.response.status;
+      console.log(error);
       toast.error(<div>로그인에 실패했습니다😢</div>, {
         position: toast.POSITION.TOP_CENTER,
         role: "alert",
