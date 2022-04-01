@@ -25,7 +25,7 @@ function edit() {
   const { title, content, setMailType, set } = useContext(LetterContext);
   useEffect(() => {
     setShowDots(
-      !(isColorOpen || isFontFamilyOpen || isAlignmentOpen || isFontSizeOpen),
+      !(isColorOpen || isFontFamilyOpen || isAlignmentOpen || isFontSizeOpen)
     );
   }, [isColorOpen, isFontFamilyOpen, isAlignmentOpen, isFontSizeOpen]);
 
