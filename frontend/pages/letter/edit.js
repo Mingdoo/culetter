@@ -22,7 +22,7 @@ function edit() {
   const [fontSize, setFontSize] = useState(20);
   const [showDots, setShowDots] = useState(true);
   const [bold, setBold] = useState(false);
-  const { title, content, stickersPos } = useContext(LetterContext);
+  const { title, content, setMailType, set } = useContext(LetterContext);
   useEffect(() => {
     setShowDots(
       !(isColorOpen || isFontFamilyOpen || isAlignmentOpen || isFontSizeOpen),

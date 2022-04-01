@@ -38,6 +38,7 @@ function PhotoCard({ props }) {
   const [stickers, updateStickers] = useState([]);
   const [isfixed, setIsfixed] = useState(false);
   const [text, setText] = useState({});
+  const [title, setTitle] = useState({});
   const [backgroundColor, setBackgroundColor] = useState(1);
   const [isMoving, setIsMoving] = useState(false);
 
@@ -49,11 +50,20 @@ function PhotoCard({ props }) {
       position: { x: 0, y: 0 },
       disabled: false,
     };
+    const uploadedTitle = {
+      idx: 998,
+      type: "title",
+      content: props.title,
+      position: { x: 0, y: 0 },
+      disabled: false,
+    };
     setText(uploadedText);
-    updateStickers([uploadedText]);
+    setTitle(uploadedTitle);
+    updateStickers([uploadedText, uploadedTitle]);
   }, []);
 
   useEffect(() => {
+    console.log(stickers);
     const boolean = stickers.length
       ? !stickers.some((sticker) => {
           return sticker.disabled === false;
@@ -120,6 +130,32 @@ function PhotoCard({ props }) {
             position: "relative",
           }}
         >
+          <Draggable
+            axis="both"
+            bounds="parent"
+            defaultPosition={{ x: 0, y: 0 }}
+            onDrag={(e, data) => trackPosition("title", data)}
+            disabled={isfixed}
+            key={998}
+          >
+            <Typography
+              sx={{
+                border: !isfixed ? "1px dashed black" : "1px hidden black",
+                whiteSpace: "pre-line",
+                fontFamily: props.fontFamily,
+                color: props.color,
+                textAlign: props.textAlign,
+                fontSize: props.fontSize,
+                fontWeight: props.bold ? "bold" : "normal",
+                "&:hover": {
+                  cursor: !isfixed ? "grab" : "auto",
+                },
+              }}
+              id="title"
+            >
+              {title.content}
+            </Typography>
+          </Draggable>
           <Draggable
             axis="both"
             bounds="parent"
