@@ -52,25 +52,22 @@ function SearchBox(props) {
         }}
       >
         <SearchIcon sx={{ mr: 1, my: 0.5 }} />
-        <TextField
-          style={{ width: props.width }}
-          id={props.id}
-          label={props.label}
-          variant="standard"
-          onChange={
-            props.inbox
-              ? (e) => setInboxSearch(e.target.value)
-              : (e) => props.onChange(e.target.value)
-          }
-          InputLabelProps={{
-            style: { fontFamily: "Gowun Batang" },
-            // classes: labelClasses,
-          }}
-          InputProps={{
-            style: { fontFamily: "Gowun Batang" },
-            // classes: classes,
-            endAdornment:
-              props.inbox && inboxSearch ? (
+        {props.inbox ? (
+          <TextField
+            style={{ width: props.width }}
+            id={props.id}
+            label={props.label}
+            variant="standard"
+            onChange={(e) => setInboxSearch(e.target.value)}
+            value={inboxSearch}
+            InputLabelProps={{
+              style: { fontFamily: "Gowun Batang" },
+              // classes: labelClasses,
+            }}
+            InputProps={{
+              style: { fontFamily: "Gowun Batang" },
+              // classes: classes,
+              endAdornment: (
                 <IconButton
                   onClick={() => {
                     setInboxSearch("");
@@ -81,9 +78,26 @@ function SearchBox(props) {
                     sx={{ fontSize: "16px", color: "#e0e0e0" }}
                   ></HighlightOffRoundedIcon>
                 </IconButton>
-              ) : null,
-          }}
-        />
+              ),
+            }}
+          />
+        ) : (
+          <TextField
+            style={{ width: props.width }}
+            id={props.id}
+            label={props.label}
+            variant="standard"
+            onChange={(e) => props.onChange(e.target.value)}
+            InputLabelProps={{
+              style: { fontFamily: "Gowun Batang" },
+              // classes: labelClasses,
+            }}
+            InputProps={{
+              style: { fontFamily: "Gowun Batang" },
+              // classes: classes,
+            }}
+          />
+        )}
         {props.inbox ? (
           <Button
             variant="contained"

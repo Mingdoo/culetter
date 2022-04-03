@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { Box, Typography } from "@mui/material";
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { getRecvMailsBySender } from "../../apis/mailbox";
@@ -11,25 +10,16 @@ export default function MailPage({ senderId }) {
   const [loading, setLoading] = useState(false);
   const [mails, setMails] = useState([]);
   const loader = useRef(null);
-  // axios로 받아오기까지 시간 걸리니 loading 필요
+
   const fetchMails = useCallback(async () => {
-    console.log(senderId);
     setLoading(true);
     try {
-      // const res = await axios.get(`${SERVER_URL}/recv`, {
-      //   headers: { Authorization: `Bearer ${token}` },
-      // });
-      const res = getRecvMailsBySender(senderId);
-      console.log(res);
-      setData([
-        { title: "test", mailType: "GENERAL", senderName: "test" },
-        { title: "test", mailType: "PHOTOCARD", senderName: "test" },
-        { title: "test", mailType: "POSTCARD", senderName: "test" },
-      ]);
+      const res = await getRecvMailsBySender(senderId);
+      setData(res.data.result);
+      setMails(res.data.result.slice(0, 4));
+      setLoading(false);
     } catch (e) {
       console.log(e);
-    } finally {
-      setLoading(false);
     }
   });
 
@@ -40,7 +30,6 @@ export default function MailPage({ senderId }) {
   const handleObserver = useCallback((entries) => {
     const target = entries[0];
     if (target.isIntersecting) {
-      console.log("is InterSecting");
       setPage((prev) => prev + 1);
     }
   }, []);
@@ -57,35 +46,42 @@ export default function MailPage({ senderId }) {
 
   // 처음 로딩 돌 떄 작동함.
   useEffect(() => {
-    console.log(data);
-    setMails(data.slice(0, page * 3));
-    console.log(mails);
+    setMails(data.slice(0, page * 4));
   }, [page]);
 
   return (
     <>
+      {/* src 에 style_url 넣음? */}
       {loading && <Typography>loading</Typography>}
       <Box sx={{ minHeight: "90vh" }}>
         {mails.map(
-          ({ title, mailType, createdDate, senderName, img }, index) => {
-            if (mailType === "PHOTOCARD") {
+          ({
+            title,
+            mail_type,
+            created_date,
+            sender_name,
+            style_url,
+            mail_id,
+            sender_email,
+          }) => {
+            if (mail_type === "PHOTOCARD") {
               return (
                 <Photocard
-                  src={img}
+                  src={style_url}
                   title={title}
-                  createdDate={createdDate}
-                  senderName={senderName}
-                  key={index}
+                  createdDate={created_date}
+                  senderName={sender_name}
+                  key={mail_id}
                 ></Photocard>
               );
-            } else if (mailType === "GENERAL") {
+            } else if (mail_type === "GENERAL") {
               return (
                 <Letter
                   text={title}
                   index={0}
-                  createdDate={createdDate}
-                  senderName={senderName}
-                  key={index}
+                  createdDate={created_date}
+                  senderName={sender_name}
+                  key={mail_id}
                 ></Letter>
               );
             } else {
@@ -93,15 +89,15 @@ export default function MailPage({ senderId }) {
                 <Letter
                   text={title}
                   index={1}
-                  createdDate={createdDate}
-                  key={index}
-                  senderName={senderName}
+                  createdDate={created_date}
+                  key={mail_id}
+                  senderName={sender_name}
                 ></Letter>
               );
             }
           }
         )}
-        <Box sx={{ height: "50px" }} ref={loader}></Box>
+        <Box sx={{ height: "70px" }} ref={loader}></Box>
       </Box>
     </>
   );

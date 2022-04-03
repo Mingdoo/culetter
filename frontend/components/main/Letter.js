@@ -25,7 +25,7 @@ function Letter({ text, index, createdDate, main, senderName }) {
         position: "relative",
         fontSize: 26,
         fontFamily: "Gowun Dodum",
-        mb: main ? (index === 3 ? 3 : 0) : null,
+        mb: main ? (index === 3 ? 3 : 0) : 2,
       }}
     >
       <svg
@@ -198,8 +198,9 @@ function Letter({ text, index, createdDate, main, senderName }) {
           {createdDate ? (
             <Typography sx={{ fontSize: 12, fontFamily: "Gowun Dodum" }}>
               {index ? "엽서, " : "일반, "}
-              {createdDate.slice(0, 4)}년 {createdDate.slice(4, 6)}월{" "}
-              {createdDate.slice(6)}일
+              {/* {createdDate} */}
+              {createdDate.slice(0, 4)}년 {createdDate.slice(5, 7)}월{" "}
+              {createdDate.slice(8, 10)}일
             </Typography>
           ) : null}
         </Box>
