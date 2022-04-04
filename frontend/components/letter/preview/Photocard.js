@@ -5,7 +5,7 @@ import { colors, fonts } from "../../Variables";
 import { emojis } from "../photocard/PhotoCard";
 const Photocard = (props) => {
   const { front, back, content } = props;
-  const { bgcolor, stickersPos, fontsize, fontType, fontColor } =
+  const { bgcolor, stickersPos, fontsize, fontType, fontColor, isFontBold } =
     useContext(LetterContext);
   //something changed
   const [isClicked, setIsClicked] = useState(false);
@@ -80,6 +80,7 @@ const Photocard = (props) => {
                 fontFamily: fonts[fontType].fontfamily,
                 color: colors[fontColor],
                 whiteSpace: "pre-line",
+                fontWeight: isFontBold ? "bold" : "normal",
               }}
             >
               {Sticker.content}

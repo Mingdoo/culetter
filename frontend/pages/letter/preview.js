@@ -31,10 +31,32 @@ export default function Preview() {
     fontType,
     fontColor,
     setIsFontBold,
+    underlineColor,
   } = useContext(LetterContext);
   // 편지 전송 내용물
   const body = {};
 
+  useEffect(() => {
+    console.log(
+      memberId,
+      receiverName,
+      receiverEmail,
+      title,
+      mailType,
+      styleUrl,
+      content,
+      musicUrl,
+      image,
+      contentPosition,
+      stickersPos,
+      bgcolor,
+      fontOrder,
+      fontType,
+      fontColor,
+      setIsFontBold,
+      underlineColor,
+    );
+  }, []);
   const send = async () => {
     try {
       const res = await sendLetter(body);
