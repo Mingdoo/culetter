@@ -1,7 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Box, Typography } from "@mui/material";
+import LetterContext from "../../../contexts/LetterContext";
+import { fonts, colors } from "../../Variables";
 
 function General({ props }) {
+  const {
+    title,
+    styleUrl,
+    content,
+    musicUrl,
+    fontOrder,
+    fontType,
+    fontColor,
+    fontsize,
+    isFontBold,
+  } = useContext(LetterContext);
   return (
     <Box
       sx={{
@@ -15,7 +28,7 @@ function General({ props }) {
       <img src="/test.png" width={420} style={{ position: "absolute" }} />
       <Box
         sx={{
-          position: "absolute",
+          position: "relative",
           m: "2rem",
           width: "90%",
         }}
@@ -24,20 +37,20 @@ function General({ props }) {
           className="text-area"
           component="div"
           sx={{
-            fontFamily: props.fontFamily,
-            color: props.color,
-            textAlign: props.textAlign,
-            fontSize: props.fontSize,
+            fontFamily: fonts[fontType].fontfamily,
+            color: colors[fontColor],
+            textAlign: fontOrder,
+            fontSize: fontsize,
             maxHeight: 560,
             minHeight: 560,
             overflowY: "auto",
             whiteSpace: "pre-line",
-            fontWeight: props.bold ? "bold" : "normal",
+            fontWeight: isFontBold ? "bold" : "normal",
           }}
         >
-          {props.title}
+          {title}
           <br />
-          {props.text}
+          {content}
         </Typography>
       </Box>
     </Box>

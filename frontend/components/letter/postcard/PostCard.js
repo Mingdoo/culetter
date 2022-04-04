@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Box, Typography } from "@mui/material";
 import { colors } from "../../../components/Variables";
 import Palette from "../Palette";
+import LetterContext from "../../../contexts/LetterContext";
 
 function PostCard({ props }) {
   const [bgColor, setBgColor] = useState(1);
-  const [underlineColor, setUnderlineColor] = useState(0);
+  const [underlineColour, setUnderlineColour] = useState(0);
 
+  const { setUnderlineColor, setBgcolor } = useContext(LetterContext);
   return (
     <Box
       sx={{
@@ -49,11 +51,13 @@ function PostCard({ props }) {
               overflowY: "auto",
               whiteSpace: "pre-line",
               fontWeight: props.bold ? "bold" : "normal",
-              textDecoration: `${colors[underlineColor]} underline`,
+              textDecoration: `${colors[underlineColour]} underline`,
               textUnderlineOffset: 4,
               bgcolor: colors[bgColor],
             }}
           >
+            {props.title}
+            <br />
             {props.text}
           </Typography>
         </Box>
@@ -66,15 +70,21 @@ function PostCard({ props }) {
           colors={colors}
           isColorOpen={props.showDots}
           clickedColor={bgColor}
-          setClickedColor={setBgColor}
+          setClickedColor={(e) => {
+            setBgColor(e);
+            setBgcolor(e);
+          }}
           size="half"
         />
         {/* <br /> */}
         <Palette
           colors={colors}
           isColorOpen={props.showDots}
-          clickedColor={underlineColor}
-          setClickedColor={setUnderlineColor}
+          clickedColor={underlineColour}
+          setClickedColor={(e) => {
+            setUnderlineColour(e);
+            setUnderlineColor(e);
+          }}
           size="half"
         />
       </Box>

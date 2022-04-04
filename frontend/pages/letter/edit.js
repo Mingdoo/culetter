@@ -22,13 +22,45 @@ function edit() {
   const [fontSize, setFontSize] = useState(20);
   const [showDots, setShowDots] = useState(true);
   const [bold, setBold] = useState(false);
-  const { title, content, setMailType, set } = useContext(LetterContext);
+  const {
+    title,
+    content,
+    setMailType,
+    setFontOrder,
+    setFontType,
+    setFontColor,
+    setFontsize,
+    setIsFontBold,
+  } = useContext(LetterContext);
+
+  useEffect(() => {
+    setFontOrder("justify");
+    setFontType(0);
+    setFontColor(0);
+    setFontsize(20);
+    setIsFontBold(false);
+  }, []);
   useEffect(() => {
     setShowDots(
-      !(isColorOpen || isFontFamilyOpen || isAlignmentOpen || isFontSizeOpen)
+      !(isColorOpen || isFontFamilyOpen || isAlignmentOpen || isFontSizeOpen),
     );
   }, [isColorOpen, isFontFamilyOpen, isAlignmentOpen, isFontSizeOpen]);
 
+  useEffect(() => {
+    setFontsize(fontSize);
+  }, [fontSize]);
+
+  useEffect(() => {
+    setFontOrder(alignment);
+  }, [alignment]);
+
+  useEffect(() => {
+    setFontColor(clickedColor);
+  }, [clickedColor]);
+
+  useEffect(() => {
+    setFontType(clickedFont);
+  }, [clickedFont]);
   const handleOpenPalette = (e, type) => {
     e.preventDefault();
     switch (type) {
@@ -107,7 +139,7 @@ function edit() {
         {/* 여기까지 편지 */}
         <Box
           sx={{
-            position: "relative",
+            position: "absolute",
             bottom: 0,
             width: 420,
             display: "block",

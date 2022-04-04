@@ -2,9 +2,8 @@ import { Box, Button, Typography, Grid } from "@mui/material";
 import { useRef, useState, useContext, useEffect } from "react";
 
 import Header from "../../components/Header";
-import MiniPlayer from "../../components/letter/preview/MiniPlayer";
 import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
-
+import General from "../../components/letter/preview/General";
 import Photocard from "../../components/letter/preview/Photocard";
 
 import PauseIcon from "@mui/icons-material/Pause";
@@ -12,6 +11,7 @@ import AlbumIcon from "@mui/icons-material/Album";
 import LetterContext from "../../contexts/LetterContext";
 
 import { sendLetter } from "../../components/apis/letter";
+import PostCard from "../../components/letter/preview/Postcard";
 
 export default function Preview() {
   const {
@@ -25,16 +25,15 @@ export default function Preview() {
     musicUrl,
     image,
     contentPosition,
-    stickers,
+    stickersPos,
+    bgcolor,
     fontOrder,
     fontType,
     fontColor,
+    setIsFontBold,
   } = useContext(LetterContext);
   // 편지 전송 내용물
   const body = {};
-  useEffect(() => {
-    send();
-  });
 
   const send = async () => {
     try {
@@ -61,7 +60,7 @@ export default function Preview() {
   const onPlaying = () => {
     setCurrentTime(audioPlayer.current.currentTime);
     setSeekValue(
-      (audioPlayer.current.currentTime / audioPlayer.current.duration) * 100
+      (audioPlayer.current.currentTime / audioPlayer.current.duration) * 100,
     );
   };
   const musicSelected = { title: "라일락", singer: "아이유" };
@@ -81,12 +80,19 @@ export default function Preview() {
       <Header title="미리보기"></Header>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         {/* 포토카드 */}
-        <Photocard
-          key="previewLetter"
-          front="/img/photocard_front1.jpg"
-          back="/img/photocard_front1.jpg"
-          content="test"
-        ></Photocard>
+        {mailType === "PHOTOCARD" ? (
+          <Photocard
+            key="previewLetter"
+            front="/img/photocard_front1.jpg"
+            back="/img/photocard_back.png"
+            content={content}
+            preview={true}
+          ></Photocard>
+        ) : (
+          <></>
+        )}
+        {mailType === "GENERAL" ? <General /> : <></>}
+        {mailType === "POSTCARD" ? <PostCard /> : <></>}
       </Box>
       <audio
         src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
@@ -103,6 +109,7 @@ export default function Preview() {
         sx={{
           backgroundColor: "#E7A69E",
           borderRadius: 30,
+          mt: "2rem",
           py: "2px",
           px: "4px",
           display: "flex",

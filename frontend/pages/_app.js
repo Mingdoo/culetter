@@ -20,45 +20,60 @@ function MyApp({ Component, pageProps }) {
   const [fontType, setFontType] = useState("");
   const [fontColor, setFontColor] = useState("");
   const [memberId, setMemberId] = useState("");
+  const [bgcolor, setBgcolor] = useState(1);
+  const [fontsize, setFontsize] = useState(20);
+  const [isFontBold, setIsFontBold] = useState();
+  const [underlineColor, setUnderlineColor] = useState(0);
 
   return (
-    <LetterContext.Provider
-      value={{
-        name,
-        setName,
-        receiverName,
-        setReceiverName,
-        receiverEmail,
-        setReceiverEmail,
-        title,
-        setTitle,
-        mailType,
-        setMailType,
-        styleUrl,
-        setStyleUrl,
-        content,
-        setContent,
-        musicUrl,
-        setMusicUrl,
-        image,
-        setImage,
-        contentPosition,
-        setContentPosition,
-        stickersPos,
-        setStickersPos,
-        fontOrder,
-        setFontOrder,
-        fontType,
-        setFontType,
-        fontColor,
-        setFontColor,
-        memberId,
-        setMemberId,
-      }}
-    >
-      <Component {...pageProps} />
-      <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-    </LetterContext.Provider>
+    <>
+      <DefaultSeo {...DEFAULT_SEO} />
+      <LetterContext.Provider
+        value={{
+          name,
+          setName,
+          receiverName,
+          setReceiverName,
+          receiverEmail,
+          setReceiverEmail,
+          title,
+          setTitle,
+          mailType,
+          setMailType,
+          styleUrl,
+          setStyleUrl,
+          content,
+          setContent,
+          musicUrl,
+          setMusicUrl,
+          image,
+          setImage,
+          contentPosition,
+          setContentPosition,
+          stickersPos,
+          setStickersPos,
+          fontOrder,
+          setFontOrder,
+          fontType,
+          setFontType,
+          fontColor,
+          setFontColor,
+          memberId,
+          setMemberId,
+          bgcolor,
+          setBgcolor,
+          fontsize,
+          setFontsize,
+          isFontBold,
+          setIsFontBold,
+          underlineColor,
+          setUnderlineColor,
+        }}
+      >
+        <Component {...pageProps} />
+        <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+      </LetterContext.Provider>
+    </>
   );
 }
 

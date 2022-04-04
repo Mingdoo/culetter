@@ -12,7 +12,8 @@ import { getFriends } from "../../components/apis/user";
 import { motion, AnimateSharedLayout } from "framer-motion";
 
 export default function select() {
-  const { memberId, setMemberId } = useContext(LetterContext);
+  const { memberId, setMemberId, setReceiverName, setReceiverEmail } =
+    useContext(LetterContext);
   const [searchId, setSearchId] = useState("");
   const [filterFavorite, setFilterFavorite] = useState(false);
   const [receiver, setReceiver] = useState("");
@@ -25,7 +26,9 @@ export default function select() {
 
   const handleSubmitMemberId = (e, obj) => {
     e.preventDefault();
-    setMemberId(obj.memberId);
+    setMemberId(obj.member_id);
+    setReceiverName(obj.name);
+    setReceiverEmail(obj.email);
     Router.push("/letter/type");
   };
 

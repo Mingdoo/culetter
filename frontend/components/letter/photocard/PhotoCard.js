@@ -17,22 +17,22 @@ import FilterVintageRoundedIcon from "@mui/icons-material/FilterVintageRounded";
 import Palette from "../Palette";
 import { colors } from "../../../components/Variables";
 import LetterContext from "../../../contexts/LetterContext";
+export const emojis = [
+  { icon: StarRoundedIcon, color: "#FFD93D" },
+  { icon: FavoriteRoundedIcon, color: "#FD5D5D" },
+  { icon: DarkModeRoundedIcon, color: "#FFD93D" },
+  { icon: FavoriteBorderIcon, color: "#E4AEC5" },
+  { icon: EmojiEmotionsIcon, color: "#C84B31" },
+  { icon: QuestionMarkRoundedIcon, color: "#700B97" },
+  { icon: SentimentVeryDissatisfiedIcon, color: "#A12568" },
+  { icon: CircleIcon, color: "#FF8080" },
+  { icon: StarBorderPurple500RoundedIcon, color: "#FFD93D" },
+  { icon: LocalFloristRoundedIcon, color: "#4D96FF" },
+  { icon: FilterVintageRoundedIcon, color: "#83142C" },
+];
 
 function PhotoCard({ props }) {
-  const { setStickersPos } = useContext(LetterContext);
-  const emojis = [
-    { icon: StarRoundedIcon, color: "#FFD93D" },
-    { icon: FavoriteRoundedIcon, color: "#FD5D5D" },
-    { icon: DarkModeRoundedIcon, color: "#FFD93D" },
-    { icon: FavoriteBorderIcon, color: "#E4AEC5" },
-    { icon: EmojiEmotionsIcon, color: "#C84B31" },
-    { icon: QuestionMarkRoundedIcon, color: "#700B97" },
-    { icon: SentimentVeryDissatisfiedIcon, color: "#A12568" },
-    { icon: CircleIcon, color: "#FF8080" },
-    { icon: StarBorderPurple500RoundedIcon, color: "#FFD93D" },
-    { icon: LocalFloristRoundedIcon, color: "#4D96FF" },
-    { icon: FilterVintageRoundedIcon, color: "#83142C" },
-  ];
+  const { setStickersPos, setBgcolor } = useContext(LetterContext);
 
   const [count, setCount] = useState(0);
   const [stickers, updateStickers] = useState([]);
@@ -41,6 +41,10 @@ function PhotoCard({ props }) {
   const [title, setTitle] = useState({});
   const [backgroundColor, setBackgroundColor] = useState(1);
   const [isMoving, setIsMoving] = useState(false);
+
+  useEffect(() => {
+    setBgcolor(backgroundColor);
+  }, [backgroundColor]);
 
   useEffect(() => {
     const uploadedText = {
@@ -62,6 +66,10 @@ function PhotoCard({ props }) {
     updateStickers([uploadedText, uploadedTitle]);
   }, []);
 
+  useEffect(() => {}, [title]);
+
+  useEffect(() => {}, []);
+
   useEffect(() => {
     console.log(stickers);
     const boolean = stickers.length
@@ -73,6 +81,8 @@ function PhotoCard({ props }) {
   }, [stickers, props.showDots]);
 
   const trackPosition = (obj, data) => {
+    console.log(obj);
+
     const updatedSticker = {
       idx: obj.idx,
       type: obj.type,
@@ -125,7 +135,7 @@ function PhotoCard({ props }) {
             bgcolor: "#ffffff",
             my: "1rem",
             alignSelf: "center",
-            borderRadius: 5,
+            borderRadius: "2rem",
             bgcolor: colors[backgroundColor],
             position: "relative",
           }}
@@ -134,13 +144,25 @@ function PhotoCard({ props }) {
             axis="both"
             bounds="parent"
             defaultPosition={{ x: 0, y: 0 }}
-            onDrag={(e, data) => trackPosition("title", data)}
+            onDrag={(e, data) =>
+              trackPosition(
+                {
+                  idx: 998,
+                  type: "title",
+                  content: title.content,
+                  position: { x: 0, y: 0 },
+                  disabled: false,
+                },
+                data,
+              )
+            }
             disabled={isfixed}
             key={998}
           >
             <Typography
               sx={{
                 border: !isfixed ? "1px dashed black" : "1px hidden black",
+                position: "absolute",
                 whiteSpace: "pre-line",
                 fontFamily: props.fontFamily,
                 color: props.color,
@@ -160,7 +182,18 @@ function PhotoCard({ props }) {
             axis="both"
             bounds="parent"
             defaultPosition={{ x: 0, y: 0 }}
-            onDrag={(e, data) => trackPosition("text", data)}
+            onDrag={(e, data) =>
+              trackPosition(
+                {
+                  idx: 999,
+                  type: "text",
+                  content: text.content,
+                  position: { x: 0, y: 0 },
+                  disabled: false,
+                },
+                data,
+              )
+            }
             disabled={isfixed}
             key={999}
           >
@@ -169,6 +202,7 @@ function PhotoCard({ props }) {
                 border: !isfixed ? "1px dashed black" : "1px hidden black",
                 whiteSpace: "pre-line",
                 fontFamily: props.fontFamily,
+                position: "absolute",
                 color: props.color,
                 textAlign: props.textAlign,
                 fontSize: props.fontSize,
@@ -194,7 +228,7 @@ function PhotoCard({ props }) {
                 disabled={Sticker.disabled}
                 key={idx}
               >
-                <Box className="handle">
+                <Box className="handle" sx={{ position: "absolute" }}>
                   <Sticker.content.icon
                     sx={{
                       color: Sticker.content.color,

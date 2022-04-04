@@ -1,22 +1,84 @@
-import React from "react";
-import { Box, Input, Typography, Button } from "@mui/material";
+import React, { useState, useContext } from "react";
+import { Box, Typography } from "@mui/material";
+import { colors, fonts } from "../../Variables";
+import LetterContext from "../../../contexts/LetterContext";
 
-const Postcard = (props) => {
-  //something changed
-  const { imgsrc } = props;
+function PostCard({ props }) {
+  const {
+    memberId,
+    receiverName,
+    receiverEmail,
+    title,
+    mailType,
+    styleUrl,
+    content,
+    musicUrl,
+    image,
+    contentPosition,
+    stickersPos,
+    bgcolor,
+    fontOrder,
+    fontType,
+    fontColor,
+    fontsize,
+    underlineColor,
+    isFontBold,
+  } = useContext(LetterContext);
   return (
     <Box
       sx={{
-        width: "320px",
-        height: "200px",
         position: "relative",
-        alignItems: "center",
+        width: 420,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
       }}
     >
-      <Box component="div" sx={{ position: "relative" }}>
-        <img width="320px" height="200px" src={imgsrc}></img>
+      <Box sx={{ border: "1px solid" }}>
+        <img
+          src="/test.png"
+          width={418}
+          height={200}
+          style={{ display: "block" }}
+        />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            position: "relative",
+          }}
+        >
+          <Typography
+            className="text-area"
+            component="div"
+            sx={{
+              fontFamily: fonts[fontType].fontfamily,
+              color: colors[fontColor],
+              textAlign: fontOrder,
+              fontSize: fontsize,
+              maxHeight: 280,
+              minHeight: 280,
+              minWidth: "100%",
+              px: "2rem",
+              py: "1rem",
+              overflowY: "auto",
+              whiteSpace: "pre-line",
+              fontWeight: isFontBold ? "bold" : "normal",
+              textDecoration: `${colors[underlineColor]} underline`,
+              textUnderlineOffset: 4,
+              bgcolor: colors[bgcolor],
+            }}
+          >
+            {title}
+            <br />
+            {content}
+          </Typography>
+        </Box>
       </Box>
     </Box>
   );
-};
-export default Postcard;
+}
+
+export default PostCard;
