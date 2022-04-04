@@ -2,7 +2,7 @@ import { Box, Typography, Button, Grid } from "@mui/material";
 import LetterContext from "../../contexts/LetterContext";
 import Header from "../../components/Header";
 import Router from "next/router";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import stamp from "../../public/img/Stamp.PNG";
 import LinkShare from "../../components/letter/send/LinkShare";
@@ -11,10 +11,14 @@ import Letter from "../../components/main/Letter";
 
 export default function Send() {
   // receiverName 있으면 카카오톡으로 알리기 아니면 링크 공유
-  const { title, receiverName, name } = useContext(LetterContext);
-
+  const { title, receiverName, mailCode } = useContext(LetterContext);
+  const [name, setName] = useState("");
   const toHome = () => Router.push("/main");
   const toMailSent = () => Router.push("/mail/sent");
+
+  useEffect(() => {
+    setName(localStorage.getItem("name"));
+  }, []);
   return (
     <Box
       component="div"

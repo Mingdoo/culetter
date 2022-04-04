@@ -2,9 +2,8 @@ import { Box, Button, Typography, Grid } from "@mui/material";
 import { useRef, useState, useContext, useEffect } from "react";
 
 import Header from "../../components/Header";
-import MiniPlayer from "../../components/letter/preview/MiniPlayer";
 import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
-
+import General from "../../components/letter/preview/General";
 import Photocard from "../../components/letter/preview/Photocard";
 
 import PauseIcon from "@mui/icons-material/Pause";
@@ -12,6 +11,9 @@ import AlbumIcon from "@mui/icons-material/Album";
 import LetterContext from "../../contexts/LetterContext";
 
 import { sendLetter } from "../../components/apis/letter";
+import PostCard from "../../components/letter/preview/Postcard";
+
+import Router from "next/router";
 
 export default function Preview() {
   const {
@@ -25,20 +27,45 @@ export default function Preview() {
     musicUrl,
     image,
     contentPosition,
-    stickers,
+    stickersPos,
+    bgcolor,
     fontOrder,
     fontType,
     fontColor,
+    setIsFontBold,
+    underlineColor,
+    setMailCode,
   } = useContext(LetterContext);
   // 편지 전송 내용물
   const body = {};
-  useEffect(() => {
-    send();
-  });
 
+  useEffect(() => {
+    console.log(
+      memberId,
+      receiverName,
+      receiverEmail,
+      title,
+      mailType,
+      styleUrl,
+      content,
+      musicUrl,
+      image,
+      contentPosition,
+      stickersPos,
+      bgcolor,
+      fontOrder,
+      fontType,
+      fontColor,
+      setIsFontBold,
+      underlineColor
+    );
+  }, []);
   const send = async () => {
     try {
       const res = await sendLetter(body);
+      console.log(res.data.code);
+      await setMailCode(res.data.code);
+      Router.push("/letter/send");
     } catch (e) {
       console.log(e);
     }
@@ -81,12 +108,19 @@ export default function Preview() {
       <Header title="미리보기"></Header>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         {/* 포토카드 */}
-        <Photocard
-          key="previewLetter"
-          front="/img/photocard_front1.jpg"
-          back="/img/photocard_front1.jpg"
-          content="test"
-        ></Photocard>
+        {mailType === "PHOTOCARD" ? (
+          <Photocard
+            key="previewLetter"
+            front="/img/photocard_front1.jpg"
+            back="/img/photocard_back.png"
+            content={content}
+            preview={true}
+          ></Photocard>
+        ) : (
+          <></>
+        )}
+        {mailType === "GENERAL" ? <General /> : <></>}
+        {mailType === "POSTCARD" ? <PostCard /> : <></>}
       </Box>
       <audio
         src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
@@ -103,6 +137,7 @@ export default function Preview() {
         sx={{
           backgroundColor: "#E7A69E",
           borderRadius: 30,
+          mt: "2rem",
           py: "2px",
           px: "4px",
           display: "flex",
