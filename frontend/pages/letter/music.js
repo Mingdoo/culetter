@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import {
   Box,
   List,
@@ -27,9 +27,8 @@ import PauseIcon from "@mui/icons-material/Pause";
 import Router from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ReactAudioPlayer from "react-audio-player";
-import ReactPlayer from "react-player";
-import AudioPlayer from "react-h5-audio-player";
+import moment from "moment";
+import momentDurationFormatSetup from "moment-duration-format";
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 7,
@@ -49,6 +48,9 @@ const music = () => {
   const [singer, setSinger] = useState("아이유");
 
   const [playStatus, setPlayStatus] = useState("stop");
+
+  const [currentTime, setCurrentTime] = useState();
+  const [endTime, setEndTime] = useState();
 
   const musicList = [
     { title: "내 맘을 볼 수 있나요", singer: "헤이즈" },
@@ -74,6 +76,14 @@ const music = () => {
     color: "#333333",
   };
 
+  const player = useRef();
+
+  const formatDuration = (duration) => {
+    return moment
+      .duration(duration, "seconds")
+      .format("mm:ss", { trim: false });
+  };
+
   const handleToggle = (item) => () => {
     //선택 해제
     if (item.title === checked) {
@@ -90,9 +100,12 @@ const music = () => {
 
   const handlePreviousMusic = () => {};
   const handleMusicStart = () => {
+    player.current.play();
     setPlayStatus("play");
   };
   const handleMusicStop = () => {
+    console.log(player.current.currentTime);
+    player.current.pause();
     setPlayStatus("stop");
   };
   const handleNextMusic = () => {};
@@ -117,7 +130,12 @@ const music = () => {
   useEffect(() => {
     setTitle(musicList[0].title);
     setSinger(musicList[0].singer);
+    setEndTime(player.current.duration);
   }, []);
+
+  useEffect(() => {
+    setCurrentTime(player.current.currentTime);
+  });
 
   const handleNextClick = (e) => {
     e.preventDefault();
@@ -139,6 +157,12 @@ const music = () => {
   const handlePrevClick = (e) => {
     e.preventDefault();
     Router.push("/letter/recommended");
+  };
+
+  const timeStyle = {
+    fontFamily: "Gowun Batang",
+    fontSize: "0.9rem",
+    fontWeight: "bold",
   };
 
   return (
@@ -229,16 +253,25 @@ const music = () => {
       </Box>
 
       <audio
-        src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-        ref={audioPlayer}
-        onTimeUpdate={onPlaying}
-      >
-        Your browser does not support the
-        <code>audio</code> element.
-      </audio>
+        src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3"
+        // controls
+        ref={player}
+        // onPause={handleMusicStop}
+        // onPlay={handleMusicStart}
+      ></audio>
 
-      <Box sx={{ display: "flex", justifyContent: "center", mt: "1.3rem" }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          mt: "1.3rem",
+          justifyContent: "space-evenly",
+          alignItems: "center",
+        }}
+      >
+        <Typography style={timeStyle}>{formatDuration(currentTime)}</Typography>
         <BorderLinearProgress variant="determinate" value={50} sx={{}} />
+        <Typography style={timeStyle}>{formatDuration(endTime)}</Typography>
       </Box>
 
       <Box sx={{ display: "flex", justifyContent: "center" }}>
