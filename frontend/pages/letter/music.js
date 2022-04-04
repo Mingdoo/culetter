@@ -69,6 +69,7 @@ const music = () => {
   const [index, setIndex] = useState(0);
   const [checked, setChecked] = useState(musicList[0].title);
   const { setMusicUrl } = useContext(LetterContext);
+  const [progress, setProgress] = useState(0);
 
   const playerIcon = {
     fontSize: "2.3rem",
@@ -135,7 +136,12 @@ const music = () => {
 
   useEffect(() => {
     setCurrentTime(player.current.currentTime);
-  });
+  }, []);
+
+  const handleProgress = () => {
+    setCurrentTime(player.current.currentTime);
+    setProgress((player.current.currentTime / player.current.duration) * 100);
+  };
 
   const handleNextClick = (e) => {
     e.preventDefault();
@@ -258,6 +264,7 @@ const music = () => {
         ref={player}
         // onPause={handleMusicStop}
         // onPlay={handleMusicStart}
+        onTimeUpdate={handleProgress}
       ></audio>
 
       <Box
@@ -270,7 +277,7 @@ const music = () => {
         }}
       >
         <Typography style={timeStyle}>{formatDuration(currentTime)}</Typography>
-        <BorderLinearProgress variant="determinate" value={50} sx={{}} />
+        <BorderLinearProgress variant="determinate" value={progress} sx={{}} />
         <Typography style={timeStyle}>{formatDuration(endTime)}</Typography>
       </Box>
 
