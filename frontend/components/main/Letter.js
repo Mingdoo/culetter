@@ -1,12 +1,20 @@
 import { useRouter } from "next/router";
 import { Box, Typography } from "@mui/material";
 
-const color1 = ["#DA4C1F", "#8A3EC6", "#3EA5C6", "#FF0000"];
-const color2 = ["#76E3FB", "#391FDA", "#FFCC49", "#391FDA"];
-const bg = ["white", "#ECDDBE", "#FDF1E3", "#FFFFE1"];
-const href = ["write", "inbox", "sent", "ing"];
+const color1 = ["#DA4C1F", "#8A3EC6", "#3EA5C6", "#FF0000", "#b5b5f5"];
+const color2 = ["#76E3FB", "#391FDA", "#FFCC49", "#391FDA", "pink"];
+const bg = ["white", "#ECDDBE", "#FDF1E3", "#FFFFE1", "#FDF1E3"];
+const href = ["letter/select", "mail/inbox", "mail/sent", "mail/storage"];
 
-function Letter({ text, index, createdDate, main, senderName }) {
+function Letter({
+  text,
+  index,
+  createdDate,
+  main,
+  senderName,
+  switchPage,
+  mailId,
+}) {
   const router = useRouter();
   const handleMainClick = (e) => {
     e.preventDefault();
@@ -14,7 +22,6 @@ function Letter({ text, index, createdDate, main, senderName }) {
   };
   const handleInboxClick = (e) => {
     e.preventDefault();
-    // router.push("/");
   };
 
   return (
@@ -24,9 +31,10 @@ function Letter({ text, index, createdDate, main, senderName }) {
         justifyContent: "center",
         position: "relative",
         fontSize: 26,
-        fontFamily: "Gowun Dodum",
-        mb: main ? (index === 3 ? 3 : 0) : 2,
+        fontFamily: "Gowun Batang",
+        mb: main ? (index === 3 ? 3 : 2) : 2,
       }}
+      onClick={switchPage ? (e) => switchPage(mailId) : null}
     >
       <svg
         width="320"
@@ -41,7 +49,7 @@ function Letter({ text, index, createdDate, main, senderName }) {
           y="0.5"
           width="347"
           height="203"
-          fill={bg[index]}
+          fill={bg[4]}
           stroke="black"
         />
         <rect

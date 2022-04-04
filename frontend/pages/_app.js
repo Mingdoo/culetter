@@ -20,6 +20,7 @@ function MyApp({ Component, pageProps }) {
   const [fontType, setFontType] = useState("");
   const [fontColor, setFontColor] = useState("");
   const [memberId, setMemberId] = useState("");
+  const [mailCode, setMailCode] = useState("");
 
   return (
     <LetterContext.Provider
@@ -54,6 +55,8 @@ function MyApp({ Component, pageProps }) {
         setFontColor,
         memberId,
         setMemberId,
+        mailCode,
+        setMailCode,
       }}
     >
       <Component {...pageProps} />

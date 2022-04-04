@@ -5,83 +5,36 @@ import MenuList from "../../components/menu/MenuList";
 import Footer from "../../components/Footer";
 import SearchBox from "../../components/user/SearchBox";
 import Letter from "../../components/mail/sent/Letter";
-
+import ReadMail from "../../components/mail/inbox/ReadMail";
 import { getSendMail } from "../../components/apis/mailbox";
+import BackButton from "../../components/mail/inbox/BackButton";
 
-const tempData = [
-  { name: "홍길동", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "김정연", title: "서시", type: "POSTCARD", date: "20220323" },
-  { name: "강민수", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "김은송", title: "서시", type: "GENERAL", date: "20220323" },
-  { name: "정유환", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "김도현", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "김경협", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "홍길동", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "김정연", title: "서시", type: "POSTCARD", date: "20220323" },
-  { name: "강민수", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "김은송", title: "서시", type: "GENERAL", date: "20220323" },
-  { name: "정유환", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "김도현", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "김경협", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "홍길동", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "김정연", title: "서시", type: "POSTCARD", date: "20220323" },
-  { name: "강민수", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "김은송", title: "서시", type: "GENERAL", date: "20220323" },
-  { name: "정유환", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "김도현", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "김경협", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "홍길동", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "김정연", title: "서시", type: "POSTCARD", date: "20220323" },
-  { name: "강민수", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "김은송", title: "서시", type: "GENERAL", date: "20220323" },
-  { name: "정유환", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "김도현", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "김경협", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "홍길동", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "김정연", title: "서시", type: "POSTCARD", date: "20220323" },
-  { name: "강민수", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "김은송", title: "서시", type: "GENERAL", date: "20220323" },
-  { name: "정유환", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "김도현", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "김경협", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "홍길동", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "김정연", title: "서시", type: "POSTCARD", date: "20220323" },
-  { name: "강민수", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "김은송", title: "서시", type: "GENERAL", date: "20220323" },
-  { name: "정유환", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "김도현", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "김경협", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "홍길동", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "김정연", title: "서시", type: "POSTCARD", date: "20220323" },
-  { name: "강민수", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "김은송", title: "서시", type: "GENERAL", date: "20220323" },
-  { name: "정유환", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "김도현", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "김경협", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "홍길동", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "김정연", title: "서시", type: "POSTCARD", date: "20220323" },
-  { name: "강민수", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "김은송", title: "서시", type: "GENERAL", date: "20220323" },
-  { name: "정유환", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "김도현", title: "서시", type: "PHOTOCARD", date: "20220323" },
-  { name: "김경협", title: "서시", type: "PHOTOCARD", date: "20220323" },
-];
+const tempData = [];
 
 export default function mailSent() {
   const [searchName, setSearchName] = useState("");
+  const [mails, setMails] = useState([]);
+  const [isRead, setIsRead] = useState(true);
+  const [selectedMail, setSelectedMail] = useState(null);
 
   const fetch = async () => {
     try {
-      const res = getSendMail();
-      console.log(res);
+      const res = await getSendMail();
+      console.log(res.data.result);
+      setMails(res.data.result);
     } catch (error) {
       console.log(error);
     }
   };
 
+  const readMail = function (id) {
+    setIsRead(false);
+    setSelectedMail(id);
+  };
+
   useEffect(() => {
     fetch();
-  });
+  }, []);
 
   return (
     <Box sx={{ width: 420, mx: "auto" }}>
@@ -98,6 +51,9 @@ export default function mailSent() {
           minHeight: "100vh",
         }}
       >
+        {isRead ? null : (
+          <BackButton sx={{ pt: 1 }} onClick={setIsRead}></BackButton>
+        )}
         <MenuList></MenuList>
         <Typography
           variant="h4"
@@ -111,29 +67,77 @@ export default function mailSent() {
         >
           보낸 편지
         </Typography>
-        <SearchBox
-          id="searchNameInput"
-          label="수신인 이름"
-          width={320}
-          onChange={(e) => setSearchName(e)}
-        ></SearchBox>
-        <Grid container sx={{ width: 1, pt: 1, px: 2 }}>
-          {tempData
-            .filter((obj) => {
-              return obj.name.includes(searchName);
-            })
-            .map(({ type, name, title, date }, index) => (
-              <Grid item xs={6} key={index} sx={{ width: 1, pt: 4 }}>
-                <Letter
-                  type={type}
-                  name={name}
-                  title={title}
-                  date={date}
-                  width={150}
-                ></Letter>
-              </Grid>
-            ))}
-        </Grid>
+        {isRead ? (
+          <Box>
+            <SearchBox
+              id="searchNameInput"
+              label="수신인 이름"
+              width={320}
+              onChange={(e) => setSearchName(e)}
+            ></SearchBox>
+            <Grid container sx={{ width: 1, pt: 1, px: 2 }}>
+              {!searchName
+                ? mails.map(
+                    (
+                      {
+                        created_date,
+                        mail_id,
+                        mail_type,
+                        receiver_email,
+                        receiver_name,
+                        style_url,
+                        title,
+                      },
+                      index
+                    ) => (
+                      <Grid item xs={6} key={index} sx={{ width: 1, pt: 4 }}>
+                        <Letter
+                          type={mail_type}
+                          name={receiver_name}
+                          title={title}
+                          date={created_date}
+                          width={150}
+                          readMail={readMail}
+                          mailId={mail_id}
+                        ></Letter>
+                      </Grid>
+                    )
+                  )
+                : mails
+                    .filter((obj) => {
+                      return obj.receiver_name.includes(searchName);
+                    })
+                    .map(
+                      (
+                        {
+                          created_date,
+                          mail_id,
+                          mail_type,
+                          receiver_email,
+                          receiver_name,
+                          style_url,
+                          title,
+                        },
+                        index
+                      ) => (
+                        <Grid item xs={6} key={index} sx={{ width: 1, pt: 4 }}>
+                          <Letter
+                            type={mail_type}
+                            name={receiver_name}
+                            title={title}
+                            date={created_date}
+                            width={150}
+                            readMail={readMail}
+                            mailId={mail_id}
+                          ></Letter>
+                        </Grid>
+                      )
+                    )}
+            </Grid>
+          </Box>
+        ) : (
+          <ReadMail selectedMail={selectedMail}></ReadMail>
+        )}
       </Box>
       <Footer></Footer>
     </Box>

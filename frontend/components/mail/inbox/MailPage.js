@@ -3,13 +3,18 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import { getRecvMailsBySender } from "../../apis/mailbox";
 import Letter from "../../main/Letter";
 import Photocard from "./Photocard";
-
-export default function MailPage({ senderId }) {
+import ReadMail from "./ReadMail";
+export default function MailPage({ senderId, isMail, setIsMail }) {
   const [page, setPage] = useState(0);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [mails, setMails] = useState([]);
+  const [selectedMail, setSelectedMail] = useState(null);
   const loader = useRef(null);
+
+  // useEffect(() => {
+  //   setIsMail(true);
+  // }, []);
 
   const fetchMails = useCallback(async () => {
     setLoading(true);
@@ -22,7 +27,10 @@ export default function MailPage({ senderId }) {
       console.log(e);
     }
   });
-
+  const switchPage = (id) => {
+    setSelectedMail(id);
+    setIsMail(false);
+  };
   useEffect(() => {
     fetchMails();
     setPage((prev) => prev + 1);
@@ -53,52 +61,62 @@ export default function MailPage({ senderId }) {
     <>
       {/* src 에 style_url 넣음? */}
       {loading && <Typography>loading</Typography>}
-      <Box sx={{ minHeight: "90vh" }}>
-        {mails.map(
-          ({
-            title,
-            mail_type,
-            created_date,
-            sender_name,
-            style_url,
-            mail_id,
-            sender_email,
-          }) => {
-            if (mail_type === "PHOTOCARD") {
-              return (
-                <Photocard
-                  src={style_url}
-                  title={title}
-                  createdDate={created_date}
-                  senderName={sender_name}
-                  key={mail_id}
-                ></Photocard>
-              );
-            } else if (mail_type === "GENERAL") {
-              return (
-                <Letter
-                  text={title}
-                  index={0}
-                  createdDate={created_date}
-                  senderName={sender_name}
-                  key={mail_id}
-                ></Letter>
-              );
-            } else {
-              return (
-                <Letter
-                  text={title}
-                  index={1}
-                  createdDate={created_date}
-                  key={mail_id}
-                  senderName={sender_name}
-                ></Letter>
-              );
+      {isMail ? (
+        <Box sx={{ minHeight: "90vh" }}>
+          {mails.map(
+            ({
+              title,
+              mail_type,
+              created_date,
+              sender_name,
+              style_url,
+              mail_id,
+              sender_email,
+            }) => {
+              if (mail_type === "PHOTOCARD") {
+                return (
+                  <Photocard
+                    src={style_url}
+                    title={title}
+                    createdDate={created_date}
+                    senderName={sender_name}
+                    key={mail_id}
+                    mailId={mail_id}
+                    switchPage={switchPage}
+                  ></Photocard>
+                );
+              } else if (mail_type === "NORMAL") {
+                return (
+                  <Letter
+                    text={title}
+                    index={0}
+                    createdDate={created_date}
+                    senderName={sender_name}
+                    key={mail_id}
+                    mailId={mail_id}
+                    switchPage={switchPage}
+                  ></Letter>
+                );
+              } else {
+                return (
+                  <Letter
+                    text={title}
+                    index={1}
+                    createdDate={created_date}
+                    key={mail_id}
+                    mailId={mail_id}
+                    senderName={sender_name}
+                    switchPage={switchPage}
+                  ></Letter>
+                );
+              }
             }
-          }
-        )}
-        <Box sx={{ height: "70px" }} ref={loader}></Box>
-      </Box>
+          )}
+          <Box sx={{ height: "70px" }} ref={loader}></Box>
+        </Box>
+      ) : (
+        <ReadMail selectedMail={selectedMail}></ReadMail>
+      )}
     </>
   );
 }

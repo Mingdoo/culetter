@@ -74,9 +74,11 @@ function SearchBox(props) {
                     props.onChange("");
                   }}
                 >
-                  <HighlightOffRoundedIcon
-                    sx={{ fontSize: "16px", color: "#e0e0e0" }}
-                  ></HighlightOffRoundedIcon>
+                  {inboxSearch ? (
+                    <HighlightOffRoundedIcon
+                      sx={{ fontSize: "16px", color: "#e0e0e0" }}
+                    ></HighlightOffRoundedIcon>
+                  ) : null}
                 </IconButton>
               ),
             }}

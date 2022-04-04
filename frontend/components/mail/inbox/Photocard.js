@@ -1,7 +1,12 @@
 import { Box, Typography } from "@mui/material";
 // import newmailbox from "../../../assests/newmailbox.PNG";
 
-export default function Photocard({ senderName, createdDate, src }) {
+export default function Photocard({
+  senderName,
+  createdDate,
+  src,
+  switchPage,
+}) {
   return (
     <Box
       sx={{
@@ -10,6 +15,7 @@ export default function Photocard({ senderName, createdDate, src }) {
         fontSize: 26,
         height: "204px",
       }}
+      onClick={switchPage}
     >
       <Box
         sx={{
@@ -41,8 +47,8 @@ export default function Photocard({ senderName, createdDate, src }) {
           </Typography>
           {createdDate ? (
             <Typography sx={{ fontFamily: "Gowun Dodum" }}>
-              포토카드, {createdDate.slice(0, 4)}년 {createdDate.slice(4, 6)}월{" "}
-              {createdDate.slice(6)}일
+              포토카드, {createdDate.slice(0, 4)}년 {createdDate.slice(5, 7)}월{" "}
+              {createdDate.slice(8, 10)}일
             </Typography>
           ) : null}
         </Box>

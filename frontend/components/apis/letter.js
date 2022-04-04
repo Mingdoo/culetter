@@ -1,11 +1,11 @@
 import axios from "axios";
 import { BASE_URL } from "./config";
 
-export const usersApi = axios.create({
+export const mailsApi = axios.create({
   baseURL: `${BASE_URL}/mails`,
 });
 
-usersApi.interceptors.request.use(
+mailsApi.interceptors.request.use(
   function (config) {
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
@@ -21,7 +21,7 @@ usersApi.interceptors.request.use(
 
 export const sendLetter = async (body) => {
   console.log("2");
-  return await usersApi.post(
+  return await mailsApi.post(
     `/write`,
     // body
     {
@@ -46,4 +46,8 @@ export const sendLetter = async (body) => {
 
 export const test = async () => {
   return await axios.get(`${BASE_URL}/members`);
+};
+
+export const getMail = async (id) => {
+  return await mailsApi.get(`/id/${id}`);
 };

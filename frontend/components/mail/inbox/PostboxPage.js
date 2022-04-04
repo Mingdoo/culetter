@@ -26,7 +26,7 @@ export default function PostboxPage({
     try {
       const res = await getRecvMails();
       setData(res.data.result);
-      setMails(res.data.result.slice(0, 2));
+      setMails(res.data.result.slice(0, 8));
     } catch (error) {
       console.log(error);
     }
@@ -58,7 +58,7 @@ export default function PostboxPage({
   }, [handleObserver]);
 
   useEffect(() => {
-    setMails(data.slice(0, page * 2));
+    setMails(data.slice(0, page * 8));
   }, [page]);
 
   return (

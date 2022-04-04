@@ -21,7 +21,7 @@ import LockIcon from "@mui/icons-material/Lock";
 import Router from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import axios from "axios"
 export default function MyPage() {
   const [open, setOpen] = useState(false);
   const [photoURL, setPhotoURL] = useState(null);
@@ -44,12 +44,25 @@ export default function MyPage() {
   };
 
   const edit = async () => {
-    console.log(photoURL);
-    try {
-      const res = await editUserInfo(name, photoURL);
-    } catch (error) {
-      console.log(error);
+    const formData = new FormData();
+    const userInfo = {
+      "name": `"${name}"`
     }
+    formData.append("info", new Blob([JSON.stringify(userInfo)], {type:"application/json"}));
+    formData.append("profileImage", photoURL);
+    try {
+      const res = await axios.put('https://www.culetter.site/api/members',formData, {
+        headers: {
+          "Content-Type": 'multipart/form-data',
+          "Authorization": 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzMiIsImF1dGgiOiJST0xFXzEiLCJleHAiOjE2NDkxNjY1NjZ9.47GLkHNoZUVNYb504TNiOkcePgOsMB4CyyCcO5byGsNNrHyX2X67oiG7jjxtQSC2bnwSUn0EHba8Mmh8p3z-ZA'
+        }
+      })
+      console.log(res)
+    } catch (e) {
+      console.log(">>>>>>>>",formData.get("info"))
+      console.log(formData.get("profileImage"))
+      console.log(e)
+    }    
   };
 
   const deleteAccount = async () => {
@@ -81,6 +94,7 @@ export default function MyPage() {
     }
     // 2. 파일 크기 적당하면 크롭~
     if (file) {
+      setPhotoURL(file)
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onloadend = () => {
