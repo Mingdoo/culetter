@@ -73,12 +73,13 @@ function friends() {
             justifyContent: "start",
             alignItems: "start",
             height: 1,
+            m: 0,
             minHeight: "100vh",
           }}
         >
           <MenuList />
           <Typography
-            sx={{ mx: "2rem", my: "2rem", fontFamily: "Gowun Dodum" }}
+            sx={{ mx: "2rem", my: "1.5rem", fontFamily: "Gowun Dodum" }}
             variant="h5"
           >
             {addOpen ? "친구 추가" : "친구 목록"}

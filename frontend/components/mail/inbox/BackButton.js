@@ -6,7 +6,7 @@ export default function BackButton({ onClick }) {
   return (
     <IconButton
       aria-label="go back"
-      sx={{ position: "absolute", left: "2vh", top: "3vh" }}
+      sx={{ position: "" }}
       onClick={() => onClick(true)}
     >
       <ArrowBackIosRoundedIcon></ArrowBackIosRoundedIcon>
