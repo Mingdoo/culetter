@@ -1,6 +1,5 @@
 package com.culetter.api.service;
 
-import com.culetter.api.dto.FileDto;
 import com.culetter.api.dto.MailDto;
 import com.culetter.db.entity.*;
 import com.culetter.db.repository.MailRepository;
@@ -13,13 +12,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -35,11 +35,13 @@ public class MailServiceImpl implements MailService {
     private final MemberService memberService;
     private final ObjectMapper objectMapper;
     private final FileService fileService;
+    private final String customPostcardImagePath;
 
     public MailServiceImpl(MailRepository mailRepository,
                            RecvMailboxRepository recvMailboxRepository, SendMailboxRepository sendMailboxRepository,
                            UndoneMailboxRepository undoneMailboxRepository,
-                           MemberService memberService, ObjectMapper objectMapper, FileService fileService) {
+                           MemberService memberService, ObjectMapper objectMapper, FileService fileService,
+                           @Value("${cloud.aws.s3.folder.customPostcardImage}") String customPostcardImagePath) {
         this.mailRepository = mailRepository;
         this.recvMailboxRepository = recvMailboxRepository;
         this.sendMailboxRepository = sendMailboxRepository;
@@ -47,6 +49,7 @@ public class MailServiceImpl implements MailService {
         this.memberService = memberService;
         this.objectMapper = objectMapper;
         this.fileService = fileService;
+        this.customPostcardImagePath = customPostcardImagePath;
     }
 
     @Override
@@ -116,6 +119,12 @@ public class MailServiceImpl implements MailService {
     public List<String> musicRecommendation(Map<String,String> music) {
 
         return null;
+    }
+
+    @Override
+    public String insertPostcardImage(MultipartFile multipartFile) {
+        if (multipartFile.isEmpty()) throw new NullPointerException("업로드할 파일이 존재하지 않습니다.");
+        return fileService.uploadImage(multipartFile, customPostcardImagePath);
     }
 
     @Override

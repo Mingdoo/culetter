@@ -2,6 +2,7 @@ package com.culetter.api.service;
 
 import com.culetter.api.dto.MailDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ public interface MailService {
     MailDto.Mail selectMailByCode(String code);
     List<String> styleRecommendation(Map<String,String> style);
     List<String> musicRecommendation(Map<String,String> music);
+    String insertPostcardImage(MultipartFile multipartFile);
     String insertMail(MailDto.Mail mail);
     Long saveTempMail(Long mailId, MailDto.Mail mail);
     String sendTempMail(MailDto.Mail mail, Long mailId);

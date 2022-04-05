@@ -11,6 +11,7 @@ public class FriendDto {
         private Long member_id;
         private String email;
         private String name;
+        private String profile_image;
         private Boolean favorite;
         private Byte friend_status;
     }
