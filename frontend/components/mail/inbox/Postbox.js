@@ -6,12 +6,10 @@ import newmailbox from "../../../public/img/newmailbox.PNG";
 import Avatar from "@mui/material/Avatar";
 
 export default function MailBox({
-  hasNew,
   name,
-  id,
-  mailsNum,
-  setIsPostBox,
+  count,
   senderId,
+  setIsPostBox,
   setSelectedId,
 }) {
   return (
@@ -23,7 +21,8 @@ export default function MailBox({
           width: "30px",
           height: "30px",
           position: "absolute",
-          right: hasNew ? 40 : 50,
+          right: 40,
+          // right: hasNew ? 40 : 50,
           top: -5,
           // border: "black 1.5px solid",
           color: "black",
@@ -32,7 +31,7 @@ export default function MailBox({
           fontFamily: "Gowun Dodum",
         }}
       >
-        {mailsNum}
+        {count}
       </Avatar>
       <Box
         onClick={() => {
@@ -44,9 +43,10 @@ export default function MailBox({
           height: 120,
           px: 5,
           objectFit: "contain",
-          pt: hasNew ? 0 : "6px",
+          // pt: hasNew ? 0 : "6px",
         }}
-        src={hasNew ? newmailbox.src : nomailbox.src}
+        src={newmailbox.src}
+        // src={newmailbox.src : nomailbox.src}
         component="img"
       ></Box>
       <Typography

@@ -14,11 +14,13 @@ function Header({ handlePrevClick, title, handleNextClick }) {
         justify="center"
       >
         <Grid item xs={3}>
-          <Box sx={{ m: "1rem" }}>
-            <IconButton onClick={(e) => handlePrevClick(e)}>
-              <ArrowBackIosNewIcon />
-            </IconButton>
-          </Box>
+          {handlePrevClick ? (
+            <Box sx={{ m: "1rem" }}>
+              <IconButton onClick={(e) => handlePrevClick(e)}>
+                <ArrowBackIosNewIcon />
+              </IconButton>
+            </Box>
+          ) : null}
         </Grid>
         <Grid item xs={6}>
           <Box

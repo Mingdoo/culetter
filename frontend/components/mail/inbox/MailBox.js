@@ -2,30 +2,17 @@ import React from "react";
 import { Box, Typography } from "@mui/material";
 import nomailbox from "../../../public/img/nomailbox.PNG";
 import newmailbox from "../../../public/img/newmailbox.PNG";
-
 import Avatar from "@mui/material/Avatar";
 
-import Link from "next/link";
-const shapeStyles = {
-  bgcolor: "primary.main",
-  width: 20,
-  height: 20,
-  position: "absolute",
-  top: "20%",
-  borderRadius: "70%",
-};
-const circle = <Box component="span" sx={{ ...shapeStyles }} />;
 export default function MailBox({
   hasNew,
   name,
   id,
-  mailsNum,
+  count,
   setIsPostBox,
   setSelectedId,
 }) {
   return (
-    // 해당 링크 주소로 이동
-    // <Link href="/mail/[id]" as={`/mail/${id}`}>
     <Box sx={{ position: "relative", mb: 5 }}>
       <Avatar
         sx={{
@@ -42,7 +29,7 @@ export default function MailBox({
           fontFamily: "Gowun Dodum",
         }}
       >
-        {mailsNum}
+        {count}
       </Avatar>
       <Box
         onClick={() => {
