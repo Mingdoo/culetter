@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Box, Typography, Button, Grid } from "@mui/material";
 import LetterContext from "../../contexts/LetterContext";
 import Header from "../../components/Header";
@@ -11,15 +10,10 @@ import KakaoShare from "../../components/letter/send/KakaoShare";
 import Letter from "../../components/main/Letter";
 import { authentication } from "../../components/apis/auth";
 export default function Send() {
+  // receiverName 있으면 카카오톡으로 알리기 아니면 링크 공유
   useEffect(() => {
     authentication();
   }, []);
-  // memberId가 있으면 카카오톡으로 알리기 아니면 링크 공유
-  // const { memberId, setMemberId } = useContext(ContentsContext);
-  const memberId = "temp";
-
-export default function Send() {
-  // receiverName 있으면 카카오톡으로 알리기 아니면 링크 공유
   const { title, receiverName, mailCode } = useContext(LetterContext);
   const [name, setName] = useState("");
   const toHome = () => Router.push("/main");
