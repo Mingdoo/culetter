@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.List;
@@ -56,6 +57,13 @@ public class MailController {
         mrm.put("music_list",mailService.musicRecommendation(music));
 
         return ResponseEntity.status(HttpStatus.OK).body(mrm);
+    }
+
+    @PostMapping("/postcard")
+    public ResponseEntity<Map<String,String>> uploadPostcardImage(@RequestPart(value="postcard_image")MultipartFile multipartFile) {
+        Map<String,String> murl = new HashMap<>();
+        murl.put("image_url", mailService.insertPostcardImage(multipartFile));
+        return ResponseEntity.status(HttpStatus.OK).body(murl);
     }
 
     @PostMapping("/write")

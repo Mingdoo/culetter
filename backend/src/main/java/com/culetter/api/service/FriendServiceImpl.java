@@ -36,6 +36,7 @@ public class FriendServiceImpl implements FriendService {
                     f.getToMember().getMemberId(),
                     f.getToMember().getEmail(),
                     f.getToMember().getName(),
+                    f.getToMember().getProfileImage(),
                     f.getIsFavorite(),
                     (byte) 3
             ));
@@ -55,6 +56,7 @@ public class FriendServiceImpl implements FriendService {
                     req.getFromMember().getMemberId(),
                     req.getFromMember().getEmail(),
                     req.getFromMember().getName(),
+                    req.getFromMember().getProfileImage(),
                     req.getIsFavorite(),
                     (byte) 2
             ));
@@ -100,6 +102,7 @@ public class FriendServiceImpl implements FriendService {
                     m.getMemberId(),
                     m.getEmail(),
                     m.getName(),
+                    m.getProfileImage(),
                     favorite,
                     friend_status
             ));

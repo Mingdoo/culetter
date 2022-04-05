@@ -2,7 +2,6 @@ package com.culetter.api.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tika.Tika;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,10 +13,11 @@ import java.io.IOException;
 public class FileServiceImpl implements FileService {
 
     private final AmazonS3Service amazonS3Service;
-    private final String letterImage;
-    private final String postcardImage;
-    private final String photocardImage;
-    private final String music;
+//    private final String letterImage;
+//    private final String postcardImage;
+//    private final String customPostcardImage;
+//    private final String photocardImage;
+//    private final String music;
 //    private final String happy;
 //    private final String angry;
 //    private final String sad;
@@ -25,21 +25,23 @@ public class FileServiceImpl implements FileService {
 //    private HashMap<String,HashMap<String,List<FileDto.FileInfoWithEmotion>>> fileInfoMap;
 
     public FileServiceImpl(
-            AmazonS3Service amazonS3Service,
-            @Value("${cloud.aws.s3.folder.letterImage}") String letterImage,
-            @Value("${cloud.aws.s3.folder.postcardImage}") String postcardImage,
-            @Value("${cloud.aws.s3.folder.photocardImage}") String photocardImage,
-            @Value("${cloud.aws.s3.folder.music}") String music
+            AmazonS3Service amazonS3Service
+//            @Value("${cloud.aws.s3.folder.letterImage}") String letterImage,
+//            @Value("${cloud.aws.s3.folder.postcardImage}") String postcardImage,
+//            @Value("${cloud.aws.s3.folder.customPostcardImage}") String customPostcardImage,
+//            @Value("${cloud.aws.s3.folder.photocardImage}") String photocardImage,
+//            @Value("${cloud.aws.s3.folder.music}") String music,
 //            @Value("${cloud.aws.s3.emotion.happy}") String happy,
 //            @Value("${cloud.aws.s3.emotion.angry}") String angry,
 //            @Value("${cloud.aws.s3.emotion.sad}") String sad,
 //            @Value("${cloud.aws.s3.emotion.panic}") String panic
     ) {
         this.amazonS3Service = amazonS3Service;
-        this.letterImage = letterImage;
-        this.postcardImage = postcardImage;
-        this.photocardImage = photocardImage;
-        this.music = music;
+//        this.letterImage = letterImage;
+//        this.postcardImage = postcardImage;
+//        this.customPostcardImage = customPostcardImage;
+//        this.photocardImage = photocardImage;
+//        this.music = music;
 //        this.happy = happy;
 //        this.angry = angry;
 //        this.sad = sad;
