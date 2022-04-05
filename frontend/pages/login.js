@@ -5,7 +5,7 @@ import Postbox from "../components/postbox/Postbox";
 import { makeStyles } from "@material-ui/core/styles";
 import { ToastContainer } from "react-toastify";
 import { Box } from "@mui/material";
-const Login = () => {
+export default Login = () => {
   return (
     <>
       <Box
