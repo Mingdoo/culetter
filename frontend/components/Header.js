@@ -47,7 +47,7 @@ function Header({ handlePrevClick, title, handleNextClick }) {
                 display: "flex",
                 flexDirection: "row",
                 justifyContent: "end",
-                // mr: "1rem",
+                mr: "1rem",
               }}
             >
               <Box
