@@ -29,6 +29,8 @@ public class MailDto {
         private String font_type;
         private Byte font_color;
         private Byte background_color;
+        private Boolean is_font_bold;
+        private Byte underline_color;
         private String handwrite_image;
     }
 

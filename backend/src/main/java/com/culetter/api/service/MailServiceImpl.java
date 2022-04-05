@@ -72,6 +72,8 @@ public class MailServiceImpl implements MailService {
             mail.getStickers(),
             mail.getFontOrder(),mail.getFontType(),mail.getFontColor(),
             mail.getBackgroundColor(),
+            mail.getIsFontBold(),
+            mail.getUnderlineColor(),
             mail.getHandwriteImage()
         );
     }
@@ -97,6 +99,8 @@ public class MailServiceImpl implements MailService {
                 mail.getStickers(),
                 mail.getFontOrder(),mail.getFontType(),mail.getFontColor(),
                 mail.getBackgroundColor(),
+                mail.getIsFontBold(),
+                mail.getUnderlineColor(),
                 mail.getHandwriteImage()
         );
     }
@@ -135,6 +139,11 @@ public class MailServiceImpl implements MailService {
     public String insertMail(MailDto.Mail mail){
         Member cur_member = memberService.getMemberByAuthentication();
         String code = RandomStringUtils.randomAlphanumeric(16);
+        byte existCnt;
+
+        //이메일이 없으면 비회원에게, 있으면 회원에게
+        if("".equals(mail.getReceiver_email())) existCnt = (byte) 1;
+        else existCnt = (byte) 2;
 
         Mail m = mailRepository.save(Mail.builder()
                 .code(code)
@@ -144,7 +153,7 @@ public class MailServiceImpl implements MailService {
                 .isRead(false)
                 .receiverName(mail.getReceiver_name())
                 .receiverEmail(mail.getReceiver_email())
-                .existCnt((byte) 2)
+                .existCnt(existCnt)
                 .title(mail.getTitle())
                 .mailType(mail.getMail_type())
                 .styleUrl(mail.getStyle_url())
@@ -157,6 +166,8 @@ public class MailServiceImpl implements MailService {
                 .fontType(mail.getFont_type())
                 .fontColor(mail.getFont_color())
                 .backgroundColor(mail.getBackground_color())
+                .isFontBold(mail.getIs_font_bold())
+                .underlineColor(mail.getUnderline_color())
                 .handwriteImage(mail.getHandwrite_image())
                 .build()
         );
@@ -168,12 +179,14 @@ public class MailServiceImpl implements MailService {
                 .build()
         );
 
-        Member recv_mem = memberService.findMemberByEmail(mail.getReceiver_email());
-        recvMailboxRepository.save(RecvMailbox.builder()
-                .member(recv_mem)
-                .mail(m)
-                .build()
-        );
+        if(existCnt == (byte) 2) {
+            Member recv_mem = memberService.findMemberByEmail(mail.getReceiver_email());
+            recvMailboxRepository.save(RecvMailbox.builder()
+                    .member(recv_mem)
+                    .mail(m)
+                    .build()
+            );
+        }
 
         return code;
     }
@@ -183,6 +196,10 @@ public class MailServiceImpl implements MailService {
     public Long saveTempMail(Long mailId, MailDto.Mail mail) {
         Member cur_member = memberService.getMemberByAuthentication();
         Mail temp;
+        byte existCnt;
+
+        if("".equals(mail.getReceiver_email())) existCnt = (byte) 1;
+        else existCnt = (byte) 2;
 
         //처음 저장
         if(mailId == 0){
@@ -194,7 +211,7 @@ public class MailServiceImpl implements MailService {
                     .isRead(false)
                     .receiverName(mail.getReceiver_name())
                     .receiverEmail(mail.getReceiver_email())
-                    .existCnt((byte) 2)
+                    .existCnt(existCnt)
                     .title(mail.getTitle())
                     .mailType(mail.getMail_type())
                     .styleUrl(mail.getStyle_url())
@@ -208,6 +225,8 @@ public class MailServiceImpl implements MailService {
                     .fontColor(mail.getFont_color())
                     .backgroundColor(mail.getBackground_color())
                     .handwriteImage(mail.getHandwrite_image())
+                    .isFontBold(mail.getIs_font_bold())
+                    .underlineColor(mail.getUnderline_color())
                     .createdDate(mail.getCreated_date())
                     .build()
             );
@@ -225,8 +244,12 @@ public class MailServiceImpl implements MailService {
                     mail.getContent_position(), mail.getStickers(),
                     mail.getFont_order(), mail.getFont_type(), mail.getFont_color(),
                     mail.getBackground_color(),
+                    mail.getIs_font_bold(),
+                    mail.getUnderline_color(),
                     mail.getHandwrite_image()
             );
+
+            temp.updateExistCnt(existCnt);
         }
 
         //임시 우편함에 저장 이미 있다면 넘어가고 아니면 임시 우편함에 저장해주기
@@ -249,6 +272,11 @@ public class MailServiceImpl implements MailService {
         UndoneMailbox temp = undoneMailboxRepository.findByMailId(mailId)
                 .orElseThrow(() -> new ValueNotExistException("편지가 존재하지 않습니다."));
 
+        byte existCnt;
+
+        if("".equals(mail.getReceiver_email())) existCnt = (byte) 1;
+        else existCnt = (byte) 2;
+
         temp.getMail().updateTempMail(
                 mail.getReceiver_email(), mail.getReceiver_name(),
                 mail.getTitle(),
@@ -257,12 +285,16 @@ public class MailServiceImpl implements MailService {
                 mail.getContent_position(), mail.getStickers(),
                 mail.getFont_order(), mail.getFont_type(), mail.getFont_color(),
                 mail.getBackground_color(),
+                mail.getIs_font_bold(),
+                mail.getUnderline_color(),
                 mail.getHandwrite_image()
         );
 
-        if(cur_member.getMemberId().equals(temp.getMember().getMemberId())) {
+        temp.getMail().updateExistCnt(existCnt);
+
+        //사용자와 편지 작성자가 다르면
+        if(!cur_member.getMemberId().equals(temp.getMember().getMemberId())) {
             throw new ChangeNotMadeException("임시 편지 전송 에러");
-            //사용자와 편지 작성자가 다름
         }
 
         sendMailboxRepository.save(SendMailbox.builder()
@@ -271,18 +303,37 @@ public class MailServiceImpl implements MailService {
                 .build()
         );
 
-        Member recv_mem = memberService.findMemberByEmail(temp.getMail().getReceiverEmail());
-        recvMailboxRepository.save(RecvMailbox.builder()
-                .member(recv_mem)
-                .mail(temp.getMail())
-                .build()
-        );
+        if(temp.getMail().getExistCnt() == (byte) 2) {
+            Member recv_mem = memberService.findMemberByEmail(temp.getMail().getReceiverEmail());
+            recvMailboxRepository.save(RecvMailbox.builder()
+                    .member(recv_mem)
+                    .mail(temp.getMail())
+                    .build()
+            );
+        }
 
         //임시 메일 전송해쓰니 자동 삭제
         int res = undoneMailboxRepository.deleteByUndoneId(temp.getUndoneId());
         validateChangeMade(res, "임시 메일 삭제");
 
         return temp.getMail().getCode();
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void saveInRecvMailbox(String code) {
+        Member cur_member = memberService.getMemberByAuthentication();
+
+        Mail mail = mailRepository.findByCode(code)
+                .orElseThrow(() -> new ValueNotExistException("편지가 존재하지 않습니다."));
+
+        mail.updateExistCnt((byte) 2);
+
+        recvMailboxRepository.save(RecvMailbox.builder()
+                .member(cur_member)
+                .mail(mail)
+                .build()
+        );
     }
 
     @Override
@@ -293,13 +344,17 @@ public class MailServiceImpl implements MailService {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
 
+        //엔터 제거
+        String removeEnter = content.get("content").replace("\n","\\n").replace("\t", "\\t");
+        content.put("content",removeEnter);
+
         String param = objectMapper.writeValueAsString(content);
         HttpEntity httpEntity = new HttpEntity(param, httpHeaders);
 
         RestTemplate restTemplate = new RestTemplate();
 
-        //TODO AI 학습 서버로 content 전송, Emotion을 String으로 반환받기
-        ResponseEntity<String> responseEntity = restTemplate.exchange("", HttpMethod.POST, httpEntity, String.class);
+        //TODO AI 학습 서버로 content 전송, Emotion을 String으로 반환받기 json 형식 수정 결과 같으면 하나 선택
+        ResponseEntity<String> responseEntity = restTemplate.exchange("https://www.culetter.site/nlp", HttpMethod.POST, httpEntity, String.class);
 
         if (responseEntity.getStatusCode() == HttpStatus.OK) return responseEntity.getBody();
         else throw new ValueNotExistException("감정 분석 오류");

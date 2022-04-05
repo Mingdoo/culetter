@@ -83,4 +83,11 @@ public class MailController {
 
         return ResponseEntity.status(HttpStatus.OK).body(mcode);
     }
+
+    @PostMapping("/recvsave/{code}")
+    public ResponseEntity<String> saveRecvMail(@PathVariable("code") String code){
+        mailService.saveInRecvMailbox(code);
+
+        return ResponseEntity.status(HttpStatus.OK).body("받은 편지 저장 성공");
+    }
 }
