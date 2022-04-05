@@ -30,7 +30,6 @@ const PostBox = (props) => {
       <Box
         component="div"
         sx={{
-          mt: 12,
           width: 330,
           height: 330,
           backgroundColor: "#d3504a",
