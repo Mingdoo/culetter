@@ -42,7 +42,11 @@ public class Mail {
     private String fontType;
     private Byte fontColor;
     private Byte backgroundColor;
+    @Convert(converter = BooleanToYNConverter.class)
+    private Boolean isFontBold;
+    private Byte underlineColor;
     private String handwriteImage;
+
     @CreatedDate
     private LocalDateTime createdDate;
 
@@ -50,7 +54,7 @@ public class Mail {
     public Mail(String code, Long senderId, String senderEmail, String senderName, Boolean isRead, String receiverEmail,
                 String receiverName, Byte existCnt, String mailType, String title, String content, String styleUrl,
                 String musicUrl, String image, String contentPosition, String stickers, String fontOrder, String fontType, Byte fontColor,
-                Byte backgroundColor, String handwriteImage, LocalDateTime createdDate) {
+                Byte backgroundColor, Boolean isFontBold, Byte underlineColor, String handwriteImage, LocalDateTime createdDate) {
         this.code = code;
         this.senderId = senderId;
         this.senderEmail = senderEmail;
@@ -71,6 +75,8 @@ public class Mail {
         this.fontType = fontType;
         this.fontColor = fontColor;
         this.backgroundColor = backgroundColor;
+        this.isFontBold = isFontBold;
+        this.underlineColor = underlineColor;
         this.handwriteImage = handwriteImage;
         this.createdDate = createdDate;
     }
@@ -87,7 +93,8 @@ public class Mail {
                                String mailType, String mailStyle, String content, String musicUrl,
                                String image, String contentPosition, String stickers,
                                String fontOrder, String fontType, Byte fontColor,
-                               Byte backgroundColor, String handwriteImage){
+                               Byte backgroundColor, Boolean isFontBold,
+                               Byte underlineColor, String handwriteImage){
         this.receiverEmail = receiverEmail;
         this.receiverName = receiverName;
         this.title = title;
@@ -102,6 +109,8 @@ public class Mail {
         this.fontType = fontType;
         this.fontColor = fontColor;
         this.backgroundColor = backgroundColor;
+        this.isFontBold = isFontBold;
+        this.underlineColor = underlineColor;
         this.handwriteImage = handwriteImage;
     }
 

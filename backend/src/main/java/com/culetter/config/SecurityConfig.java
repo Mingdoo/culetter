@@ -65,7 +65,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll() // Preflight 요청에 대해 인증 처리X
                 .antMatchers(HttpMethod.POST, "/members").permitAll()  // 해당 URL은 인증 처리X
                 .antMatchers("/members/signin/**",
-                        "/members/email/**").permitAll()
+                        "/members/email/**",
+                        "/code/**").permitAll()
                 .anyRequest()
                 .authenticated()
 
