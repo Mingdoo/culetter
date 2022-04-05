@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box } from "@mui/material";
 import Header from "../../components/Header";
-import Type from "../../components/write/type";
+import Type from "../../components/write/Type";
 import Router from "next/router";
 
 const type = (props) => {
