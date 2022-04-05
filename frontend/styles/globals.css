@@ -96,12 +96,13 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif,
     Gowun Batang, Gowun Dodum, Noto Sans;
   /* background-color: #fcfaef; */
-  overflow-x: hidden;
   max-width: 100%;
+  /* overflow-x: hidden; */
 }
 
 body {
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
+  overflow-x: hidden;
 }
 
 a {
