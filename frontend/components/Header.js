@@ -59,11 +59,12 @@ function Header({ handlePrevClick, title, handleNextClick }) {
                     cursor: "pointer",
                   },
                 }}
+                onClick={(e) => handleNextClick(e)}
               >
                 <Typography sx={{ fontFamily: "Gowun Batang" }}>
                   다음
                 </Typography>
-                <IconButton onClick={(e) => handleNextClick(e)}>
+                <IconButton>
                   <ArrowForwardIosIcon />
                 </IconButton>
               </Box>

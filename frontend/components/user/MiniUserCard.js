@@ -23,6 +23,16 @@ function MiniUserCard(props) {
         <Typography sx={{ ml: "3rem", fontFamily: "Gowun Batang" }}>
           {props.obj.name}
         </Typography>
+        <Typography
+          sx={{
+            ml: "3rem",
+            fontFamily: "Gowun Batang",
+            fontSize: 12,
+            textDecoration: "underline",
+          }}
+        >
+          {props.obj.email}
+        </Typography>
       </Box>
       <Box
         sx={{
