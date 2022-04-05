@@ -66,7 +66,9 @@ function PhotoCard({ props }) {
     updateStickers([uploadedText, uploadedTitle]);
   }, []);
 
-  useEffect(() => {}, [title]);
+  useEffect(() => {
+    setStickersPos(stickers);
+  }, [stickers]);
 
   useEffect(() => {}, []);
 
