@@ -18,48 +18,6 @@ import {
   Typography,
 } from "@mui/material";
 
-// const useStyles = makeStyles({
-//   root: {
-//     margin: "3px",
-//     color: "#eeee",
-//     fontFamily: "Gowun Batang",
-//     "&.Mui-focused": {
-//       color: "#eeee",
-//       backgroundColor: "#d3504a",
-//     },
-//     "&:before": {
-//       color: "#eeee",
-//       borderBottomColor: "#eeee",
-//     },
-//     "&:hover:not(.Mui-focused):before": {
-//       color: "#eeee",
-//       borderBottomColor: "#eeee",
-//     },
-//     "&:after": {
-//       // focused
-//       color: "#eeee",
-//       borderBottomColor: "#eeee",
-//     },
-//   },
-//   input: {
-//     "&::selection": {
-//       backgroundColor: "lightgreen",
-//       color: "#eeee",
-//       fontSize: 12,
-//     },
-//   },
-// });
-
-// const useLabelStyles = makeStyles({
-//   root: {
-//     color: "#eeee",
-//     "&.Mui-focused": {
-//       color: "#eeee",
-//     },
-//     fontSize: 14,
-//   },
-// });
-
 const msgStyle = {
   fontSize: 11,
   color: "#E2E0A5",
@@ -312,72 +270,74 @@ const SignupForm = () => {
       onSubmit={handleSubmit}
     >
       <Grid container sx={{ maxHeight: "1rem", margin: 0 }}>
-        {/* 이메일 입력 */}
-        <Grid item xs={2}>
-          <AccountCircleIcon
-            sx={{ color: "white", position: "relative", top: 20, left: 7 }}
-          />{" "}
-        </Grid>
-        <Grid item xs={7}>
-          <TextField
-            id="email"
-            label="이메일"
-            type="email"
-            autoComplete="off"
-            autoFocus
-            variant="standard"
-            size="small"
-            style={{
-              marginLeft: "1.0rem",
-            }}
-            sx={{ color: "white" }}
-            InputProps={{
-              style: {
-                color: "#eeee",
-                fontFamily: "Gowun Batang",
-              },
-            }}
-            InputLabelProps={{
-              style: {
-                fontFamily: "Gowun Batang",
-                color: "#eeee",
-                fontSize: "0.9rem",
-                "&::after": {
-                  border: "2px solid red",
+        <Grid container>
+          <Grid item xs={2}>
+            <AccountCircleIcon
+              sx={{ color: "white", position: "relative", top: 20, left: 7 }}
+            />{" "}
+          </Grid>
+          <Grid item xs={7}>
+            <TextField
+              id="email"
+              label="이메일"
+              type="email"
+              autoComplete="off"
+              autoFocus
+              variant="standard"
+              size="small"
+              style={{
+                marginLeft: "1.0rem",
+              }}
+              sx={{ color: "white" }}
+              InputProps={{
+                style: {
+                  color: "#eeee",
+                  fontFamily: "Gowun Batang",
                 },
-              },
-            }}
-            onChange={handleInput}
-          />
-        </Grid>
-        <Grid item xs={3}>
-          <Button
-            id="sendBtn"
-            variant="contained"
-            size="small"
-            style={{
-              minWidth: "10px",
-              minHeight: "10px",
-              backgroundColor: "#FCFAEF",
-              color: "#3A1D1D",
-              fontSize: "0.5rem",
-              margin: "1rem",
-              fontFamily: "Gowun Dodum",
-            }}
-            onClick={handleBtn}
-          >
-            전송
-          </Button>
-        </Grid>
-        <Grid item xs={12}>
-          {emailCheck ? null : (
-            <Typography component="p" style={msgStyle}>
-              {emailMsg}
-            </Typography>
-          )}
+              }}
+              InputLabelProps={{
+                style: {
+                  fontFamily: "Gowun Batang",
+                  color: "#eeee",
+                  fontSize: "0.9rem",
+                  "&::after": {
+                    border: "2px solid red",
+                  },
+                },
+              }}
+              onChange={handleInput}
+            />
+          </Grid>
+          <Grid item xs={3}>
+            <Button
+              id="sendBtn"
+              variant="contained"
+              size="small"
+              style={{
+                minWidth: "10px",
+                minHeight: "10px",
+                backgroundColor: "#FCFAEF",
+                color: "#3A1D1D",
+                fontSize: "0.5rem",
+                margin: "1rem",
+                fontFamily: "Gowun Dodum",
+              }}
+              onClick={handleBtn}
+            >
+              전송
+            </Button>
+          </Grid>
+          <Grid item xs={12}>
+            {emailCheck ? null : (
+              <Typography component="p" style={msgStyle}>
+                {emailMsg}
+              </Typography>
+            )}
+          </Grid>
+          {/* 이메일 입력 */}
         </Grid>
         {authEmail === true && authCode === false ? (
-          <Grid container sx={{ height: "2.5rem" }}>
+          <Grid container>
             <Grid item xs={2}>
               <PasswordIcon
                 sx={{ color: "white", position: "relative", top: 10, left: 9 }}
