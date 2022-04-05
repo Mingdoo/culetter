@@ -233,7 +233,7 @@ const Recommended = () => {
               sx={{
                 display: "flex",
                 flexDirection: "row",
-                // alignItems: "center",
+                alignItems: "center",
               }}
             >
               <Photocard
