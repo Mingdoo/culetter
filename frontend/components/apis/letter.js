@@ -20,7 +20,6 @@ mailsApi.interceptors.request.use(
 );
 
 export const sendLetter = async (body) => {
-  console.log("2");
   return await mailsApi.post(
     `/write`,
     // body
@@ -50,4 +49,8 @@ export const test = async () => {
 
 export const getMail = async (id) => {
   return await mailsApi.get(`/id/${id}`);
+};
+
+export const getMailByCode = async (code) => {
+  return await mailsApi.get(`/code/${code}`);
 };
