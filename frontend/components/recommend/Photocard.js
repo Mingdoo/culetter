@@ -18,10 +18,13 @@ const Photocard = (props) => {
     setIsClicked(false);
   };
 
+  const width = props.preview ? 300 : 250;
+  const height = props.preview ? 480 : 400;
+
   return (
     <Box
       className="card"
-      sx={{ width: "250px", height: "400px", mt: "2rem", position: "relative" }}
+      sx={{ width: width, height: height, mt: "2rem", position: "relative" }}
     >
       <Box
         component="div"
@@ -31,8 +34,8 @@ const Photocard = (props) => {
         onClick={handleFrontClick}
       >
         <img
-          width="250px"
-          height="400px"
+          width={width}
+          height={height}
           src={front}
           style={{ borderRadius: "2rem" }}
         ></img>
@@ -40,14 +43,14 @@ const Photocard = (props) => {
       <Box
         component="div"
         className={"back face " + (isClicked && showBack ? "rotateBack" : null)}
+        onClick={handleBackClick}
       >
         <img
           className="image"
-          width="250px"
-          height="400px"
+          width={width}
+          height={height}
           src={back}
           style={{ borderRadius: "2rem" }}
-          onClick={handleBackClick}
         ></img>
         <Box
           sx={{

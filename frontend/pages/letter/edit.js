@@ -22,14 +22,45 @@ function edit() {
   const [fontSize, setFontSize] = useState(20);
   const [showDots, setShowDots] = useState(true);
   const [bold, setBold] = useState(false);
-  const { title, content } = useContext(LetterContext);
-  const templateLiteral = content;
+  const {
+    title,
+    content,
+    setMailType,
+    setFontOrder,
+    setFontType,
+    setFontColor,
+    setFontsize,
+    setIsFontBold,
+  } = useContext(LetterContext);
+
+  useEffect(() => {
+    setFontOrder("justify");
+    setFontType(0);
+    setFontColor(0);
+    setFontsize(20);
+    setIsFontBold(false);
+  }, []);
   useEffect(() => {
     setShowDots(
       !(isColorOpen || isFontFamilyOpen || isAlignmentOpen || isFontSizeOpen),
     );
   }, [isColorOpen, isFontFamilyOpen, isAlignmentOpen, isFontSizeOpen]);
 
+  useEffect(() => {
+    setFontsize(fontSize);
+  }, [fontSize]);
+
+  useEffect(() => {
+    setFontOrder(alignment);
+  }, [alignment]);
+
+  useEffect(() => {
+    setFontColor(clickedColor);
+  }, [clickedColor]);
+
+  useEffect(() => {
+    setFontType(clickedFont);
+  }, [clickedFont]);
   const handleOpenPalette = (e, type) => {
     e.preventDefault();
     switch (type) {
@@ -65,6 +96,7 @@ function edit() {
 
   const handleNextClick = (e) => {
     e.preventDefault();
+    Router.push("/letter/preview");
   };
   const handlePrevClick = (e) => {
     e.preventDefault();
@@ -99,14 +131,15 @@ function edit() {
           color={colors[clickedColor]}
           textAlign={alignment}
           fontSize={fontSize}
-          text={templateLiteral}
+          title={title}
+          text={content}
           bold={bold}
           showDots={showDots}
         />
         {/* 여기까지 편지 */}
         <Box
           sx={{
-            position: "fixed",
+            position: "absolute",
             bottom: 0,
             width: 420,
             display: "block",
