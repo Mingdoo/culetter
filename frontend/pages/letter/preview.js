@@ -4,7 +4,7 @@ import { useRef, useState, useContext, useEffect } from "react";
 import Header from "../../components/Header";
 import General from "../../components/letter/preview/General";
 import Photocard from "../../components/letter/preview/Photocard";
-import MiniPlayer from "../../components/letter/preview/MiniPlayer";
+import MiniPlayer from "../../components/letter/preview/miniPlayer";
 import LetterContext from "../../contexts/LetterContext";
 import PostCard from "../../components/letter/preview/Postcard";
 import MenuList from "../../components/menu/MenuList";
