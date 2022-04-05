@@ -18,17 +18,17 @@ import Palette from "../Palette";
 import { colors } from "../../../components/Variables";
 import LetterContext from "../../../contexts/LetterContext";
 export const emojis = [
-  { icon: StarRoundedIcon, color: "#FFD93D" },
-  { icon: FavoriteRoundedIcon, color: "#FD5D5D" },
-  { icon: DarkModeRoundedIcon, color: "#FFD93D" },
-  { icon: FavoriteBorderIcon, color: "#E4AEC5" },
-  { icon: EmojiEmotionsIcon, color: "#C84B31" },
-  { icon: QuestionMarkRoundedIcon, color: "#700B97" },
-  { icon: SentimentVeryDissatisfiedIcon, color: "#A12568" },
-  { icon: CircleIcon, color: "#FF8080" },
-  { icon: StarBorderPurple500RoundedIcon, color: "#FFD93D" },
-  { icon: LocalFloristRoundedIcon, color: "#4D96FF" },
-  { icon: FilterVintageRoundedIcon, color: "#83142C" },
+  { icon: StarRoundedIcon, color: "#FFD93D", idx: 0 },
+  { icon: FavoriteRoundedIcon, color: "#FD5D5D", idx: 1 },
+  { icon: DarkModeRoundedIcon, color: "#FFD93D", idx: 2 },
+  { icon: FavoriteBorderIcon, color: "#E4AEC5", idx: 3 },
+  { icon: EmojiEmotionsIcon, color: "#C84B31", idx: 4 },
+  { icon: QuestionMarkRoundedIcon, color: "#700B97", idx: 5 },
+  { icon: SentimentVeryDissatisfiedIcon, color: "#A12568", idx: 6 },
+  { icon: CircleIcon, color: "#FF8080", idx: 7 },
+  { icon: StarBorderPurple500RoundedIcon, color: "#FFD93D", idx: 8 },
+  { icon: LocalFloristRoundedIcon, color: "#4D96FF", idx: 9 },
+  { icon: FilterVintageRoundedIcon, color: "#83142C", idx: 10 },
 ];
 
 function PhotoCard({ props }) {
@@ -90,7 +90,7 @@ function PhotoCard({ props }) {
       disabled: obj.disabled,
     };
     const updatedStickers = stickers.map((sticker) =>
-      sticker.idx === obj.idx ? updatedSticker : sticker,
+      sticker.idx === obj.idx ? updatedSticker : sticker
     );
 
     updateStickers(updatedStickers);
@@ -160,7 +160,7 @@ function PhotoCard({ props }) {
                   position: { x: 0, y: 0 },
                   disabled: false,
                 },
-                data,
+                data
               )
             }
             disabled={isfixed}
@@ -198,7 +198,7 @@ function PhotoCard({ props }) {
                   position: { x: 0, y: 0 },
                   disabled: false,
                 },
-                data,
+                data
               )
             }
             disabled={isfixed}
@@ -251,7 +251,7 @@ function PhotoCard({ props }) {
                   />
                 </Box>
               </Draggable>
-            ) : null,
+            ) : null
           )}
         </Box>
         <Box>
@@ -279,7 +279,7 @@ function PhotoCard({ props }) {
               updateStickers((stickers) =>
                 stickers.map((sticker) => {
                   return { ...sticker, disabled: true };
-                }),
+                })
               );
               setStickersPos(stickers);
             }}

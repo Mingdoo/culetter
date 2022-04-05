@@ -4,7 +4,7 @@ import { useRef, useState, useContext, useEffect } from "react";
 import Header from "../../components/Header";
 import General from "../../components/letter/preview/General";
 import Photocard from "../../components/letter/preview/Photocard";
-import MiniPlayer from "../../components/letter/preview/MiniPlayer";
+import Player from "../../components/letter/preview/Player";
 import LetterContext from "../../contexts/LetterContext";
 import PostCard from "../../components/letter/preview/Postcard";
 import MenuList from "../../components/menu/MenuList";
@@ -41,13 +41,12 @@ export default function Preview() {
   useEffect(() => {
     authentication();
     setStyleUrl(
-      "https://culetter.s3.ap-northeast-2.amazonaws.com/profile_image/06946054-b2af-4607-b19d-e615e2838e28-1649084959518",
+      "https://culetter.s3.ap-northeast-2.amazonaws.com/profile_image/06946054-b2af-4607-b19d-e615e2838e28-1649084959518"
     );
   }, []);
 
   const send = async () => {
     const stringifyStickers = JSON.stringify(stickersPos);
-    console.log(stringifyStickers);
     const body = {
       receiver_name: receiverName,
       receiver_email: receiverEmail,
@@ -58,7 +57,7 @@ export default function Preview() {
       music_url: musicUrl,
       image: "",
       content_position: "",
-      stickers: JSON.stringify(stickersPos),
+      stickers: stringifyStickers,
       font_order: fontOrder,
       font_type: fontType,
       // 숫자로
@@ -71,8 +70,10 @@ export default function Preview() {
 
     try {
       const res = await sendLetter(body);
-      setMailCode(res.data.code);
-      Router.push("/letter/send");
+      setMailCode(res.data);
+      console.log("No JSON", stickersPos);
+      console.log(JSON.stringify(stickersPos));
+      // Router.push("/letter/send");
     } catch (e) {
       console.log(e);
     }
@@ -112,7 +113,7 @@ export default function Preview() {
         {mailType === "POSTCARD" ? <PostCard /> : <></>}
       </Box>
       <Box sx={{ mt: "2rem" }}>
-        <MiniPlayer musicUrl={musicUrl}></MiniPlayer>
+        <Player musicUrl={musicUrl}></Player>
       </Box>
 
       <Button
