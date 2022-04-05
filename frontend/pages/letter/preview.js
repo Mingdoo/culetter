@@ -4,9 +4,10 @@ import { useRef, useState, useContext, useEffect } from "react";
 import Header from "../../components/Header";
 import General from "../../components/letter/preview/General";
 import Photocard from "../../components/letter/preview/Photocard";
-import MiniPlayer from "../../components/letter/preview/MiniPlayer";
+import MiniPlayer from "../../components/letter/preview/miniPlayer";
 import LetterContext from "../../contexts/LetterContext";
 import PostCard from "../../components/letter/preview/Postcard";
+import MenuList from "../../components/menu/MenuList";
 
 import { sendLetter } from "../../components/apis/letter";
 import { authentication } from "../../components/apis/auth";
@@ -67,6 +68,7 @@ export default function Preview() {
       underline_color: underlineColor,
       handwrite_image: "",
     };
+
     try {
       const res = await sendLetter(body);
       setMailCode(res.data.code);
@@ -74,6 +76,10 @@ export default function Preview() {
     } catch (e) {
       console.log(e);
     }
+  };
+
+  const handlePrevClick = () => {
+    Router.push("/letter/edit");
   };
 
   return (
@@ -87,7 +93,8 @@ export default function Preview() {
         position: "relative",
       }}
     >
-      <Header title="미리보기"></Header>
+      <Header title="미리보기" handlePrevClick={handlePrevClick}></Header>
+      <MenuList></MenuList>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         {/* 포토카드 */}
         {mailType === "PHOTOCARD" ? (

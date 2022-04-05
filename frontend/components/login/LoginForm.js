@@ -143,99 +143,98 @@ const LoginForm = () => {
           sx={{ mt: 5 }}
           // onSubmit={handleSubmit}
         >
-          <Grid container sx={{ maxHeight: "1rem", margin: 0 }}>
-            {/* 이메일 입력 */}
-            <Grid container>
-              <Grid
-                item
-                xs={2}
-                sx={{
-                  display: "flex",
-                  flexDirection: "column-reverse",
-                  alignItems: "flex-end",
+          {/* 이메일 입력 */}
+          <Grid container>
+            <Grid
+              item
+              xs={2}
+              sx={{
+                display: "flex",
+                flexDirection: "column-reverse",
+                alignItems: "flex-end",
+              }}
+            >
+              <AccountCircleIcon sx={{ color: "white" }} />
+            </Grid>
+            <Grid item xs={8}>
+              <TextField
+                id="email"
+                label="이메일"
+                type="email"
+                autoComplete="off"
+                autoFocus
+                variant="standard"
+                size="small"
+                style={{
+                  marginLeft: "1.0rem",
+                  fontFamily: "Gowun Batang",
+                  color: "#eeee",
+                  fontSize: "1rem",
                 }}
-              >
-                <AccountCircleIcon sx={{ color: "white" }} />
-              </Grid>
-              <Grid item xs={8}>
-                <TextField
-                  id="email"
-                  label="이메일"
-                  type="email"
-                  autoComplete="off"
-                  autoFocus
-                  variant="standard"
-                  size="small"
-                  style={{
-                    marginLeft: "1.0rem",
+                InputProps={{
+                  style: {
+                    fontSize: "1rem",
+                    color: "#eeee",
                     fontFamily: "Gowun Batang",
+                  },
+                }}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "Gowun Batang",
+                    color: "#eeee",
+                    fontSize: "0.9rem",
+                  },
+                }}
+                onChange={handleInput}
+              />
+            </Grid>
+            <Grid item xs={2}></Grid>
+          </Grid>
+          {/* 비밀번호 입력 */}
+          <Grid container>
+            <Grid
+              item
+              xs={2}
+              sx={{
+                display: "flex",
+                flexDirection: "column-reverse",
+                alignItems: "flex-end",
+              }}
+            >
+              <LockIcon sx={{ color: "white" }} />
+            </Grid>
+            <Grid item xs={8}>
+              <TextField
+                id="password"
+                label="비밀번호"
+                type="password"
+                autoComplete="off"
+                variant="standard"
+                size="small"
+                style={{
+                  marginLeft: "1.0rem",
+                  fontFamily: "Gowun Batang",
+                  color: "#eeee",
+                }}
+                InputProps={{
+                  style: {
                     color: "#eeee",
                     fontSize: "1rem",
-                  }}
-                  InputProps={{
-                    style: {
-                      fontSize: "1rem",
-                      color: "#eeee",
-                      fontFamily: "Gowun Batang",
-                    },
-                  }}
-                  InputLabelProps={{
-                    style: {
-                      fontFamily: "Gowun Batang",
-                      color: "#eeee",
-                      fontSize: "0.9rem",
-                    },
-                  }}
-                  onChange={handleInput}
-                />
-              </Grid>
-              <Grid item xs={2}></Grid>
-            </Grid>
-            {/* 비밀번호 입력 */}
-            <Grid container>
-              <Grid
-                item
-                xs={2}
-                sx={{
-                  display: "flex",
-                  flexDirection: "column-reverse",
-                  alignItems: "flex-end",
+                  },
                 }}
-              >
-                <LockIcon sx={{ color: "white" }} />
-              </Grid>
-              <Grid item xs={8}>
-                <TextField
-                  id="password"
-                  label="비밀번호"
-                  type="password"
-                  autoComplete="off"
-                  variant="standard"
-                  size="small"
-                  style={{
-                    marginLeft: "1.0rem",
+                InputLabelProps={{
+                  style: {
                     fontFamily: "Gowun Batang",
                     color: "#eeee",
-                  }}
-                  InputProps={{
-                    style: {
-                      color: "#eeee",
-                      fontSize: "1rem",
-                    },
-                  }}
-                  InputLabelProps={{
-                    style: {
-                      fontFamily: "Gowun Batang",
-                      color: "#eeee",
-                      fontSize: "0.9rem",
-                    },
-                  }}
-                  onChange={handleInput}
-                />
-              </Grid>
-              <Grid item xs={2}></Grid>
+                    fontSize: "0.9rem",
+                  },
+                }}
+                onChange={handleInput}
+              />
             </Grid>
-            {/* <Grid
+            <Grid item xs={2}></Grid>
+          </Grid>
+          {/* <Grid
               container
               spacing={2}
               sx={{
@@ -244,8 +243,24 @@ const LoginForm = () => {
                 ml: 1,
               }}
             > */}
-            <Grid container>
-              <Grid item xs={6} sx={{ mt: 8 }}>
+          <Grid container>
+            <Grid item xs={6} sx={{ mt: 8 }}>
+              <Button
+                variant="contained"
+                size="small"
+                style={{
+                  minWidth: "100px",
+                  minHeight: "30px",
+                  backgroundColor: "#E2E0A5",
+                  color: "#3A1D1D",
+                }}
+                onClick={handleLogin}
+              >
+                로그인
+              </Button>
+            </Grid>
+            <Grid item xs={6} sx={{ mt: 8 }}>
+              <Link href="/register">
                 <Button
                   variant="contained"
                   size="small"
@@ -255,44 +270,27 @@ const LoginForm = () => {
                     backgroundColor: "#E2E0A5",
                     color: "#3A1D1D",
                   }}
-                  onClick={handleLogin}
                 >
-                  로그인
+                  회원가입
                 </Button>
-              </Grid>
-              <Grid item xs={6} sx={{ mt: 8 }}>
-                <Link href="/register">
-                  <Button
-                    variant="contained"
-                    size="small"
-                    style={{
-                      minWidth: "100px",
-                      minHeight: "30px",
-                      backgroundColor: "#E2E0A5",
-                      color: "#3A1D1D",
-                    }}
-                  >
-                    회원가입
-                  </Button>
-                </Link>
-              </Grid>
+              </Link>
             </Grid>
-            <Grid item xs={12}>
-              <Box component="div">
-                <Button
-                  size="small"
-                  style={{
-                    minWidth: "150px",
-                    minHeight: "30px",
-                    color: "#FCFAEF",
-                    fontSize: 12,
-                    marginTop: "1rem",
-                  }}
-                >
-                  비밀번호 재설정
-                </Button>
-              </Box>
-            </Grid>
+          </Grid>
+          <Grid item xs={12}>
+            <Box component="div">
+              <Button
+                size="small"
+                style={{
+                  minWidth: "150px",
+                  minHeight: "30px",
+                  color: "#FCFAEF",
+                  fontSize: 12,
+                  marginTop: "1rem",
+                }}
+              >
+                비밀번호 재설정
+              </Button>
+            </Box>
           </Grid>
           <ToastContainer />
         </FormControl>

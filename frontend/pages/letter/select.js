@@ -11,6 +11,7 @@ import Header from "../../components/Header";
 import { getFriends } from "../../components/apis/user";
 import { motion, AnimateSharedLayout } from "framer-motion";
 import { authentication } from "../../components/apis/auth";
+import MenuList from "../../components/menu/MenuList";
 export default function select() {
   const { memberId, setMemberId, setReceiverName, setReceiverEmail } =
     useContext(LetterContext);
@@ -72,6 +73,7 @@ export default function select() {
         }}
       >
         <Header handlePrevClick={handlePrevClick} title="수신인 선택" />
+        <MenuList></MenuList>
         <Divider />
 
         {receiver !== "" ? (
