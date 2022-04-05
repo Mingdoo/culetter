@@ -20,23 +20,27 @@ const Content = (props) => {
   const [contentLength, setContentLength] = useState(0);
   const [titleLength, setTitleLength] = useState(0);
   const {
+    setTitle,
+    setContent,
     receiver_name,
     receiver_email,
     title,
     mail_type,
     content,
-    letterId,
+    mailId,
     setMailId,
   } = useContext(LetterContext);
 
-  const { setTitle, setContent } = useContext(LetterContext);
   const { getTempSave } = MailApi;
 
   const handleTempSave = async () => {
     const body = {
+      // receiver_name: "",
       receiver_name: receiver_name,
+      // receiver_email: "",
       receiver_email: receiver_email,
       title: title,
+      // mail_type: "",
       mail_type: mail_type,
       content: content,
       music_url: "",
@@ -50,8 +54,12 @@ const Content = (props) => {
       handwrite_image: "",
     };
     try {
-      const response = await getTempSave(body, letterId === "" ? 0 : letterId);
-      setMailId();
+      console.log(mailId);
+      const response = await getTempSave(
+        body,
+        mailId === "" || undefined ? 0 : mailId
+      );
+      setMailId(response.data.mail_id);
       console.log(response.data.mail_id);
     } catch (error) {
       console.log(error);
@@ -72,6 +80,7 @@ const Content = (props) => {
       case "contents":
         setContentLength(inputLength);
         setContent(`${inputText}`);
+        // setContent(inputText.replace("\n", "\\n").replace("\t", "\\t"));
         break;
     }
     if (
@@ -87,6 +96,9 @@ const Content = (props) => {
   };
 
   useEffect(() => {}, [contentLength]);
+  useEffect(() => {
+    console.log(content);
+  }, [content]);
 
   return (
     <Box sx={{ padding: "0.8rem", fontFamily: "Gowun Dodum" }}>
