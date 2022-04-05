@@ -18,7 +18,13 @@ const Photocard = ({ data, preview, front, back }) => {
   const [isClicked, setIsClicked] = useState(false);
   const [showFront, setShowFront] = useState(false);
   const [showBack, setShowBack] = useState(false);
+  console.log(typeof stickers);
 
+  // if (typeof stickers === string) {
+  //   const stickersPos = JSON.parse(stickers);
+  // } else {
+  //   const stickersPos = stickers;
+  // }
   const stickersPos = JSON.parse(stickers);
   const handleFrontClick = () => {
     setShowFront(true);

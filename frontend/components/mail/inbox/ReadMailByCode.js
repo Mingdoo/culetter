@@ -1,26 +1,38 @@
 import { Box, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { getMail } from "../../apis/letter";
+import { getMailByCode } from "../../apis/letter";
 import MiniPlayer from "../../letter/preview/MiniPlayer";
 import { fonts, colors } from "../../Variables";
 import ReadMailPhotoCard from "./ReadMailPhotoCard";
 import { useRouter } from "next/router";
 
-export default function ReadMail({ selectedMail }) {
+export default function ReadMail() {
   const [data, setData] = useState([]);
+  const [mailCode, setMailCode] = useState([]);
+  const router = useRouter();
 
-  const fetchMail = async (id) => {
+  const fetchMailByCode = async () => {
+    console.log(mailCode);
+    setMailCode(router.query.code);
     try {
-      const res = await getMail(id);
+      const res = await getMailByCode(mailCode);
       setData(res.data);
-    } catch (error) {
-      console.log(error);
+    } catch (e) {
+      console.log(e);
     }
   };
 
   useEffect(() => {
-    fetchMail(selectedMail);
+    console.log("set code");
+    setMailCode(router.query.code);
   }, []);
+
+  useEffect(() => {
+    if (mailCode) {
+      console.log("yes mailcode");
+      fetchMailByCode(mailCode);
+    }
+  }, [mailCode]);
 
   return (
     <>
