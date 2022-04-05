@@ -115,6 +115,8 @@ function edit() {
           maxHeight: "100vh",
           position: "relative",
           bgcolor: "#FCFAEF",
+          overflowX: "hidden",
+          overflowY: "auto",
         }}
       >
         <Header
@@ -122,7 +124,7 @@ function edit() {
           title="스타일 변경"
           handleNextClick={handleNextClick}
         />
-        <Typography sx={{ mb: "1rem", fontFamily: "Gowun Batang" }}>
+        <Typography sx={{ fontFamily: "Gowun Batang" }}>
           글꼴과 글자색을 변경할 수 있습니다
         </Typography>
         {/* 여기부터 편지 */}

@@ -12,7 +12,7 @@ function Header({ handlePrevClick, title, handleNextClick }) {
         direction="row"
         alignItems="center"
         justify="center"
-        sx={{ overflowX: "hidden" }}
+        sx={{ width: 420 }}
       >
         <Grid item xs={3}>
           {handlePrevClick ? (
