@@ -2,11 +2,14 @@ import { Box } from "@mui/material";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-import ReadMail from "../../components/mail/inbox/ReadMail";
+import ReadMail from "../../components/mail/inbox/ReadMailByCode";
 import Header from "../../components/Header";
 export default function ReadCodeMail() {
+  const [code, setCode] = useState();
+  const router = useRouter();
   useEffect(() => {
-    setMailCode(router.query.code);
+    setCode(router.query.code);
+    console.log(router.query.code);
   });
   return (
     <Box
@@ -19,7 +22,7 @@ export default function ReadCodeMail() {
       }}
     >
       <Header title="편지가 왔어요"></Header>
-      <ReadMail code={true}></ReadMail>
+      <ReadMail code={code}></ReadMail>
     </Box>
   );
 }
