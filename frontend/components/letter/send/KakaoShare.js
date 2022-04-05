@@ -2,11 +2,6 @@ import { Box, Button } from "@mui/material";
 import { useEffect } from "react";
 import KakaoIcon from "./KakaoIcon";
 export default function KakaoShare({ title, name }) {
-  useEffect(() => {
-    // 내 js 키 숨기기.
-    Kakao.init(process.env.NEXT_PUBLIC_KAKAO_KEY);
-  }, []);
-
   const sendKakaoMsg = () => {
     Kakao.Link.sendDefault({
       objectType: "feed",

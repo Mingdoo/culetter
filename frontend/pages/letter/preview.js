@@ -107,24 +107,21 @@ export default function Preview() {
       <Box sx={{ mt: "2rem" }}>
         <MiniPlayer musicUrl={musicUrl}></MiniPlayer>
       </Box>
-      <Box
+
+      <Button
+        color="inherit"
+        className="Batang"
         sx={{
+          fontSize: 18,
           display: "flex",
-          justifyContent: "center",
-          position: "absolute",
-          width: 1,
-          bottom: "1.5rem",
+          mt: "1rem",
+          mx: "auto",
+          "&:hover": { bgcolor: "transparent" },
         }}
+        onClick={send}
       >
-        <Button
-          color="inherit"
-          className="Batang"
-          sx={{ fontSize: 18, "&:hover": { bgcolor: "transparent" } }}
-          onClick={send}
-        >
-          편지 전송
-        </Button>
-      </Box>
+        편지 전송
+      </Button>
     </Box>
   );
 }

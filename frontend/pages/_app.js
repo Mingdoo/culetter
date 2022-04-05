@@ -6,6 +6,9 @@ import { DefaultSeo } from "next-seo";
 import { DEFAULT_SEO } from "../components/Variables";
 
 function MyApp({ Component, pageProps }) {
+  useEffect(() => {
+    Kakao.init(process.env.NEXT_PUBLIC_KAKAO_KEY);
+  }, []);
   const [name, setName] = useState("");
   const [receiverName, setReceiverName] = useState("");
   const [receiverEmail, setReceiverEmail] = useState("");
