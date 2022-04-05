@@ -51,8 +51,6 @@ function MyApp({ Component, pageProps }) {
           setImage,
           contentPosition,
           setContentPosition,
-          stickers,
-          setStickers,
           fontOrder,
           setFontOrder,
           fontType,
