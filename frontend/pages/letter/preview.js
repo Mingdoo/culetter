@@ -71,8 +71,9 @@ export default function Preview() {
     try {
       const res = await sendLetter(body);
       setMailCode(res.data);
-      console.log("No JSON", stickersPos);
+      console.log("하기 전", stickersPos);
       console.log(JSON.stringify(stickersPos));
+      console.log("다시", JSON.parse(stringifyStickers));
       // Router.push("/letter/send");
     } catch (e) {
       console.log(e);
