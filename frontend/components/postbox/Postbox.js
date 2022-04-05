@@ -22,7 +22,7 @@ const PostBox = (props) => {
       sx={{
         textAlign: "center",
         backgroundColor: "#FCFAEF",
-        width: 420,
+        width: 330,
         // height: "110vh",
         mx: "auto",
       }}
@@ -63,7 +63,7 @@ const PostBox = (props) => {
         </Box>
         <Box
           component="div"
-          sx={{ position: "absolute", top: 250, backgroundColor: "#FCFAEF" }}
+          sx={{ position: "absolute", top: 300, backgroundColor: "#FCFAEF" }}
         >
           <Box
             component="div"
@@ -110,7 +110,7 @@ const PostBox = (props) => {
                   mt: 3.5,
                   borderColor: "#A63636",
                   position: "absolute",
-                  bottom: "7.8rem",
+                  bottom: "2.8rem",
                   left: "3rem",
                 }}
               >
@@ -153,7 +153,7 @@ const PostBox = (props) => {
             </Box>
           </Box>
           {/* 우체통 다리 */}
-          <Box
+          {/* <Box
             component="div"
             style={legStyle}
             sx={{
@@ -177,7 +177,7 @@ const PostBox = (props) => {
             sx={{
               left: "-1rem",
             }}
-          ></Box>
+          ></Box> */}
           {/* 우체통 다리 끝 */}
         </Box>
       </Box>

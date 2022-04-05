@@ -18,42 +18,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Router from "next/router";
 
-// const useStyles = makeStyles({
-//   root: {
-//     color: "#eeee",
-//     backgroundColor: "",
-//     "&.Mui-focused": {
-//       color: "#eeee",
-//       backgroundColor: "#d3504a",
-//     },
-//     "&:before": {
-//       borderBottomColor: "#eeee",
-//     },
-//     "&:hover:not(.Mui-focused):before": {
-//       borderBottomColor: "#eeee",
-//     },
-//     "&:after": {
-//       // focused
-//       borderBottomColor: "#d3504a",
-//     },
-//   },
-//   input: {
-//     "&::selection": {
-//       backgroundColor: "lightgreen",
-//       color: "#eeee",
-//     },
-//   },
-// });
-// const useLabelStyles = makeStyles({
-//   root: {
-//     color: "#eeee",
-//     "&.Mui-focused": {
-//       color: "#eeee",
-//     },
-//     fontSize: 14,
-//   },
-// });
-
 const LoginForm = () => {
   const { getLogin } = UserApi;
   const [email, setEmail] = useState("");
@@ -268,7 +232,7 @@ const LoginForm = () => {
               />
             </Grid>
             <Grid item xs={2}></Grid>
-            <Grid
+            {/* <Grid
               container
               spacing={2}
               sx={{
@@ -276,8 +240,24 @@ const LoginForm = () => {
                 mt: 5,
                 ml: 1,
               }}
-            >
-              <Grid item xs={6}>
+            > */}
+            <Grid item xs={6} sx={{ mt: 8 }}>
+              <Button
+                variant="contained"
+                size="small"
+                style={{
+                  minWidth: "100px",
+                  minHeight: "30px",
+                  backgroundColor: "#E2E0A5",
+                  color: "#3A1D1D",
+                }}
+                onClick={handleLogin}
+              >
+                로그인
+              </Button>
+            </Grid>
+            <Grid item xs={6} sx={{ mt: 8 }}>
+              <Link href="/register">
                 <Button
                   variant="contained"
                   size="small"
@@ -287,28 +267,12 @@ const LoginForm = () => {
                     backgroundColor: "#E2E0A5",
                     color: "#3A1D1D",
                   }}
-                  onClick={handleLogin}
                 >
-                  로그인
+                  회원가입
                 </Button>
-              </Grid>
-              <Grid item xs={6}>
-                <Link href="/register">
-                  <Button
-                    variant="contained"
-                    size="small"
-                    style={{
-                      minWidth: "100px",
-                      minHeight: "30px",
-                      backgroundColor: "#E2E0A5",
-                      color: "#3A1D1D",
-                    }}
-                  >
-                    회원가입
-                  </Button>
-                </Link>
-              </Grid>
+              </Link>
             </Grid>
+            {/* </Grid> */}
             <Box component="div">
               <Button
                 size="small"

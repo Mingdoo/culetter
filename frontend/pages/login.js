@@ -19,7 +19,7 @@ export default function login() {
         <Typography
           variant="h3"
           gutterBottom
-          sx={{ textAlign: "center", fontFamily: "Arvo", pt: 3, pb: 3 }}
+          sx={{ textAlign: "center", fontFamily: "Arvo", pt: 5, pb: 5 }}
         >
           CU;LETTER
         </Typography>
