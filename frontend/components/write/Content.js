@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import SaveIcon from "@mui/icons-material/Save";
 import { getServerSideSitemapIndex } from "next-sitemap";
+import MailApi from "../apis/MailApi";
 
 const Content = (props) => {
   const { checkTextValid } = props;
@@ -18,10 +19,44 @@ const Content = (props) => {
   // const [content, setContent] = useState("");
   const [contentLength, setContentLength] = useState(0);
   const [titleLength, setTitleLength] = useState(0);
+  const {
+    receiver_name,
+    receiver_email,
+    title,
+    mail_type,
+    content,
+    letterId,
+    setMailId,
+  } = useContext(LetterContext);
 
   const { setTitle, setContent } = useContext(LetterContext);
+  const { getTempSave } = MailApi;
 
-  const handleSave = (event) => {};
+  const handleTempSave = async () => {
+    const body = {
+      receiver_name: receiver_name,
+      receiver_email: receiver_email,
+      title: title,
+      mail_type: mail_type,
+      content: content,
+      music_url: "",
+      image: "",
+      content_position: "",
+      stickers: "",
+      font_order: "",
+      font_type: "",
+      font_color: "",
+      background_color: "",
+      handwrite_image: "",
+    };
+    try {
+      const response = await getTempSave(body, letterId === "" ? 0 : letterId);
+      setMailId();
+      console.log(response.data.mail_id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const checkInput = (event) => {
     const maxTitleLength = 100;
@@ -110,7 +145,7 @@ const Content = (props) => {
         <Box sx={{}}>
           <Button
             sx={{ color: "#000000", fontFamily: "Gowun Dodum" }}
-            onClick={handleSave}
+            onClick={handleTempSave}
           >
             <SaveIcon />
             임시저장

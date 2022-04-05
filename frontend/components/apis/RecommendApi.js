@@ -1,11 +1,11 @@
 import axios from "axios";
 import { BASE_URL } from "./config";
 
-const mailApi = axios.create({
+const recommendApi = axios.create({
   baseURL: `${BASE_URL}`,
 });
 
-mailApi.interceptors.request.use(
+recommendApi.interceptors.request.use(
   function (config) {
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
@@ -19,14 +19,18 @@ mailApi.interceptors.request.use(
   }
 );
 
-const getTempSave = async (body, letterId) => {
-  console.log(body);
-  const result = await mailApi.post(`/mails/tempsave/${letterId}`, body);
+const getEmotion = async (body) => {
+  const result = await recommendApi.post(`/mails/analyze`, body);
+  return result;
+};
+const getRecommendImage = async (body) => {
+  const result = await recommendApi.get(`/mails/style`, body);
   return result;
 };
 
-const MailApi = {
-  getTempSave,
+const RecommendApi = {
+  getEmotion,
+  getRecommendImage,
 };
 
-export default MailApi;
+export default RecommendApi;
