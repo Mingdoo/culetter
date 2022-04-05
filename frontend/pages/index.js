@@ -3,8 +3,6 @@ import { Box, Typography } from "@mui/material";
 import LandingDiv from "../components/landing/LandingDiv";
 import StartButton from "../components/landing/StartButton";
 import Footer from "../components/Footer";
-import { DefaultSeo } from "next-seo";
-import { INDEX_DEFAULT_SEO } from "../components/Variables";
 
 export default function landing() {
   console.log(
@@ -19,7 +17,7 @@ export default function landing() {
   return (
     <>
       <Box sx={{ width: 420, mx: "auto" }}>
-        <Box sx={{ ...landingBoxStyle }}>
+        <Box sx={{ ...landingBoxStyle, minHeight: "100vh" }}>
           <Typography
             variant="h3"
             gutterBottom

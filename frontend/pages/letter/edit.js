@@ -115,6 +115,8 @@ function edit() {
           maxHeight: "100vh",
           position: "relative",
           bgcolor: "#FCFAEF",
+          overflowX: "hidden",
+          overflowY: "auto",
         }}
       >
         <Header
@@ -122,7 +124,7 @@ function edit() {
           title="스타일 변경"
           handleNextClick={handleNextClick}
         />
-        <Typography sx={{ mb: "1rem", fontFamily: "Gowun Batang" }}>
+        <Typography sx={{ fontFamily: "Gowun Batang" }}>
           글꼴과 글자색을 변경할 수 있습니다
         </Typography>
         {/* 여기부터 편지 */}
@@ -140,7 +142,7 @@ function edit() {
         {/* 여기까지 편지 */}
         <Box
           sx={{
-            position: "absolute",
+            position: "fixed",
             bottom: 0,
             width: 420,
             display: "block",
@@ -194,7 +196,7 @@ function edit() {
             direction="row"
             alignItems="center"
             justify="center"
-            sx={{ bgcolor: "#FCFAEF" }}
+            sx={{ bgcolor: "#FCFAEF", width: 420 }}
           >
             <Grid item xs={3}>
               <Box sx={{ mb: "2rem", ml: "1rem", textAlign: "center" }}>

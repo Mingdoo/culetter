@@ -5,7 +5,10 @@ import Link from "next/link";
 export default function StartButton(props) {
   return (
     <Link href="/login" passHref>
-      <Button sx={{ ...ButtonStyle, mx: "auto" }} variant="contained">
+      <Button
+        sx={{ ...ButtonStyle, mx: "auto", mb: "4rem" }}
+        variant="contained"
+      >
         {props.description}
       </Button>
     </Link>
