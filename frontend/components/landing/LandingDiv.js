@@ -25,7 +25,14 @@ export default function LandingDiv(props) {
       </>
     ) : null;
   return (
-    <Box sx={{ ...props.style, bgcolor: props.bgcolor, alignItems: "start" }}>
+    <Box
+      sx={{
+        ...props.style,
+        bgcolor: props.bgcolor,
+        alignItems: "start",
+        minHeight: "100vh",
+      }}
+    >
       <Typography
         variant="h5"
         gutterBottom

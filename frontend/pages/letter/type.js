@@ -3,6 +3,7 @@ import { Box } from "@mui/material";
 import Header from "../../components/Header";
 import Type from "../../components/write/type";
 import Router from "next/router";
+import MenuList from "../../components/menu/MenuList";
 import { authentication } from "../../components/apis/auth";
 const type = (props) => {
   useEffect(() => {
@@ -47,9 +48,11 @@ const type = (props) => {
         height: "100vh",
         mx: "auto",
         bgcolor: "#FCFAEF",
+        position: "relative",
       }}
     >
       <Header handlePrevClick={handlePrevClick} title="형식 선택" />
+      <MenuList></MenuList>
       <Box
         sx={{
           display: "flex",

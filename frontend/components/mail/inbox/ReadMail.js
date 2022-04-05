@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getMail } from "../../apis/letter";
-import MiniPlayer from "../../letter/preview/MiniPlayer";
+import MiniPlayer from "../../letter/preview/miniPlayer";
 import Photocard from "../../letter/preview/Photocard";
 import General from "../../letter/preview/General";
 import PostCard from "../../letter/preview/Postcard";
