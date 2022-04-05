@@ -70,25 +70,45 @@ const LoginForm = () => {
       localStorage.setItem("accessToken", response.headers.authorization);
       localStorage.setItem("name", response.data.name);
       toast.success(
-        <div>
-          로그인 성공🎉
-          <br />
-          메인페이지로 이동합니다
+        <div
+          style={{ width: "100%", display: "flex", justifyContent: "center" }}
+        >
+          <div
+            style={{
+              display: "inline-block",
+              fontFamily: "Gowun Batang",
+            }}
+          >
+            로그인 성공🎉
+          </div>
         </div>,
         {
           position: toast.POSITION.TOP_CENTER,
           role: "alert",
-        },
+        }
       );
       setTimeout(function () {
         Router.push("/main");
-      }, 1000);
+      }, 3000);
     } catch (error) {
-      console.log(error);
-      toast.error(<div>로그인에 실패했습니다😢</div>, {
-        position: toast.POSITION.TOP_CENTER,
-        role: "alert",
-      });
+      toast.error(
+        <div
+          style={{ width: "100%", display: "flex", justifyContent: "center" }}
+        >
+          <div
+            style={{
+              display: "inline-block",
+              fontFamily: "Gowun Batang",
+            }}
+          >
+            로그인에 실패했습니다😢
+          </div>
+        </div>,
+        {
+          position: toast.POSITION.TOP_CENTER,
+          role: "alert",
+        }
+      );
     }
   };
 
@@ -205,7 +225,7 @@ const LoginForm = () => {
             <Grid item xs={2}></Grid>
           </Grid>
           {/* 비밀번호 입력 */}
-          <Grid container>
+          <Grid container sx={{ mt: 2 }}>
             <Grid item xs={10}>
               <TextField
                 id="password"
@@ -269,7 +289,7 @@ const LoginForm = () => {
               }}
             > */}
           <Grid container>
-            <Grid item xs={6} sx={{ mt: 8 }}>
+            <Grid item xs={6} sx={{ mt: 6 }}>
               <Button
                 variant="contained"
                 size="small"
@@ -284,7 +304,7 @@ const LoginForm = () => {
                 로그인
               </Button>
             </Grid>
-            <Grid item xs={6} sx={{ mt: 8 }}>
+            <Grid item xs={6} sx={{ mt: 6 }}>
               <Link href="/register">
                 <Button
                   variant="contained"
