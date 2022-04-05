@@ -1,10 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../styles/globals.css";
 import "../styles/Landing.module.css";
 import LetterContext from "../contexts/LetterContext";
 import { DefaultSeo } from "next-seo";
 import { DEFAULT_SEO } from "../components/Variables";
+import { KAKAO_KEY } from "../components/apis/config";
+
 function MyApp({ Component, pageProps }) {
+  useEffect(() => {
+    console.log(process.env.NEXT_PUBLIC_KAKAO_KEY);
+    // Kakao.init(process.env.NEXT_PUBLIC_KAKAO_KEY);
+  }, []);
   const [name, setName] = useState("");
   const [receiverName, setReceiverName] = useState("");
   const [receiverEmail, setReceiverEmail] = useState("");

@@ -14,14 +14,15 @@ export default function Send() {
   useEffect(() => {
     authentication();
   }, []);
-  const { title, receiverName, mailCode } = useContext(LetterContext);
+  const { title, mailCode } = useContext(LetterContext);
   const [name, setName] = useState("");
   const toHome = () => Router.push("/main");
   const toMailSent = () => Router.push("/mail/sent");
-
+  const receiverName = "Test";
   useEffect(() => {
     setName(localStorage.getItem("name"));
   }, []);
+
   return (
     <Box
       component="div"
@@ -94,7 +95,7 @@ export default function Send() {
           </Box>
         </Box>
         {receiverName ? (
-          <KakaoShare></KakaoShare>
+          <KakaoShare title={title} name={name}></KakaoShare>
         ) : (
           <Box sx={{ mt: 1 }}>
             <LinkShare></LinkShare>

@@ -6,7 +6,7 @@ import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
 import General from "../../components/letter/preview/General";
 import Photocard from "../../components/letter/preview/Photocard";
 
-import MiniPlayer from "../../components/letter/preview/miniPlayer";
+import MiniPlayer from "../../components/letter/preview/MiniPlayer";
 import LetterContext from "../../contexts/LetterContext";
 
 import { sendLetter } from "../../components/apis/letter";
