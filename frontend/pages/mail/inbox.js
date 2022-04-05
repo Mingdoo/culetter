@@ -13,6 +13,7 @@ export default function inbox() {
     authentication();
   }, []);
   const [isPostBox, setIsPostBox] = useState(true);
+  const [isMail, setIsMail] = useState(true);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -29,11 +30,10 @@ export default function inbox() {
           minHeight: "100vh",
         }}
       >
-        {/* 뒤로가기 링크 수정 필요 */}
         {isPostBox ? null : (
           <BackButton
             sx={{ pt: 1 }}
-            setIsPostBox={(e) => setIsPostBox(e)}
+            onClick={isMail ? setIsPostBox : setIsMail}
           ></BackButton>
         )}
         <MenuList></MenuList>
@@ -58,10 +58,14 @@ export default function inbox() {
             isPostBox={isPostBox}
           ></PostboxPage>
         ) : (
-          <MailPage senderId={selectedId}></MailPage>
+          <MailPage
+            senderId={selectedId}
+            isMail={isMail}
+            setIsMail={setIsMail}
+          ></MailPage>
         )}
-        <Footer></Footer>
       </Box>
+      <Footer></Footer>
     </>
   );
 }
