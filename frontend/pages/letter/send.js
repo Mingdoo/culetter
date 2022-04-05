@@ -4,7 +4,7 @@ import Header from "../../components/Header";
 import Router from "next/router";
 import { useContext, useEffect, useState } from "react";
 
-import stamp from "../../public/img/Stamp.PNG";
+import stamp from "../../public/img/stamp.PNG";
 import LinkShare from "../../components/letter/send/LinkShare";
 import KakaoShare from "../../components/letter/send/KakaoShare";
 import Letter from "../../components/main/Letter";
