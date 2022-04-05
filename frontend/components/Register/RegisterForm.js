@@ -205,7 +205,7 @@ const SignupForm = () => {
         {
           position: toast.POSITION.TOP_CENTER,
           role: "alert",
-        },
+        }
       );
       console.log(response);
     } catch (error) {
@@ -252,7 +252,7 @@ const SignupForm = () => {
         {
           position: toast.POSITION.TOP_CENTER,
           role: "alert",
-        },
+        }
       );
       setTimeout(function () {
         Router.push("/login");
@@ -458,11 +458,14 @@ const SignupForm = () => {
           </Grid>
         ) : null}
 
-        <Grid item xs={12}>
-          {/* 비밀번호 입력 */}
+        {/* 비밀번호 입력 */}
+        <Grid item xs={2}>
           <LockIcon
-            sx={{ color: "white", position: "relative", top: 20, left: -17 }}
+            sx={{ color: "white", position: "relative", top: 20, left: 7 }}
+            // sx={{ color: "white", position: "relative", top: 20, left: -17 }}
           />{" "}
+        </Grid>
+        <Grid item xs={7}>
           <TextField
             id="password"
             label="비밀번호"
@@ -470,12 +473,16 @@ const SignupForm = () => {
             autoComplete="off"
             variant="standard"
             size="small"
-            InputProps={{
-              style: {
-                color: "#eeee",
-                fontFamily: "Gowun Batang",
-              },
+            style={{
+              marginLeft: "1.0rem",
+              fontFamily: "Gowun Batang",
+              color: "#eeee",
             }}
+            // InputProps={{
+            //   style: {
+            //     color: "#eeee",
+            //   },
+            // }}
             InputLabelProps={{
               style: {
                 fontFamily: "Gowun Batang",
@@ -486,6 +493,7 @@ const SignupForm = () => {
             onChange={handleInput}
           />
         </Grid>
+        <Grid item xs={3}></Grid>
         <Grid item xs={12}>
           {pwdCheck ? null : (
             <Typography component="p" style={msgStyle}>
@@ -493,11 +501,14 @@ const SignupForm = () => {
             </Typography>
           )}
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={2}>
           {/* 비밀번호 확인 입력 */}
           <LockIcon
-            sx={{ color: "white", position: "relative", top: 20, left: -17 }}
+            // sx={{ color: "white", position: "relative", top: 20, left: -17 }}
+            sx={{ color: "white", position: "relative", top: 20, left: 7 }}
           />{" "}
+        </Grid>
+        <Grid item xs={7}>
           <TextField
             id="passwordCheck"
             label="비밀번호 확인"
@@ -505,10 +516,14 @@ const SignupForm = () => {
             autoComplete="off"
             variant="standard"
             size="small"
+            style={{
+              marginLeft: "1.0rem",
+              fontFamily: "Gowun Batang",
+              color: "#eeee",
+            }}
             InputProps={{
               style: {
                 color: "#eeee",
-                fontFamily: "Gowun Batang",
               },
             }}
             InputLabelProps={{
@@ -528,11 +543,14 @@ const SignupForm = () => {
             </Typography>
           )}
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={2}>
           {/* 이름 입력 */}
           <BadgeIcon
-            sx={{ color: "white", position: "relative", top: 20, left: -19 }}
+            // sx={{ color: "white", position: "relative", top: 20, left: -19 }}
+            sx={{ color: "white", position: "relative", top: 20, left: 9 }}
           />
+        </Grid>
+        <Grid item xs={7}>
           <TextField
             id="name"
             label="이름"
@@ -540,10 +558,14 @@ const SignupForm = () => {
             autoComplete="off"
             variant="standard"
             size="small"
+            style={{
+              marginLeft: "1.0rem",
+              fontFamily: "Gowun Batang",
+              color: "#eeee",
+            }}
             InputProps={{
               style: {
                 color: "#eeee",
-                fontFamily: "Gowun Batang",
               },
             }}
             InputLabelProps={{

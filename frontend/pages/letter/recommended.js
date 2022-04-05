@@ -18,6 +18,8 @@ import CircleIcon from "@mui/icons-material/Circle";
 import CheckCircleTwoToneIcon from "@mui/icons-material/CheckCircleTwoTone";
 import CircleTwoToneIcon from "@mui/icons-material/CircleTwoTone";
 import LetterContext from "../../contexts/LetterContext";
+import RecommendApi from "../../components/apis/RecommendApi";
+import { getRouteMatcher } from "next/dist/shared/lib/router/utils";
 
 const useCheckboxStyles = makeStyles({
   overrides: {
@@ -34,8 +36,9 @@ const useCheckboxStyles = makeStyles({
 
 const Recommended = () => {
   const { mailType, content, title } = useContext(LetterContext);
+  const { getEmotion, getRecommendImage } = RecommendApi;
 
-  // const [type, setType] = useState("photocard");
+  // const [mailType, setType] = useState("photocard");
   // const [type, setType] = useState("normal");
   // const [type, setType] = useState("postcard");
 
@@ -104,10 +107,6 @@ const Recommended = () => {
     console.log(checked);
   }, [checked]);
 
-  useEffect(() => {}, []);
-
-  useEffect(() => {}, [prevImg]);
-
   useEffect(() => {
     authentication();
     const token = localStorage.getItem("accessToken");
@@ -115,9 +114,38 @@ const Recommended = () => {
       setTimeout(() => {
         Router.push("/letter/select");
       }, 3000);
+    } else {
+      console.log("here");
+      handleAnalyze();
     }
     setPrevImg((prev) => "/img/prevImg.png");
   }, []);
+
+  const handleAnalyze = async () => {
+    const body = {
+      content: content,
+    };
+    try {
+      const response = await getEmotion(body);
+      handleStyle(response);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleStyle = async (data) => {
+    const body = {
+      type: "",
+      emotion: "",
+    };
+    try {
+      const response = await getRecommendImage(body);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleNextClick = (e) => {
     e.preventDefault();

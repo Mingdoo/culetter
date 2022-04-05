@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import {
   Box,
   List,
@@ -9,6 +9,7 @@ import {
   ListItemIcon,
   Checkbox,
   Grid,
+  Button,
 } from "@mui/material";
 import Header from "../../components/Header";
 import SkipPreviousSharpIcon from "@mui/icons-material/SkipPreviousSharp";
@@ -22,10 +23,13 @@ import LetterContext from "../../contexts/LetterContext";
 import "react-toastify/dist/ReactToastify.css";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
+import PauseIcon from "@mui/icons-material/Pause";
 import Router from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { authentication } from "../../components/apis/auth";
+import moment from "moment";
+import momentDurationFormatSetup from "moment-duration-format";
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 7,
@@ -43,6 +47,12 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 const music = () => {
   const [title, setTitle] = useState("라일락");
   const [singer, setSinger] = useState("아이유");
+
+  const [playStatus, setPlayStatus] = useState("stop");
+
+  const [currentTime, setCurrentTime] = useState();
+  const [endTime, setEndTime] = useState();
+
   const musicList = [
     { title: "내 맘을 볼 수 있나요", singer: "헤이즈" },
     { title: "라일락", singer: "아이유" },
@@ -60,10 +70,20 @@ const music = () => {
   const [index, setIndex] = useState(0);
   const [checked, setChecked] = useState(musicList[0].title);
   const { setMusicUrl } = useContext(LetterContext);
+  const [progress, setProgress] = useState(0);
 
   const playerIcon = {
     fontSize: "2.3rem",
     margin: "1rem",
+    color: "#333333",
+  };
+
+  const player = useRef();
+
+  const formatDuration = (duration) => {
+    return moment
+      .duration(duration, "seconds")
+      .format("mm:ss", { trim: false });
   };
 
   const handleToggle = (item) => () => {
@@ -80,6 +100,18 @@ const music = () => {
     }
   };
 
+  const handlePreviousMusic = () => {};
+  const handleMusicStart = () => {
+    player.current.play();
+    setPlayStatus("play");
+  };
+  const handleMusicStop = () => {
+    console.log(player.current.currentTime);
+    player.current.pause();
+    setPlayStatus("stop");
+  };
+  const handleNextMusic = () => {};
+
   useEffect(() => {
     authentication();
     let index = Math.floor(Math.random() * 3);
@@ -95,9 +127,23 @@ const music = () => {
   }, [checked]);
 
   useEffect(() => {
+    console.log(playStatus);
+  }, [playStatus]);
+
+  useEffect(() => {
     setTitle(musicList[0].title);
     setSinger(musicList[0].singer);
+    setEndTime(player.current.duration);
   }, []);
+
+  useEffect(() => {
+    setCurrentTime(player.current.currentTime);
+  }, []);
+
+  const handleProgress = () => {
+    setCurrentTime(player.current.currentTime);
+    setProgress((player.current.currentTime / player.current.duration) * 100);
+  };
 
   const handleNextClick = (e) => {
     e.preventDefault();
@@ -119,6 +165,12 @@ const music = () => {
   const handlePrevClick = (e) => {
     e.preventDefault();
     Router.push("/letter/recommended");
+  };
+
+  const timeStyle = {
+    fontFamily: "Gowun Batang",
+    fontSize: "0.9rem",
+    fontWeight: "bold",
   };
 
   return (
@@ -159,6 +211,7 @@ const music = () => {
           {singer}
         </Typography>
         <Box
+          className={"lp " + (playStatus === "play" ? "lpRotate" : null)}
           sx={{
             position: "relative",
             display: "flex",
@@ -174,7 +227,6 @@ const music = () => {
             src={lpImgList[index]}
             style={{
               borderRadius: "50%",
-              animation: "rotate_image 5s linear infinite",
               transformOrigin: " 50% 50%",
             }}
           ></img>
@@ -207,14 +259,46 @@ const music = () => {
           </Box>
         </Box>
       </Box>
-      <Box sx={{ display: "flex", justifyContent: "center", mt: "1.3rem" }}>
-        <BorderLinearProgress variant="determinate" value={50} sx={{}} />
+
+      <audio
+        src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3"
+        // controls
+        ref={player}
+        // onPause={handleMusicStop}
+        // onPlay={handleMusicStart}
+        onTimeUpdate={handleProgress}
+      ></audio>
+
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          mt: "1.3rem",
+          justifyContent: "space-evenly",
+          alignItems: "center",
+        }}
+      >
+        <Typography style={timeStyle}>{formatDuration(currentTime)}</Typography>
+        <BorderLinearProgress variant="determinate" value={progress} sx={{}} />
+        <Typography style={timeStyle}>{formatDuration(endTime)}</Typography>
       </Box>
 
       <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <SkipPreviousSharpIcon style={playerIcon} />
-        <PlayCircleFilledSharpIcon style={playerIcon} />
-        <SkipNextSharpIcon style={playerIcon} />
+        <Button onClick={handlePreviousMusic}>
+          <SkipPreviousSharpIcon style={playerIcon} />
+        </Button>
+        {playStatus === "stop" ? (
+          <Button onClick={handleMusicStart}>
+            <PlayCircleFilledSharpIcon style={playerIcon} />
+          </Button>
+        ) : (
+          <Button onClick={handleMusicStop}>
+            <PauseIcon style={playerIcon} />
+          </Button>
+        )}
+        <Button onClick={handleNextMusic}>
+          <SkipNextSharpIcon style={playerIcon} />
+        </Button>
       </Box>
       <Typography
         sx={{
