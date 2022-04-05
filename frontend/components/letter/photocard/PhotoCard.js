@@ -125,7 +125,7 @@ function PhotoCard({ props }) {
           width: 420,
           display: "flex",
           flexDirection: "column",
-
+          overflowX: "hidden",
           // justifyContent: "start",
           // alignItems: "center",
         }}
@@ -144,6 +144,7 @@ function PhotoCard({ props }) {
             borderRadius: "2rem",
             bgcolor: colors[backgroundColor],
             position: "relative",
+            overflowX: "hidden",
           }}
         >
           <Draggable
