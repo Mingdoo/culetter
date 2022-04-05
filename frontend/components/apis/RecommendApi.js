@@ -20,6 +20,7 @@ recommendApi.interceptors.request.use(
 );
 
 const getEmotion = async (body) => {
+  console.log(body);
   const result = await recommendApi.post(`/mails/analyze`, body);
   return result;
 };
