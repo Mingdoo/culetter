@@ -536,6 +536,7 @@ const SignupForm = () => {
             onChange={handleInput}
           />
         </Grid>
+        <Grid item xs={3}></Grid>
         <Grid item xs={12}>
           {confirmPwdCheck ? null : (
             <Typography component="p" style={msgStyle}>
@@ -579,6 +580,7 @@ const SignupForm = () => {
             onChange={handleInput}
           />
         </Grid>
+        <Grid item xs={3}></Grid>
         <Grid item xs={12}>
           {nameCheck ? null : (
             <Typography component="p" style={msgStyle}>
