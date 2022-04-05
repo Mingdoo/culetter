@@ -24,11 +24,11 @@ class CuletterApplicationTests {
 
 	@Test
 	void fileServiceTest() {
-		List<FileDto.FileInfoWithEmotion> fileInfoWithEmotionList = fileService
-				.getFileInfoWithEmotionListByType("music","happy");
-		for (FileDto.FileInfoWithEmotion f:fileInfoWithEmotionList) {
-			System.out.println(f.getFileName()+" "+f.getFilePath()+" "+f.getUrl()+" "+f.getEmotion());
-		}
+//		List<FileDto.FileInfoWithEmotion> fileInfoWithEmotionList = fileService
+//				.getFileInfoWithEmotionListByType("music","happy");
+//		for (FileDto.FileInfoWithEmotion f:fileInfoWithEmotionList) {
+//			System.out.println(f.getFileName()+" "+f.getFilePath()+" "+f.getUrl()+" "+f.getEmotion());
+//		}
 	}
 
 }

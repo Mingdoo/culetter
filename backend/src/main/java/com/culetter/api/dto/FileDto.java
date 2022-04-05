@@ -14,14 +14,14 @@ public class FileDto {
         private String url;
     }
 
-    @Getter
-    public static class FileInfoWithEmotion extends FileInfo {
-        private final String emotion;
-
-        public FileInfoWithEmotion(String fileName, String filePath, String url, String emotion) {
-            super(fileName, filePath, url);
-            this.emotion = emotion;
-        }
-    }
+//    @Getter
+//    public static class FileInfoWithEmotion extends FileInfo {
+//        private final String emotion;
+//
+//        public FileInfoWithEmotion(String fileName, String filePath, String url, String emotion) {
+//            super(fileName, filePath, url);
+//            this.emotion = emotion;
+//        }
+//    }
 
 }
