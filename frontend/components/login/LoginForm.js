@@ -192,6 +192,7 @@ const LoginForm = () => {
                 type="email"
                 autoComplete="off"
                 autoFocus
+                color="success"
                 variant="standard"
                 size="small"
                 style={{
@@ -236,6 +237,7 @@ const LoginForm = () => {
                 type={showPassword ? "text" : "password"}
                 autoComplete="off"
                 variant="standard"
+                color="success"
                 size="small"
                 style={{
                   marginLeft: "2.5rem",
