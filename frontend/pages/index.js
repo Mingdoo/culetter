@@ -17,7 +17,7 @@ export default function landing() {
   return (
     <>
       <Box sx={{ width: 420, mx: "auto" }}>
-        <Box sx={{ ...landingBoxStyle }}>
+        <Box sx={{ ...landingBoxStyle, minHeight: "100vh" }}>
           <Typography
             variant="h3"
             gutterBottom
