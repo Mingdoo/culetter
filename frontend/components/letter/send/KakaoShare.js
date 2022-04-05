@@ -4,8 +4,7 @@ import KakaoIcon from "./KakaoIcon";
 export default function KakaoShare({ title, name }) {
   useEffect(() => {
     // 내 js 키 숨기기.
-    Kakao.init("3a6df59af8e42ef7045cfd0b2303169c");
-    console.log(process.env.NEXT_PUBLIC_KAKAO_KEY);
+    Kakao.init(process.env.NEXT_PUBLIC_KAKAO_KEY);
   }, []);
 
   const sendKakaoMsg = () => {
