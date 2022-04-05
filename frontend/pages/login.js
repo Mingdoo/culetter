@@ -13,7 +13,7 @@ export default function login() {
           width: 420,
           height: "110vh",
           backgroundColor: "#FCFAEF",
-          display: "flex",
+          mx: "auto",
         }}
       >
         <Typography

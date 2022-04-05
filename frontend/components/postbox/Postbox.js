@@ -23,6 +23,7 @@ const PostBox = (props) => {
         textAlign: "center",
         backgroundColor: "#FCFAEF",
         width: 330,
+        mx: "auto",
       }}
     >
       <Box
