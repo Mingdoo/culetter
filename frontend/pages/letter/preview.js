@@ -4,7 +4,7 @@ import { useRef, useState, useContext, useEffect } from "react";
 import Header from "../../components/Header";
 import General from "../../components/letter/preview/General";
 import Photocard from "../../components/letter/preview/Photocard";
-import MiniPlayer from "../../components/letter/preview/miniPlayer";
+import MiniPlayer from "../../components/letter/preview/MiniPlayer";
 import LetterContext from "../../contexts/LetterContext";
 import PostCard from "../../components/letter/preview/Postcard";
 import MenuList from "../../components/menu/MenuList";
@@ -41,7 +41,7 @@ export default function Preview() {
   useEffect(() => {
     authentication();
     setStyleUrl(
-      "https://culetter.s3.ap-northeast-2.amazonaws.com/profile_image/06946054-b2af-4607-b19d-e615e2838e28-1649084959518"
+      "https://culetter.s3.ap-northeast-2.amazonaws.com/profile_image/06946054-b2af-4607-b19d-e615e2838e28-1649084959518",
     );
   }, []);
 
