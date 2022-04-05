@@ -35,6 +35,8 @@ function General({ props }) {
             fontWeight: props.bold ? "bold" : "normal",
           }}
         >
+          {props.title}
+          <br />
           {props.text}
         </Typography>
       </Box>

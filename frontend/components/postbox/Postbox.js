@@ -13,7 +13,7 @@ const PostBox = (props) => {
         textAlign: "center",
         backgroundColor: "#FCFAEF",
         width: 420,
-        height: "110vh",
+        // height: "110vh",
         mx: "auto",
       }}
     >
@@ -51,7 +51,10 @@ const PostBox = (props) => {
             {title}
           </Typography>
         </Box>
-        <Box component="div" sx={{ position: "absolute", top: 250 }}>
+        <Box
+          component="div"
+          sx={{ position: "absolute", top: 250, backgroundColor: "#FCFAEF" }}
+        >
           <Box
             component="div"
             sx={{

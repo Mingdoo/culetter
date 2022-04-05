@@ -1,17 +1,19 @@
 import { Box, Typography } from "@mui/material";
 import PasswordCheck from "../components/profile/PasswordCheck";
 import MyPage from "../components/profile/MyPage";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import Router from "next/router";
-
+import { authentication } from "../components/apis/auth";
 export default function Profile() {
   const [pwConfirm, setPwConfirm] = useState(true);
   const handlePrevClick = (e) => {
     e.preventDefault();
     Router.back();
   };
-
+  useEffect(() => {
+    authentication();
+  }, []);
   return (
     <Box sx={{ width: 420, mx: "auto" }}>
       <Box

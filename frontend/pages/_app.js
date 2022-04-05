@@ -15,50 +15,70 @@ function MyApp({ Component, pageProps }) {
   const [musicUrl, setMusicUrl] = useState("");
   const [image, setImage] = useState("");
   const [contentPosition, setContentPosition] = useState("");
-  const [stickers, setStickers] = useState({});
+  const [stickersPos, setStickersPos] = useState({});
   const [fontOrder, setFontOrder] = useState("");
   const [fontType, setFontType] = useState("");
   const [fontColor, setFontColor] = useState("");
   const [memberId, setMemberId] = useState("");
-
+  const [mailId, setMailId] = useState("");
+  const [bgcolor, setBgcolor] = useState(1);
+  const [fontsize, setFontsize] = useState(20);
+  const [isFontBold, setIsFontBold] = useState();
+  const [underlineColor, setUnderlineColor] = useState(0);
+  const [mailCode, setMailCode] = useState("");
   return (
-    <LetterContext.Provider
-      value={{
-        name,
-        setName,
-        receiverName,
-        setReceiverName,
-        receiverEmail,
-        setReceiverEmail,
-        title,
-        setTitle,
-        mailType,
-        setMailType,
-        styleUrl,
-        setStyleUrl,
-        content,
-        setContent,
-        musicUrl,
-        setMusicUrl,
-        image,
-        setImage,
-        contentPosition,
-        setContentPosition,
-        stickers,
-        setStickers,
-        fontOrder,
-        setFontOrder,
-        fontType,
-        setFontType,
-        fontColor,
-        setFontColor,
-        memberId,
-        setMemberId,
-      }}
-    >
-      <Component {...pageProps} />
-      <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-    </LetterContext.Provider>
+    <>
+      <DefaultSeo {...DEFAULT_SEO} />
+      <LetterContext.Provider
+        value={{
+          name,
+          setName,
+          receiverName,
+          setReceiverName,
+          receiverEmail,
+          setReceiverEmail,
+          title,
+          setTitle,
+          mailType,
+          setMailType,
+          styleUrl,
+          setStyleUrl,
+          content,
+          setContent,
+          musicUrl,
+          setMusicUrl,
+          image,
+          setImage,
+          contentPosition,
+          setContentPosition,
+          fontOrder,
+          setFontOrder,
+          fontType,
+          setFontType,
+          fontColor,
+          setFontColor,
+          memberId,
+          setMemberId,
+          mailId,
+          setMailId,
+          stickersPos,
+          setStickersPos,
+          bgcolor,
+          setBgcolor,
+          fontsize,
+          setFontsize,
+          isFontBold,
+          setIsFontBold,
+          underlineColor,
+          setUnderlineColor,
+          mailCode,
+          setMailCode,
+        }}
+      >
+        <Component {...pageProps} />
+        <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+      </LetterContext.Provider>
+    </>
   );
 }
 

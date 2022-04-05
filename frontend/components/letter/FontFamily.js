@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useContext } from "react";
 import { Box, IconButton, Typography } from "@mui/material";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import LetterContext from "../../contexts/LetterContext";
 
 function FontFamily({
   setBold,
@@ -19,6 +20,7 @@ function FontFamily({
     variableWidth: true,
     swipeToSlide: true,
   };
+  const { setIsFontBold } = useContext(LetterContext);
   return (
     <Box
       sx={{
@@ -55,6 +57,7 @@ function FontFamily({
             key={idx}
             onClick={() => {
               setBold(false);
+              setIsFontBold(false);
               setClickedFont(idx);
             }}
           >

@@ -1,22 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { Box } from "@mui/material";
 import Header from "../../components/Header";
 import Type from "../../components/write/type";
 import Router from "next/router";
-
+import { authentication } from "../../components/apis/auth";
 const type = (props) => {
+  useEffect(() => {
+    authentication();
+  }, []);
   const { describe, detail } = props;
   const source = [
     {
       text: "포토 카드",
       describe: "사진과 글을 \n" + "앞 뒷면으로 \n" + "나누어 보내보세요",
-      imgsrc: "/img/photocardImg.png",
+      imgsrc: "/img/photocardImg.PNG",
       href: "photocard",
     },
     {
       text: "일반 편지",
       describe: "글로  \n" + "당신의 마음을 \n" + "표현해보세요",
-      imgsrc: "/img/normalImg.png",
+      imgsrc: "/img/normalImg.PNG",
       href: "normal",
     },
     {

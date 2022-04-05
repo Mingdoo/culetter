@@ -6,7 +6,7 @@ import PWCheckField from "../components/profile/PWCheckField";
 import ConfirmBtn from "../components/profile/ConfirmBtn";
 import { ToastContainer, toast } from "react-toastify";
 import { changePw } from "../components/apis/profile";
-
+import { authentication } from "../components/apis/auth";
 export default function password() {
   const [pwInput, setPwInput] = useState(null);
   const [pwCheck, setPwCheck] = useState(true);
@@ -23,6 +23,10 @@ export default function password() {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    authentication();
+  }, []);
 
   useEffect(() => {
     console.log("test");

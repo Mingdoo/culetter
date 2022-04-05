@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Typography } from "@mui/material";
 
 import MenuList from "../../components/menu/MenuList";
@@ -6,9 +6,14 @@ import Footer from "../../components/Footer";
 import BackButton from "../../components/mail/inbox/BackButton";
 import MailPage from "../../components/mail/inbox/MailPage";
 import PostboxPage from "../../components/mail/inbox/PostboxPage";
+import { authentication } from "../../components/apis/auth";
 
 export default function inbox() {
+  useEffect(() => {
+    authentication();
+  }, []);
   const [isPostBox, setIsPostBox] = useState(true);
+  const [isMail, setIsMail] = useState(true);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -25,11 +30,10 @@ export default function inbox() {
           minHeight: "100vh",
         }}
       >
-        {/* 뒤로가기 링크 수정 필요 */}
         {isPostBox ? null : (
           <BackButton
             sx={{ pt: 1 }}
-            setIsPostBox={(e) => setIsPostBox(e)}
+            onClick={isMail ? setIsPostBox : setIsMail}
           ></BackButton>
         )}
         <MenuList></MenuList>
@@ -54,10 +58,14 @@ export default function inbox() {
             isPostBox={isPostBox}
           ></PostboxPage>
         ) : (
-          <MailPage senderId={selectedId}></MailPage>
+          <MailPage
+            senderId={selectedId}
+            isMail={isMail}
+            setIsMail={setIsMail}
+          ></MailPage>
         )}
-        <Footer></Footer>
       </Box>
+      <Footer></Footer>
     </>
   );
 }

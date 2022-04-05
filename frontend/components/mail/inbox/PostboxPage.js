@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { Box, Grid } from "@mui/material";
 // import mailsRecvAPI from "../../apis/mailbox";
-import MailBox from "./Postbox";
+import Postbox from "./Postbox";
 import SearchBox from "../../user/SearchBox";
 import { getRecvMails } from "../../apis/mailbox";
 export default function PostboxPage({
@@ -10,7 +10,7 @@ export default function PostboxPage({
   setSelectedId,
 }) {
   // 무한 스크롤 보여주는 데이터 자르는 용도. 한 페이지 당 8개
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   // 통신으로 받은 모든 데이터
   const [data, setData] = useState([]);
   // 보여주는 데이터 (스크롤)
@@ -22,63 +22,18 @@ export default function PostboxPage({
 
   const loader = useRef(null);
 
-  const tempData = [
-    { hasNew: true, name: "홍길동", mailsNum: 2, senderId: 1 },
-    { hasNew: true, name: "홍길동", mailsNum: 2, senderId: 11 },
-    { hasNew: false, name: "홍길동", mailsNum: 2, senderId: 12 },
-    { hasNew: true, name: "홍길동", mailsNum: 2, senderId: 13 },
-    { hasNew: true, name: "홍길동", mailsNum: 2 },
-    { hasNew: false, name: "홍길동", mailsNum: 1 },
-    { hasNew: false, name: "홍길동", mailsNum: 2 },
-    { hasNew: false, name: "홍길동", mailsNum: 3 },
-    { hasNew: true, name: "홍길동", mailsNum: 4 },
-    { hasNew: true, name: "홍길동", mailsNum: 5 },
-    { hasNew: true, name: "고길동", mailsNum: 2 },
-    { hasNew: true, name: "고길동", mailsNum: 2 },
-    { hasNew: false, name: "고길동", mailsNum: 2 },
-    { hasNew: true, name: "고길동", mailsNum: 2 },
-    { hasNew: true, name: "고길동", mailsNum: 2 },
-    { hasNew: false, name: "고길동", mailsNum: 1 },
-    { hasNew: false, name: "고길동", mailsNum: 2 },
-    { hasNew: false, name: "고길동", mailsNum: 3 },
-    { hasNew: true, name: "고길동", mailsNum: 4 },
-    { hasNew: true, name: "고길동", mailsNum: 5 },
-    { hasNew: true, name: "마지막", mailsNum: 5 },
-  ];
-
   const fetchMails = async () => {
     try {
-      const res = getRecvMails();
-      console.log(res);
+      const res = await getRecvMails();
+      setData(res.data.result);
+      setMails(res.data.result.slice(0, 8));
     } catch (error) {
       console.log(error);
-    } finally {
-      //   setLoading(false);
-      setData(tempData);
-      setPage((prev) => prev + 1);
     }
-    // try {
-    //   // setError(false);
-    //   setMails(null);
-    //   setLoading(true);
-    //   // const res = await axios.get(`${SERVER_URL}/recv`, {
-    //   //   headers: { Authorization: `Bearer ${token}` },
-    //   // });
-    //   // setData(res.data);
-    // } catch (e) {
-    //   console.log(e);
-    //   // setError(e);
-    // } finally {
-    //   setLoading(false);
-    //   setData(tempData);
-    //   setPage((prev) => prev + 1);
-    // }
   };
 
   useEffect(() => {
     fetchMails();
-    // setData(tempData);
-    // setPage((prev) => prev + 1);
   }, []);
 
   const handleObserver = useCallback(
@@ -92,6 +47,7 @@ export default function PostboxPage({
   );
 
   useEffect(() => {
+    console.log("[handleObserver]");
     const option = {
       root: null,
       rootMargin: "20px",
@@ -101,7 +57,6 @@ export default function PostboxPage({
     if (loader.current) observer.observe(loader.current);
   }, [handleObserver]);
 
-  // 처음 로딩에도
   useEffect(() => {
     setMails(data.slice(0, page * 8));
   }, [page]);
@@ -115,40 +70,39 @@ export default function PostboxPage({
           width={225}
           onChange={(e) => setSearchMemberName(e)}
           inbox={true}
-          searchMemberName={searchMemberName}
         />
       </Box>
-
-      <Grid container sx={{ width: 1, pt: 5, minHeight: "87vh" }}>
-        {!searchMemberName
-          ? mails.map(({ name, hasNew, mailsNum, senderId }, index) => (
-              <Grid item xs={6} key={index} sx={{ height: 188 }}>
-                <MailBox
-                  hasNew={hasNew}
-                  name={name}
-                  senderId={senderId}
-                  mailsNum={mailsNum}
-                  setSelectedId={(e) => setSelectedId(e)}
-                  setIsPostBox={(e) => setIsPostBox(e)}
-                ></MailBox>
-              </Grid>
-            ))
-          : data
-              .filter((obj) => {
-                return obj.name.includes(searchMemberName);
-              })
-              .map(({ name, hasNew, mailsNum, senderId }, index) => (
-                <Grid item xs={6} key={index}>
-                  <MailBox
-                    hasNew={hasNew}
+      <Box sx={{ minHeight: "87vh", px: 2 }}>
+        <Grid container sx={{ width: 1, pt: 5 }}>
+          {!searchMemberName
+            ? mails.map(({ name, count, sender_id }) => (
+                <Grid item xs={6} key={sender_id} sx={{ height: 188 }}>
+                  <Postbox
                     name={name}
-                    id={index}
-                    senderId={senderId}
-                    mailsNum={mailsNum}
-                  ></MailBox>
+                    senderId={sender_id}
+                    count={count}
+                    setSelectedId={(e) => setSelectedId(e)}
+                    setIsPostBox={(e) => setIsPostBox(e)}
+                  ></Postbox>
                 </Grid>
-              ))}
-      </Grid>
+              ))
+            : data
+                .filter((obj) => {
+                  return obj.name.includes(searchMemberName);
+                })
+                .map(({ name, count, sender_id }) => (
+                  <Grid item xs={6} key={sender_id}>
+                    <Postbox
+                      name={name}
+                      senderId={sender_id}
+                      count={count}
+                      setSelectedId={(e) => setSelectedId(e)}
+                      setIsPostBox={(e) => setIsPostBox(e)}
+                    ></Postbox>
+                  </Grid>
+                ))}
+        </Grid>
+      </Box>
       {searchMemberName === "" ? (
         <Box ref={loader} sx={{ height: 10 }}></Box>
       ) : (

@@ -2,23 +2,26 @@ import { Box, Typography, Button, Grid } from "@mui/material";
 import LetterContext from "../../contexts/LetterContext";
 import Header from "../../components/Header";
 import Router from "next/router";
+import { useContext, useEffect, useState } from "react";
 
+import stamp from "../../public/img/Stamp.PNG";
 import LinkShare from "../../components/letter/send/LinkShare";
 import KakaoShare from "../../components/letter/send/KakaoShare";
+import Letter from "../../components/main/Letter";
+import { authentication } from "../../components/apis/auth";
 export default function Send() {
-  // memberId가 있으면 카카오톡으로 알리기 아니면 링크 공유
-  // const { memberId, setMemberId } = useContext(ContentsContext);
-  const memberId = "temp";
-
-  const toHome = () => Router.push("/");
+  // receiverName 있으면 카카오톡으로 알리기 아니면 링크 공유
+  useEffect(() => {
+    authentication();
+  }, []);
+  const { title, receiverName, mailCode } = useContext(LetterContext);
+  const [name, setName] = useState("");
+  const toHome = () => Router.push("/main");
   const toMailSent = () => Router.push("/mail/sent");
 
-  const shareData = {
-    title: "test",
-    text: "test",
-    url: "document.location.href",
-  };
-
+  useEffect(() => {
+    setName(localStorage.getItem("name"));
+  }, []);
   return (
     <Box
       component="div"
@@ -30,19 +33,70 @@ export default function Send() {
         bgcolor: "#FCFAEF",
       }}
     >
-      <Header title="전송"></Header>
-      <Box sx={{ textAlign: "center", fontFamily: "Gowun Batang" }}>
+      <Header title="편지 전송"></Header>
+      <Box
+        sx={{
+          textAlign: "center",
+          fontFamily: "Gowun Batang",
+        }}
+      >
+        {/* 이미 전송한 후인덴 전송할 준비를 끝냈다고? */}
         편지를 전달할 준비를 마쳤습니다.<br></br>공유를 통해 다른 사람에게
         편지를 전달해주세요!
       </Box>
-      {/* 가운데 위치시키는 방법은?? */}
-      <Box component="div" sx={{ mt: "7rem" }}>
-        {/* 편지 봉투 디자인 좀 바꾸자.... */}
-        {/* 아이디가 있다면 카톡 공유 */}
-        {memberId ? (
+      <Box component="div" sx={{ mt: "5rem" }}>
+        <Box>
+          <Box sx={{ position: "relative" }}>
+            <Letter index={4}></Letter>
+            <Box
+              component="img"
+              src={stamp.src}
+              sx={{ width: "60px", position: "absolute", right: 65, top: 20 }}
+            ></Box>
+
+            <Typography
+              sx={{
+                width: "230px",
+                textOverflow: "ellipsis",
+                overflow: "hidden",
+                whiteSpace: "nowrap",
+                position: "absolute",
+                top: 70,
+                left: 70,
+                fontSize: 16,
+                fontFamily: "Gowun Batang",
+              }}
+            >
+              {title}
+            </Typography>
+            <Typography
+              sx={{
+                position: "absolute",
+                top: 40,
+                left: 70,
+                fontSize: 13,
+                fontFamily: "Gowun Batang",
+              }}
+            >
+              to. <strong>{receiverName}</strong>
+            </Typography>
+            <Typography
+              sx={{
+                position: "absolute",
+                bottom: 30,
+                right: 70,
+                fontSize: 13,
+                fontFamily: "Gowun Batang",
+              }}
+            >
+              from. <strong>{name}</strong>
+            </Typography>
+          </Box>
+        </Box>
+        {receiverName ? (
           <KakaoShare></KakaoShare>
         ) : (
-          <Box>
+          <Box sx={{ mt: 1 }}>
             <LinkShare></LinkShare>
           </Box>
         )}
@@ -65,14 +119,7 @@ export default function Send() {
             justifyContent: "center",
           }}
         >
-          <Button
-            sx={{
-              fontFamily: "Gowun Batang",
-              fontSize: 18,
-              color: "black",
-            }}
-            onClick={toMailSent}
-          >
+          <Button sx={{ ...ButtonStyle }} onClick={toMailSent}>
             보낸 편지
           </Button>
         </Grid>
@@ -85,10 +132,7 @@ export default function Send() {
             justifyContent: "center",
           }}
         >
-          <Button
-            sx={{ fontFamily: "Gowun Batang", fontSize: 18, color: "black" }}
-            onClick={toHome}
-          >
+          <Button sx={{ ...ButtonStyle }} onClick={toHome}>
             홈으로
           </Button>
         </Grid>
@@ -96,3 +140,12 @@ export default function Send() {
     </Box>
   );
 }
+
+const ButtonStyle = {
+  fontFamily: "Gowun Batang",
+  fontSize: 18,
+  color: "black",
+  "&:hover": {
+    backgroundColor: "transparent",
+  },
+};

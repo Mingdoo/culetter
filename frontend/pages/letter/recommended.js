@@ -9,7 +9,7 @@ import { Box, Checkbox, Grid, Typography } from "@mui/material";
 import Router from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { authentication } from "../../components/apis/auth";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
@@ -18,6 +18,8 @@ import CircleIcon from "@mui/icons-material/Circle";
 import CheckCircleTwoToneIcon from "@mui/icons-material/CheckCircleTwoTone";
 import CircleTwoToneIcon from "@mui/icons-material/CircleTwoTone";
 import LetterContext from "../../contexts/LetterContext";
+import RecommendApi from "../../components/apis/RecommendApi";
+import { getRouteMatcher } from "next/dist/shared/lib/router/utils";
 
 const useCheckboxStyles = makeStyles({
   overrides: {
@@ -34,8 +36,9 @@ const useCheckboxStyles = makeStyles({
 
 const Recommended = () => {
   const { mailType, content, title } = useContext(LetterContext);
+  const { getEmotion, getRecommendImage } = RecommendApi;
 
-  // const [type, setType] = useState("photocard");
+  // const [mailType, setType] = useState("photocard");
   // const [type, setType] = useState("normal");
   // const [type, setType] = useState("postcard");
 
@@ -105,18 +108,44 @@ const Recommended = () => {
   }, [checked]);
 
   useEffect(() => {
-    setPrevImg("/img/prevImg.png");
-  }, []);
-
-  useEffect(() => {}, [prevImg]);
-
-  useEffect(() => {
-    if (mailType == "") {
+    authentication();
+    const token = localStorage.getItem("accessToken");
+    if (token && mailType == "") {
       setTimeout(() => {
         Router.push("/letter/select");
       }, 3000);
+    } else {
+      console.log("here");
+      handleAnalyze();
     }
+    setPrevImg((prev) => "/img/prevImg.png");
   }, []);
+
+  const handleAnalyze = async () => {
+    const body = {
+      content: content,
+    };
+    try {
+      const response = await getEmotion(body);
+      handleStyle(response);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleStyle = async (data) => {
+    const body = {
+      type: "",
+      emotion: "",
+    };
+    try {
+      const response = await getRecommendImage(body);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleNextClick = (e) => {
     e.preventDefault();

@@ -29,12 +29,13 @@ export const getUserInfo = async () => {
   return await usersApi.get();
 };
 
-export const editUserInfo = async (name, profileImage) => {
-  console.log("api", name, profileImage);
-  return await axios.put(`https://www.culetter.site/api/members`, {
-    info: { name: name },
-    profileImage: profileImage,
-  });
+export const editUserInfo = async (body) => {
+  return await axios.put('https://www.culetter.site/api/members',body, {
+    headers: {
+      "Content-Type": 'multipart/form-data',
+      "Authorization": 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzMiIsImF1dGgiOiJST0xFXzEiLCJleHAiOjE2NDkxNjY1NjZ9.47GLkHNoZUVNYb504TNiOkcePgOsMB4CyyCcO5byGsNNrHyX2X67oiG7jjxtQSC2bnwSUn0EHba8Mmh8p3z-ZA'
+    }
+  })
 };
 
 export const changePw = async (password) => {

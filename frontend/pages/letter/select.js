@@ -10,9 +10,10 @@ import ReceiverButton from "../../components/letter/receiverButton";
 import Header from "../../components/Header";
 import { getFriends } from "../../components/apis/user";
 import { motion, AnimateSharedLayout } from "framer-motion";
-
+import { authentication } from "../../components/apis/auth";
 export default function select() {
-  const { memberId, setMemberId } = useContext(LetterContext);
+  const { memberId, setMemberId, setReceiverName, setReceiverEmail } =
+    useContext(LetterContext);
   const [searchId, setSearchId] = useState("");
   const [filterFavorite, setFilterFavorite] = useState(false);
   const [receiver, setReceiver] = useState("");
@@ -25,7 +26,9 @@ export default function select() {
 
   const handleSubmitMemberId = (e, obj) => {
     e.preventDefault();
-    setMemberId(obj.memberId);
+    setMemberId(obj.member_id);
+    setReceiverName(obj.name);
+    setReceiverEmail(obj.email);
     Router.push("/letter/type");
   };
 
@@ -39,9 +42,16 @@ export default function select() {
   };
 
   useEffect(() => {
-    getFriends().then((res) => {
-      setUserFriends(res.data.friends);
-    });
+    authentication();
+    const token = localStorage.getItem("accessToken");
+    {
+      token &&
+        getFriends()
+          .then((res) => {
+            setUserFriends(res.data.friends);
+          })
+          .catch((err) => console.log(err));
+    }
   }, []);
 
   return (

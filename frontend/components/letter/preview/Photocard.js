@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import LetterContext from "../../../contexts/LetterContext";
 import { Box, Typography } from "@mui/material";
-
+import { colors, fonts } from "../../Variables";
+import { emojis } from "../photocard/PhotoCard";
 const Photocard = (props) => {
   const { front, back, content } = props;
+  const { bgcolor, stickersPos, fontsize, fontType, fontColor, isFontBold } =
+    useContext(LetterContext);
   //something changed
   const [isClicked, setIsClicked] = useState(false);
   const [showFront, setShowFront] = useState(false);
@@ -18,10 +22,19 @@ const Photocard = (props) => {
     setIsClicked(false);
   };
 
+  const width = props.preview ? 300 : 250;
+  const height = props.preview ? 480 : 400;
+
   return (
     <Box
       className="card"
-      sx={{ width: "275px", height: "440px", mt: "2rem", position: "relative" }}
+      sx={{
+        width: width,
+        height: height,
+        mt: "2rem",
+        position: "relative",
+        my: "1rem",
+      }}
     >
       <Box
         component="div"
@@ -31,8 +44,8 @@ const Photocard = (props) => {
         onClick={handleFrontClick}
       >
         <img
-          width="275px"
-          height="440px"
+          width={width}
+          height={height}
           src={front}
           style={{ borderRadius: "2rem" }}
         ></img>
@@ -40,36 +53,56 @@ const Photocard = (props) => {
       <Box
         component="div"
         className={"back face " + (isClicked && showBack ? "rotateBack" : null)}
+        onClick={handleBackClick}
+        sx={{
+          bgcolor: colors[bgcolor],
+          width: 300,
+          height: 480,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          alignSelf: "center",
+          borderRadius: "2rem",
+          position: "relative",
+        }}
       >
-        <img
-          className="image"
-          width="275px"
-          height="440px"
-          src={back}
-          style={{ borderRadius: "2rem" }}
-          onClick={handleBackClick}
-        ></img>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            position: "absolute",
-            top: "0",
-            margin: "1rem",
-            mt: "2rem",
-          }}
-        >
-          <Typography
-            className="innerText Dodum"
-            sx={{
-              textAlign: "center",
-              fontSize: "1rem",
-              whiteSpace: "pre-wrap",
-            }}
-          >
-            {content}
-          </Typography>
-        </Box>
+        {stickersPos.map((Sticker) =>
+          Sticker.type !== "sticker" ? (
+            <Typography
+              sx={{
+                display: "inline",
+                position: "absolute",
+                transform: `translate(${-1 * Sticker.position.x}px, ${
+                  Sticker.position.y
+                }px) rotateY(-180deg)`,
+                fontSize: fontsize,
+                fontFamily: fonts[fontType].fontfamily,
+                color: colors[fontColor],
+                whiteSpace: "pre-line",
+                fontWeight: isFontBold ? "bold" : "normal",
+              }}
+            >
+              {Sticker.content}
+            </Typography>
+          ) : (
+            <Box
+              sx={{
+                position: "absolute",
+              }}
+            >
+              <Sticker.content.icon
+                sx={{
+                  color: Sticker.content.color,
+                  transform: `translate(${-1 * Sticker.position.x}px, ${
+                    Sticker.position.y
+                  }px) rotateY(-180deg)`,
+                }}
+                fontSize="large"
+              />
+            </Box>
+          )
+        )}
       </Box>
     </Box>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Box, IconButton } from "@mui/material";
 
 import FormatAlignJustifyIcon from "@mui/icons-material/FormatAlignJustify";
@@ -6,6 +6,8 @@ import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
 import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
 import FormatAlignRightIcon from "@mui/icons-material/FormatAlignRight";
 import FormatBoldIcon from "@mui/icons-material/FormatBold";
+import LetterContext from "../../contexts/LetterContext";
+
 function Alignment({
   isAlignmentOpen,
   setAlignment,
@@ -13,6 +15,7 @@ function Alignment({
   bold,
   alignment,
 }) {
+  const { isFontBold, setIsFontBold } = useContext(LetterContext);
   return (
     <Box
       sx={{
@@ -44,7 +47,12 @@ function Alignment({
           sx={{ color: alignment === "right" ? "#000000" : "default" }}
         />
       </IconButton>
-      <IconButton onClick={(e) => setBold(!bold)}>
+      <IconButton
+        onClick={(e) => {
+          setBold(!bold);
+          setIsFontBold(!isFontBold);
+        }}
+      >
         <FormatBoldIcon sx={{ color: bold ? "#000000" : "default" }} />
       </IconButton>
     </Box>
