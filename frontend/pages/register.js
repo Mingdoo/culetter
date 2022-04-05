@@ -12,7 +12,7 @@ const Regist = () => {
         backgroundColor: "#FCFAEF",
       }}
     >
-      <Postbox title="SIGN UP" size="10"></Postbox>;
+      <Postbox title="SIGN UP" size="10"></Postbox>
     </Box>
   );
 };
