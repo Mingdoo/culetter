@@ -6,6 +6,16 @@ import { Box, Typography } from "@mui/material";
 
 const PostBox = (props) => {
   const { title, size } = props;
+
+  const legStyle = {
+    position: "relative",
+    width: 100,
+    height: 50,
+    display: "inline-block",
+    backgroundColor: "#d3504a",
+    borderColor: "#d3504a",
+    borderRadius: "1rem",
+  };
   return (
     <Box
       component="div"
@@ -145,17 +155,8 @@ const PostBox = (props) => {
           {/* 우체통 다리 */}
           <Box
             component="div"
+            style={legStyle}
             sx={{
-              position: "relative",
-              width: 120,
-              display: "inline-block",
-              backgroundColor: "#d3504a",
-              borderLeft: 70,
-              borderBottom: 60,
-              borderBottomColor: "#d3504a",
-              borderRight: 0,
-              borderLeftColor: "#d3504a",
-              borderRadius: "1rem",
               right: "-1rem",
             }}
           ></Box>
@@ -172,17 +173,8 @@ const PostBox = (props) => {
           ></Box>
           <Box
             component="div"
+            style={legStyle}
             sx={{
-              position: "relative",
-              width: 120,
-              display: "inline-block",
-              backgroundColor: "#d3504a",
-              borderLeft: 0,
-              borderBottom: 60,
-              borderBottomColor: "#d3504a",
-              borderRight: 70,
-              borderRightColor: "#d3504a",
-              borderRadius: "1rem",
               left: "-1rem",
             }}
           ></Box>
