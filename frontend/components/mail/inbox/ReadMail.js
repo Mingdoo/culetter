@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getMail } from "../../apis/letter";
-import MiniPlayer from "../../letter/preview/MiniPlayer";
+import Player from "../../letter/preview/Player";
 import { fonts, colors } from "../../Variables";
 import ReadMailPhotoCard from "./ReadMailPhotoCard";
 import { useRouter } from "next/router";
@@ -141,7 +141,7 @@ export default function ReadMail({ selectedMail }) {
         )}
       </Box>
       <Box sx={{ mt: "2rem" }}>
-        <MiniPlayer musicUrl={data.music_url}></MiniPlayer>
+        <Player musicUrl={data.music_url}></Player>
       </Box>
     </>
   );

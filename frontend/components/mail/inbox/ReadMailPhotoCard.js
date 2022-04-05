@@ -3,7 +3,7 @@ import LetterContext from "../../../contexts/LetterContext";
 import { Box, Typography } from "@mui/material";
 import { colors, fonts } from "../../Variables";
 import { emojis } from "../../letter/photocard/PhotoCard";
-const Photocard = ({ data, preview, front, back }) => {
+export default function ReadMailPhotocard({ data, preview, front, back }) {
   const {
     background_color,
     content,
@@ -20,11 +20,6 @@ const Photocard = ({ data, preview, front, back }) => {
   const [showBack, setShowBack] = useState(false);
   console.log(typeof stickers);
 
-  // if (typeof stickers === string) {
-  //   const stickersPos = JSON.parse(stickers);
-  // } else {
-  //   const stickersPos = stickers;
-  // }
   const stickersPos = JSON.parse(stickers);
   const handleFrontClick = () => {
     setShowFront(true);
@@ -81,45 +76,44 @@ const Photocard = ({ data, preview, front, back }) => {
           position: "relative",
         }}
       >
-        {stickersPos.map((Sticker) =>
-          Sticker.type !== "sticker" ? (
-            <Typography
-              sx={{
-                display: "inline",
-                position: "absolute",
-                transform: `translate(${-1 * Sticker.position.x}px, ${
-                  Sticker.position.y
-                }px) rotateY(-180deg)`,
-                fontSize: 11,
-                fontFamily: fonts[parseInt(font_type)].fontfamily,
-                color: colors[font_color],
-                whiteSpace: "pre-line",
-                // fontWeight: isFontBold ? "bold" : "normal",
-              }}
-            >
-              {Sticker.content}
-            </Typography>
-          ) : (
-            <Box
-              sx={{
-                position: "absolute",
-              }}
-            >
-              <Sticker.content.icon
+        {stickersPos &&
+          stickersPos.map((Sticker) =>
+            Sticker.type !== "sticker" ? (
+              <Typography
                 sx={{
-                  color: Sticker.content.color,
+                  display: "inline",
+                  position: "absolute",
                   transform: `translate(${-1 * Sticker.position.x}px, ${
                     Sticker.position.y
                   }px) rotateY(-180deg)`,
+                  fontSize: 11,
+                  fontFamily: fonts[parseInt(font_type)].fontfamily,
+                  color: colors[font_color],
+                  whiteSpace: "pre-line",
+                  // fontWeight: isFontBold ? "bold" : "normal",
                 }}
-                fontSize="large"
-              />
-            </Box>
-          )
-        )}
+              >
+                {Sticker.content}
+              </Typography>
+            ) : (
+              <Box
+                sx={{
+                  position: "absolute",
+                }}
+              >
+                <Sticker.content.icon
+                  sx={{
+                    color: Sticker.content.color,
+                    transform: `translate(${-1 * Sticker.position.x}px, ${
+                      Sticker.position.y
+                    }px) rotateY(-180deg)`,
+                  }}
+                  fontSize="large"
+                />
+              </Box>
+            )
+          )}
       </Box>
     </Box>
   );
-};
-
-export default Photocard;
+}
