@@ -12,29 +12,43 @@ import {
   Link,
   Box,
   Typography,
+  InputAdornment,
+  IconButton,
 } from "@mui/material";
 import UserApi from "../apis/UserApi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Router from "next/router";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const LoginForm = () => {
   const { getLogin } = UserApi;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [accessToken, setAccessToken] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const [input, setInput] = useState({
     email: "",
     password: "",
   });
 
-  const handleInput = (e) => {
-    const { id, value } = e.target;
-    setInput({
-      ...input,
-      [id]: value,
-    });
+  const handleInput = (value, data) => {
+    console.log(value, data);
+
+    if (data === "email") {
+      const newInputData = {
+        email: value,
+        password: input.password,
+      };
+      setInput(newInputData);
+    } else {
+      const newInputData = {
+        email: input.email,
+        password: value,
+      };
+      setInput(newInputData);
+    }
   };
 
   const handleLogin = (e) => {
@@ -66,7 +80,7 @@ const LoginForm = () => {
         {
           position: toast.POSITION.TOP_CENTER,
           role: "alert",
-        }
+        },
       );
       setTimeout(function () {
         Router.push("/main");
@@ -85,6 +99,10 @@ const LoginForm = () => {
       setAccessToken(true);
     }
   }, []);
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const textStyle = {
     fontFamily: "Gowun Batang",
@@ -145,18 +163,7 @@ const LoginForm = () => {
         >
           {/* 이메일 입력 */}
           <Grid container>
-            <Grid
-              item
-              xs={2}
-              sx={{
-                display: "flex",
-                flexDirection: "column-reverse",
-                alignItems: "flex-end",
-              }}
-            >
-              <AccountCircleIcon sx={{ color: "white" }} />
-            </Grid>
-            <Grid item xs={8}>
+            <Grid item xs={10}>
               <TextField
                 id="email"
                 label="이메일"
@@ -166,12 +173,17 @@ const LoginForm = () => {
                 variant="standard"
                 size="small"
                 style={{
-                  marginLeft: "1.0rem",
+                  marginLeft: "2.5rem",
                   fontFamily: "Gowun Batang",
                   color: "#eeee",
                   fontSize: "1rem",
                 }}
                 InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <AccountCircleIcon sx={{ color: "white" }} />
+                    </InputAdornment>
+                  ),
                   style: {
                     fontSize: "1rem",
                     color: "#eeee",
@@ -185,41 +197,48 @@ const LoginForm = () => {
                     fontSize: "0.9rem",
                   },
                 }}
-                onChange={handleInput}
+                onChange={(e) => handleInput(e.target.value, "email")}
               />
             </Grid>
             <Grid item xs={2}></Grid>
           </Grid>
           {/* 비밀번호 입력 */}
           <Grid container>
-            <Grid
-              item
-              xs={2}
-              sx={{
-                display: "flex",
-                flexDirection: "column-reverse",
-                alignItems: "flex-end",
-              }}
-            >
-              <LockIcon sx={{ color: "white" }} />
-            </Grid>
-            <Grid item xs={8}>
+            <Grid item xs={10}>
               <TextField
                 id="password"
                 label="비밀번호"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 autoComplete="off"
                 variant="standard"
                 size="small"
                 style={{
-                  marginLeft: "1.0rem",
+                  marginLeft: "2.5rem",
                   fontFamily: "Gowun Batang",
                   color: "#eeee",
+                  fontSize: "1rem",
                 }}
                 InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <LockIcon sx={{ color: "white" }} />
+                    </InputAdornment>
+                  ),
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton onClick={handleClickShowPassword}>
+                        {showPassword ? (
+                          <VisibilityOff sx={{ color: "white" }} />
+                        ) : (
+                          <Visibility sx={{ color: "white" }} />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
                   style: {
-                    color: "#eeee",
                     fontSize: "1rem",
+                    color: "#eeee",
+                    fontFamily: "Gowun Batang",
                   },
                 }}
                 InputLabelProps={{
@@ -229,7 +248,7 @@ const LoginForm = () => {
                     fontSize: "0.9rem",
                   },
                 }}
-                onChange={handleInput}
+                onChange={(e) => handleInput(e.target.value, "password")}
               />
             </Grid>
             <Grid item xs={2}></Grid>
