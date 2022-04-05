@@ -104,30 +104,14 @@ public class MailServiceImpl implements MailService {
     // TODO
     @Override
     public List<String> styleRecommendation(Map<String,String> style) {
-        memberService.getMemberByAuthentication();
 
-        List<FileDto.FileInfoWithEmotion> recommends = fileService.getFileInfoWithEmotionListByType(style.get("type"),style.get("emotion"));
-        List<String> styleList = new ArrayList<>();
-
-        for(FileDto.FileInfoWithEmotion r : recommends) {
-            styleList.add(r.getUrl());
-        }
-
-        return styleList;
+        return null;
     }
 
     @Override
     public List<String> musicRecommendation(Map<String,String> music) {
-        memberService.getMemberByAuthentication();
 
-        List<FileDto.FileInfoWithEmotion> recommends = fileService.getFileInfoWithEmotionListByType(music.get("type"),music.get("emotion"));
-        List<String> musicList = new ArrayList<>();
-
-        for(FileDto.FileInfoWithEmotion r : recommends) {
-            musicList.add(r.getUrl());
-        }
-
-        return musicList;
+        return null;
     }
 
     @Override
