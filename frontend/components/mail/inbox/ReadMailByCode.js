@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { useEffect, useState, useContext } from "react";
 import ReactCardFlip from "react-card-flip";
+import StarRoundedIcon from "@mui/icons-material/StarRounded";
 
 import { getMailByCode } from "../../apis/letter";
 import Player from "../../letter/preview/Player";
@@ -34,6 +35,19 @@ export default function ReadMailByCode({ code }) {
       console.log(error);
     }
   };
+
+  function renderElement(Sticker) {
+    const Emoji = Emojis[Sticker.content.idx];
+    return (
+      <Emoji.icon
+        sx={{
+          color: Sticker.content.color,
+          transform: `translate(${Sticker.position.x}px, ${Sticker.position.y}px)`,
+        }}
+        fontSize="large"
+      />
+    );
+  }
 
   const test = async () => {
     try {
@@ -110,7 +124,7 @@ export default function ReadMailByCode({ code }) {
                     </Typography>
                   ) : (
                     <Box sx={{ position: "absolute" }}>
-                      {/* <Emojis></Emojis> */}
+                      {renderElement(Sticker)}
                     </Box>
                   )
                 )}
