@@ -153,8 +153,17 @@ const music = () => {
       Router.push("/letter/edit");
     } else {
       toast.error(
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          노래를 선택해주세요🎧
+        <div
+          style={{ width: "100%", display: "flex", justifyContent: "center" }}
+        >
+          <div
+            style={{
+              display: "inline-block",
+              fontFamily: "Gowun Batang",
+            }}
+          >
+            노래를 선택해주세요🎧
+          </div>
         </div>,
         {
           position: toast.POSITION.TOP_CENTER,
@@ -357,14 +366,23 @@ const music = () => {
                       <ListItemText
                         id={index}
                         primary={item.title}
-                        primaryTypographyProps={{ className: "Dodum" }}
+                        primaryTypographyProps={{
+                          style: {
+                            fontFamily: "Gowun Batang",
+                          },
+                        }}
+                        sx={{ fontFamily: "Gowun Batang" }}
                       />
                     </Grid>
                     <Grid item xs={4}>
                       <ListItemText
                         id={index}
                         primary={item.singer}
-                        primaryTypographyProps={{ className: "Dodum" }}
+                        primaryTypographyProps={{
+                          style: {
+                            fontFamily: "Gowun Batang",
+                          },
+                        }}
                       />
                     </Grid>
                   </Grid>

@@ -89,7 +89,7 @@ const LoginForm = () => {
       );
       setTimeout(function () {
         Router.push("/main");
-      }, 3000);
+      }, 2000);
     } catch (error) {
       toast.error(
         <div
