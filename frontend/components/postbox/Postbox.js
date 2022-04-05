@@ -146,14 +146,17 @@ const PostBox = (props) => {
           <Box
             component="div"
             sx={{
-              width: 70,
+              position: "relative",
+              width: 120,
               display: "inline-block",
               backgroundColor: "#d3504a",
               borderLeft: 70,
               borderBottom: 60,
               borderBottomColor: "#d3504a",
               borderRight: 0,
-              borderLeftColor: "#FCFAEF",
+              borderLeftColor: "#d3504a",
+              borderRadius: "1rem",
+              right: "-1rem",
             }}
           ></Box>
           <Box
@@ -170,14 +173,17 @@ const PostBox = (props) => {
           <Box
             component="div"
             sx={{
-              width: 70,
+              position: "relative",
+              width: 120,
               display: "inline-block",
               backgroundColor: "#d3504a",
               borderLeft: 0,
               borderBottom: 60,
               borderBottomColor: "#d3504a",
               borderRight: 70,
-              borderRightColor: "#FCFAEF",
+              borderRightColor: "#d3504a",
+              borderRadius: "1rem",
+              left: "-1rem",
             }}
           ></Box>
           {/* 우체통 다리 끝 */}
