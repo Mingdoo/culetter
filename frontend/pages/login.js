@@ -12,8 +12,8 @@ export default function login() {
         sx={{
           width: 420,
           height: "110vh",
-          mx: "auto",
           backgroundColor: "#FCFAEF",
+          display: "flex",
         }}
       >
         <Typography

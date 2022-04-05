@@ -3,8 +3,6 @@ import { Box, Typography } from "@mui/material";
 import LandingDiv from "../components/landing/LandingDiv";
 import StartButton from "../components/landing/StartButton";
 import Footer from "../components/Footer";
-import { DefaultSeo } from "next-seo";
-import { INDEX_DEFAULT_SEO } from "../components/Variables";
 
 export default function landing() {
   console.log(
@@ -13,7 +11,7 @@ export default function landing() {
       | |   | | | | (_) | |   |  _|   | |   | | |  _| | |_) |\n\
       | |___| |_| |  _  | |___| |___  | |   | | | |___|  _ < \n\
        \\____|____/  ( ) |_____|_____| |_|   |_| |_____|_| \\_\\\n\
-                    |/",
+                    |/"
   );
 
   return (
