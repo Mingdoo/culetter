@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Typography } from "@mui/material";
 
 import MenuList from "../../components/menu/MenuList";
@@ -6,8 +6,12 @@ import Footer from "../../components/Footer";
 import BackButton from "../../components/mail/inbox/BackButton";
 import MailPage from "../../components/mail/inbox/MailPage";
 import PostboxPage from "../../components/mail/inbox/PostboxPage";
+import { authentication } from "../../components/apis/auth";
 
 export default function inbox() {
+  useEffect(() => {
+    authentication();
+  }, []);
   const [isPostBox, setIsPostBox] = useState(true);
   const [isMail, setIsMail] = useState(true);
 

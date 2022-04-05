@@ -108,7 +108,7 @@ const LoginForm = () => {
         Router.push("/main");
       }, 1000);
     } catch (error) {
-      const status = error.response.status;
+      console.log(error);
       toast.error(<div>로그인에 실패했습니다😢</div>, {
         position: toast.POSITION.TOP_CENTER,
         role: "alert",
@@ -179,13 +179,21 @@ const LoginForm = () => {
           sx={{ mt: 5 }}
           // onSubmit={handleSubmit}
         >
-          <Grid container spacing={2}>
+          <Grid container spacing={1}>
             {/* 이메일 입력 */}
-            <Grid item xs={12}>
-              {/* <PersonIcon sx={{ color: "white" }}></PersonIcon> */}
-              <AccountCircleIcon
-                sx={{ color: "white", position: "absolute", top: 15, left: 15 }}
-              />
+            {/* <Grid item xs={1}></Grid> */}
+            <Grid
+              item
+              xs={2}
+              sx={{
+                display: "flex",
+                flexDirection: "column-reverse",
+                alignItems: "flex-end",
+              }}
+            >
+              <AccountCircleIcon sx={{ color: "white" }} />
+            </Grid>
+            <Grid item xs={8}>
               <TextField
                 id="email"
                 label="이메일"
@@ -194,8 +202,15 @@ const LoginForm = () => {
                 autoFocus
                 variant="standard"
                 size="small"
+                style={{
+                  marginLeft: "1.0rem",
+                  fontFamily: "Gowun Batang",
+                  color: "#eeee",
+                  fontSize: "1rem",
+                }}
                 InputProps={{
                   style: {
+                    fontSize: "1rem",
                     color: "#eeee",
                     fontFamily: "Gowun Batang",
                   },
@@ -210,11 +225,20 @@ const LoginForm = () => {
                 onChange={handleInput}
               />
             </Grid>
+            <Grid item xs={2}></Grid>
             {/* 비밀번호 입력 */}
-            <Grid item xs={12}>
-              <LockIcon
-                sx={{ color: "white", position: "absolute", top: 75, left: 15 }}
-              />
+            <Grid
+              item
+              xs={2}
+              sx={{
+                display: "flex",
+                flexDirection: "column-reverse",
+                alignItems: "flex-end",
+              }}
+            >
+              <LockIcon sx={{ color: "white" }} />
+            </Grid>
+            <Grid item xs={8}>
               <TextField
                 id="password"
                 label="비밀번호"
@@ -222,10 +246,15 @@ const LoginForm = () => {
                 autoComplete="off"
                 variant="standard"
                 size="small"
+                style={{
+                  marginLeft: "1.0rem",
+                  fontFamily: "Gowun Batang",
+                  color: "#eeee",
+                }}
                 InputProps={{
                   style: {
                     color: "#eeee",
-                    fontFamily: "Gowun Batang",
+                    fontSize: "1rem",
                   },
                 }}
                 InputLabelProps={{
@@ -238,6 +267,7 @@ const LoginForm = () => {
                 onChange={handleInput}
               />
             </Grid>
+            <Grid item xs={2}></Grid>
             <Grid
               container
               spacing={2}

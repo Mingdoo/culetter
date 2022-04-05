@@ -20,6 +20,7 @@ function MyApp({ Component, pageProps }) {
   const [fontType, setFontType] = useState("");
   const [fontColor, setFontColor] = useState("");
   const [memberId, setMemberId] = useState("");
+  const [mailId, setMailId] = useState("");
   const [bgcolor, setBgcolor] = useState(1);
   const [fontsize, setFontsize] = useState(20);
   const [isFontBold, setIsFontBold] = useState();
@@ -50,8 +51,6 @@ function MyApp({ Component, pageProps }) {
           setImage,
           contentPosition,
           setContentPosition,
-          stickersPos,
-          setStickersPos,
           fontOrder,
           setFontOrder,
           fontType,
@@ -60,6 +59,10 @@ function MyApp({ Component, pageProps }) {
           setFontColor,
           memberId,
           setMemberId,
+          mailId,
+          setMailId,
+          stickersPos,
+          setStickersPos,
           bgcolor,
           setBgcolor,
           fontsize,

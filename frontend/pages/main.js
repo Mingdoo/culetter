@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MenuList from "../components/menu/MenuList";
 import { Box, Typography } from "@mui/material";
 import Letter from "../components/main/Letter";
 import Footer from "../components/Footer";
-
+import { authentication } from "../components/apis/auth";
 export default function Main() {
+  useEffect(() => {
+    authentication();
+  }, []);
   return (
     <>
       <Box>

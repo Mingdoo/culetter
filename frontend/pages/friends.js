@@ -12,7 +12,7 @@ import {
   getFriends,
   searchUsers,
 } from "../components/apis/user";
-
+import { authentication } from "../../components/apis/auth";
 function friends() {
   const [incomingFriends, setIncomingFriends] = useState([]);
   const [userFriends, setUserFriends] = useState([]);
@@ -23,6 +23,7 @@ function friends() {
   const [addOpen, setAddOpen] = useState(false);
 
   useEffect(() => {
+    authentication();
     lookUpRequest()
       .then((res) => {
         setIncomingFriends(res.data.requests);

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Box } from "@mui/material";
 import LetterContext from "../../contexts/LetterContext";
 const link = ["photocard", "normal", "postcard"];
-const type = (props) => {
+const Type = (props) => {
   const { text, index, describe, imgsrc } = props;
   const { setMailType } = useContext(LetterContext);
 
@@ -72,4 +72,4 @@ const type = (props) => {
   );
 };
 
-export default type;
+export default Type;

@@ -6,7 +6,7 @@ import Router from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LetterContext from "../../contexts/LetterContext";
-
+import { authentication } from "../../components/apis/auth";
 const writeLetter = () => {
   const [textValid, setTextValid] = useState(false);
   const { mailType } = useContext(LetterContext);
@@ -35,6 +35,7 @@ const writeLetter = () => {
 
   useEffect(() => {
     console.log(mailType);
+    authentication();
   }, []);
 
   return (

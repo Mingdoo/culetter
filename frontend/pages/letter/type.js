@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { Box } from "@mui/material";
 import Header from "../../components/Header";
-import Type from "../../components/write/type";
+import Type from "../../components/write/Type";
 import Router from "next/router";
-
+import { authentication } from "../../components/apis/auth";
 const type = (props) => {
+  useEffect(() => {
+    authentication();
+  }, []);
   const { describe, detail } = props;
   const source = [
     {

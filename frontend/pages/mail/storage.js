@@ -4,7 +4,7 @@ import MenuList from "../../components/menu/MenuList";
 import Letter from "../../components/main/Letter";
 import Photocard from "../../components/mail/inbox/Photocard";
 import { getUndoneMail } from "../../components/apis/mailbox";
-
+import { authentication } from "../../components/apis/auth";
 export default function Storage() {
   const [loading, setLoading] = useState(false);
   const [mails, setMails] = useState([]);
@@ -19,8 +19,9 @@ export default function Storage() {
   };
 
   useEffect(() => {
+    authentication();
     fetch();
-  });
+  }, []);
 
   useEffect(() => {
     setMails([
