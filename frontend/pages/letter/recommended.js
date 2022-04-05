@@ -9,7 +9,7 @@ import { Box, Checkbox, Grid, Typography } from "@mui/material";
 import Router from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { authentication } from "../../components/apis/auth";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
@@ -104,18 +104,19 @@ const Recommended = () => {
     console.log(checked);
   }, [checked]);
 
-  useEffect(() => {
-    setPrevImg("/img/prevImg.png");
-  }, []);
+  useEffect(() => {}, []);
 
   useEffect(() => {}, [prevImg]);
 
   useEffect(() => {
-    if (mailType == "") {
+    authentication();
+    const token = localStorage.getItem("accessToken");
+    if (token && mailType == "") {
       setTimeout(() => {
         Router.push("/letter/select");
       }, 3000);
     }
+    setPrevImg((prev) => "/img/prevImg.png");
   }, []);
 
   const handleNextClick = (e) => {

@@ -1,6 +1,6 @@
 import { Box, Typography, Grid } from "@mui/material";
 import { React, useEffect, useState } from "react";
-
+import { authentication } from "../../components/apis/auth";
 import MenuList from "../../components/menu/MenuList";
 import Footer from "../../components/Footer";
 import SearchBox from "../../components/user/SearchBox";
@@ -80,8 +80,9 @@ export default function mailSent() {
   };
 
   useEffect(() => {
+    authentication();
     fetch();
-  });
+  }, []);
 
   return (
     <Box sx={{ width: 420, mx: "auto" }}>

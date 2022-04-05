@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Box, Typography, Button, Grid } from "@mui/material";
 import LetterContext from "../../contexts/LetterContext";
 import Header from "../../components/Header";
@@ -5,7 +6,11 @@ import Router from "next/router";
 
 import LinkShare from "../../components/letter/send/LinkShare";
 import KakaoShare from "../../components/letter/send/KakaoShare";
+import { authentication } from "../../components/apis/auth";
 export default function Send() {
+  useEffect(() => {
+    authentication();
+  }, []);
   // memberId가 있으면 카카오톡으로 알리기 아니면 링크 공유
   // const { memberId, setMemberId } = useContext(ContentsContext);
   const memberId = "temp";

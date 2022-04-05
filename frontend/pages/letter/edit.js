@@ -10,7 +10,7 @@ import FontSize from "../../components/letter/FontSize";
 import Letter from "../../components/letter/Letter";
 import { colors, fonts } from "../../components/Variables";
 import LetterContext from "../../contexts/LetterContext";
-
+import { authentication } from "../../components/apis/auth";
 function edit() {
   const [isColorOpen, setIsColorOpen] = useState(false);
   const [isFontFamilyOpen, setIsFontFamilyOpen] = useState(false);
@@ -39,6 +39,7 @@ function edit() {
     setFontColor(0);
     setFontsize(20);
     setIsFontBold(false);
+    authentication();
   }, []);
   useEffect(() => {
     setShowDots(

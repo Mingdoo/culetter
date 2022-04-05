@@ -12,6 +12,7 @@ import LetterContext from "../../contexts/LetterContext";
 
 import { sendLetter } from "../../components/apis/letter";
 import PostCard from "../../components/letter/preview/Postcard";
+import { authentication } from "../../components/apis/auth";
 
 export default function Preview() {
   const {
@@ -37,25 +38,7 @@ export default function Preview() {
   const body = {};
 
   useEffect(() => {
-    console.log(
-      memberId,
-      receiverName,
-      receiverEmail,
-      title,
-      mailType,
-      styleUrl,
-      content,
-      musicUrl,
-      image,
-      contentPosition,
-      stickersPos,
-      bgcolor,
-      fontOrder,
-      fontType,
-      fontColor,
-      setIsFontBold,
-      underlineColor,
-    );
+    authentication();
   }, []);
   const send = async () => {
     try {

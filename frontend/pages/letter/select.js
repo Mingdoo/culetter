@@ -10,7 +10,7 @@ import ReceiverButton from "../../components/letter/receiverButton";
 import Header from "../../components/Header";
 import { getFriends } from "../../components/apis/user";
 import { motion, AnimateSharedLayout } from "framer-motion";
-
+import { authentication } from "../../components/apis/auth";
 export default function select() {
   const { memberId, setMemberId, setReceiverName, setReceiverEmail } =
     useContext(LetterContext);
@@ -42,9 +42,16 @@ export default function select() {
   };
 
   useEffect(() => {
-    getFriends().then((res) => {
-      setUserFriends(res.data.friends);
-    });
+    authentication();
+    const token = localStorage.getItem("accessToken");
+    {
+      token &&
+        getFriends()
+          .then((res) => {
+            setUserFriends(res.data.friends);
+          })
+          .catch((err) => console.log(err));
+    }
   }, []);
 
   return (

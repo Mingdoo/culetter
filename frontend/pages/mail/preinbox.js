@@ -6,7 +6,7 @@ import MenuList from "../../components/menu/MenuList";
 import MailBox from "../../components/mail/inbox/MailBox";
 import SearchBox from "../../components/user/SearchBox";
 import Footer from "../../components/Footer";
-
+import { authentication } from "../../components/apis/auth";
 const SERVER_URL = "https://j6a201.p.ssafy.io:3000";
 const token = "temp";
 
@@ -69,6 +69,7 @@ export default function inbox() {
   });
 
   useEffect(() => {
+    authentication();
     fetchMails();
     // setData(tempData);
     // setPage((prev) => prev + 1);

@@ -25,6 +25,7 @@ import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import Router from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { authentication } from "../../components/apis/auth";
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 7,
@@ -80,6 +81,7 @@ const music = () => {
   };
 
   useEffect(() => {
+    authentication();
     let index = Math.floor(Math.random() * 3);
     setIndex(index);
   }, []);
@@ -109,7 +111,7 @@ const music = () => {
         {
           position: toast.POSITION.TOP_CENTER,
           role: "alert",
-        }
+        },
       );
     }
   };
