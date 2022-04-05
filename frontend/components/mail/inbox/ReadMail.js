@@ -1,22 +1,20 @@
 import { Box, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { getMail } from "../../apis/letter";
-import MiniPlayer from "../../letter/preview/miniPlayer";
-import Photocard from "../../letter/preview/Photocard";
-import General from "../../letter/preview/General";
-import PostCard from "../../letter/preview/Postcard";
+import { getMail, getMailByCode } from "../../apis/letter";
+import MiniPlayer from "../../letter/preview/MiniPlayer";
 import { fonts, colors } from "../../Variables";
-import { getMailByCode } from "../../apis/letter";
-import Test from "./Test";
+import ReadMailPhotoCard from "./ReadMailPhotoCard";
 import { useRouter } from "next/router";
 
 export default function ReadMail({ selectedMail, code }) {
   const [data, setData] = useState([]);
   const [mailCode, setMailCode] = useState([]);
   const router = useRouter();
-  const getMail = async (code) => {
+
+  const fetchMailByCode = async () => {
+    setMailCode(router.query.code);
     try {
-      const res = await getMailByCode(code);
+      const res = await getMailByCode(mailCode);
       setData(res.data);
     } catch (e) {
       console.log(e);
@@ -28,57 +26,42 @@ export default function ReadMail({ selectedMail, code }) {
       const res = await getMail(id);
       setData(res.data);
       console.log(res.data);
-      // background_color: null
-      // content: "이편지는 영국에서 ..."
-      // content_position: ""
-      // created_date: "2022-04-04T16:18:41.748"
-      // font_color: 1
-      // font_order: ""
-      // font_type: "GUNGSEO"
-      // handwrite_image: ""
-      // image: "https:/imagelink"
-      // mail_type: "PHOTOCARD"
-      // music_url: "https://musicurl.music"
-      // receiver_email: "godooly@doo.ly"
-      // receiver_name: "고둘리"
-      // sender_email: "mapleapril@naver.com"
-      // sender_name: "이름바꿈"
-      // stickers: ""
-      // style_url: "NORMAL05"
-      // title: "행운의 편지2"
     } catch (error) {
       console.log(error);
     }
   };
+
   useEffect(() => {
     if (code) {
-      setMailCode(router.query.code);
+      console.log("yes code");
+      // setMailCode(router.query.code);
+      fetchMailByCode();
     } else {
+      console.log("no code");
       fetchMail(selectedMail);
     }
   }, []);
 
-  useEffect(() => {
-    getMail(code);
-  }, [code]);
+  // useEffect(() => {
+  //   console.log("yes code 22");
+  //   fetchMailByCode(mailCode);
+  // }, [mailCode]);
 
   return (
     <>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         {/* 포토카드 */}
         {data.mail_type === "PHOTOCARD" ? (
-          <Test
-            key="previewLetter"
-            front="/img/photocard_front1.jpg"
-            back="/img/photocard_back.png"
+          <ReadMailPhotoCard
+            key="readPhotoCard"
             preview={true}
             data={data}
-          ></Test>
+          ></ReadMailPhotoCard>
         ) : (
           <></>
         )}
         {/* <General data={data} />  */}
-        {data.mail_type === "NORMAL" ? (
+        {data.mail_type === "GENERAL" ? (
           <Box
             sx={{
               position: "relative",
@@ -88,7 +71,11 @@ export default function ReadMail({ selectedMail, code }) {
               justifyContent: "center",
             }}
           >
-            <img src="/test.png" width={420} style={{ position: "absolute" }} />
+            <img
+              src={data.style_url}
+              width={420}
+              style={{ position: "absolute" }}
+            />
             <Box
               sx={{
                 position: "relative",
@@ -100,15 +87,15 @@ export default function ReadMail({ selectedMail, code }) {
                 className="text-area"
                 component="div"
                 sx={{
-                  fontFamily: fonts[1].fontfamily,
-                  color: colors[1],
+                  fontFamily: fonts[parseInt(data.font_type)].fontfamily,
+                  color: colors[data.font_color],
                   textAlign: data.font_order,
                   fontSize: data.font_size,
                   maxHeight: 560,
                   minHeight: 560,
                   overflowY: "auto",
                   whiteSpace: "pre-line",
-                  // fontWeight: isFontBold ? "bold" : "normal",
+                  // fontWeight: data.is_font_bold ? "bold" : "normal",
                 }}
               >
                 {data.title}
@@ -151,8 +138,8 @@ export default function ReadMail({ selectedMail, code }) {
                   className="text-area"
                   component="div"
                   sx={{
-                    fontFamily: fonts[1].fontfamily,
-                    color: colors[0],
+                    fontFamily: fonts[parseInt(data.font_type)].fontfamily,
+                    color: colors[data.font_color],
                     textAlign: data.font_order,
                     fontSize: data.font_size,
                     maxHeight: 280,
@@ -162,7 +149,7 @@ export default function ReadMail({ selectedMail, code }) {
                     py: "1rem",
                     overflowY: "auto",
                     whiteSpace: "pre-line",
-                    textDecoration: `${colors[2]} underline`,
+                    textDecoration: `${colors[data.underline_color]} underline`,
                     textUnderlineOffset: 4,
                     bgcolor: colors[data.background_color],
                   }}

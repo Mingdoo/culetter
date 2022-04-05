@@ -21,7 +21,7 @@ export default function MailPage({ senderId, isMail, setIsMail }) {
     try {
       const res = await getRecvMailsBySender(senderId);
       setData(res.data.result);
-      setMails(res.data.result.slice(0, 4));
+      setMails(res.data.result.slice(0, 6));
       setLoading(false);
     } catch (e) {
       console.log(e);
@@ -54,7 +54,7 @@ export default function MailPage({ senderId, isMail, setIsMail }) {
 
   // 처음 로딩 돌 떄 작동함.
   useEffect(() => {
-    setMails(data.slice(0, page * 4));
+    setMails(data.slice(0, page * 6));
   }, [page]);
 
   return (
