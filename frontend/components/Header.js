@@ -12,6 +12,7 @@ function Header({ handlePrevClick, title, handleNextClick }) {
         direction="row"
         alignItems="center"
         justify="center"
+        sx={{ width: 420 }}
       >
         <Grid item xs={3}>
           {handlePrevClick ? (
@@ -46,7 +47,7 @@ function Header({ handlePrevClick, title, handleNextClick }) {
                 display: "flex",
                 flexDirection: "row",
                 justifyContent: "end",
-                mr: "1rem",
+                // mr: "1rem",
               }}
             >
               <Box
