@@ -2,16 +2,42 @@ import React, { useState, useEffect, useContext } from "react";
 import LetterContext from "../../../contexts/LetterContext";
 import { Box, Typography } from "@mui/material";
 import { colors, fonts } from "../../Variables";
-import { emojis } from "../photocard/PhotoCard";
-const Photocard = (props) => {
-  const { front, back, content } = props;
-  const { bgcolor, stickersPos, fontsize, fontType, fontColor, isFontBold } =
-    useContext(LetterContext);
+import { emojis } from "../../letter/photocard/PhotoCard";
+const Photocard = ({ data, preview, front, back }) => {
+  const {
+    image,
+    background_color,
+    content,
+    created_date,
+    stickers,
+    fontsize,
+    font_type,
+    font_color,
+    isFontBold,
+  } = data;
+  // const { bgcolor, stickersPos, fontsize, fontType, fontColor, isFontBold } =
+  //   useContext(LetterContext);
   //something changed
   const [isClicked, setIsClicked] = useState(false);
   const [showFront, setShowFront] = useState(false);
   const [showBack, setShowBack] = useState(false);
 
+  const stickersPos = [
+    {
+      content: "ddddddddddddddd",
+      disabled: false,
+      idx: 999,
+      position: { x: 18, y: -155 },
+      type: "text",
+    },
+    {
+      content: "ddddddddddddddd",
+      disabled: false,
+      idx: 998,
+      position: { x: 0, y: 0 },
+      type: "title",
+    },
+  ];
   const handleFrontClick = () => {
     setShowFront(true);
     setShowBack(true);
@@ -22,8 +48,8 @@ const Photocard = (props) => {
     setIsClicked(false);
   };
 
-  const width = props.preview ? 300 : 250;
-  const height = props.preview ? 480 : 400;
+  const width = preview ? 300 : 250;
+  const height = preview ? 480 : 400;
 
   return (
     <Box
@@ -55,7 +81,8 @@ const Photocard = (props) => {
         className={"back face " + (isClicked && showBack ? "rotateBack" : null)}
         onClick={handleBackClick}
         sx={{
-          bgcolor: colors[bgcolor],
+          bgcolor: colors[0],
+          // bgcolor: colors[background_color],
           width: 300,
           height: 480,
           display: "flex",
@@ -76,9 +103,11 @@ const Photocard = (props) => {
                 transform: `translate(${-1 * Sticker.position.x}px, ${
                   Sticker.position.y
                 }px) rotateY(-180deg)`,
-                fontSize: fontsize,
-                fontFamily: fonts[fontType].fontfamily,
-                color: colors[fontColor],
+                fontSize: 11,
+                fontFamily: fonts[1].fontfamily,
+                color: colors[1],
+                // fontFamily: fonts[font_type].fontfamily,
+                // color: colors[font_color],
                 whiteSpace: "pre-line",
                 fontWeight: isFontBold ? "bold" : "normal",
               }}

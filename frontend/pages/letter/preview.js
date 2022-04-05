@@ -6,13 +6,14 @@ import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
 import General from "../../components/letter/preview/General";
 import Photocard from "../../components/letter/preview/Photocard";
 
-import PauseIcon from "@mui/icons-material/Pause";
-import AlbumIcon from "@mui/icons-material/Album";
+import MiniPlayer from "../../components/letter/preview/MiniPlayer";
 import LetterContext from "../../contexts/LetterContext";
 
 import { sendLetter } from "../../components/apis/letter";
 import PostCard from "../../components/letter/preview/Postcard";
 import { authentication } from "../../components/apis/auth";
+
+import Router from "next/router";
 
 export default function Preview() {
   const {
@@ -33,6 +34,7 @@ export default function Preview() {
     fontColor,
     setIsFontBold,
     underlineColor,
+    setMailCode,
   } = useContext(LetterContext);
   // 편지 전송 내용물
   const body = {};
@@ -41,36 +43,32 @@ export default function Preview() {
     authentication();
   }, []);
   const send = async () => {
+    const body = {
+      receiver_name: receiverName,
+      receiver_email: receiverEmail,
+      title: title,
+      mail_type: mailType,
+      style_url: styleUrl,
+      content: content,
+      music_url: musicUrl,
+      image: image,
+      content_position: contentPosition,
+      stickers: stickersPos,
+      font_order: fontOrder,
+      font_type: fontType,
+      // 숫자로
+      font_color: fontColor,
+      background_color: bgcolor,
+      handwrite_image: "",
+    };
     try {
       const res = await sendLetter(body);
+      await setMailCode(res.data.code);
+      Router.push("/letter/send");
     } catch (e) {
       console.log(e);
     }
   };
-
-  // 플레이어
-  const audioPlayer = useRef();
-  const [currentTime, setCurrentTime] = useState(0);
-  const [seekValue, setSeekValue] = useState(0);
-  const play = () => {
-    audioPlayer.current.play();
-  };
-  const pause = () => {
-    audioPlayer.current.pause();
-  };
-  const stop = () => {
-    audioPlayer.current.pause();
-    audioPlayer.current.currentTime = 0;
-  };
-  const onPlaying = () => {
-    setCurrentTime(audioPlayer.current.currentTime);
-    setSeekValue(
-      (audioPlayer.current.currentTime / audioPlayer.current.duration) * 100,
-    );
-  };
-  const musicSelected = { title: "라일락", singer: "아이유" };
-
-  const [isPlaying, setIsPlaying] = useState(true);
 
   return (
     <Box
@@ -99,62 +97,8 @@ export default function Preview() {
         {mailType === "GENERAL" ? <General /> : <></>}
         {mailType === "POSTCARD" ? <PostCard /> : <></>}
       </Box>
-      <audio
-        src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-        ref={audioPlayer}
-        onTimeUpdate={onPlaying}
-      >
-        Your browser does not support the
-        <code>audio</code> element.
-      </audio>
 
-      {/* player play 버튼 때문에 임시로 빼옴 */}
-      <Grid
-        container
-        sx={{
-          backgroundColor: "#E7A69E",
-          borderRadius: 30,
-          mt: "2rem",
-          py: "2px",
-          px: "4px",
-          display: "flex",
-          color: "white",
-          width: "90%",
-          mx: "auto",
-          alignItems: "center",
-        }}
-      >
-        <Grid item xs={1} sx={{ display: "flex" }}>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <AlbumIcon fontSize="small"></AlbumIcon>
-          </Box>
-        </Grid>
-        <Grid item xs={10}>
-          <Typography className="Batang">
-            {musicSelected.title} - {musicSelected.singer}
-          </Typography>
-        </Grid>
-        <Grid item xs={1}>
-          {isPlaying ? (
-            <PlayArrowRoundedIcon
-              sx={{ display: "flex", justifyContent: "center" }}
-              onClick={() => {
-                play();
-                setIsPlaying(false);
-              }}
-            ></PlayArrowRoundedIcon>
-          ) : (
-            <PauseIcon
-              sx={{ display: "flex", justifyContent: "center" }}
-              onClick={() => {
-                pause();
-                setIsPlaying(true);
-              }}
-            ></PauseIcon>
-          )}
-        </Grid>
-      </Grid>
-      {/* <MiniPlayer play={() => play()} pause={() => pause()}></MiniPlayer> */}
+      <MiniPlayer musicUrl={musicUrl}></MiniPlayer>
       <Box sx={{ display: "flex", justifyContent: "center", mt: 1 }}>
         <Button
           color="inherit"

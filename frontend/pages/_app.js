@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps }) {
   const [fontsize, setFontsize] = useState(20);
   const [isFontBold, setIsFontBold] = useState();
   const [underlineColor, setUnderlineColor] = useState(0);
-
+  const [mailCode, setMailCode] = useState("");
   return (
     <>
       <DefaultSeo {...DEFAULT_SEO} />
@@ -71,6 +71,8 @@ function MyApp({ Component, pageProps }) {
           setIsFontBold,
           underlineColor,
           setUnderlineColor,
+          mailCode,
+          setMailCode,
         }}
       >
         <Component {...pageProps} />

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import MenuList from "../components/menu/MenuList";
 import { Box, Typography } from "@mui/material";
 import Letter from "../components/main/Letter";
-import MenuButton from "../components/menu/MenuButton";
 import Footer from "../components/Footer";
 import { authentication } from "../components/apis/auth";
 export default function Main() {
@@ -45,7 +44,7 @@ export default function Main() {
                     key={index}
                     main={true}
                   ></Letter>
-                ),
+                )
               )}
             </Box>
             <Footer />
