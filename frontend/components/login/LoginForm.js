@@ -85,7 +85,7 @@ const LoginForm = () => {
         {
           position: toast.POSITION.TOP_CENTER,
           role: "alert",
-        }
+        },
       );
       setTimeout(function () {
         Router.push("/main");
@@ -107,7 +107,7 @@ const LoginForm = () => {
         {
           position: toast.POSITION.TOP_CENTER,
           role: "alert",
-        }
+        },
       );
     }
   };
@@ -208,8 +208,9 @@ const LoginForm = () => {
                     color: "#eeee",
                     fontFamily: "Gowun Batang",
                   },
+                  autoComplete: "new-email",
                   form: {
-                    autoComplete: "off",
+                    authComplete: "off",
                   },
                 }}
                 InputLabelProps={{
@@ -258,8 +259,9 @@ const LoginForm = () => {
                       </IconButton>
                     </InputAdornment>
                   ),
+                  autoComplete: "new-password",
                   form: {
-                    autoComplete: "off",
+                    authComplete: "off",
                   },
                   style: {
                     fontSize: "1rem",
