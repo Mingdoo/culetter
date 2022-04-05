@@ -1,12 +1,7 @@
 import { Box, Typography } from "@mui/material";
 // import newmailbox from "../../../assests/newmailbox.PNG";
 
-export default function Photocard({
-  senderName,
-  createdDate,
-  src,
-  switchPage,
-}) {
+export const Photocard = ({ senderName, createdDate, src, switchPage }) => {
   return (
     <Box
       sx={{
@@ -16,6 +11,9 @@ export default function Photocard({
         height: "204px",
       }}
       onClick={switchPage}
+      // onClick={() => {
+      //   console.log("here");
+      // }}
     >
       <Box
         sx={{
@@ -39,6 +37,9 @@ export default function Photocard({
               pt: 0.5,
               borderRadius: 5,
             }}
+            onClick={() => {
+              console.log("here");
+            }}
           ></Box>
         </Box>
         <Box sx={{ display: "flex", justifyContent: "space-between", px: 2 }}>
@@ -55,4 +56,4 @@ export default function Photocard({
       </Box>
     </Box>
   );
-}
+};

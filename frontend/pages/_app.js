@@ -32,6 +32,7 @@ function MyApp({ Component, pageProps }) {
   const [isFontBold, setIsFontBold] = useState();
   const [underlineColor, setUnderlineColor] = useState(0);
   const [mailCode, setMailCode] = useState("");
+  const [tempMailId, setTempMailId] = useState("");
   return (
     <>
       <DefaultSeo {...DEFAULT_SEO} />
@@ -79,6 +80,8 @@ function MyApp({ Component, pageProps }) {
           setUnderlineColor,
           mailCode,
           setMailCode,
+          tempMailId,
+          setTempMailId,
         }}
       >
         <Component {...pageProps} />
