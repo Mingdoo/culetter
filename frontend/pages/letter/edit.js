@@ -140,7 +140,7 @@ function edit() {
         {/* 여기까지 편지 */}
         <Box
           sx={{
-            position: "absolute",
+            position: "fixed",
             bottom: 0,
             width: 420,
             display: "block",
