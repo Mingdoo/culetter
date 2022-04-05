@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +26,7 @@ public class FileServiceImpl implements FileService {
     private final String angry;
     private final String sad;
     private final String panic;
+    private HashMap<String,HashMap<String,List<FileDto.FileInfoWithEmotion>>> fileInfoMap = new HashMap<>();
 
     public FileServiceImpl(
             AmazonS3Service amazonS3Service,
@@ -47,6 +50,20 @@ public class FileServiceImpl implements FileService {
         this.panic = panic;
     }
 
+    @PostConstruct
+    public void init() {
+        String[] types = new String[] {"letterImage", "postcardImage", "photocardImage", "music"};
+        String[] emotions = new String[] {"happy", "angry", "sad", "panic"};
+
+        fileInfoMap = new HashMap<>();
+        for (String type:types) {
+            fileInfoMap.put(type, new HashMap<>());
+            for (String emotion:emotions) {
+                fileInfoMap.get(type).put(emotion, loadFileInfoWithEmotionListByType(type, emotion));
+            }
+        }
+    }
+
     @Override
     public String uploadImage(MultipartFile multipartFile, String folderPath) {
         // 이미지 파일의 크기가 2MB를 초과하는 경우
@@ -66,7 +83,7 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public List<FileDto.FileInfoWithEmotion> getFileInfoWithEmotionListByType(String type, String emotion) {
+    public List<FileDto.FileInfoWithEmotion> loadFileInfoWithEmotionListByType(String type, String emotion) {
         String folderPath = "";
         if ("letterImage".equals(type)) folderPath += letterImage;
         else if ("postcardImage".equals(type)) folderPath += postcardImage;
@@ -81,6 +98,11 @@ public class FileServiceImpl implements FileService {
         return amazonS3Service.getFileInfoList(folderPath).stream()
                 .map(o -> new FileDto.FileInfoWithEmotion(o.getFileName(), o.getFilePath(), o.getUrl(), emotion))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<FileDto.FileInfoWithEmotion> getFileInfoWithEmotionListByType(String type, String emotion) {
+        return fileInfoMap.get(type).get(emotion);
     }
 
     @Override
