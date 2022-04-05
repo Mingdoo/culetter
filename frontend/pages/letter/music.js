@@ -120,7 +120,9 @@ const music = () => {
 
   useEffect(() => {
     if (checked !== "") {
-      setMusicUrl("https://musicurl.music");
+      setMusicUrl(
+        "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+      );
     } else {
       setMusicUrl("");
     }
@@ -157,7 +159,7 @@ const music = () => {
         {
           position: toast.POSITION.TOP_CENTER,
           role: "alert",
-        },
+        }
       );
     }
   };

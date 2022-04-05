@@ -2,15 +2,13 @@ import { Box, Button, Typography, Grid } from "@mui/material";
 import { useRef, useState, useContext, useEffect } from "react";
 
 import Header from "../../components/Header";
-import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
 import General from "../../components/letter/preview/General";
 import Photocard from "../../components/letter/preview/Photocard";
-
-import MiniPlayer from "../../components/letter/preview/miniPlayer";
+import MiniPlayer from "../../components/letter/preview/MiniPlayer";
 import LetterContext from "../../contexts/LetterContext";
+import PostCard from "../../components/letter/preview/Postcard";
 
 import { sendLetter } from "../../components/apis/letter";
-import PostCard from "../../components/letter/preview/Postcard";
 import { authentication } from "../../components/apis/auth";
 
 import Router from "next/router";
@@ -23,6 +21,7 @@ export default function Preview() {
     title,
     mailType,
     styleUrl,
+    setStyleUrl,
     content,
     musicUrl,
     image,
@@ -32,17 +31,22 @@ export default function Preview() {
     fontOrder,
     fontType,
     fontColor,
+    isFontBold,
     setIsFontBold,
     underlineColor,
     setMailCode,
   } = useContext(LetterContext);
-  // 편지 전송 내용물
-  const body = {};
 
   useEffect(() => {
     authentication();
+    setStyleUrl(
+      "https://culetter.s3.ap-northeast-2.amazonaws.com/profile_image/06946054-b2af-4607-b19d-e615e2838e28-1649084959518"
+    );
   }, []);
+
   const send = async () => {
+    const stringifyStickers = JSON.stringify(stickersPos);
+    console.log(stringifyStickers);
     const body = {
       receiver_name: receiverName,
       receiver_email: receiverEmail,
@@ -51,19 +55,21 @@ export default function Preview() {
       style_url: styleUrl,
       content: content,
       music_url: musicUrl,
-      image: image,
-      content_position: contentPosition,
-      stickers: stickersPos,
+      image: "",
+      content_position: "",
+      stickers: JSON.stringify(stickersPos),
       font_order: fontOrder,
       font_type: fontType,
       // 숫자로
       font_color: fontColor,
       background_color: bgcolor,
+      is_font_bold: isFontBold,
+      underline_color: underlineColor,
       handwrite_image: "",
     };
     try {
       const res = await sendLetter(body);
-      await setMailCode(res.data.code);
+      setMailCode(res.data.code);
       Router.push("/letter/send");
     } catch (e) {
       console.log(e);
@@ -78,6 +84,7 @@ export default function Preview() {
         minHeight: "100vh",
         mx: "auto",
         bgcolor: "#FCFAEF",
+        position: "relative",
       }}
     >
       <Header title="미리보기"></Header>
@@ -97,18 +104,24 @@ export default function Preview() {
         {mailType === "GENERAL" ? <General /> : <></>}
         {mailType === "POSTCARD" ? <PostCard /> : <></>}
       </Box>
-
-      <MiniPlayer musicUrl={musicUrl}></MiniPlayer>
-      <Box sx={{ display: "flex", justifyContent: "center", mt: 1 }}>
-        <Button
-          color="inherit"
-          className="Batang"
-          sx={{ fontSize: 18 }}
-          onClick={send}
-        >
-          편지 전송
-        </Button>
+      <Box sx={{ mt: "2rem" }}>
+        <MiniPlayer musicUrl={musicUrl}></MiniPlayer>
       </Box>
+
+      <Button
+        color="inherit"
+        className="Batang"
+        sx={{
+          fontSize: 18,
+          display: "flex",
+          mt: "1rem",
+          mx: "auto",
+          "&:hover": { bgcolor: "transparent" },
+        }}
+        onClick={send}
+      >
+        편지 전송
+      </Button>
     </Box>
   );
 }
