@@ -34,8 +34,6 @@ const LoginForm = () => {
   });
 
   const handleInput = (value, data) => {
-    console.log(value, data);
-
     if (data === "email") {
       const newInputData = {
         email: value,
@@ -209,6 +207,9 @@ const LoginForm = () => {
                     color: "#eeee",
                     fontFamily: "Gowun Batang",
                   },
+                  form: {
+                    autoComplete: "off",
+                  },
                 }}
                 InputLabelProps={{
                   style: {
@@ -255,6 +256,9 @@ const LoginForm = () => {
                       </IconButton>
                     </InputAdornment>
                   ),
+                  form: {
+                    autoComplete: "off",
+                  },
                   style: {
                     fontSize: "1rem",
                     color: "#eeee",
