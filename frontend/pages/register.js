@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Postbox from "../components/postbox/Postbox";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 const Regist = () => {
   return (
@@ -12,6 +12,13 @@ const Regist = () => {
         backgroundColor: "#FCFAEF",
       }}
     >
+      <Typography
+        variant="h3"
+        gutterBottom
+        sx={{ textAlign: "center", fontFamily: "Arvo", pt: 3, pb: 1 }}
+      >
+        CU;LETTER
+      </Typography>
       <Postbox title="SIGN UP" size="10"></Postbox>
     </Box>
   );
