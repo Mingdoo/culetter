@@ -165,7 +165,11 @@ const LoginForm = () => {
               <HomeRoundedIcon />
               홈으로
             </Button>
-            <Button style={BtnStyle} onClick={handleLogout}>
+            <Button
+              style={BtnStyle}
+              sx={{ width: "40%" }}
+              onClick={handleLogout}
+            >
               <LogoutIcon />
               로그아웃
             </Button>
