@@ -97,9 +97,11 @@ body {
     Gowun Batang, Gowun Dodum, Noto Sans;
   /* background-color: #fcfaef; */
   overflow-x: hidden;
+  max-width: 100%;
 }
 
 body {
+  overflow-y: hidden;
 }
 
 a {
