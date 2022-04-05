@@ -194,7 +194,7 @@ function edit() {
             direction="row"
             alignItems="center"
             justify="center"
-            sx={{ bgcolor: "#FCFAEF" }}
+            sx={{ bgcolor: "#FCFAEF", width: 420 }}
           >
             <Grid item xs={3}>
               <Box sx={{ mb: "2rem", ml: "1rem", textAlign: "center" }}>
