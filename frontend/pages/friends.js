@@ -12,7 +12,7 @@ import {
   getFriends,
   searchUsers,
 } from "../components/apis/user";
-import { authentication } from "../../components/apis/auth";
+import { authentication } from "../components/apis/auth";
 function friends() {
   const [incomingFriends, setIncomingFriends] = useState([]);
   const [userFriends, setUserFriends] = useState([]);
