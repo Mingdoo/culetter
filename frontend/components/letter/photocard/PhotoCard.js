@@ -73,7 +73,6 @@ function PhotoCard({ props }) {
   useEffect(() => {}, []);
 
   useEffect(() => {
-    console.log(stickers);
     const boolean = stickers.length
       ? !stickers.some((sticker) => {
           return sticker.disabled === false;
@@ -83,8 +82,6 @@ function PhotoCard({ props }) {
   }, [stickers, props.showDots]);
 
   const trackPosition = (obj, data) => {
-    console.log(obj);
-
     const updatedSticker = {
       idx: obj.idx,
       type: obj.type,
@@ -114,7 +111,14 @@ function PhotoCard({ props }) {
   };
 
   return (
-    <Box sx={{ ...landingBoxStyle, width: 420, justifyContent: "start" }}>
+    <Box
+      sx={{
+        ...landingBoxStyle,
+        width: 420,
+        justifyContent: "start",
+        overflowX: "hidden",
+      }}
+    >
       <Box
         sx={{
           position: "relative",
