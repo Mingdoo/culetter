@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Grid } from "@mui/material";
 
 import MenuList from "../../components/menu/MenuList";
 import Footer from "../../components/Footer";
@@ -30,25 +30,46 @@ export default function inbox() {
           minHeight: "100vh",
         }}
       >
-        {isPostBox ? null : (
-          <BackButton
-            sx={{ pt: 1 }}
-            onClick={isMail ? setIsPostBox : setIsMail}
-          ></BackButton>
-        )}
-        <MenuList></MenuList>
-        <Typography
-          variant="h4"
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            py: "3.5vh",
-            fontSize: 28,
-            fontFamily: "Gowun Dodum",
-          }}
+        <Grid
+          container
+          spacing={0}
+          direction="row"
+          alignItems="center"
+          justify="center"
+          sx={{ width: 420 }}
         >
-          받은 편지
-        </Typography>
+          <Grid item xs={3}>
+            {isPostBox ? (
+              <Box sx={{ m: "1rem" }}></Box>
+            ) : (
+              <Box sx={{ m: "1rem" }}>
+                <BackButton
+                  onClick={isMail ? setIsPostBox : setIsMail}
+                ></BackButton>
+              </Box>
+            )}
+          </Grid>
+          <Grid item xs={6}>
+            <Box
+              sx={{
+                m: "1rem",
+              }}
+            >
+              <Typography
+                sx={{
+                  textAlign: "center",
+                  fontSize: "1.5rem",
+                  fontFamily: "Gowun Dodum",
+                }}
+              >
+                받은 편지
+              </Typography>
+            </Box>
+          </Grid>
+        </Grid>
+        <Grid item xs={3}>
+          <MenuList></MenuList>
+        </Grid>
 
         {loading ? <div>loading...</div> : null}
         {isPostBox ? (
