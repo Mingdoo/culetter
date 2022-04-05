@@ -379,7 +379,7 @@ const Recommended = () => {
                 textAlign: "center",
               }}
             >
-              형식 선택 페이지로 이동합니다
+              수신인 선택 페이지로 이동합니다
             </Typography>
           </Box>
         )}

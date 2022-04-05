@@ -58,10 +58,17 @@ const LoginForm = () => {
       localStorage.setItem("accessToken", response.headers.authorization);
       localStorage.setItem("name", response.data.name);
       toast.success(
-        <div>
-          로그인 성공🎉
-          <br />
-          메인페이지로 이동합니다
+        <div
+          style={{ width: "100%", display: "flex", justifyContent: "center" }}
+        >
+          <div
+            style={{
+              display: "inline-block",
+              fontFamily: "Gowun Batang",
+            }}
+          >
+            로그인 성공🎉
+          </div>
         </div>,
         {
           position: toast.POSITION.TOP_CENTER,
@@ -70,13 +77,26 @@ const LoginForm = () => {
       );
       setTimeout(function () {
         Router.push("/main");
-      }, 1000);
+      }, 3000);
     } catch (error) {
-      console.log(error);
-      toast.error(<div>로그인에 실패했습니다😢</div>, {
-        position: toast.POSITION.TOP_CENTER,
-        role: "alert",
-      });
+      toast.error(
+        <div
+          style={{ width: "100%", display: "flex", justifyContent: "center" }}
+        >
+          <div
+            style={{
+              display: "inline-block",
+              fontFamily: "Gowun Batang",
+            }}
+          >
+            로그인에 실패했습니다😢
+          </div>
+        </div>,
+        {
+          position: toast.POSITION.TOP_CENTER,
+          role: "alert",
+        }
+      );
     }
   };
 
