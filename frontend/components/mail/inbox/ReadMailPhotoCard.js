@@ -61,7 +61,7 @@ export default function ReadMailPhotocard({ data }) {
             position: "relative",
           }}
         >
-          {stickersPos.map((Sticker) =>
+          {stickersPos.map((Sticker, index) =>
             Sticker.type !== "sticker" ? (
               <Typography
                 sx={{
@@ -74,6 +74,7 @@ export default function ReadMailPhotocard({ data }) {
                   whiteSpace: "pre-line",
                   fontWeight: data.is_font_bold ? "bold" : "normal",
                 }}
+                key={index}
               >
                 {Sticker.content}
               </Typography>

@@ -74,6 +74,7 @@ export default function Storage() {
           title: 
            */}
         {loading && <Typography>loading</Typography>}
+
         {mails &&
           mails.map(({ title, mail_Type, created_date, mail_id }, index) => {
             if (mail_Type === "PHOTOCARD") {
