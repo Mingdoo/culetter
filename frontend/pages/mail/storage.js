@@ -5,6 +5,7 @@ import Letter from "../../components/main/Letter";
 import Photocard from "../../components/mail/inbox/Photocard";
 import { getUndoneMail } from "../../components/apis/mailbox";
 import { authentication } from "../../components/apis/auth";
+import Router from "next/router";
 export default function Storage() {
   const [loading, setLoading] = useState(false);
   const [mails, setMails] = useState([]);
@@ -18,6 +19,10 @@ export default function Storage() {
     }
   };
 
+  const routeToWrite = (e, id) => {
+    e.preventDefault();
+    Router.push("/letter/write");
+  };
   useEffect(() => {
     authentication();
     fetch();
@@ -51,33 +56,46 @@ export default function Storage() {
           title: 
            */}
         {loading && <Typography>loading</Typography>}
+
         {mails &&
-          mails.map(({ title, mailType, createdDate }, index) => {
+          mails.map(({ title, mailType, createdDate, mail_id }, index) => {
             if (mailType === "PHOTOCARD") {
               return (
-                <Photocard
-                  title={title}
-                  createdDate={createdDate}
+                <Box
+                  onClick={(e, mail_id) => routeToWrite(e, mail_id)}
                   key={index}
-                ></Photocard>
+                >
+                  <Photocard
+                    title={title}
+                    createdDate={createdDate}
+                  ></Photocard>
+                </Box>
               );
             } else if (mailType === "GENERAL") {
               return (
-                <Letter
-                  text={title}
-                  index={0}
-                  createdDate={createdDate}
+                <Box
+                  onClick={(e, mail_id) => routeToWrite(e, mail_id)}
                   key={index}
-                ></Letter>
+                >
+                  <Letter
+                    text={title}
+                    index={0}
+                    createdDate={createdDate}
+                  ></Letter>
+                </Box>
               );
             } else {
               return (
-                <Letter
-                  text={title}
-                  index={1}
-                  createdDate={createdDate}
+                <Box
+                  onClick={(e, mail_id) => routeToWrite(e, mail_id)}
                   key={index}
-                ></Letter>
+                >
+                  <Letter
+                    text={title}
+                    index={1}
+                    createdDate={createdDate}
+                  ></Letter>
+                </Box>
               );
             }
           })}

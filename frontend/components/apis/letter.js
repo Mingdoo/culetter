@@ -16,7 +16,7 @@ mailsApi.interceptors.request.use(
   function (error) {
     console.log(error);
     return Promise.reject(error);
-  },
+  }
 );
 
 export const sendLetter = async (body) => {
@@ -35,8 +35,6 @@ export const getMailByCode = async (code) => {
 export const saveRecvMail = async (code) => {
   return await mailsApi.post(`/recvsave/${code}`);
 };
-<<<<<<< HEAD
-=======
 
 export const fetchPostCardImage = async (photo) => {
   const form = new FormData();
@@ -47,4 +45,3 @@ export const fetchPostCardImage = async (photo) => {
     },
   });
 };
->>>>>>> cde8036fd7b0aad394b36d35dbb6ee9a36abc362
