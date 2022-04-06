@@ -180,19 +180,39 @@ export default function select() {
                 편지를 누구에게 보낼지 선택해주세요
               </Typography>
             </Box>
-            <ReceiverButton
-              title="친구에게 보내기"
-              description="CU;LETTER에 가입한 친구에게 편지를 보낼 수 있습니다"
-              target="member"
-              onClick={setReceiver}
-            />
-            <Divider sx={{ my: "1rem" }} />
-            <ReceiverButton
-              title="링크 보내기"
-              description="CU;LETTER에 가입하지 않은 친구에게 링크 전송을 통해 편지를 보낼 수 있습니다"
-              target="anonymous"
-              onClick={(e) => handleNoReceiver(e)}
-            />
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: {
+                  scale: 1,
+                  opacity: 0,
+                },
+                visible: {
+                  scale: 1,
+                  opacity: 2,
+                  transition: {
+                    delay: 0.25,
+                  },
+                },
+              }}
+              layoutId="underline"
+              style={{ width: "100%" }}
+            >
+              <ReceiverButton
+                title="친구에게 보내기"
+                description="CU;LETTER에 가입한 친구에게 편지를 보낼 수 있습니다"
+                target="member"
+                onClick={setReceiver}
+              />
+              <br />
+              <ReceiverButton
+                title="링크 보내기"
+                description="CU;LETTER에 가입하지 않은 친구에게 링크 전송을 통해 편지를 보낼 수 있습니다"
+                target="anonymous"
+                onClick={(e) => handleNoReceiver(e)}
+              />
+            </motion.div>
           </>
         )}
       </Box>

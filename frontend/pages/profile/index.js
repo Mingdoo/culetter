@@ -25,6 +25,7 @@ import ConfirmBtn from "../../components/profile/ConfirmBtn";
 import PasswordCheck from "../../components/profile/PasswordCheck";
 
 import Header from "../../components/Header";
+import MenuList from "../../components/menu/MenuList";
 
 export default function index() {
   const [profileImage, setProfileImage] = useState();
@@ -77,6 +78,10 @@ export default function index() {
       setFromBack(false);
     }
   }, []);
+
+  const handlePrevClick = () => {
+    Router.back();
+  };
   const routeToPw = (e) => {
     e.preventDefault();
     Router.push(
@@ -112,8 +117,8 @@ export default function index() {
             alignItems: "center",
           }}
         >
-          <Header title="마이페이지"></Header>
-
+          <Header title="마이페이지" handlePrevClick={handlePrevClick}></Header>
+          <MenuList />
           <Box sx={{ width: "85%" }}>
             <Typography className="Batang" sx={{ fontSize: 18 }}>
               {!pwConfirm ? "비밀번호 확인" : "회원정보 수정"}

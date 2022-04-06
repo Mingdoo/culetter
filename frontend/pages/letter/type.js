@@ -5,6 +5,7 @@ import Type from "../../components/write/type";
 import Router from "next/router";
 import MenuList from "../../components/menu/MenuList";
 import { authentication } from "../../components/apis/auth";
+import { motion, AnimateSharedLayout } from "framer-motion";
 const type = (props) => {
   useEffect(() => {
     authentication();
@@ -41,37 +42,58 @@ const type = (props) => {
   };
 
   return (
-    <Box
-      component="div"
-      sx={{
-        width: 420,
-        height: "100vh",
-        mx: "auto",
-        bgcolor: "#FCFAEF",
-        position: "relative",
-      }}
-    >
-      <Header handlePrevClick={handlePrevClick} title="형식 선택" />
-      <MenuList></MenuList>
+    <AnimateSharedLayout layout>
       <Box
+        component="div"
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          width: 420,
+          height: "100vh",
+          mx: "auto",
           bgcolor: "#FCFAEF",
+          position: "relative",
         }}
       >
-        {source.map((data, index) => (
-          <Type
-            text={data.text}
-            index={index}
-            key={index}
-            describe={data.describe}
-            imgsrc={data.imgsrc}
-          ></Type>
-        ))}
+        <Header handlePrevClick={handlePrevClick} title="형식 선택" />
+        <MenuList></MenuList>
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: {
+              scale: 1,
+              opacity: 0,
+            },
+            visible: {
+              scale: 1,
+              opacity: 2,
+              transition: {
+                delay: 0.25,
+              },
+            },
+          }}
+          layoutId="underline"
+        >
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              bgcolor: "#FCFAEF",
+            }}
+          >
+            {source.map((data, index) => (
+              <Type
+                text={data.text}
+                index={index}
+                key={index}
+                describe={data.describe}
+                imgsrc={data.imgsrc}
+              ></Type>
+            ))}
+          </Box>
+        </motion.div>
       </Box>
-    </Box>
+    </AnimateSharedLayout>
   );
 };
 
