@@ -47,6 +47,7 @@ export default function Player(props) {
     if (music !== null) {
       console.log(music, "player");
       setMusicUrl(music);
+      play();
     }
   }, []);
 
