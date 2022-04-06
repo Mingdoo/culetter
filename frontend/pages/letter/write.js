@@ -31,6 +31,7 @@ const writeLetter = () => {
     setMailType,
     mailId,
     setMailId,
+    setEmotion,
   } = useContext(LetterContext);
   const { getMailById } = MailApi;
   const [isLoading, setIsLoading] = useState(false);
