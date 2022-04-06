@@ -223,9 +223,13 @@ const Recommended = () => {
             title="포토카드 선택"
             handleNextClick={handleNextClick}
           />
-          <Typography sx={{ textAlign: "center", fontFamily: "Gowun Batang" }}>
-            카드를 탭하면 카드가 뒤집힙니다
-          </Typography>
+          {!isLoading && (
+            <Typography
+              sx={{ textAlign: "center", fontFamily: "Gowun Batang" }}
+            >
+              카드를 탭하면 카드가 뒤집힙니다
+            </Typography>
+          )}
         </>
       ) : mailType === "GENERAL" ? (
         <>

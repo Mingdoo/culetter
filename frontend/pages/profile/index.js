@@ -7,7 +7,7 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-import StyledTextField from "../components/profile/StyledTextField";
+import StyledTextField from "../../components/profile/StyledTextField";
 import BadgeIcon from "@mui/icons-material/Badge";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LockIcon from "@mui/icons-material/Lock";
@@ -15,15 +15,18 @@ import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { useEffect, useState, useRef, useContext } from "react";
 import Router from "next/router";
 
-import RoutingContext from "../contexts/RoutingContext";
-import { getUserInfo, editUserInfo } from "../components/apis/profile";
-import ConfirmBtn from "../components/profile/ConfirmBtn";
-import axios from "axios";
-import PasswordCheck from "../components/profile/PasswordCheck";
+import RoutingContext from "../../contexts/RoutingContext";
+import {
+  getUserInfo,
+  changeUsername,
+  changeProfileImage,
+} from "../../components/apis/profile";
+import ConfirmBtn from "../../components/profile/ConfirmBtn";
+import PasswordCheck from "../../components/profile/PasswordCheck";
 
-import Header from "../components/Header";
+import Header from "../../components/Header";
 
-export default function Profile() {
+export default function index() {
   const [profileImage, setProfileImage] = useState();
   const [showProfileImage, setShowProfileImage] = useState();
   const [name, setName] = useState();
@@ -34,9 +37,15 @@ export default function Profile() {
 
   const onClickUploadFile = function (e) {
     const file = e.target.files[0];
-    setProfileImage(file);
+    changeProfileImage(file)
+      .then(() => {
+        setProfileImage(file);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     const reader = new FileReader();
-    reader.readAsDataURL(file);
+    file && reader.readAsDataURL(file);
     reader.onloadend = () => {
       setShowProfileImage(reader.result);
     };
@@ -70,30 +79,24 @@ export default function Profile() {
   }, []);
   const routeToPw = (e) => {
     e.preventDefault();
-    Router.push("/password");
-  };
-  const onClickUpdate = function () {
-    const userInfo = {
-      name: name,
-    };
-    const formData = new FormData();
-    formData.append(
-      "info",
-      new Blob([JSON.stringify(userInfo)], { type: "application/json" })
-    );
-    formData.append("profileImage", profileImage);
-    console.log(formData.get("info"));
-    console.log(formData.get("profileImage"));
-    axios
-      .put("https://www.culetter.site/api/members", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization:
-            "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzMiIsImF1dGgiOiJST0xFXzEiLCJleHAiOjE2NDkyOTkwNTN9.ShoIf3E96EcNZYgo_cLSEpXpk6-wjYoP0kw-mghVUG43viqFqBd0aGskT2xVL2RQXLqBjg4rE_eYq5YqAnNCMQ",
+    Router.push(
+      {
+        pathname: "/profile/password",
+        query: {
+          pwConfirm: pwConfirm,
         },
+      },
+      "profile/password",
+    );
+  };
+  const onClickUpdate = () => {
+    changeUsername(name)
+      .then((res) => {
+        console.log(res);
       })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <>
@@ -228,9 +231,7 @@ export default function Profile() {
                             fontSize: 11,
                             pt: "3px",
                           }}
-                        >
-                          <Box>errorMsg spot</Box>
-                        </Box>
+                        ></Box>
                         <Box>
                           <Grid container>
                             <Grid
