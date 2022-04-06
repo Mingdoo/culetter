@@ -30,7 +30,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { authentication } from "../../components/apis/auth";
 import moment from "moment";
 import momentDurationFormatSetup from "moment-duration-format";
-
+import RecommendApi from "../../components/apis/RecommendApi";
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 7,
   width: "75%",
@@ -45,31 +45,19 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 }));
 
 const music = () => {
-  const [title, setTitle] = useState("라일락");
-  const [singer, setSinger] = useState("아이유");
-
+  const [title, setTitle] = useState("제목");
   const [playStatus, setPlayStatus] = useState("stop");
-
   const [currentTime, setCurrentTime] = useState();
   const [endTime, setEndTime] = useState();
+  const [musicList, setMusicList] = useState([
+    { music_url: "", music_name: "" },
+  ]);
+  const { getRecommendMusic } = RecommendApi;
 
-  const musicList = [
-    { title: "내 맘을 볼 수 있나요", singer: "헤이즈" },
-    { title: "라일락", singer: "아이유" },
-    { title: "너였다면", singer: "정승환" },
-    { title: "동화", singer: "멜로망스" },
-    { title: "우리의 이야기", singer: "멜로망스" },
-    { title: "미안해", singer: "양다일" },
-    { title: "좋겠다", singer: "로이킴" },
-    { title: "느낌", singer: "폴킴" },
-    { title: "고백", singer: "양다일" },
-    { title: "사랑인가 봐", singer: "멜로망스" },
-    { title: "마음", singer: "폴킴" },
-  ];
   const lpImgList = ["/img/lpImg1.png", "/img/lpImg2.png", "/img/lpImg3.png"];
   const [index, setIndex] = useState(0);
-  const [checked, setChecked] = useState(musicList[0].title);
-  const { setMusicUrl } = useContext(LetterContext);
+  const [checked, setChecked] = useState("");
+  const { musicUrl, setMusicUrl, emotion } = useContext(LetterContext);
   const [progress, setProgress] = useState(0);
 
   const playerIcon = {
@@ -88,15 +76,16 @@ const music = () => {
 
   const handleToggle = (item) => () => {
     //선택 해제
-    if (item.title === checked) {
+    console.log(item);
+    if (item.music_name === checked) {
       setChecked("");
       setTitle("제목");
-      setSinger("가수");
+      setMusicUrl("");
       //선택
     } else {
-      setChecked(item.title);
-      setTitle(item.title);
-      setSinger(item.singer);
+      setChecked(item.music_name);
+      setTitle(item.music_name);
+      setMusicUrl(item.music_url);
     }
   };
 
@@ -106,7 +95,6 @@ const music = () => {
     setPlayStatus("play");
   };
   const handleMusicStop = () => {
-    console.log(player.current.currentTime);
     player.current.pause();
     setPlayStatus("stop");
   };
@@ -116,31 +104,37 @@ const music = () => {
     authentication();
     let index = Math.floor(Math.random() * 3);
     setIndex(index);
+    handleMusicList();
+    setEndTime(player.current.duration);
+    setCurrentTime(player.current.currentTime);
   }, []);
 
   useEffect(() => {
     if (checked !== "") {
-      setMusicUrl(
-        "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-      );
+      handleMusicStop();
     } else {
       setMusicUrl("");
     }
   }, [checked]);
 
   useEffect(() => {
-    console.log(playStatus);
-  }, [playStatus]);
+    setTitle(musicList[0].music_name);
+    setChecked(musicList[0].music_name);
+    setMusicUrl(musicList[0].music_url);
+  }, [musicList]);
 
-  useEffect(() => {
-    setTitle(musicList[0].title);
-    setSinger(musicList[0].singer);
-    setEndTime(player.current.duration);
-  }, []);
-
-  useEffect(() => {
-    setCurrentTime(player.current.currentTime);
-  }, []);
+  const handleMusicList = async () => {
+    const body = {
+      type: "music",
+      ...emotion,
+    };
+    try {
+      const response = await getRecommendMusic(body);
+      setMusicList(response.data.music_list.slice(0, 10));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleProgress = () => {
     setCurrentTime(player.current.currentTime);
@@ -207,19 +201,12 @@ const music = () => {
           vatiant="p"
           sx={{
             fontSize: "1.5rem",
-            mb: "0.5rem",
-            mt: "0.5rem",
+            mb: "2rem",
+            mt: "1rem",
             fontFamily: "Gowun Dodum",
           }}
         >
           {title}
-        </Typography>
-        <Typography
-          component="div"
-          vatiant="p"
-          sx={{ mb: "2rem", fontFamily: "Gowun Dodum" }}
-        >
-          {singer}
         </Typography>
         <Box
           className={"lp " + (playStatus === "play" ? "lpRotate" : null)}
@@ -272,7 +259,7 @@ const music = () => {
       </Box>
 
       <audio
-        src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3"
+        src={musicUrl}
         // controls
         ref={player}
         // onPause={handleMusicStop}
@@ -289,9 +276,9 @@ const music = () => {
           alignItems: "center",
         }}
       >
-        <Typography style={timeStyle}>{formatDuration(currentTime)}</Typography>
+        {/* <Typography style={timeStyle}>{formatDuration(currentTime)}</Typography> */}
         <BorderLinearProgress variant="determinate" value={progress} sx={{}} />
-        <Typography style={timeStyle}>{formatDuration(endTime)}</Typography>
+        {/* <Typography style={timeStyle}>{formatDuration(endTime)}</Typography> */}
       </Box>
 
       <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -323,12 +310,11 @@ const music = () => {
       <Box
         sx={{
           width: "380px",
-          height: "365px",
+          height: "305px",
           backgroundColor: "#f0c8bf",
           margin: "auto",
           mt: "0.8rem",
-          borderTopLeftRadius: "15px",
-          borderTopRightRadius: "15px",
+          borderRadius: "15px",
         }}
       >
         <Box
@@ -344,17 +330,17 @@ const music = () => {
             추천 곡 리스트
           </Typography>
         </Box>
-        <Box sx={{ width: "380px", height: "330px", overflow: "auto" }}>
+        <Box sx={{ width: "380px", height: "230px", overflow: "auto" }}>
           <List sx={{ width: "100%", fontFamily: "Gowun Dodum" }}>
             {musicList.map((item, index) => (
               <ListItem key={index} disablePadding>
                 <ListItemButton onClick={handleToggle(item)} dense>
                   <ListItemIcon>
                     <Checkbox
-                      value={[item.title, item.singer]}
+                      value={item.music_name}
                       edge="start"
                       disableRipple
-                      checked={checked === item.title}
+                      checked={checked === item.music_name}
                       inputProps={{ "aria-labelledby": item }}
                       icon={<RadioButtonUncheckedIcon />}
                       checkedIcon={<RadioButtonCheckedIcon />}
@@ -365,24 +351,13 @@ const music = () => {
                     <Grid item xs={8}>
                       <ListItemText
                         id={index}
-                        primary={item.title}
+                        primary={item.music_name}
                         primaryTypographyProps={{
                           style: {
                             fontFamily: "Gowun Batang",
                           },
                         }}
                         sx={{ fontFamily: "Gowun Batang" }}
-                      />
-                    </Grid>
-                    <Grid item xs={4}>
-                      <ListItemText
-                        id={index}
-                        primary={item.singer}
-                        primaryTypographyProps={{
-                          style: {
-                            fontFamily: "Gowun Batang",
-                          },
-                        }}
                       />
                     </Grid>
                   </Grid>

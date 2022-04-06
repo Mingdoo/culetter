@@ -166,7 +166,7 @@ const LoginForm = () => {
             </Button>
             <Button
               style={BtnStyle}
-              sx={{ width: "40%" }}
+              sx={{ width: "50%" }}
               onClick={handleLogout}
             >
               <LogoutIcon />
