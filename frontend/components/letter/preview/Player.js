@@ -8,25 +8,20 @@ import LetterContext from "../../../contexts/LetterContext";
 
 export default function Player(props) {
   const { music } = props;
-  console.log(music, "player props");
   // const { musicSelected } = useContext(ContentsContext);
   const { musicName, musicUrl, setMusicUrl } = useContext(LetterContext);
   const audioPlayer = useRef();
   const [currentTime, setCurrentTime] = useState(0);
   const [seekValue, setSeekValue] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(
-    audioPlayer.currentTime > 0 &&
-      !audioPlayer.paused &&
-      !VideoPlaybackQuality.ended &&
-      VideoPlaybackQuality.readyState > 2
-  );
-  const play = () => {
-    if (!isPlaying) {
-      audioPlayer.current.play();
-    }
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [playStatus, setPlayStatus] = useState("stop");
+  const handleMusicStart = () => {
+    audioPlayer.current.play();
+    setPlayStatus("play");
   };
-  const pause = () => {
+  const handleMusicStop = () => {
     audioPlayer.current.pause();
+    setPlayStatus("stop");
   };
   const stop = () => {
     audioPlayer.current.pause();
@@ -37,26 +32,32 @@ export default function Player(props) {
     setSeekValue(
       (audioPlayer.current.currentTime / audioPlayer.current.duration) * 100
     );
-    (audioPlayer.current.currentTime / audioPlayer.current.duration) * 100 ===
-    100
-      ? setIsPlaying(true)
-      : null;
+    // (audioPlayer.current.currentTime / audioPlayer.current.duration) * 100 ===
+    // 100
+    //   ? setIsPlaying(true)
+    //   : null;
   };
 
   useEffect(() => {
-    if (music !== null) {
+    if (music !== undefined) {
       console.log(music, "player music");
       setMusicUrl(music);
+    } else {
+      setMusicUrl(musicUrl);
     }
     console.log(isPlaying);
   }, []);
 
   useEffect(() => {
-    console.log(musicUrl, "player");
-  }, [musicUrl]);
+    console.log(music, "player");
+  }, [music]);
   return (
     <>
-      <audio src={music} ref={audioPlayer} onTimeUpdate={onPlaying}>
+      <audio
+        src={music === undefined ? musicUrl : music}
+        ref={audioPlayer}
+        onTimeUpdate={onPlaying}
+      >
         Your browser does not support the
         <code>audio</code> element.
       </audio>
@@ -84,20 +85,20 @@ export default function Player(props) {
           <Typography className="Batang">{musicName}</Typography>
         </Grid>
         <Grid item xs={1}>
-          {isPlaying ? (
+          {playStatus === "stop" ? (
             <PlayArrowRoundedIcon
               sx={{ display: "flex", justifyContent: "center" }}
               onClick={() => {
-                play();
-                setIsPlaying(true);
+                handleMusicStart();
+                // setIsPlaying(true);
               }}
             ></PlayArrowRoundedIcon>
           ) : (
             <PauseIcon
               sx={{ display: "flex", justifyContent: "center" }}
               onClick={() => {
-                pause();
-                setIsPlaying(false);
+                handleMusicStop();
+                // setIsPlaying(false);
               }}
             ></PauseIcon>
           )}
