@@ -10,6 +10,7 @@ import LinkShare from "../../components/letter/send/LinkShare";
 import KakaoShare from "../../components/letter/send/KakaoShare";
 import Letter from "../../components/main/Letter";
 import { authentication } from "../../components/apis/auth";
+
 export default function Send() {
   // receiverName 있으면 카카오톡으로 알리기 아니면 링크 공유
   const { title, receiverName } = useContext(LetterContext);
