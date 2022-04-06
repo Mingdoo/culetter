@@ -50,8 +50,8 @@ export default function Preview() {
     const stringifyStickers = JSON.stringify(stickersPos);
     const body = {
       mail_type: mailType,
-      receiver_name: receiverName ? receiverName : "",
-      receiver_email: receiverEmail ? receiverEmail : "",
+      receiver_name: receiverName !== null ? receiverName : "",
+      receiver_email: receiverEmail !== null ? receiverEmail : "",
       title: title,
       content: content,
       style_url: styleUrl,

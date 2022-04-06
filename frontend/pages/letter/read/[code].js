@@ -16,7 +16,6 @@ export default function ReadCodeMail() {
 
   useEffect(() => {
     if (!router.isReady) return;
-    console.log(router.query);
     setCode(router.query.code);
   }, [router.isReady]);
 
