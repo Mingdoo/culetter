@@ -47,9 +47,6 @@ export const Photocard = ({
               pt: 0.5,
               borderRadius: 5,
             }}
-            onClick={() => {
-              console.log("here");
-            }}
           ></Box>
         </Box>
         <Box sx={{ display: "flex", justifyContent: "space-between", px: 2 }}>

@@ -237,7 +237,6 @@ const Content = (props) => {
             </Box>
             {contentLength}자
           </Box>
-          <ToastContainer />
         </Box>
       )}
     </>

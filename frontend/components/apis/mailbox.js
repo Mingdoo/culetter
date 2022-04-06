@@ -40,7 +40,15 @@ export const deleteRecvMail = async (mailId) => {
 };
 
 export const deleteUndoneMail = async (mailId) => {
-  return await mailboxesApi.delete(`/undone`, { mail_id: mailId });
+  return await mailboxesApi.delete(
+    `/undone`,
+    { data: { mail_id: mailId } },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
 };
 
 export const deleteSendMail = async (mailId) => {
