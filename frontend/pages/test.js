@@ -112,7 +112,7 @@ export default function Test() {
           </Box>
 
           <Box sx={{ width: "90%", mt: 2 }}>
-            {!pwCofirm ? (
+            {!pwConfirm ? (
               <PasswordCheck
                 pwConfirm={pwConfirm}
                 setPwConfirm={setPwConfirm}

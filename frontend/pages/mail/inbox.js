@@ -67,9 +67,7 @@ export default function inbox() {
             </Box>
           </Grid>
         </Grid>
-        <Grid item xs={3}>
-          <MenuList></MenuList>
-        </Grid>
+        <MenuList></MenuList>
 
         {loading ? <div>loading...</div> : null}
         {isPostBox ? (

@@ -5,6 +5,9 @@ import { useEffect, useState } from "react";
 import { getMailByCode } from "../../../components/apis/letter";
 import ReadMail from "../../../components/mail/inbox/ReadMail";
 import ReadMailByCode from "../../../components/mail/inbox/ReadMailByCode";
+import Header from "../../../components/Header";
+import MenuList from "../../../components/menu/MenuList";
+
 export default function ReadCodeMail() {
   const router = useRouter();
   // const mailCode = router.query.code;
@@ -18,14 +21,17 @@ export default function ReadCodeMail() {
 
   return (
     <Box
+      component="div"
       sx={{
         width: 420,
+        minHeight: "100vh",
         mx: "auto",
         bgcolor: "#FCFAEF",
         position: "relative",
-        minHeight: "100vh",
       }}
     >
+      <Header title="편지"></Header>
+      <MenuList></MenuList>
       {code && <ReadMailByCode code={code}></ReadMailByCode>}
     </Box>
   );
