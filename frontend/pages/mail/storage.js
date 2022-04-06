@@ -1,28 +1,46 @@
 import { Box, Typography } from "@mui/material";
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+  useContext,
+} from "react";
+import { useRouter } from "next/router";
 import MenuList from "../../components/menu/MenuList";
 import Letter from "../../components/main/Letter";
 import Photocard from "../../components/mail/inbox/Photocard";
 import { getUndoneMail } from "../../components/apis/mailbox";
 import { authentication } from "../../components/apis/auth";
-import Router from "next/router";
+import LetterContext from "../../contexts/LetterContext";
 export default function Storage() {
   const [loading, setLoading] = useState(false);
   const [mails, setMails] = useState([]);
+  const { setTempMailId } = useContext(LetterContext);
+  const router = useRouter();
 
   const fetch = async () => {
     try {
-      const res = await getUndoneMail();
-      setMails(res.data.result);
+      const response = await getUndoneMail();
+      console.log(response.data.result);
+      setMails(response.data.result);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const routeToWrite = (e, id) => {
-    e.preventDefault();
-    Router.push("/letter/write");
+  const handlePage = (id) => {
+    setTempMailId(id);
+    router.push(
+      {
+        pathname: "/letter/write",
+        query: { tempId: id },
+      },
+      "/letter/write"
+    );
+    console.log(id);
   };
+
   useEffect(() => {
     authentication();
     fetch();
@@ -58,44 +76,41 @@ export default function Storage() {
         {loading && <Typography>loading</Typography>}
 
         {mails &&
-          mails.map(({ title, mailType, createdDate, mail_id }, index) => {
-            if (mailType === "PHOTOCARD") {
+          mails.map(({ title, mail_Type, created_date, mail_id }, index) => {
+            if (mail_Type === "PHOTOCARD") {
               return (
-                <Box
-                  onClick={(e, mail_id) => routeToWrite(e, mail_id)}
+                <Photocard
+                  title={title}
+                  createdDate={created_date}
                   key={index}
-                >
-                  <Photocard
-                    title={title}
-                    createdDate={createdDate}
-                  ></Photocard>
-                </Box>
+                  sx={{
+                    "&:hover": {
+                      cursor: "pointer",
+                    },
+                  }}
+                ></Photocard>
               );
-            } else if (mailType === "GENERAL") {
+            } else if (mail_Type === "GENERAL") {
               return (
-                <Box
-                  onClick={(e, mail_id) => routeToWrite(e, mail_id)}
+                <Letter
+                  text={title}
+                  index={0}
+                  createdDate={created_date}
                   key={index}
-                >
-                  <Letter
-                    text={title}
-                    index={0}
-                    createdDate={createdDate}
-                  ></Letter>
-                </Box>
+                  handlePage={handlePage}
+                  mailId={mail_id}
+                ></Letter>
               );
             } else {
               return (
-                <Box
-                  onClick={(e, mail_id) => routeToWrite(e, mail_id)}
+                <Letter
+                  text={title}
+                  index={1}
+                  createdDate={created_date}
                   key={index}
-                >
-                  <Letter
-                    text={title}
-                    index={1}
-                    createdDate={createdDate}
-                  ></Letter>
-                </Box>
+                  handlePage={handlePage}
+                  mailId={mail_id}
+                ></Letter>
               );
             }
           })}

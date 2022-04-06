@@ -34,6 +34,7 @@ function MyApp({ Component, pageProps }) {
   const [createdDate, setCreatedDate] = useState("");
   const [senderEmail, setSenderEmail] = useState("");
   const [mailCode, setMailCode] = useState("");
+  const [tempMailId, setTempMailId] = useState("");
   return (
     <>
       <DefaultSeo {...DEFAULT_SEO} />
@@ -81,6 +82,8 @@ function MyApp({ Component, pageProps }) {
           setUnderlineColor,
           mailCode,
           setMailCode,
+          tempMailId,
+          setTempMailId,
         }}
       >
         <Component {...pageProps} />

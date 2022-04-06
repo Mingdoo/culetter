@@ -29,7 +29,7 @@ const hrefs = [
   "/letter/select",
   "/mail/sent",
   "/mail/inbox",
-  "/mail/undone",
+  "/mail/storage",
   "/friends",
   "/profile",
   "/logout",
