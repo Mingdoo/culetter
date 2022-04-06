@@ -14,8 +14,10 @@ function Letter({
   senderName,
   switchPage,
   mailId,
+  handlePage,
 }) {
   const router = useRouter();
+
   const handleMainClick = (e) => {
     e.preventDefault();
     router.push(href[index]);
@@ -33,8 +35,17 @@ function Letter({
         fontSize: 26,
         fontFamily: "Gowun Batang",
         mb: main ? (index === 3 ? 3 : 2) : 2,
+        "&:hover": {
+          cursor: "pointer",
+        },
       }}
-      onClick={switchPage ? (e) => switchPage(mailId) : null}
+      onClick={
+        handlePage
+          ? (e) => handlePage(mailId)
+          : switchPage
+          ? switchPage(mailId)
+          : null
+      }
     >
       <svg
         width="320"

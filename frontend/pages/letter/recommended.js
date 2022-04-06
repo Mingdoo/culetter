@@ -20,6 +20,10 @@ import CircleTwoToneIcon from "@mui/icons-material/CircleTwoTone";
 import LetterContext from "../../contexts/LetterContext";
 import RecommendApi from "../../components/apis/RecommendApi";
 import { getRouteMatcher } from "next/dist/shared/lib/router/utils";
+import {
+  fetchPostCardImage,
+  getRecommendImage,
+} from "../../components/apis/letter";
 
 const useCheckboxStyles = makeStyles({
   overrides: {
@@ -35,58 +39,21 @@ const useCheckboxStyles = makeStyles({
 });
 
 const Recommended = () => {
-  const { mailType, content, title, setStyleUrl } = useContext(LetterContext);
-  const { getEmotion, getRecommendImage } = RecommendApi;
-
-  // const [mailType, setType] = useState("photocard");
-  // const [type, setType] = useState("normal");
-  // const [type, setType] = useState("postcard");
-
+  const { mailType, content, title, setStyleUrl, setImage, emotion } =
+    useContext(LetterContext);
+  const [isUploaded, setIsUploaded] = useState(false);
+  const [uploadedImage, setUploadedImage] = useState(null);
   const [checked, setChecked] = useState(0);
-  // const [content, setContent] = useState(
-  //   "이름을 알고 나면 이웃이 되고\n" +
-  //     "색깔을 알고 나면 친구가 되고\n" +
-  //     "모양까지 알고 나면 연인이 된다\n" +
-  //     "아, 이것은 비밀\n"
-  // );
+  const [isLoading, setIsLoading] = useState(false);
 
-  const photocardList = [
-    { front: "/img/photocard_front1.jpg", back: "/img/photocard_back.png" },
-    { front: "/img/photocard_front2.jpg", back: "/img/photocard_back.png" },
-    { front: "/img/photocard_front3.jpg", back: "/img/photocard_back.png" },
-    { front: "/img/photocard_front4.jpg", back: "/img/photocard_back.png" },
-    { front: "/img/photocard_front5.jpg", back: "/img/photocard_back.png" },
-  ];
+  const [photocardList, setPhotocardList] = useState([]);
 
-  const letterList = [
-    { imgsrc: "/img/letterImg1.png" },
-    { imgsrc: "/img/letterImg2.png" },
-    { imgsrc: "/img/letterImg3.png" },
-    { imgsrc: "/img/letterImg4.png" },
-    { imgsrc: "/img/letterImg5.png" },
-    { imgsrc: "/img/letterImg6.png" },
-    { imgsrc: "/img/letterImg7.png" },
-    { imgsrc: "/img/letterImg8.png" },
-    { imgsrc: "/img/letterImg9.png" },
-    { imgsrc: "/img/letterImg10.png" },
-  ];
-
-  const postcardList = [
-    { imgsrc: "/img/postcard1.jpg" },
-    { imgsrc: "/img/postcard2.jpg" },
-    { imgsrc: "/img/postcard3.jpg" },
-    { imgsrc: "/img/postcard4.jpg" },
-    { imgsrc: "/img/postcard5.jpg" },
-    { imgsrc: "/img/postcard6.jpg" },
-    { imgsrc: "/img/postcard7.jpg" },
-    { imgsrc: "/img/postcard8.jpg" },
-    { imgsrc: "/img/postcard9.jpg" },
-    { imgsrc: "/img/postcard10.jpg" },
-  ];
-
+  const [letterList, setLetterList] = useState([]);
+  const [postcardList, setPostcardList] = useState([]);
   const [prevImg, setPrevImg] = useState("");
 
   const handleChange = (event) => {
+    console.log(event.target.value);
     const curIndex = event.target.value;
     if (curIndex === checked) {
       setChecked(-1);
@@ -94,14 +61,21 @@ const Recommended = () => {
     } else {
       const index = parseInt(curIndex) + 1;
       setChecked(curIndex);
+      setIsUploaded(false);
       setPrevImg(`/img/postcard${index}.jpg`);
       // 선택된 이미지???
       // setStyleUrl(`/img/postcard${index}.jpg`)
       setStyleUrl(
-        "https://culetter.s3.ap-northeast-2.amazonaws.com/profile_image/06946054-b2af-4607-b19d-e615e2838e28-1649084959518"
+        "https://culetter.s3.ap-northeast-2.amazonaws.com/profile_image/06946054-b2af-4607-b19d-e615e2838e28-1649084959518",
       );
     }
   };
+
+  // useEffect(() => {
+  //   console.log(isUploaded);
+  //   console.log(uploadedImage);
+  //   console.log(checked);
+  // }, [isUploaded, uploadedImage, checked]);
 
   const handlePrevImage = (url) => {
     setPrevImg(url);
@@ -114,64 +88,76 @@ const Recommended = () => {
 
   useEffect(() => {
     authentication();
+    console.log(emotion);
+    console.log(mailType);
     const token = localStorage.getItem("accessToken");
     if (token && mailType == "") {
       setTimeout(() => {
         Router.push("/letter/select");
-      }, 3000);
+      }, 1000);
     } else {
-      console.log("here");
       handleAnalyze();
     }
     setPrevImg((prev) => "/img/prevImg.png");
   }, []);
 
   const handleAnalyze = async () => {
-    const body = {
-      content: content,
-    };
-    try {
-      const response = await getEmotion(body);
-      handleStyle(response);
-      console.log(response);
-    } catch (error) {
-      console.log(error);
+    let sendType;
+    if (mailType === "PHOTOCARD") {
+      sendType = "photocardImage";
     }
-  };
-
-  const handleStyle = async (data) => {
-    const body = {
-      type: "",
-      emotion: "",
-    };
-    try {
-      const response = await getRecommendImage(body);
-      console.log(response);
-    } catch (error) {
-      console.log(error);
+    if (mailType === "POSTCARD") {
+      sendType = "postcardImage";
     }
+    if (mailType === "GENERAL") {
+      sendType = "letterImage";
+    }
+    const body = {
+      type: sendType,
+      ...emotion,
+    };
+    console.log(body);
+    getRecommendImage(body).then((res) => {
+      console.log(res);
+    });
   };
 
   const handleNextClick = (e) => {
     e.preventDefault();
-    if (checked != -1) {
+    if (isUploaded) {
+      fetchPostCardImage(uploadedImage)
+        .then((res) => {
+          console.log(res);
+          setImage(res.data.image_url);
+          Router.push("/letter/music");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+
+    if (checked !== -1) {
       Router.push("/letter/music");
     } else {
-      toast.error("사진을 선택해주세요", {
-        position: toast.POSITION.TOP_CENTER,
-        role: "alert",
-      });
+      if (isUploaded) {
+      } else {
+        toast.error("사진을 선택해주세요", {
+          position: toast.POSITION.TOP_CENTER,
+          role: "alert",
+        });
+      }
     }
   };
   const handlePrevClick = (e) => {
     e.preventDefault();
-    Router.push("/letter/type");
+    Router.push("/letter/write");
   };
   return (
     <Box
       component="div"
       sx={{
         width: 420,
+        minHeight: "100vh",
         mx: "auto",
         bgcolor: "#FCFAEF",
       }}
@@ -247,7 +233,7 @@ const Recommended = () => {
                 onChange={handleChange}
                 checked={checked == index}
                 icon={<RadioButtonUncheckedIcon />}
-                checkedIcon={<CheckCircleIcon />}
+                checkedIcon={<CheckCircleOutlineIcon />}
                 style={{
                   height: "10%",
                   color: checked == index ? "#dc816c  " : "#ECDDBE",
@@ -313,14 +299,14 @@ const Recommended = () => {
                   <Checkbox
                     value={index}
                     onChange={handleChange}
-                    checked={checked == index}
+                    checked={checked === index}
                     icon={<RadioButtonUncheckedIcon />}
                     checkedIcon={<CheckCircleOutlineIcon />}
                     style={{
                       display: "inline-block",
                       width: "12%",
                       height: "20%",
-                      color: checked == index ? "#dc816c " : "#ECDDBE",
+                      color: checked === index ? "#dc816c " : "#ECDDBE",
                     }}
                   />
                 </Box>
@@ -353,7 +339,12 @@ const Recommended = () => {
                 ></img>
               </Box>
             </Box>
-            <Imgupload handlePrevImage={handlePrevImage} />
+            <Imgupload
+              handlePrevImage={handlePrevImage}
+              isUploaded={isUploaded}
+              setIsUploaded={setIsUploaded}
+              setUploadedImage={setUploadedImage}
+            />
           </>
         ) : (
           <Box

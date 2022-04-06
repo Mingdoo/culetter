@@ -78,7 +78,7 @@ export default function Preview() {
       // console.log("하기 전", stickersPos);
       // console.log(JSON.stringify(stickersPos));
       // console.log("다시", JSON.parse(stringifyStickers));
-      // Router.push("/letter/send");
+      Router.push("/letter/send");
     } catch (e) {
       console.log(e);
     }

@@ -49,7 +49,7 @@ const Photocard = (props) => {
             position: "relative",
           }}
         >
-          {stickersPos.map((Sticker) =>
+          {stickersPos.map((Sticker, idx) =>
             Sticker.type !== "sticker" ? (
               <Typography
                 sx={{
@@ -62,6 +62,7 @@ const Photocard = (props) => {
                   whiteSpace: "pre-line",
                   fontWeight: isFontBold ? "bold" : "normal",
                 }}
+                key={idx}
               >
                 {Sticker.content}
               </Typography>
@@ -70,6 +71,7 @@ const Photocard = (props) => {
                 sx={{
                   position: "absolute",
                 }}
+                key={idx}
               >
                 <Sticker.content.icon
                   sx={{
@@ -79,7 +81,7 @@ const Photocard = (props) => {
                   fontSize="large"
                 />
               </Box>
-            )
+            ),
           )}
         </Box>
       </ReactCardFlip>

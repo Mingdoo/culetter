@@ -1,21 +1,44 @@
 import { Box, Typography } from "@mui/material";
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+  useContext,
+} from "react";
+import { useRouter } from "next/router";
 import MenuList from "../../components/menu/MenuList";
 import Letter from "../../components/main/Letter";
 import Photocard from "../../components/mail/inbox/Photocard";
 import { getUndoneMail } from "../../components/apis/mailbox";
 import { authentication } from "../../components/apis/auth";
+import LetterContext from "../../contexts/LetterContext";
 export default function Storage() {
   const [loading, setLoading] = useState(false);
   const [mails, setMails] = useState([]);
+  const { setTempMailId } = useContext(LetterContext);
+  const router = useRouter();
 
   const fetch = async () => {
     try {
-      const res = await getUndoneMail();
-      setMails(res.data.result);
+      const response = await getUndoneMail();
+      console.log(response.data.result);
+      setMails(response.data.result);
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handlePage = (id) => {
+    setTempMailId(id);
+    router.push(
+      {
+        pathname: "/letter/write",
+        query: { tempId: id },
+      },
+      "/letter/write"
+    );
+    console.log(id);
   };
 
   useEffect(() => {
@@ -52,22 +75,31 @@ export default function Storage() {
            */}
         {loading && <Typography>loading</Typography>}
         {mails &&
-          mails.map(({ title, mailType, createdDate }, index) => {
-            if (mailType === "PHOTOCARD") {
+          mails.map(({ title, mail_Type, created_date, mail_id }, index) => {
+            if (mail_Type === "PHOTOCARD") {
               return (
                 <Photocard
                   title={title}
-                  createdDate={createdDate}
+                  createdDate={created_date}
                   key={index}
+                  sx={{
+                    "&:hover": {
+                      cursor: "pointer",
+                    },
+                  }}
+                  handlePage={handlePage}
+                  mailId={mail_id}
                 ></Photocard>
               );
-            } else if (mailType === "GENERAL") {
+            } else if (mail_Type === "GENERAL") {
               return (
                 <Letter
                   text={title}
                   index={0}
-                  createdDate={createdDate}
+                  createdDate={created_date}
                   key={index}
+                  handlePage={handlePage}
+                  mailId={mail_id}
                 ></Letter>
               );
             } else {
@@ -75,8 +107,10 @@ export default function Storage() {
                 <Letter
                   text={title}
                   index={1}
-                  createdDate={createdDate}
+                  createdDate={created_date}
                   key={index}
+                  handlePage={handlePage}
+                  mailId={mail_id}
                 ></Letter>
               );
             }
