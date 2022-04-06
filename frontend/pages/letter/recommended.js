@@ -65,10 +65,7 @@ const Recommended = () => {
       setIsUploaded(false);
       setPrevImg(`/img/postcard${index}.jpg`);
       // 선택된 이미지???
-      // setStyleUrl(`/img/postcard${index}.jpg`)
-      setStyleUrl(
-        "https://culetter.s3.ap-northeast-2.amazonaws.com/profile_image/06946054-b2af-4607-b19d-e615e2838e28-1649084959518",
-      );
+      setStyleUrl(`/img/postcard${index}.jpg`);
     }
   };
 

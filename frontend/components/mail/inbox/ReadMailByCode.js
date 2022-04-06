@@ -19,7 +19,6 @@ export default function ReadMailByCode({ code }) {
     try {
       const res = await getMailByCode(code);
       setData(res.data);
-      console.log(res);
       // console.log(JSON.parse(res.data.stickers));
       setStickersPos(JSON.parse(res.data.stickers));
     } catch (error) {
@@ -35,6 +34,14 @@ export default function ReadMailByCode({ code }) {
       console.log(e);
     }
   };
+
+  useEffect(() => {
+    console.log(data);
+    console.log(data.style_url);
+    console.log(data.content);
+    console.log(data.style_url);
+    console.log(data.music_url);
+  }, [data]);
 
   function renderElement(Sticker) {
     const Emoji = Emojis[Sticker.content.idx];
@@ -212,7 +219,7 @@ export default function ReadMailByCode({ code }) {
                   minHeight: 560,
                   overflowY: "auto",
                   whiteSpace: "pre-line",
-                  fontWeight: data.is_font_bold ? "bol d" : "normal",
+                  fontWeight: data.is_font_bold ? "bold" : "normal",
                 }}
               >
                 {data.title}
