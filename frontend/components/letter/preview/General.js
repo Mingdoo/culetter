@@ -6,6 +6,7 @@ import { fonts, colors } from "../../Variables";
 function General({ props }) {
   const {
     title,
+    image,
     styleUrl,
     content,
     musicUrl,
@@ -25,7 +26,7 @@ function General({ props }) {
         justifyContent: "center",
       }}
     >
-      <img src="/test.png" width={420} style={{ position: "absolute" }} />
+      <img src={image} width={420} style={{ position: "absolute" }} />
       <Box
         sx={{
           position: "relative",
