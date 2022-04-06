@@ -16,7 +16,7 @@ mailsApi.interceptors.request.use(
   function (error) {
     console.log(error);
     return Promise.reject(error);
-  },
+  }
 );
 
 export const sendLetter = async (body) => {

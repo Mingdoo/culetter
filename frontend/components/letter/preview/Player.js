@@ -27,13 +27,17 @@ export default function Player({ musicUrl }) {
     setSeekValue(
       (audioPlayer.current.currentTime / audioPlayer.current.duration) * 100
     );
+    (audioPlayer.current.currentTime / audioPlayer.current.duration) * 100 ===
+    100
+      ? setIsPlaying(true)
+      : null;
   };
 
   const [isPlaying, setIsPlaying] = useState(true);
   return (
     <>
       <audio
-        src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+        src="http://commondatastorage.googleapis.com/codeskulptor-assets/Evillaugh.ogg"
         ref={audioPlayer}
         onTimeUpdate={onPlaying}
       >
