@@ -23,35 +23,29 @@ const Photocard = (props) => {
             style={{ borderRadius: "2rem" }}
           ></img>
         </Box>
-        <Box component="div" onClick={(e) => setIsFlipped((prev) => !prev)}>
-          <img
-            className="image"
-            width={width}
-            height={height}
-            src={back}
-            style={{ borderRadius: "2rem" }}
-          ></img>
-          <Box
+        <Box
+          component="div"
+          onClick={(e) => setIsFlipped((prev) => !prev)}
+          sx={{
+            borderRadius: "2rem",
+            bgcolor: "#bab9",
+            width: { width },
+            height: { height },
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
+          <Typography
             sx={{
-              display: "flex",
-              justifyContent: "center",
-              position: "absolute",
-              top: "0",
-              margin: "1rem",
-              mt: "2rem",
+              textAlign: "center",
+              fontSize: "1rem",
+              whiteSpace: "pre-wrap",
+              fontFamily: "Gowun Dodum",
             }}
           >
-            <Typography
-              sx={{
-                textAlign: "center",
-                fontSize: "1rem",
-                whiteSpace: "pre-wrap",
-                fontFamily: "Gowun Dodum",
-              }}
-            >
-              {content}
-            </Typography>
-          </Box>
+            {content}
+          </Typography>
         </Box>
       </ReactCardFlip>
     </Box>
