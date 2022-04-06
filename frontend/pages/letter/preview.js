@@ -106,8 +106,6 @@ export default function Preview() {
         {mailType === "PHOTOCARD" ? (
           <Photocard
             key="previewLetter"
-            front="/img/photocard_front1.jpg"
-            back="/img/photocard_back.png"
             content={content}
             preview={true}
           ></Photocard>

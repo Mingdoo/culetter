@@ -9,15 +9,14 @@ const Photocard = (props) => {
   const {
     bgcolor,
     stickersPos,
+    styleUrl,
     fontsize,
     fontType,
     fontColor,
     isFontBold,
     image,
   } = useContext(LetterContext);
-  useEffect(() => {
-    console.log(image);
-  }, []);
+  useEffect(() => {}, []);
   //something changed
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -39,7 +38,7 @@ const Photocard = (props) => {
           <img
             width={width}
             height={height}
-            src={image && image}
+            src={styleUrl && styleUrl}
             style={{ borderRadius: "2rem" }}
           ></img>
         </Box>

@@ -149,7 +149,7 @@ const Recommended = () => {
       fetchPostCardImage(uploadedImage)
         .then((res) => {
           console.log(res);
-          setImage(res.data.image_url);
+          setStyleUrl(res.data.image_url);
           Router.push("/letter/music");
         })
         .catch((error) => {
@@ -159,13 +159,13 @@ const Recommended = () => {
 
     if (checked !== -1) {
       if (mailType === "PHOTOCARD") {
-        setImage(photocardList[checked]);
+        setStyleUrl(photocardList[checked]);
       }
       if (mailType === "POSTCARD") {
-        setImage(postcardList[checked]);
+        setStyleUrl(postcardList[checked]);
       }
       if (mailType === "GENERAL") {
-        setImage(letterList[checked]);
+        setStyleUrl(letterList[checked]);
       }
       Router.push("/letter/music");
     } else {
