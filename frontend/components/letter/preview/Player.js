@@ -6,9 +6,11 @@ import PauseIcon from "@mui/icons-material/Pause";
 import AlbumIcon from "@mui/icons-material/Album";
 import LetterContext from "../../../contexts/LetterContext";
 
-export default function Player() {
+export default function Player(props) {
+  const { music } = props;
+  console.log(music, "player props");
   // const { musicSelected } = useContext(ContentsContext);
-  const { musicName, musicUrl } = useContext(LetterContext);
+  const { musicName, musicUrl, setMusicUrl } = useContext(LetterContext);
   const audioPlayer = useRef();
 
   const [currentTime, setCurrentTime] = useState(0);
@@ -36,7 +38,16 @@ export default function Player() {
 
   const [isPlaying, setIsPlaying] = useState(true);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (music !== null) {
+      console.log(music, "player");
+      setMusicUrl(music);
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log(musicUrl, "player");
+  }, [musicUrl]);
   return (
     <>
       <audio src={musicUrl} ref={audioPlayer} onTimeUpdate={onPlaying}>
