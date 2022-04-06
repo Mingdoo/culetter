@@ -39,9 +39,6 @@ function Letter({
           cursor: "pointer",
         },
       }}
-      // onClick={() => {
-      //   handlePage(mailId);
-      // }}
       onClick={handlePage ? (e) => handlePage(mailId) : null}
     >
       <svg

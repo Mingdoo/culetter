@@ -22,13 +22,17 @@ const Content = (props) => {
   const [opacity, setOpacity] = useState("100%");
   const [loading, setLoading] = useState(false);
   const {
-    setTitle,
-    setContent,
-    receiver_name,
-    receiver_email,
     title,
-    mail_type,
+    setTitle,
     content,
+    setContent,
+    setName,
+    receiverName,
+    setReceiverName,
+    receiverEmail,
+    setReceiverEmail,
+    mailType,
+    setMailType,
     mailId,
     setMailId,
   } = useContext(LetterContext);
@@ -37,10 +41,10 @@ const Content = (props) => {
 
   const handleTempSave = async () => {
     const body = {
-      receiver_name: receiver_name,
-      receiver_email: receiver_email,
+      receiver_name: receiverName,
+      receiver_email: receiverEmail,
       title: title,
-      mail_type: mail_type,
+      mail_type: mailType,
       content: content,
       music_url: "",
       image: "",
@@ -95,17 +99,20 @@ const Content = (props) => {
   useEffect(() => {
     if (tempTitle !== "" && tempContent !== "") {
       setTitle(tempTitle);
-      setContent(tempContent);
+      setContent(`${tempContent}`);
+      setContentLength(tempContent.length);
       setOpacity("0%");
       setLoading(true);
+      checkTextValid(true);
       setTimeout(() => {
         setOpacity("100%");
         setLoading(false);
-      }, 3000);
+      }, 2000);
     }
   }, [tempTitle, tempContent]);
 
   useEffect(() => {
+    console.log(mailType);
     if (tempTitle == "" && tempContent == "") {
       setContent("");
       setTitle("");
