@@ -44,9 +44,6 @@ export default function Preview() {
   const { setMailCode } = useContext(RoutingContext);
   useEffect(() => {
     authentication();
-    setStyleUrl(
-      "https://culetter.s3.ap-northeast-2.amazonaws.com/profile_image/06946054-b2af-4607-b19d-e615e2838e28-1649084959518"
-    );
   }, []);
 
   const send = async () => {
@@ -82,7 +79,7 @@ export default function Preview() {
       // console.log("하기 전", stickersPos);
       // console.log(JSON.stringify(stickersPos));
       // console.log("다시", JSON.parse(stringifyStickers));
-      Router.push("/letter/send");
+      Router.push("/letter/share");
     } catch (e) {
       console.log(e);
     }

@@ -174,11 +174,6 @@ function Letter({
         <path d="M14 174L14 188L6 196V182L14 174Z" fill={color1[index]} />
         <path d="M341 197H327L341 183V197Z" fill={color2[index]} />
         <path d="M6 6H20L6 20V6Z" fill={color2[index]} />
-        {main ? (
-          <text fill="black" x="50" y="75">
-            {text}
-          </text>
-        ) : null}
       </svg>
       {!main ? (
         <Typography
@@ -199,7 +194,27 @@ function Letter({
         >
           {text}
         </Typography>
-      ) : null}
+      ) : (
+        <Typography
+          sx={{
+            position: "absolute",
+            width: 1,
+            top: 50,
+            left: 90,
+            width: "250px",
+            display: "flex",
+            textOverflow: "ellipsis",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            display: "block",
+            fontSize: 22,
+            fontWeight: "bold",
+            fontFamily: "Gowun Dodum",
+          }}
+        >
+          {text}
+        </Typography>
+      )}
       {!main ? (
         <Box
           sx={{
