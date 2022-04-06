@@ -45,9 +45,10 @@ export default function Player(props) {
 
   useEffect(() => {
     if (music !== null) {
-      console.log(music, "player");
+      console.log(music, "player music");
       setMusicUrl(music);
     }
+    console.log(isPlaying);
   }, []);
 
   useEffect(() => {
@@ -88,7 +89,7 @@ export default function Player(props) {
               sx={{ display: "flex", justifyContent: "center" }}
               onClick={() => {
                 play();
-                // setIsPlaying(false);
+                setIsPlaying(false);
               }}
             ></PlayArrowRoundedIcon>
           ) : (
@@ -96,7 +97,7 @@ export default function Player(props) {
               sx={{ display: "flex", justifyContent: "center" }}
               onClick={() => {
                 pause();
-                // setIsPlaying(true);
+                setIsPlaying(true);
               }}
             ></PauseIcon>
           )}
