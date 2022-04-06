@@ -2,7 +2,7 @@ import { Box, Typography, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import ReactCardFlip from "react-card-flip";
 import Router from "next/router";
-
+import DownloadIcon from "@mui/icons-material/Download";
 import { getMailByCode, saveRecvMail } from "../../apis/letter";
 import Player from "../../letter/preview/Player";
 import { fonts, colors } from "../../Variables";
@@ -252,9 +252,19 @@ export default function ReadMailByCode({ code }) {
         <Player music={data.music_url}></Player>
       </Box>
       {data.receiver_email ? null : (
-        <Box sx={{ display: "flex", justifyContent: "center", mt: "1rem" }}>
+        <Box
+          sx={{
+            display: "flex",
+            backgroundColor: "#f7e4e0",
+            justifyContent: "center",
+            mt: "1rem",
+          }}
+        >
           <Button sx={{ ...ButtonStyle }} onClick={saveLetter}>
-            편지함에 보관
+            <Typography>
+              편지함에 보관
+              <DownloadIcon sx={{ color: "white" }} />
+            </Typography>
           </Button>
         </Box>
       )}
