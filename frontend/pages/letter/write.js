@@ -17,7 +17,21 @@ const writeLetter = () => {
   const [tempMailId, setTempMailId] = useState("");
   const [tempContent, setTempContent] = useState("");
   const [tempTitle, setTempTitle] = useState("");
-  const { mailType, content, setEmotion } = useContext(LetterContext);
+  const {
+    title,
+    setTitle,
+    content,
+    setContent,
+    setName,
+    receiver_name,
+    setReceiverName,
+    receiver_email,
+    setReceiverEmail,
+    mail_type,
+    setMailType,
+    mailId,
+    setMailId,
+  } = useContext(LetterContext);
   const { getMailById } = MailApi;
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -61,6 +75,10 @@ const writeLetter = () => {
       const response = await getMailById(id);
       setTempContent(response.data.content);
       setTempTitle(response.data.title);
+      setMailType(response.data.mail_type);
+      setReceiverEmail(response.data.receiver_email);
+      setReceiverName(response.data.receiver_name);
+      console.log(response);
     } catch (error) {
       console.log(error);
     }

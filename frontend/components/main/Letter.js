@@ -39,10 +39,13 @@ function Letter({
           cursor: "pointer",
         },
       }}
-      // onClick={() => {
-      //   handlePage(mailId);
-      // }}
-      onClick={handlePage ? (e) => handlePage(mailId) : null}
+      onClick={
+        handlePage
+          ? (e) => handlePage(mailId)
+          : switchPage
+          ? switchPage(mailId)
+          : null
+      }
     >
       <svg
         width="320"

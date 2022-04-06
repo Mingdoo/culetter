@@ -17,7 +17,13 @@ export const Photocard = ({
         fontSize: 26,
         height: "204px",
       }}
-      onClick={handlePage ? (e) => handlePage(mailId) : null}
+      onClick={
+        handlePage
+          ? (e) => handlePage(mailId)
+          : switchPage
+          ? switchPage(mailId)
+          : null
+      }
     >
       <Box
         sx={{
