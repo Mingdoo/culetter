@@ -2,13 +2,13 @@ import { Box, Grid, IconButton, TextField } from "@mui/material";
 import { ToastContainer, toast } from "react-toastify";
 import { useEffect, useState, useContext } from "react";
 
-import LetterContext from "../../../contexts/LetterContext";
+import RoutingContext from "../../../contexts/RoutingContext";
 import ContentCopyRoundedIcon from "@mui/icons-material/ContentCopyRounded";
 import ShareIcon from "@mui/icons-material/Share";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function LinkShare() {
-  const { mailCode } = useContext(LetterContext);
+  const { mailCode } = useContext(RoutingContext);
   const [isMobile, setIsMobile] = useState(true);
 
   const link = `https://cultter.site/${mailCode}`;

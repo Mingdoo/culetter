@@ -6,6 +6,7 @@ import General from "../../components/letter/preview/General";
 import Photocard from "../../components/letter/preview/Photocard";
 import Player from "../../components/letter/preview/Player";
 import LetterContext from "../../contexts/LetterContext";
+import RoutingContext from "../../contexts/RoutingContext";
 import PostCard from "../../components/letter/preview/Postcard";
 import MenuList from "../../components/menu/MenuList";
 
@@ -36,9 +37,9 @@ export default function Preview() {
     isFontBold,
     setIsFontBold,
     underlineColor,
-    setMailCode,
   } = useContext(LetterContext);
 
+  const { setMailCode } = useContext(RoutingContext);
   useEffect(() => {
     authentication();
     setStyleUrl(

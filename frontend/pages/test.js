@@ -12,9 +12,10 @@ import BadgeIcon from "@mui/icons-material/Badge";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LockIcon from "@mui/icons-material/Lock";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
 import Router from "next/router";
 
+import RoutingContext from "../contexts/RoutingContext";
 import { getUserInfo, editUserInfo } from "../components/apis/profile";
 import ConfirmBtn from "../components/profile/ConfirmBtn";
 import axios from "axios";
@@ -29,6 +30,8 @@ export default function Test() {
   const [email, setEmail] = useState();
   const testConfirm = useRef(false);
   const [pwConfirm, setPwConfirm] = useState(false);
+  const { fromBack, setFromBack } = useContext(RoutingContext);
+
   const onClickUploadFile = function (e) {
     const file = e.target.files[0];
     setProfileImage(file);
@@ -38,6 +41,7 @@ export default function Test() {
       setShowProfileImage(reader.result);
     };
   };
+
   const setUserInfo = async () => {
     try {
       const res = await getUserInfo();
@@ -58,6 +62,12 @@ export default function Test() {
     }
   }, [pwConfirm]);
 
+  useEffect(() => {
+    if (fromBack) {
+      setPwConfirm(true);
+      setFromBack(false);
+    }
+  }, []);
   const routeToPw = (e) => {
     e.preventDefault();
     Router.push("/password");
@@ -73,12 +83,13 @@ export default function Test() {
     );
     formData.append("profileImage", profileImage);
     console.log(formData.get("info"));
+    console.log(formData.get("profileImage"));
     axios
       .put("https://www.culetter.site/api/members", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization:
-            "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzMiIsImF1dGgiOiJST0xFXzEiLCJleHAiOjE2NDkyNjExNTd9.uEYVoYw4viX8Wdb5ts1gDRm7pbg0xncYac-d7iuGz0si0J_rh3WFnMm6clxKZ-_-jHwIpoaWhbHesbrHOa382A",
+            "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzMiIsImF1dGgiOiJST0xFXzEiLCJleHAiOjE2NDkyOTkwNTN9.ShoIf3E96EcNZYgo_cLSEpXpk6-wjYoP0kw-mghVUG43viqFqBd0aGskT2xVL2RQXLqBjg4rE_eYq5YqAnNCMQ",
         },
       })
       .then((res) => console.log(res))
