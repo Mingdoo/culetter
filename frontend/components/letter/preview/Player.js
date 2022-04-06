@@ -5,7 +5,7 @@ import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
 import PauseIcon from "@mui/icons-material/Pause";
 import AlbumIcon from "@mui/icons-material/Album";
 
-export default function MiniPlayer({ musicUrl }) {
+export default function Player({ musicUrl }) {
   // const { musicSelected } = useContext(ContentsContext);
   const audioPlayer = useRef();
   const musicSelected = { title: "라일락", singer: "아이유" };

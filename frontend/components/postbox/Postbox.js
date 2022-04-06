@@ -6,21 +6,30 @@ import { Box, Typography } from "@mui/material";
 
 const PostBox = (props) => {
   const { title, size } = props;
+
+  const legStyle = {
+    position: "relative",
+    width: 100,
+    height: 50,
+    display: "inline-block",
+    backgroundColor: "#d3504a",
+    borderColor: "#d3504a",
+    borderRadius: "1rem",
+  };
   return (
     <Box
       component="div"
       sx={{
         textAlign: "center",
         backgroundColor: "#FCFAEF",
-        width: 420,
-        // height: "110vh",
+        width: 330,
         mx: "auto",
       }}
     >
       <Box
         component="div"
         sx={{
-          mt: 12,
+          mt: "-1rem",
           width: 330,
           height: 330,
           backgroundColor: "#d3504a",
@@ -53,7 +62,7 @@ const PostBox = (props) => {
         </Box>
         <Box
           component="div"
-          sx={{ position: "absolute", top: 250, backgroundColor: "#FCFAEF" }}
+          sx={{ position: "absolute", top: 300, backgroundColor: "#FCFAEF" }}
         >
           <Box
             component="div"
@@ -100,7 +109,7 @@ const PostBox = (props) => {
                   mt: 3.5,
                   borderColor: "#A63636",
                   position: "absolute",
-                  bottom: "7.8rem",
+                  bottom: "2.8rem",
                   left: "3rem",
                 }}
               >
@@ -143,17 +152,11 @@ const PostBox = (props) => {
             </Box>
           </Box>
           {/* 우체통 다리 */}
-          <Box
+          {/* <Box
             component="div"
+            style={legStyle}
             sx={{
-              width: 70,
-              display: "inline-block",
-              backgroundColor: "#d3504a",
-              borderLeft: 70,
-              borderBottom: 60,
-              borderBottomColor: "#d3504a",
-              borderRight: 0,
-              borderLeftColor: "#FCFAEF",
+              right: "-1rem",
             }}
           ></Box>
           <Box
@@ -169,17 +172,11 @@ const PostBox = (props) => {
           ></Box>
           <Box
             component="div"
+            style={legStyle}
             sx={{
-              width: 70,
-              display: "inline-block",
-              backgroundColor: "#d3504a",
-              borderLeft: 0,
-              borderBottom: 60,
-              borderBottomColor: "#d3504a",
-              borderRight: 70,
-              borderRightColor: "#FCFAEF",
+              left: "-1rem",
             }}
-          ></Box>
+          ></Box> */}
           {/* 우체통 다리 끝 */}
         </Box>
       </Box>

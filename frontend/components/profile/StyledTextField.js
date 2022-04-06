@@ -4,18 +4,18 @@ import { TextField, Button } from "@mui/material";
 const useStyles = makeStyles({
   root: {
     fontFamily: "Gowun Batang",
-    color: "#3A1D1D",
+    color: "pink",
     "&.Mui-focused": {
-      color: "#3A1D1D",
+      color: "pink",
     },
     "&:before": {
-      borderBottomColor: "#3A1D1D",
+      borderBottomColor: "pink",
     },
     "&:hover:not(.Mui-focused):before": {
-      borderBottomColor: "#3A1D1D",
+      borderBottomColor: "pink",
     },
     "&:after": {
-      borderBottomColor: "#3A1D1D",
+      borderBottomColor: "pink",
     },
   },
 });
@@ -23,9 +23,9 @@ const useStyles = makeStyles({
 const useLabelStyles = makeStyles({
   root: {
     fontFamily: "Gowun Batang",
-    color: "#3A1D1D",
+    color: "pink",
     "&.Mui-focused": {
-      color: "#3A1D1D",
+      color: "pink",
     },
     fontSize: 14,
   },
@@ -53,9 +53,28 @@ export default function StyledTextField({
       value={value || ""}
       disabled={disabled}
       onChange={onChange ? onChange : null}
-      sx={{ width: 1 }}
-      InputLabelProps={{ classes: labelClasses }}
-      InputProps={{ classes: classes }}
+      sx={{
+        "& .MuiInput-underline": { fontFamily: "Gowun Batang", color: "red" },
+        "& .MuiInput-underline:not(.Mui-disabled):hover::before": {
+          borderColor: "pink",
+        },
+        "& .MuiInput-underline:after": {
+          borderBottomColor: "pink",
+        },
+        "& .MuiInput-underline:before": {
+          borderBottomColor: "pink",
+        },
+        width: 1,
+        fontFamily: "Gowun Batang",
+        "& label": {
+          color: "red",
+          fontFamily: "Gowun Batang",
+          "&.Mui-focused": { color: "red" },
+          fontSize: 14,
+        },
+      }}
+      // InputLabelProps={{ classes: labelClasses }}
+      // InputProps={{ classes: classes }}
     ></TextField>
   );
 }

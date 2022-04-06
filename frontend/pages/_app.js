@@ -1,10 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../styles/globals.css";
 import "../styles/Landing.module.css";
 import LetterContext from "../contexts/LetterContext";
 import { DefaultSeo } from "next-seo";
 import { DEFAULT_SEO } from "../components/Variables";
+
 function MyApp({ Component, pageProps }) {
+  // useEffect(() => {
+  //   if (process.env.NEXT_PUBLIC_KAKAO_KEY) {
+  //     Kakao.init(process.env.NEXT_PUBLIC_KAKAO_KEY);
+  //   }
+  // }, []);
   const [name, setName] = useState("");
   const [receiverName, setReceiverName] = useState("");
   const [receiverEmail, setReceiverEmail] = useState("");
@@ -25,6 +31,8 @@ function MyApp({ Component, pageProps }) {
   const [fontsize, setFontsize] = useState(20);
   const [isFontBold, setIsFontBold] = useState();
   const [underlineColor, setUnderlineColor] = useState(0);
+  const [createdDate, setCreatedDate] = useState("");
+  const [senderEmail, setSenderEmail] = useState("");
   const [mailCode, setMailCode] = useState("");
   return (
     <>

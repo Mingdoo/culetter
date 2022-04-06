@@ -2,6 +2,7 @@ import React from "react";
 import { Grid, Box, IconButton, Typography } from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import MenuList from "./menu/MenuList";
 
 function Header({ handlePrevClick, title, handleNextClick }) {
   return (
@@ -12,6 +13,7 @@ function Header({ handlePrevClick, title, handleNextClick }) {
         direction="row"
         alignItems="center"
         justify="center"
+        sx={{ width: 420 }}
       >
         <Grid item xs={3}>
           {handlePrevClick ? (
@@ -58,11 +60,12 @@ function Header({ handlePrevClick, title, handleNextClick }) {
                     cursor: "pointer",
                   },
                 }}
+                onClick={(e) => handleNextClick(e)}
               >
                 <Typography sx={{ fontFamily: "Gowun Batang" }}>
                   다음
                 </Typography>
-                <IconButton onClick={(e) => handleNextClick(e)}>
+                <IconButton>
                   <ArrowForwardIosIcon />
                 </IconButton>
               </Box>

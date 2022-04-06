@@ -4,23 +4,17 @@ import { useEffect, useState } from "react";
 
 import { getMailByCode } from "../../../components/apis/letter";
 import ReadMail from "../../../components/mail/inbox/ReadMail";
+import ReadMailByCode from "../../../components/mail/inbox/ReadMailByCode";
 export default function ReadCodeMail() {
   const router = useRouter();
-  const mailCode = router.query.code;
+  // const mailCode = router.query.code;
   const [mail, setMail] = useState(null);
-
-  const getMail = async () => {
-    try {
-      const res = await getMailByCode(mailCode);
-      setMail(res.data);
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  const [code, setCode] = useState(false);
 
   useEffect(() => {
-    getMail();
-  });
+    if (!router.isReady) return;
+    setCode(router.query.code);
+  }, [router.isReady]);
 
   return (
     <Box
@@ -32,7 +26,7 @@ export default function ReadCodeMail() {
         minHeight: "100vh",
       }}
     >
-      <ReadMail code={mailCode}></ReadMail>
+      {code && <ReadMailByCode code={code}></ReadMailByCode>}
     </Box>
   );
 }

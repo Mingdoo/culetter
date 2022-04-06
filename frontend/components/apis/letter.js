@@ -20,27 +20,8 @@ mailsApi.interceptors.request.use(
 );
 
 export const sendLetter = async (body) => {
-  return await mailsApi.post(
-    `/write`,
-    // body
-    {
-      receiver_name: "고둘리",
-      receiver_email: "godooly@doo.ly",
-      title: "행운의 편지2",
-      mail_type: "PHOTOCARD",
-      style_url: "NORMAL05",
-      content: "이편지는 영국에서 ...",
-      music_url: "https://musicurl.music",
-      image: "https:/imagelink",
-      content_position: "",
-      stickers: "",
-      font_order: "",
-      font_type: "GUNGSEO",
-      // 숫자로
-      font_color: 1,
-      handwrite_image: "",
-    }
-  );
+  console.log(body);
+  return await mailsApi.post(`/write`, body);
 };
 
 export const test = async () => {

@@ -19,7 +19,7 @@ export default function MenuButton({ HandleMenu, open }) {
       <IconButton
         aria-label="open menu"
         // component="span"
-        sx={{ position: "absolute", right: "2vh", top: "3vh" }}
+        sx={{ position: "absolute", right: "2vh", top: "2vh" }}
         onClick={() => {
           HandleMenu();
         }}

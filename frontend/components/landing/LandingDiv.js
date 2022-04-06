@@ -21,11 +21,18 @@ export default function LandingDiv(props) {
         >
           CU;LETTER를 통해 <br /> 다른 사람에게 마음을 전해보겠습니까?
         </Typography>
-        <StartButton description="마음 전하기"></StartButton>
+        <StartButton description="마음 전하기" />
       </>
     ) : null;
   return (
-    <Box sx={{ ...props.style, bgcolor: props.bgcolor, alignItems: "start" }}>
+    <Box
+      sx={{
+        ...props.style,
+        bgcolor: props.bgcolor,
+        alignItems: "start",
+        minHeight: "100vh",
+      }}
+    >
       <Typography
         variant="h5"
         gutterBottom

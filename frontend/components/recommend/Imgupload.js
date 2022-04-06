@@ -1,6 +1,10 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Box, Input, Typography, Button } from "@mui/material";
+import LetterContext from "../../contexts/LetterContext";
+
 const Imgupload = (props) => {
+  const { setImage } = useContext(LetterContext);
+
   const { handlePrevImage } = props;
 
   const imgInput = useRef();
@@ -24,6 +28,7 @@ const Imgupload = (props) => {
     }
 
     fileReader.onload = () => {
+      setImage(event.target.files[0]);
       setImgFile(event.target.files[0]);
       setLoaded(true);
     };

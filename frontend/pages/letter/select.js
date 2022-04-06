@@ -11,6 +11,7 @@ import Header from "../../components/Header";
 import { getFriends } from "../../components/apis/user";
 import { motion, AnimateSharedLayout } from "framer-motion";
 import { authentication } from "../../components/apis/auth";
+import MenuList from "../../components/menu/MenuList";
 export default function select() {
   const { memberId, setMemberId, setReceiverName, setReceiverEmail } =
     useContext(LetterContext);
@@ -29,6 +30,11 @@ export default function select() {
     setMemberId(obj.member_id);
     setReceiverName(obj.name);
     setReceiverEmail(obj.email);
+    Router.push("/letter/type");
+  };
+
+  const handleNoReceiver = (e) => {
+    e.preventDefault;
     Router.push("/letter/type");
   };
 
@@ -67,6 +73,7 @@ export default function select() {
         }}
       >
         <Header handlePrevClick={handlePrevClick} title="수신인 선택" />
+        <MenuList></MenuList>
         <Divider />
 
         {receiver !== "" ? (
@@ -183,7 +190,7 @@ export default function select() {
               title="링크 보내기"
               description="CU;LETTER에 가입하지 않은 친구에게 링크 전송을 통해 편지를 보낼 수 있습니다"
               target="anonymous"
-              onClick={setReceiver}
+              onClick={(e) => handleNoReceiver(e)}
             />
           </>
         )}

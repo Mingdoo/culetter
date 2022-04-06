@@ -5,8 +5,9 @@ import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import Router from "next/router";
 import { authentication } from "../components/apis/auth";
+import Test from "./test";
 export default function Profile() {
-  const [pwConfirm, setPwConfirm] = useState(true);
+  const [pwConfirm, setPwConfirm] = useState(false);
   const handlePrevClick = (e) => {
     e.preventDefault();
     Router.back();
@@ -45,8 +46,9 @@ export default function Profile() {
               setPwConfirm={setPwConfirm}
             ></PasswordCheck>
           ) : (
-            <MyPage></MyPage>
+            <Test></Test>
           )}
+          {/* <MyPage></MyPage>  */}
         </Box>
       </Box>
     </Box>

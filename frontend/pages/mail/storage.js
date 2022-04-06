@@ -11,8 +11,8 @@ export default function Storage() {
 
   const fetch = async () => {
     try {
-      const res = getUndoneMail();
-      console.log(res);
+      const res = await getUndoneMail();
+      setMails(res.data.result);
     } catch (error) {
       console.log(error);
     }
@@ -23,46 +23,6 @@ export default function Storage() {
     fetch();
   }, []);
 
-  useEffect(() => {
-    setMails([
-      {
-        title: "test1",
-        mailType: "PHOTOCARD",
-        createdDate: "20220323",
-        senderName: "김경협",
-      },
-      {
-        title: "test2",
-        mailType: "GENERAL",
-        createdDate: "20220323",
-        senderName: "김도현",
-      },
-      {
-        title: "test3",
-        mailType: "GENERAL",
-        createdDate: "20220323",
-        senderName: "김은송",
-      },
-      {
-        title: "test4",
-        mailType: "POSTCARD",
-        createdDate: "20220323",
-        senderName: "강민수",
-      },
-      {
-        title: "test5",
-        mailType: "PHOTOCARD",
-        createdDate: "20220323",
-        senderName: "김정연",
-      },
-      {
-        title: "test6",
-        mailType: "POSTCARD",
-        createdDate: "20220323",
-        senderName: "김정환",
-      },
-    ]);
-  }, []);
   return (
     <Box>
       <Box
@@ -74,19 +34,6 @@ export default function Storage() {
           minHeight: "100vh",
         }}
       >
-        {/* "{ 
-    ""result"":[ 
-        { 
-            ""mail_id"": ""77"",
-            ""sender_name"": ""김경협"",
-            ""sender_email"": ""ssafy@ssafy.com"",
-            ""created_date"": """", 
-            ""title"": """", 
-            ""mail_type"": ""PHOTOCARD"", 
-            ""mail_style"": """" 
-        }, {}, {} ,,,
-    ] 
-}" */}
         <MenuList></MenuList>
         <Typography
           sx={{
@@ -104,35 +51,36 @@ export default function Storage() {
           title: 
            */}
         {loading && <Typography>loading</Typography>}
-        {mails.map(({ title, mailType, createdDate }, index) => {
-          if (mailType === "PHOTOCARD") {
-            return (
-              <Photocard
-                title={title}
-                createdDate={createdDate}
-                key={index}
-              ></Photocard>
-            );
-          } else if (mailType === "GENERAL") {
-            return (
-              <Letter
-                text={title}
-                index={0}
-                createdDate={createdDate}
-                key={index}
-              ></Letter>
-            );
-          } else {
-            return (
-              <Letter
-                text={title}
-                index={1}
-                createdDate={createdDate}
-                key={index}
-              ></Letter>
-            );
-          }
-        })}
+        {mails &&
+          mails.map(({ title, mailType, createdDate }, index) => {
+            if (mailType === "PHOTOCARD") {
+              return (
+                <Photocard
+                  title={title}
+                  createdDate={createdDate}
+                  key={index}
+                ></Photocard>
+              );
+            } else if (mailType === "GENERAL") {
+              return (
+                <Letter
+                  text={title}
+                  index={0}
+                  createdDate={createdDate}
+                  key={index}
+                ></Letter>
+              );
+            } else {
+              return (
+                <Letter
+                  text={title}
+                  index={1}
+                  createdDate={createdDate}
+                  key={index}
+                ></Letter>
+              );
+            }
+          })}
       </Box>
     </Box>
   );

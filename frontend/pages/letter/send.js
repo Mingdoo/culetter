@@ -1,33 +1,28 @@
-import { useEffect } from "react";
 import { Box, Typography, Button, Grid } from "@mui/material";
 import LetterContext from "../../contexts/LetterContext";
 import Header from "../../components/Header";
 import Router from "next/router";
 import { useContext, useEffect, useState } from "react";
 
-import stamp from "../../public/img/Stamp.PNG";
+import stamp from "../../public/img/stamp.PNG";
 import LinkShare from "../../components/letter/send/LinkShare";
 import KakaoShare from "../../components/letter/send/KakaoShare";
 import Letter from "../../components/main/Letter";
 import { authentication } from "../../components/apis/auth";
 export default function Send() {
+  // receiverName 있으면 카카오톡으로 알리기 아니면 링크 공유
   useEffect(() => {
     authentication();
   }, []);
-  // memberId가 있으면 카카오톡으로 알리기 아니면 링크 공유
-  // const { memberId, setMemberId } = useContext(ContentsContext);
-  const memberId = "temp";
-
-export default function Send() {
-  // receiverName 있으면 카카오톡으로 알리기 아니면 링크 공유
-  const { title, receiverName, mailCode } = useContext(LetterContext);
+  const { title, mailCode } = useContext(LetterContext);
   const [name, setName] = useState("");
   const toHome = () => Router.push("/main");
   const toMailSent = () => Router.push("/mail/sent");
-
+  const receiverName = "Test";
   useEffect(() => {
     setName(localStorage.getItem("name"));
   }, []);
+
   return (
     <Box
       component="div"
@@ -100,7 +95,7 @@ export default function Send() {
           </Box>
         </Box>
         {receiverName ? (
-          <KakaoShare></KakaoShare>
+          <KakaoShare title={title} name={name}></KakaoShare>
         ) : (
           <Box sx={{ mt: 1 }}>
             <LinkShare></LinkShare>
