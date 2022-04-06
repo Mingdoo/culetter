@@ -107,6 +107,24 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateMemberInfo(MemberDto.InfoRequest infoRequest) {
+        Member member = getMemberByAuthentication();
+        member.updateName(infoRequest.getName());
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateMemberProfile(MultipartFile multipartFile) {
+        Member member = getMemberByAuthentication();
+        if (!multipartFile.isEmpty()) {
+            String imageUrl = fileService.uploadImage(multipartFile, profileImagePath);
+            if (member.getProfileImage() != null) fileService.deleteImage(member.getProfileImage());
+            member.updateProfileImage(imageUrl);
+        }
+    }
+
+    @Override
     public void checkPassword(String password) {
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(getMemberByAuthentication().getMemberId(), password);
