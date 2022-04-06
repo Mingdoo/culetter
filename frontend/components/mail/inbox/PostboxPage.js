@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, CircularProgress } from "@mui/material";
 // import mailsRecvAPI from "../../apis/mailbox";
 import Postbox from "./Postbox";
 import SearchBox from "../../user/SearchBox";
 import { getRecvMails } from "../../apis/mailbox";
+import Spinner from "../../Spinner";
+
 export default function PostboxPage({
   setIsPostBox,
   isPostBox,
@@ -23,12 +25,15 @@ export default function PostboxPage({
   const loader = useRef(null);
 
   const fetchMails = async () => {
+    setLoading(true);
     try {
       const res = await getRecvMails();
       setData(res.data.result);
       setMails(res.data.result.slice(0, 8));
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -62,51 +67,57 @@ export default function PostboxPage({
 
   return (
     <Box>
-      <Box sx={{ display: "flex" }}>
-        <SearchBox
-          id="searchMemberNameInput"
-          label="이름"
-          width={225}
-          onChange={(e) => setSearchMemberName(e)}
-          inbox={true}
-        />
+      <Box>
+        <Box sx={{ display: "flex" }}>
+          <SearchBox
+            id="searchMemberNameInput"
+            label="이름"
+            width={225}
+            onChange={(e) => setSearchMemberName(e)}
+            inbox={true}
+          />
+        </Box>
+        <Box sx={{ minHeight: "87vh", px: 2 }}>
+          {loading ? (
+            <Spinner text="로딩 중" mt="30vh"></Spinner>
+          ) : (
+            <Grid container sx={{ width: 1, pt: 5 }}>
+              {!searchMemberName
+                ? mails.map(({ name, count, sender_id }) => (
+                    <Grid item xs={6} key={sender_id} sx={{ height: 188 }}>
+                      <Postbox
+                        name={name}
+                        senderId={sender_id}
+                        count={count}
+                        setSelectedId={(e) => setSelectedId(e)}
+                        setIsPostBox={(e) => setIsPostBox(e)}
+                      ></Postbox>
+                    </Grid>
+                  ))
+                : data
+                    .filter((obj) => {
+                      return obj.name.includes(searchMemberName);
+                    })
+                    .map(({ name, count, sender_id }) => (
+                      <Grid item xs={6} key={sender_id}>
+                        <Postbox
+                          name={name}
+                          senderId={sender_id}
+                          count={count}
+                          setSelectedId={(e) => setSelectedId(e)}
+                          setIsPostBox={(e) => setIsPostBox(e)}
+                        ></Postbox>
+                      </Grid>
+                    ))}
+            </Grid>
+          )}
+        </Box>
+        {searchMemberName === "" ? (
+          <Box ref={loader} sx={{ height: 10 }}></Box>
+        ) : (
+          <Box sx={{ height: 10 }}></Box>
+        )}
       </Box>
-      <Box sx={{ minHeight: "87vh", px: 2 }}>
-        <Grid container sx={{ width: 1, pt: 5 }}>
-          {!searchMemberName
-            ? mails.map(({ name, count, sender_id }) => (
-                <Grid item xs={6} key={sender_id} sx={{ height: 188 }}>
-                  <Postbox
-                    name={name}
-                    senderId={sender_id}
-                    count={count}
-                    setSelectedId={(e) => setSelectedId(e)}
-                    setIsPostBox={(e) => setIsPostBox(e)}
-                  ></Postbox>
-                </Grid>
-              ))
-            : data
-                .filter((obj) => {
-                  return obj.name.includes(searchMemberName);
-                })
-                .map(({ name, count, sender_id }) => (
-                  <Grid item xs={6} key={sender_id}>
-                    <Postbox
-                      name={name}
-                      senderId={sender_id}
-                      count={count}
-                      setSelectedId={(e) => setSelectedId(e)}
-                      setIsPostBox={(e) => setIsPostBox(e)}
-                    ></Postbox>
-                  </Grid>
-                ))}
-        </Grid>
-      </Box>
-      {searchMemberName === "" ? (
-        <Box ref={loader} sx={{ height: 10 }}></Box>
-      ) : (
-        <Box sx={{ height: 10 }}></Box>
-      )}
     </Box>
   );
 }

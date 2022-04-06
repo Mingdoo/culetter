@@ -4,16 +4,22 @@ import { getMail } from "../../apis/letter";
 import Player from "../../letter/preview/Player";
 import { fonts, colors } from "../../Variables";
 import ReadMailPhotoCard from "./ReadMailPhotoCard";
+import Spinner from "../../Spinner";
+import { motion, AnimateSharedLayout } from "framer-motion";
 
 export default function ReadMail({ selectedMail }) {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const fetchMail = async () => {
+    setLoading(true);
     try {
       const res = await getMail(selectedMail);
       setData(res.data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -21,10 +27,31 @@ export default function ReadMail({ selectedMail }) {
     fetchMail();
   }, []);
 
+  if (loading) {
+    return <Spinner mt="30vh"></Spinner>;
+  }
   return (
-    <>
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      variants={{
+        hidden: {
+          scale: 1,
+          opacity: 0,
+        },
+        visible: {
+          scale: 1,
+          opacity: 2,
+          transition: {
+            delay: 0.1,
+          },
+        },
+      }}
+      layoutId="underline"
+    >
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         {/* 포토카드 */}
+
         {data.mail_type === "PHOTOCARD" ? (
           <ReadMailPhotoCard data={data}></ReadMailPhotoCard>
         ) : (
@@ -139,6 +166,6 @@ export default function ReadMail({ selectedMail }) {
       <Box sx={{ py: "2rem" }}>
         <Player musicUrl={data.music_url}></Player>
       </Box>
-    </>
+    </motion.div>
   );
 }

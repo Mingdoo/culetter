@@ -5,6 +5,7 @@ import { getRecvMailsBySender } from "../../apis/mailbox";
 import Letter from "../../main/Letter";
 import Photocard from "./Photocard";
 import ReadMail from "./ReadMail";
+import Spinner from "../../Spinner";
 export default function MailPage({ senderId, isMail, setIsMail }) {
   const [page, setPage] = useState(0);
   const [data, setData] = useState([]);
@@ -20,7 +21,7 @@ export default function MailPage({ senderId, isMail, setIsMail }) {
     // setIsMail(true);
   }, []);
 
-  const fetchMails = useCallback(async () => {
+  const fetchMails = async () => {
     setLoading(true);
     try {
       const res = await getRecvMailsBySender(senderId);
@@ -30,8 +31,10 @@ export default function MailPage({ senderId, isMail, setIsMail }) {
       setLoading(false);
     } catch (e) {
       console.log(e);
+    } finally {
+      setLoading(false);
     }
-  });
+  };
 
   const switchPage = (mailId) => {
     setSelectedMail(mailId);
@@ -83,120 +86,123 @@ export default function MailPage({ senderId, isMail, setIsMail }) {
   return (
     <>
       {/* src 에 style_url 넣음? */}
-      {loading && <Typography>loading</Typography>}
       {isMail ? (
-        <Box sx={{ minHeight: "90vh" }}>
-          {mails.map(
-            (
-              {
-                title,
-                mail_type,
-                created_date,
-                sender_name,
-                style_url,
-                mail_id,
-              },
-              idx
-            ) => {
-              if (mail_type === "GENERAL") {
-                return (
-                  <Box
-                    // onClick={(e) => {
-                    //   setSelectedMail(mail_id);
-                    // }}
-                    key={idx}
-                  >
-                    <Letter
-                      text={title}
-                      index={0}
-                      createdDate={created_date}
-                      senderName={sender_name}
-                      key={idx}
-                      mailId={mail_id}
-                      switchPage={(e) => switchPage(mail_id)}
-                    ></Letter>
-                  </Box>
-                );
-              } else if (mail_type === "POSTCARD") {
-                return (
-                  <Box
-                    key={idx}
-                    onClick={(e) => {
-                      setSelectedMail(mail_id);
-                    }}
-                  >
-                    <Letter
-                      switchPage={(e) => switchPage(mail_id)}
-                      text={title}
-                      index={1}
-                      createdDate={created_date}
-                      senderName={sender_name}
-                      key={idx}
-                      mailId={mail_id}
-                    ></Letter>
-                  </Box>
-                );
-              } else {
-                return (
-                  <Box
-                    key={idx}
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      fontSize: 26,
-                      height: "204px",
-                    }}
-                    onClick={(e) => switchPage(mail_id)}
-                  >
+        loading ? (
+          <Spinner mt="30vh"></Spinner>
+        ) : (
+          <Box sx={{ minHeight: "90vh" }}>
+            {mails.map(
+              (
+                {
+                  title,
+                  mail_type,
+                  created_date,
+                  sender_name,
+                  style_url,
+                  mail_id,
+                },
+                idx
+              ) => {
+                if (mail_type === "GENERAL") {
+                  return (
                     <Box
-                      sx={{
-                        border: "1px solid black",
-                        bgcolor: "white",
-                        width: "320px",
-                        height: "186px",
-                        mt: "9px",
+                      // onClick={(e) => {
+                      //   setSelectedMail(mail_id);
+                      // }}
+                      key={idx}
+                    >
+                      <Letter
+                        text={title}
+                        index={0}
+                        createdDate={created_date}
+                        senderName={sender_name}
+                        key={idx}
+                        mailId={mail_id}
+                        switchPage={(e) => switchPage(mail_id)}
+                      ></Letter>
+                    </Box>
+                  );
+                } else if (mail_type === "POSTCARD") {
+                  return (
+                    <Box
+                      key={idx}
+                      onClick={(e) => {
+                        setSelectedMail(mail_id);
                       }}
                     >
-                      <Box sx={{ width: 1 }}>
-                        <Box
-                          component="img"
-                          src={style_url}
-                          sx={{
-                            objectFit: "cover",
-                            width: 1,
-                            height: "150px",
-                            px: 0.5,
-                            pt: 0.5,
-                            borderRadius: 5,
-                          }}
-                        ></Box>
-                      </Box>
+                      <Letter
+                        switchPage={(e) => switchPage(mail_id)}
+                        text={title}
+                        index={1}
+                        createdDate={created_date}
+                        senderName={sender_name}
+                        key={idx}
+                        mailId={mail_id}
+                      ></Letter>
+                    </Box>
+                  );
+                } else {
+                  return (
+                    <Box
+                      key={idx}
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        fontSize: 26,
+                        height: "204px",
+                      }}
+                      onClick={(e) => switchPage(mail_id)}
+                    >
                       <Box
                         sx={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          px: 2,
+                          border: "1px solid black",
+                          bgcolor: "white",
+                          width: "320px",
+                          height: "186px",
+                          mt: "9px",
                         }}
                       >
-                        <Typography sx={{ fontFamily: "Gowun Dodum" }}>
-                          {sender_name}
-                        </Typography>
-                        {created_date ? (
+                        <Box sx={{ width: 1 }}>
+                          <Box
+                            component="img"
+                            src={style_url}
+                            sx={{
+                              objectFit: "cover",
+                              width: 1,
+                              height: "150px",
+                              px: 0.5,
+                              pt: 0.5,
+                              borderRadius: 5,
+                            }}
+                          ></Box>
+                        </Box>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            px: 2,
+                          }}
+                        >
                           <Typography sx={{ fontFamily: "Gowun Dodum" }}>
-                            포토카드, {created_date.slice(0, 4)}년{" "}
-                            {created_date.slice(5, 7)}월{" "}
-                            {created_date.slice(8, 10)}일
+                            {sender_name}
                           </Typography>
-                        ) : null}
+                          {created_date ? (
+                            <Typography sx={{ fontFamily: "Gowun Dodum" }}>
+                              포토카드, {created_date.slice(0, 4)}년{" "}
+                              {created_date.slice(5, 7)}월{" "}
+                              {created_date.slice(8, 10)}일
+                            </Typography>
+                          ) : null}
+                        </Box>
                       </Box>
                     </Box>
-                  </Box>
-                );
+                  );
+                }
               }
-            }
-          )}
-          <Box sx={{ height: "70px" }} ref={loader}></Box>
-        </Box>
+            )}
+            <Box sx={{ height: "70px" }} ref={loader}></Box>
+          </Box>
+        )
       ) : (
         <ReadMail selectedMail={selectedMail}></ReadMail>
       )}
