@@ -12,11 +12,17 @@ export default function Player(props) {
   // const { musicSelected } = useContext(ContentsContext);
   const { musicName, musicUrl, setMusicUrl } = useContext(LetterContext);
   const audioPlayer = useRef();
-
+  const isPlaying =
+    audioPlayer.currentTime > 0 &&
+    !audioPlayer.paused &&
+    !VideoPlaybackQuality.ended &&
+    VideoPlaybackQuality.readyState > 2;
   const [currentTime, setCurrentTime] = useState(0);
   const [seekValue, setSeekValue] = useState(0);
   const play = () => {
-    audioPlayer.current.play();
+    if (!isPlaying) {
+      audioPlayer.current.play();
+    }
   };
   const pause = () => {
     audioPlayer.current.pause();
@@ -36,7 +42,7 @@ export default function Player(props) {
       : null;
   };
 
-  const [isPlaying, setIsPlaying] = useState(true);
+  // const [isPlaying, setIsPlaying] = useState(true);
 
   useEffect(() => {
     if (music !== null) {
