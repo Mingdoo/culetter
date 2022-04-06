@@ -9,7 +9,7 @@ import LetterContext from "../../contexts/LetterContext";
 import RoutingContext from "../../contexts/RoutingContext";
 import PostCard from "../../components/letter/preview/Postcard";
 import MenuList from "../../components/menu/MenuList";
-
+import SendIcon from "@mui/icons-material/Send";
 import { sendLetter } from "../../components/apis/letter";
 import { authentication } from "../../components/apis/auth";
 
@@ -126,15 +126,20 @@ export default function Preview() {
         color="inherit"
         className="Batang"
         sx={{
+          width: "40%",
+          backgroundColor: "#f7e4e0",
           fontSize: 18,
           display: "flex",
           mt: "1rem",
           mx: "auto",
-          "&:hover": { bgcolor: "transparent" },
+          "&:hover": { bgcolor: "#fcf6f4" },
         }}
         onClick={send}
       >
-        편지 전송
+        <Typography sx={{ fontFamily: "Gowun Batang", mr: "1rem" }}>
+          편지 전송
+        </Typography>
+        <SendIcon sx={{ color: "white" }} />
       </Button>
     </Box>
   );

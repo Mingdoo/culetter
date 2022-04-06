@@ -12,17 +12,15 @@ import Letter from "../../components/main/Letter";
 import { authentication } from "../../components/apis/auth";
 export default function Send() {
   // receiverName 있으면 카카오톡으로 알리기 아니면 링크 공유
-  useEffect(() => {
-    authentication();
-  }, []);
-  const { title } = useContext(LetterContext);
+  const { title, receiverName } = useContext(LetterContext);
   const { mailCode } = useContext(RoutingContext);
   const [name, setName] = useState("");
   const toHome = () => Router.push("/main");
   const toMailSent = () => Router.push("/mail/sent");
-  const receiverName = "Test";
   useEffect(() => {
+    authentication();
     setName(localStorage.getItem("name"));
+    console.log(receiverName);
   }, []);
 
   return (
