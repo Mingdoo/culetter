@@ -20,8 +20,8 @@ export default function MailPage({ senderId, isMail, setIsMail }) {
     setLoading(true);
     try {
       const res = await getRecvMailsBySender(senderId);
-      setData(res.data.result);
-      setMails(res.data.result.slice(0, 6));
+      setData(res.data.result.reverse());
+      setMails(res.data.result.reverse().slice(0, 6));
       setLoading(false);
     } catch (e) {
       console.log(e);
@@ -85,7 +85,7 @@ export default function MailPage({ senderId, isMail, setIsMail }) {
                     switchPage={switchPage}
                   ></Photocard>
                 );
-              } else if (mail_type === "NORMAL") {
+              } else if (mail_type === "GENERAL") {
                 return (
                   <Letter
                     text={title}

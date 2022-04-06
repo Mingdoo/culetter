@@ -1,9 +1,9 @@
-import { Box, Typography } from "@mui/material";
-import { useEffect, useState, useContext } from "react";
+import { Box, Typography, Button } from "@mui/material";
+import { useEffect, useState } from "react";
 import ReactCardFlip from "react-card-flip";
-import StarRoundedIcon from "@mui/icons-material/StarRounded";
+import Router from "next/router";
 
-import { getMailByCode } from "../../apis/letter";
+import { getMailByCode, saveRecvMail } from "../../apis/letter";
 import Player from "../../letter/preview/Player";
 import { fonts, colors } from "../../Variables";
 import { emojis as Emojis } from "../../letter/photocard/PhotoCard";
@@ -15,24 +15,23 @@ export default function ReadMailByCode({ code }) {
 
   const [isFlipped, setIsFlipped] = useState(false);
 
-  const handleFrontClick = () => {
-    setShowFront(true);
-    setShowBack(true);
-    setIsClicked(true);
-  };
-
-  const handleBackClick = () => {
-    setIsClicked(false);
-  };
-
   const fetchMail = async (code) => {
     try {
       const res = await getMailByCode(code);
       setData(res.data);
-      console.log(JSON.parse(res.data.stickers));
+      // console.log(JSON.parse(res.data.stickers));
       setStickersPos(JSON.parse(res.data.stickers));
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const saveLetter = async () => {
+    try {
+      const res = await saveRecvMail(code);
+      // Router.push("/mail/inbox");
+    } catch (e) {
+      console.log(e);
     }
   };
 
@@ -49,25 +48,15 @@ export default function ReadMailByCode({ code }) {
     );
   }
 
-  const test = async () => {
-    try {
-      const res = await getMailByCode("8Wyl2gZwTwbBx1rK");
-      console.log(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
     fetchMail(code);
-    test();
   }, []);
 
-  useEffect(() => console.log("stickersPos", stickersPos), [stickersPos]);
+  // useEffect(() => console.log("stickersPos", stickersPos), [stickersPos]);
 
   return (
     <>
-      <Box sx={{ mt: "2rem" }}>
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
         {data.mail_type === "PHOTOCARD" ? (
           <Box
             sx={{
@@ -238,6 +227,7 @@ export default function ReadMailByCode({ code }) {
       <Box sx={{ mt: "2rem" }}>
         <Player musicUrl={data.music_url}></Player>
       </Box>
+      <Button onClick={saveLetter}>저장</Button>
     </>
   );
 }

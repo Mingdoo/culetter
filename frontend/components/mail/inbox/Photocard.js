@@ -6,7 +6,9 @@ export default function Photocard({
   createdDate,
   src,
   switchPage,
+  mailId,
 }) {
+  console.log(mailId);
   return (
     <Box
       sx={{
@@ -15,7 +17,7 @@ export default function Photocard({
         fontSize: 26,
         height: "204px",
       }}
-      onClick={switchPage}
+      onClick={(e) => switchPage(mailId)}
     >
       <Box
         sx={{
