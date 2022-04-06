@@ -89,7 +89,7 @@ export default function Player(props) {
               sx={{ display: "flex", justifyContent: "center" }}
               onClick={() => {
                 play();
-                setIsPlaying(false);
+                setIsPlaying(true);
               }}
             ></PlayArrowRoundedIcon>
           ) : (
@@ -97,7 +97,7 @@ export default function Player(props) {
               sx={{ display: "flex", justifyContent: "center" }}
               onClick={() => {
                 pause();
-                setIsPlaying(true);
+                setIsPlaying(false);
               }}
             ></PauseIcon>
           )}
