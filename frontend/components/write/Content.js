@@ -15,8 +15,9 @@ import MailApi from "../apis/MailApi";
 
 const Content = (props) => {
   const { checkTextValid, tempTitle, tempContent } = props;
-  // const [title, setTitle] = useState("");
-  // const [content, setContent] = useState("");
+  const maxTitleLength = 100;
+  const maxContentByte = 65535;
+  const maxContentLength = 32768;
   const [contentLength, setContentLength] = useState(0);
   const [titleLength, setTitleLength] = useState(0);
   const [opacity, setOpacity] = useState("100%");
@@ -69,9 +70,6 @@ const Content = (props) => {
   };
 
   const checkInput = (event) => {
-    const maxTitleLength = 100;
-    const maxContentByte = 65535;
-    const maxContentLength = 32768;
     const inputText = event.target.value;
     const inputLength = inputText.length;
     switch (event.target.id) {
@@ -110,6 +108,19 @@ const Content = (props) => {
       }, 2000);
     }
   }, [tempTitle, tempContent]);
+
+  useEffect(() => {
+    if (
+      contentLength > 0 &&
+      contentLength < maxContentLength &&
+      titleLength > 0 &&
+      titleLength < maxTitleLength
+    ) {
+      checkTextValid(true);
+    } else {
+      checkTextValid(false);
+    }
+  }, [contentLength, titleLength]);
 
   useEffect(() => {
     console.log(mailType);
