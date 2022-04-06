@@ -169,7 +169,7 @@ const Recommended = () => {
             title="포토카드 선택"
             handleNextClick={handleNextClick}
           />
-          <Typography className="Batang" sx={{ textAlign: "center" }}>
+          <Typography sx={{ textAlign: "center", fontFamily: "Gowun Batang" }}>
             카드를 탭하면 카드가 뒤집힙니다
           </Typography>
         </>
@@ -225,7 +225,7 @@ const Recommended = () => {
               <Photocard
                 key={index}
                 front={data.front}
-                back={data.back}
+                // back={data.back}
                 content={content}
               ></Photocard>
               <Checkbox
@@ -299,14 +299,14 @@ const Recommended = () => {
                   <Checkbox
                     value={index}
                     onChange={handleChange}
-                    checked={checked === index}
+                    checked={checked == index}
                     icon={<RadioButtonUncheckedIcon />}
                     checkedIcon={<CheckCircleOutlineIcon />}
                     style={{
                       display: "inline-block",
                       width: "12%",
                       height: "20%",
-                      color: checked === index ? "#dc816c " : "#ECDDBE",
+                      color: checked == index ? "#dc816c " : "#ECDDBE",
                     }}
                   />
                 </Box>
