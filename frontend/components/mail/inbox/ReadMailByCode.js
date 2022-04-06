@@ -254,14 +254,16 @@ export default function ReadMailByCode({ code }) {
       {data.receiver_email ? null : (
         <Box
           sx={{
+            width: "40%",
             display: "flex",
+            fontSize: 18,
             backgroundColor: "#f7e4e0",
             justifyContent: "center",
             mt: "1rem",
           }}
         >
           <Button sx={{ ...ButtonStyle }} onClick={saveLetter}>
-            <Typography>
+            <Typography sx={{ fontFamily: "Gowun Batang", mr: "1rem" }}>
               편지함에 보관
               <DownloadIcon sx={{ color: "white" }} />
             </Typography>
