@@ -17,6 +17,8 @@ const writeLetter = () => {
   const [tempMailId, setTempMailId] = useState("");
   const [tempContent, setTempContent] = useState("");
   const [tempTitle, setTempTitle] = useState("");
+  const [tempMailType, setTempMailType] = useState("");
+
   const {
     title,
     setTitle,
@@ -74,12 +76,14 @@ const writeLetter = () => {
   const handleGetMail = async (id) => {
     try {
       const response = await getMailById(id);
+      setTempMailType(response.data.mail_type);
       setTempContent(response.data.content);
       setTempTitle(response.data.title);
-      setMailType(response.data.mail_type);
       setReceiverEmail(response.data.receiver_email);
       setReceiverName(response.data.receiver_name);
-      console.log(response);
+      console.log("1", response);
+      setMailType(response.data.mail_type);
+      checkTextValid(true);
     } catch (error) {
       console.log(error);
     }
@@ -99,7 +103,7 @@ const writeLetter = () => {
   }, []);
 
   useEffect(() => {
-    console.log(tempContent);
+    console.log("2", tempContent);
   }, [tempContent, tempTitle]);
 
   return (
@@ -140,6 +144,7 @@ const writeLetter = () => {
       )}
 
       <Content
+        tempMailType={tempMailType}
         checkTextValid={checkTextValid}
         tempContent={tempContent}
         tempTitle={tempTitle}
