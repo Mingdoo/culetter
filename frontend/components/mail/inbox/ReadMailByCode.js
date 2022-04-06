@@ -254,12 +254,12 @@ export default function ReadMailByCode({ code }) {
       {data.receiver_email ? null : (
         <Box
           sx={{
-            width: "40%",
+            width: "100%",
             display: "flex",
             fontSize: 18,
-            backgroundColor: "#f7e4e0",
             justifyContent: "center",
             mt: "1rem",
+            borderRadius: "3rem",
           }}
         >
           <Button sx={{ ...ButtonStyle }} onClick={saveLetter}>
@@ -278,7 +278,9 @@ const ButtonStyle = {
   fontFamily: "Gowun Batang",
   fontSize: 18,
   color: "black",
+  backgroundColor: "#f7e4e0",
   "&:hover": {
     backgroundColor: "transparent",
   },
+  borderRadius: "2rem",
 };
