@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/globals.css";
 import "../styles/Landing.module.css";
 import LetterContext from "../contexts/LetterContext";
@@ -35,6 +35,7 @@ function MyApp({ Component, pageProps }) {
   const [senderEmail, setSenderEmail] = useState("");
   const [mailCode, setMailCode] = useState("");
   const [tempMailId, setTempMailId] = useState("");
+  const [emotion, setEmotion] = useState({});
   return (
     <>
       <DefaultSeo {...DEFAULT_SEO} />
@@ -84,6 +85,8 @@ function MyApp({ Component, pageProps }) {
           setMailCode,
           tempMailId,
           setTempMailId,
+          emotion,
+          setEmotion,
         }}
       >
         <Component {...pageProps} />
