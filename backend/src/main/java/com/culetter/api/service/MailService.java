@@ -10,12 +10,12 @@ import java.util.Map;
 public interface MailService {
     MailDto.Mail selectMailById(Long mailId);
     MailDto.Mail selectMailByCode(String code);
-    List<String> styleRecommendation(Map<String,String> style);
-    List<String> musicRecommendation(Map<String,String> music);
+    List<String> styleRecommendation(MailDto.EmotionRequest emotionRequest);
+    List<Map<String,String>> musicRecommendation(MailDto.EmotionRequest emotionRequest);
     String insertPostcardImage(MultipartFile multipartFile);
     String insertMail(MailDto.Mail mail);
     Long saveTempMail(Long mailId, MailDto.Mail mail);
     String sendTempMail(MailDto.Mail mail, Long mailId);
     void saveInRecvMailbox(String code);
-    String analyzeResult(Map<String,String> content) throws JsonProcessingException;
+    MailDto.EmotionResponse analyzeResult(String content) throws JsonProcessingException;
 }

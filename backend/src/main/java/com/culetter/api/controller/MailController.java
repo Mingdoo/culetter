@@ -34,27 +34,24 @@ public class MailController {
     }
 
     @PostMapping("/analyze")
-    public ResponseEntity<Map<String,String>> anylyzeContent(@RequestBody Map<String,String> content)
+    public ResponseEntity<MailDto.EmotionResponse> analyzeContent(@RequestBody Map<String,String> contentRequest)
             throws JsonProcessingException {
-        Map<String,String> memo = new HashMap<>();
-        memo.put("emotion",mailService.analyzeResult(content));
-
-        return ResponseEntity.status(HttpStatus.OK).body(memo);
+        return ResponseEntity.status(HttpStatus.OK).body(mailService.analyzeResult(contentRequest.get("content")));
     }
 
     // TODO
-    @GetMapping("/style")
-    public ResponseEntity<Map<String, List<String>>> recommendStyle(@RequestBody Map<String,String> style){
+    @PostMapping("/style")
+    public ResponseEntity<Map<String, List<String>>> recommendStyle(@RequestBody MailDto.EmotionRequest emotionRequest){
         Map<String,List<String>> mrs = new HashMap<>();
-        mrs.put("style_list",mailService.styleRecommendation(style));
+        mrs.put("style_list", mailService.styleRecommendation(emotionRequest));
 
         return ResponseEntity.status(HttpStatus.OK).body(mrs);
     }
 
-    @GetMapping("/music")
-    public ResponseEntity<Map<String,List<String>>> recommendMusic(@RequestBody Map<String,String> music){
-        Map<String,List<String>> mrm = new HashMap<>();
-        mrm.put("music_list",mailService.musicRecommendation(music));
+    @PostMapping("/music")
+    public ResponseEntity<Map<String,List<Map<String,String>>>> recommendMusic(@RequestBody MailDto.EmotionRequest emotionRequest){
+        Map<String,List<Map<String,String>>> mrm = new HashMap<>();
+        mrm.put("music_list", mailService.musicRecommendation(emotionRequest));
 
         return ResponseEntity.status(HttpStatus.OK).body(mrm);
     }
@@ -63,6 +60,7 @@ public class MailController {
     public ResponseEntity<Map<String,String>> uploadPostcardImage(@RequestPart(value="postcard_image")MultipartFile multipartFile) {
         Map<String,String> murl = new HashMap<>();
         murl.put("image_url", mailService.insertPostcardImage(multipartFile));
+
         return ResponseEntity.status(HttpStatus.OK).body(murl);
     }
 

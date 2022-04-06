@@ -1,5 +1,6 @@
 package com.culetter.api.service;
 
+import com.culetter.api.dto.FileDto;
 import com.culetter.api.dto.MailDto;
 import com.culetter.db.entity.*;
 import com.culetter.db.repository.MailRepository;
@@ -19,9 +20,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.nio.charset.Charset;
-import java.util.List;
-import java.util.Map;
+import javax.annotation.PostConstruct;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -36,6 +37,7 @@ public class MailServiceImpl implements MailService {
     private final ObjectMapper objectMapper;
     private final FileService fileService;
     private final String customPostcardImagePath;
+    private HashMap<String,List<File>> fileMap;
 
     public MailServiceImpl(MailRepository mailRepository,
                            RecvMailboxRepository recvMailboxRepository, SendMailboxRepository sendMailboxRepository,
@@ -50,6 +52,15 @@ public class MailServiceImpl implements MailService {
         this.objectMapper = objectMapper;
         this.fileService = fileService;
         this.customPostcardImagePath = customPostcardImagePath;
+    }
+
+    @PostConstruct
+    public void init() {
+        String[] types = new String[] {"letterImage", "postcardImage", "photocardImage", "music"};
+        fileMap = new HashMap<>();
+        for (String type:types) {
+            fileMap.put(type, fileService.getFileListByType(type));
+        }
     }
 
     @Override
@@ -108,17 +119,66 @@ public class MailServiceImpl implements MailService {
         );
     }
 
-    // TODO
-    @Override
-    public List<String> styleRecommendation(Map<String,String> style) {
+    public double calculateCoefficient(double[] u, double[] v) {
+        double normU = Math.sqrt(Arrays.stream(u).map(o -> o * o).sum());
+        double normV = Math.sqrt(Arrays.stream(u).map(o -> o * o).sum());
+        double innerProd = 0;
+        for (int i = 0; i < u.length; i++) {
+            innerProd += u[i] * v[i];
+        }
+        return innerProd / (normU * normV);
+    }
 
-        return null;
+    public FileDto.Coefficient[] recommendation(List<File> fileListByType, MailDto.EmotionRequest emotionRequest) {
+        FileDto.Coefficient[] coefficients = new FileDto.Coefficient[fileListByType.size()];
+        double[] u = new double[4];
+        double[] v = new double[4];
+        u[0] = emotionRequest.getHappy();
+        u[1] = emotionRequest.getAngry();
+        u[2] = emotionRequest.getSad();
+        u[3] = emotionRequest.getPanic();
+        for (int i = 0; i < coefficients.length; i++) {
+            v[0] = fileListByType.get(i).getHappy();
+            v[1] = fileListByType.get(i).getAngry();
+            v[2] = fileListByType.get(i).getSad();
+            v[3] = fileListByType.get(i).getPanic();
+            coefficients[i] = new FileDto.Coefficient(i, -calculateCoefficient(u,v));
+        }
+        Arrays.sort(coefficients, Comparator.comparingDouble(FileDto.Coefficient::getValue));
+        return coefficients;
     }
 
     @Override
-    public List<String> musicRecommendation(Map<String,String> music) {
+    public List<String> styleRecommendation(MailDto.EmotionRequest emotionRequest) {
+        String type = emotionRequest.getType();
+        if (!("letterImage".equals(type) || "postcardImage".equals(type) || "photocardImage".equals(type)))
+            throw new ValueNotExistException("올바른 타입의 파일 요청이 아닙니다.");
+        List<File> fileListByType = fileMap.get(type);
+        FileDto.Coefficient[] coefficients = recommendation(fileListByType, emotionRequest);
+        List<String> imageInfoList = new ArrayList<>();
+        for (FileDto.Coefficient coefficient:coefficients) {
+            imageInfoList.add(fileListByType.get(coefficient.getIndex()).getUrl());
+        }
+        return imageInfoList;
+    }
 
-        return null;
+    @Override
+    public List<Map<String,String>> musicRecommendation(MailDto.EmotionRequest emotionRequest) {
+        String type = emotionRequest.getType();
+        if (!("music".equals(type))) throw new ValueNotExistException("올바른 타입의 파일 요청이 아닙니다.");
+        List<File> fileListByType = fileMap.get(type);
+        FileDto.Coefficient[] coefficients = recommendation(fileListByType, emotionRequest);
+        List<Map<String,String>> musicInfoList = new ArrayList<>();
+        File file;
+        Map<String,String> musicInfo;
+        for (FileDto.Coefficient coefficient:coefficients) {
+            musicInfo = new HashMap<>();
+            file = fileListByType.get(coefficient.getIndex());
+            musicInfo.put("music_name", file.getName());
+            musicInfo.put("music_url", file.getUrl());
+            musicInfoList.add(musicInfo);
+        }
+        return musicInfoList;
     }
 
     @Override
@@ -330,27 +390,26 @@ public class MailServiceImpl implements MailService {
     }
 
     @Override
-    public String analyzeResult(Map<String,String> content) throws JsonProcessingException {
-        //사용자이여야 사용 가능
-        memberService.getMemberByAuthentication();
-
+    public MailDto.EmotionResponse analyzeResult(String content) throws JsonProcessingException {
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+        httpHeaders.setContentType(new MediaType("application", "json", StandardCharsets.UTF_8));
 
         //엔터 제거
-        String removeEnter = content.get("content").replace("\n","\\n").replace("\t", "\\t");
-        content.put("content",removeEnter);
+        String removeEnter = content.replace("\n"," ").replace("\t", " ");
+        Map<String,String> request = new HashMap<>();
+        request.put("content", removeEnter);
+        String param = objectMapper.writeValueAsString(request);
 
-        String param = objectMapper.writeValueAsString(content);
-        HttpEntity httpEntity = new HttpEntity(param, httpHeaders);
+        HttpEntity<String> httpEntity = new HttpEntity<>(param, httpHeaders);
 
         RestTemplate restTemplate = new RestTemplate();
 
         //TODO AI 학습 서버로 content 전송, Emotion을 String으로 반환받기 json 형식 수정 결과 같으면 하나 선택
-        ResponseEntity<String> responseEntity = restTemplate.exchange("https://www.culetter.site/nlp", HttpMethod.POST, httpEntity, String.class);
+        ResponseEntity<MailDto.EmotionResponse> responseEntity = restTemplate
+                .exchange("https://www.culetter.site/nlp", HttpMethod.POST, httpEntity, MailDto.EmotionResponse.class);
 
-        if (responseEntity.getStatusCode() == HttpStatus.OK) return responseEntity.getBody();
-        else throw new ValueNotExistException("감정 분석 오류");
+        if (!responseEntity.getStatusCode().is2xxSuccessful()) throw new ValueNotExistException("감정 분석 오류");
+        return responseEntity.getBody();
     }
 
     private void validateChangeMade(int res, String func) {

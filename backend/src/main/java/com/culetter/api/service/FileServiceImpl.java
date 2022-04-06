@@ -1,11 +1,14 @@
 package com.culetter.api.service;
 
+import com.culetter.db.entity.File;
+import com.culetter.db.repository.FileRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tika.Tika;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 
 @Slf4j
@@ -13,6 +16,7 @@ import java.io.IOException;
 public class FileServiceImpl implements FileService {
 
     private final AmazonS3Service amazonS3Service;
+    private final FileRepository fileRepository;
 //    private final String letterImage;
 //    private final String postcardImage;
 //    private final String customPostcardImage;
@@ -25,7 +29,8 @@ public class FileServiceImpl implements FileService {
 //    private HashMap<String,HashMap<String,List<FileDto.FileInfoWithEmotion>>> fileInfoMap;
 
     public FileServiceImpl(
-            AmazonS3Service amazonS3Service
+            AmazonS3Service amazonS3Service,
+            FileRepository fileRepository
 //            @Value("${cloud.aws.s3.folder.letterImage}") String letterImage,
 //            @Value("${cloud.aws.s3.folder.postcardImage}") String postcardImage,
 //            @Value("${cloud.aws.s3.folder.customPostcardImage}") String customPostcardImage,
@@ -37,6 +42,7 @@ public class FileServiceImpl implements FileService {
 //            @Value("${cloud.aws.s3.emotion.panic}") String panic
     ) {
         this.amazonS3Service = amazonS3Service;
+        this.fileRepository = fileRepository;
 //        this.letterImage = letterImage;
 //        this.postcardImage = postcardImage;
 //        this.customPostcardImage = customPostcardImage;
@@ -78,6 +84,11 @@ public class FileServiceImpl implements FileService {
         if (!mimeType.startsWith("image"))
             throw new IllegalArgumentException("image 타입의 파일이 아닙니다.");
         return amazonS3Service.upload(multipartFile, folderPath);
+    }
+
+    @Override
+    public List<File> getFileListByType(String type) {
+        return fileRepository.findByType(type);
     }
 
 //    @Override
