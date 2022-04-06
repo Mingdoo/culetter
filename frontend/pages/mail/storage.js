@@ -13,6 +13,7 @@ import Photocard from "../../components/mail/inbox/Photocard";
 import { getUndoneMail } from "../../components/apis/mailbox";
 import { authentication } from "../../components/apis/auth";
 import LetterContext from "../../contexts/LetterContext";
+import Header from "../../components/Header";
 export default function Storage() {
   const [loading, setLoading] = useState(false);
   const [mails, setMails] = useState([]);
@@ -36,7 +37,7 @@ export default function Storage() {
         pathname: "/letter/write",
         query: { tempId: id },
       },
-      "/letter/write",
+      "/letter/write"
     );
     console.log(id);
   };
