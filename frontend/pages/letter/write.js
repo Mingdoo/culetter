@@ -34,7 +34,6 @@ const writeLetter = () => {
   };
 
   useEffect(() => {
-    console.log(mailType);
     authentication();
   }, []);
 

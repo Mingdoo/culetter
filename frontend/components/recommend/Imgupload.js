@@ -23,6 +23,7 @@ const Imgupload = (props) => {
 
     if (event.target.files[0]) {
       setLoaded(true);
+      props.setIsUploaded(true);
       fileReader.readAsDataURL(event.target.files[0]);
       setImgBase64(URL.createObjectURL(event.target.files[0]));
     }
@@ -31,11 +32,14 @@ const Imgupload = (props) => {
       setImage(event.target.files[0]);
       setImgFile(event.target.files[0]);
       setLoaded(true);
+      props.setIsUploaded(true);
     };
   };
 
   useEffect(() => {
-    console.log(imgBase64);
+    props.setUploadedImage(imgFile);
+  }, [imgFile]);
+  useEffect(() => {
     handlePrevImage(imgBase64);
   }, [imgBase64]);
 
