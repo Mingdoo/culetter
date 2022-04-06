@@ -249,7 +249,7 @@ export default function ReadMailByCode({ code }) {
         )}
       </Box>
       <Box sx={{ mt: "2rem" }}>
-        <Player musicUrl={data.music_url}></Player>
+        <Player music={data.music_url}></Player>
       </Box>
       {data.receiver_email ? null : (
         <Box sx={{ display: "flex", justifyContent: "center", mt: "1rem" }}>

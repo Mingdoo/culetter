@@ -8,6 +8,7 @@ import LetterContext from "../../../contexts/LetterContext";
 
 export default function Player(props) {
   const { music } = props;
+  console.log(music, "player props");
   // const { musicSelected } = useContext(ContentsContext);
   const { musicName, musicUrl, setMusicUrl } = useContext(LetterContext);
   const audioPlayer = useRef();
@@ -39,13 +40,13 @@ export default function Player(props) {
 
   useEffect(() => {
     if (music !== null) {
-      console.log(music);
+      console.log(music, "player");
       setMusicUrl(music);
     }
   }, []);
 
   useEffect(() => {
-    console.log(musicUrl);
+    console.log(musicUrl, "player");
   }, [musicUrl]);
   return (
     <>
