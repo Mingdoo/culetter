@@ -20,7 +20,7 @@ export default function Send() {
   const [name, setName] = useState("");
   const toHome = () => Router.push("/main");
   const toMailSent = () => Router.push("/mail/sent");
-  const receiverName = "Test";
+  const { receiverName } = useContext(LetterContext);
   useEffect(() => {
     setName(localStorage.getItem("name"));
   }, []);

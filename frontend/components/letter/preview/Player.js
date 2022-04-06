@@ -1,14 +1,15 @@
 import { Grid, Box, Typography } from "@mui/material";
-import { useState, useRef } from "react";
+import { useState, useRef, useContext, useEffect } from "react";
 
 import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
 import PauseIcon from "@mui/icons-material/Pause";
 import AlbumIcon from "@mui/icons-material/Album";
+import LetterContext from "../../../contexts/LetterContext";
 
-export default function Player({ musicUrl }) {
+export default function Player() {
   // const { musicSelected } = useContext(ContentsContext);
+  const { musicName, musicUrl } = useContext(LetterContext);
   const audioPlayer = useRef();
-  const musicSelected = { title: "라일락", singer: "아이유" };
 
   const [currentTime, setCurrentTime] = useState(0);
   const [seekValue, setSeekValue] = useState(0);
@@ -34,13 +35,11 @@ export default function Player({ musicUrl }) {
   };
 
   const [isPlaying, setIsPlaying] = useState(true);
+
+  useEffect(() => {}, []);
   return (
     <>
-      <audio
-        src="http://commondatastorage.googleapis.com/codeskulptor-assets/Evillaugh.ogg"
-        ref={audioPlayer}
-        onTimeUpdate={onPlaying}
-      >
+      <audio src={musicUrl} ref={audioPlayer} onTimeUpdate={onPlaying}>
         Your browser does not support the
         <code>audio</code> element.
       </audio>
@@ -65,9 +64,7 @@ export default function Player({ musicUrl }) {
           </Box>
         </Grid>
         <Grid item xs={10}>
-          <Typography className="Batang">
-            {musicSelected.title} - {musicSelected.singer}
-          </Typography>
+          <Typography className="Batang">{musicName}</Typography>
         </Grid>
         <Grid item xs={1}>
           {isPlaying ? (

@@ -57,7 +57,8 @@ const music = () => {
   const lpImgList = ["/img/lpImg1.png", "/img/lpImg2.png", "/img/lpImg3.png"];
   const [index, setIndex] = useState(0);
   const [checked, setChecked] = useState("");
-  const { musicUrl, setMusicUrl, emotion } = useContext(LetterContext);
+  const { musicUrl, setMusicUrl, emotion, setMusicName, musicName } =
+    useContext(LetterContext);
   const [progress, setProgress] = useState(0);
 
   const playerIcon = {
@@ -79,12 +80,12 @@ const music = () => {
     console.log(item);
     if (item.music_name === checked) {
       setChecked("");
-      setTitle("제목");
+      setMusicName("제목");
       setMusicUrl("");
       //선택
     } else {
       setChecked(item.music_name);
-      setTitle(item.music_name);
+      setMusicName(item.music_name);
       setMusicUrl(item.music_url);
     }
   };
@@ -118,7 +119,7 @@ const music = () => {
   }, [checked]);
 
   useEffect(() => {
-    setTitle(musicList[0].music_name);
+    setMusicName(musicList[0].music_name);
     setChecked(musicList[0].music_name);
     setMusicUrl(musicList[0].music_url);
   }, [musicList]);
@@ -206,7 +207,7 @@ const music = () => {
             fontFamily: "Gowun Dodum",
           }}
         >
-          {title}
+          {musicName}
         </Typography>
         <Box
           className={"lp " + (playStatus === "play" ? "lpRotate" : null)}
