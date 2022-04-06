@@ -80,7 +80,7 @@ export default function inbox() {
           <MailPage
             senderId={selectedId}
             isMail={isMail}
-            setIsMail={setIsMail}
+            setIsMail={(e) => setIsMail(e)}
           ></MailPage>
         )}
       </Box>
