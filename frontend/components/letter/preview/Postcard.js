@@ -37,7 +37,7 @@ function PostCard({ props }) {
     >
       <Box sx={{ border: "1px solid" }}>
         <img
-          src={image}
+          src={styleUrl}
           width={418}
           height={200}
           style={{ display: "block" }}

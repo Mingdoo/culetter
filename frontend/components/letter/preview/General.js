@@ -26,7 +26,7 @@ function General({ props }) {
         justifyContent: "center",
       }}
     >
-      <img src={image} width={420} style={{ position: "absolute" }} />
+      <img src={styleUrl} width={420} style={{ position: "absolute" }} />
       <Box
         sx={{
           position: "relative",
