@@ -20,7 +20,6 @@ recommendApi.interceptors.request.use(
 );
 
 const getEmotion = async (body) => {
-  console.log(body);
   const result = await recommendApi.post(`/mails/analyze`, body);
   return result;
 };
@@ -28,10 +27,15 @@ const getRecommendImage = async (body) => {
   const result = await recommendApi.get(`/mails/style`, body);
   return result;
 };
+const getRecommendMusic = async (body) => {
+  const result = await recommendApi.post(`/mails/music`, body);
+  return result;
+};
 
 const RecommendApi = {
   getEmotion,
   getRecommendImage,
+  getRecommendMusic,
 };
 
 export default RecommendApi;
