@@ -84,7 +84,8 @@ public class MailServiceImpl implements MailService {
             mail.getImage(),
             mail.getContentPosition(),
             mail.getStickers(),
-            mail.getFontOrder(),mail.getFontType(),mail.getFontColor(),
+            mail.getFontOrder(),mail.getFontType(),
+            mail.getFontColor(),mail.getFontSize(),
             mail.getBackgroundColor(),
             mail.getIsFontBold(),
             mail.getUnderlineColor(),
@@ -111,7 +112,8 @@ public class MailServiceImpl implements MailService {
                 mail.getImage(),
                 mail.getContentPosition(),
                 mail.getStickers(),
-                mail.getFontOrder(),mail.getFontType(),mail.getFontColor(),
+                mail.getFontOrder(),mail.getFontType(),
+                mail.getFontColor(),mail.getFontSize(),
                 mail.getBackgroundColor(),
                 mail.getIsFontBold(),
                 mail.getUnderlineColor(),
@@ -218,6 +220,7 @@ public class MailServiceImpl implements MailService {
                 .fontOrder(mail.getFont_order())
                 .fontType(mail.getFont_type())
                 .fontColor(mail.getFont_color())
+                .fontSize(mail.getFont_size())
                 .backgroundColor(mail.getBackground_color())
                 .isFontBold(mail.getIs_font_bold())
                 .underlineColor(mail.getUnderline_color())
@@ -276,6 +279,7 @@ public class MailServiceImpl implements MailService {
                     .fontOrder(mail.getFont_order())
                     .fontType(mail.getFont_type())
                     .fontColor(mail.getFont_color())
+                    .fontSize(mail.getFont_size())
                     .backgroundColor(mail.getBackground_color())
                     .handwriteImage(mail.getHandwrite_image())
                     .isFontBold(mail.getIs_font_bold())
@@ -295,7 +299,8 @@ public class MailServiceImpl implements MailService {
                     mail.getMail_type(), mail.getStyle_url(),
                     mail.getContent(), mail.getMusic_url(), mail.getImage(),
                     mail.getContent_position(), mail.getStickers(),
-                    mail.getFont_order(), mail.getFont_type(), mail.getFont_color(),
+                    mail.getFont_order(), mail.getFont_type(),
+                    mail.getFont_color(), mail.getFont_size(),
                     mail.getBackground_color(),
                     mail.getIs_font_bold(),
                     mail.getUnderline_color(),
@@ -336,7 +341,8 @@ public class MailServiceImpl implements MailService {
                 mail.getMail_type(), mail.getStyle_url(),
                 mail.getContent(), mail.getMusic_url(), mail.getImage(),
                 mail.getContent_position(), mail.getStickers(),
-                mail.getFont_order(), mail.getFont_type(), mail.getFont_color(),
+                mail.getFont_order(), mail.getFont_type(),
+                mail.getFont_color(), mail.getFont_size(),
                 mail.getBackground_color(),
                 mail.getIs_font_bold(),
                 mail.getUnderline_color(),
@@ -404,7 +410,7 @@ public class MailServiceImpl implements MailService {
 
         RestTemplate restTemplate = new RestTemplate();
 
-        //TODO AI 학습 서버로 content 전송, Emotion을 String으로 반환받기 json 형식 수정 결과 같으면 하나 선택
+        //AI 학습 서버로 content 전송, Emotion을 String으로 반환받기 json 형식 수정 결과 같으면 하나 선택
         ResponseEntity<MailDto.EmotionResponse> responseEntity = restTemplate
                 .exchange("https://www.culetter.site/nlp", HttpMethod.POST, httpEntity, MailDto.EmotionResponse.class);
 

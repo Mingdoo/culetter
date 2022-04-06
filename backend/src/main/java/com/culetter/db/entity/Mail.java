@@ -41,6 +41,7 @@ public class Mail {
     private String fontOrder;
     private String fontType;
     private Byte fontColor;
+    private Byte fontSize;
     private Byte backgroundColor;
     @Convert(converter = BooleanToYNConverter.class)
     private Boolean isFontBold;
@@ -53,8 +54,9 @@ public class Mail {
     @Builder
     public Mail(String code, Long senderId, String senderEmail, String senderName, Boolean isRead, String receiverEmail,
                 String receiverName, Byte existCnt, String mailType, String title, String content, String styleUrl,
-                String musicUrl, String image, String contentPosition, String stickers, String fontOrder, String fontType, Byte fontColor,
-                Byte backgroundColor, Boolean isFontBold, Byte underlineColor, String handwriteImage, LocalDateTime createdDate) {
+                String musicUrl, String image, String contentPosition, String stickers, String fontOrder, String fontType,
+                Byte fontColor, Byte fontSize, Byte backgroundColor, Boolean isFontBold, Byte underlineColor,
+                String handwriteImage, LocalDateTime createdDate) {
         this.code = code;
         this.senderId = senderId;
         this.senderEmail = senderEmail;
@@ -74,6 +76,7 @@ public class Mail {
         this.fontOrder = fontOrder;
         this.fontType = fontType;
         this.fontColor = fontColor;
+        this.fontSize = fontSize;
         this.backgroundColor = backgroundColor;
         this.isFontBold = isFontBold;
         this.underlineColor = underlineColor;
@@ -92,7 +95,7 @@ public class Mail {
     public void updateTempMail(String receiverEmail, String receiverName, String title,
                                String mailType, String mailStyle, String content, String musicUrl,
                                String image, String contentPosition, String stickers,
-                               String fontOrder, String fontType, Byte fontColor,
+                               String fontOrder, String fontType, Byte fontColor, Byte fontSize,
                                Byte backgroundColor, Boolean isFontBold,
                                Byte underlineColor, String handwriteImage){
         this.receiverEmail = receiverEmail;
@@ -108,6 +111,7 @@ public class Mail {
         this.fontOrder = fontOrder;
         this.fontType = fontType;
         this.fontColor = fontColor;
+        this.fontSize = fontSize;
         this.backgroundColor = backgroundColor;
         this.isFontBold = isFontBold;
         this.underlineColor = underlineColor;

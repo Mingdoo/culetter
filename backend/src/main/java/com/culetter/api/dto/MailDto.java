@@ -28,6 +28,7 @@ public class MailDto {
         private String font_order;
         private String font_type;
         private Byte font_color;
+        private Byte font_size;
         private Byte background_color;
         private Boolean is_font_bold;
         private Byte underline_color;
