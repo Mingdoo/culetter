@@ -33,26 +33,30 @@ export default function MailPage({ senderId, isMail, setIsMail }) {
     }
   });
 
+  const switchPage = (mailId) => {
+    setSelectedMail(mailId);
+    setIsMail(false);
+  };
   useEffect(() => {
     fetchMails();
     setPage((prev) => prev + 1);
   }, []);
 
-  useEffect(() => {
-    if (noFirstRender2.current) {
-      setIsMail(false);
-    } else {
-      noFirstRender2.current = true;
-    }
-  }, [selectedMail]);
+  // useEffect(() => {
+  //   if (noFirstRender2.current) {
+  //     setIsMail(false);
+  //   } else {
+  //     noFirstRender2.current = true;
+  //   }
+  // }, [selectedMail]);
 
-  useEffect(() => {
-    if (noFirstRender1.current) {
-      setSelectedMail(null);
-    } else {
-      noFirstRender1.current = true;
-    }
-  }, [isMail]);
+  // useEffect(() => {
+  //   if (noFirstRender1.current) {
+  //     setSelectedMail(null);
+  //   } else {
+  //     noFirstRender1.current = true;
+  //   }
+  // }, [isMail]);
 
   const handleObserver = useCallback((entries) => {
     const target = entries[0];
@@ -97,14 +101,34 @@ export default function MailPage({ senderId, isMail, setIsMail }) {
               if (mail_type === "GENERAL") {
                 return (
                   <Box
-                    onClick={(e) => {
-                      setSelectedMail(mail_id);
-                    }}
+                    // onClick={(e) => {
+                    //   setSelectedMail(mail_id);
+                    // }}
                     key={idx}
                   >
                     <Letter
                       text={title}
                       index={0}
+                      createdDate={created_date}
+                      senderName={sender_name}
+                      key={idx}
+                      mailId={mail_id}
+                      switchPage={(e) => switchPage(mail_id)}
+                    ></Letter>
+                  </Box>
+                );
+              } else if (mail_type === "POSTCARD") {
+                return (
+                  <Box
+                    key={idx}
+                    onClick={(e) => {
+                      setSelectedMail(mail_id);
+                    }}
+                  >
+                    <Letter
+                      switchPage={(e) => switchPage(mail_id)}
+                      text={title}
+                      index={1}
                       createdDate={created_date}
                       senderName={sender_name}
                       key={idx}
@@ -116,18 +140,56 @@ export default function MailPage({ senderId, isMail, setIsMail }) {
                 return (
                   <Box
                     key={idx}
-                    onClick={(e) => {
-                      setSelectedMail(mail_id);
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      fontSize: 26,
+                      height: "204px",
                     }}
+                    onClick={(e) => switchPage(mail_id)}
                   >
-                    <Letter
-                      text={title}
-                      index={1}
-                      createdDate={created_date}
-                      senderName={sender_name}
-                      key={idx}
-                      mailId={mail_id}
-                    ></Letter>
+                    <Box
+                      sx={{
+                        border: "1px solid black",
+                        bgcolor: "white",
+                        width: "320px",
+                        height: "186px",
+                        mt: "9px",
+                      }}
+                    >
+                      <Box sx={{ width: 1 }}>
+                        <Box
+                          component="img"
+                          src={style_url}
+                          sx={{
+                            objectFit: "cover",
+                            width: 1,
+                            height: "150px",
+                            px: 0.5,
+                            pt: 0.5,
+                            borderRadius: 5,
+                          }}
+                        ></Box>
+                      </Box>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          px: 2,
+                        }}
+                      >
+                        <Typography sx={{ fontFamily: "Gowun Dodum" }}>
+                          {sender_name}
+                        </Typography>
+                        {created_date ? (
+                          <Typography sx={{ fontFamily: "Gowun Dodum" }}>
+                            포토카드, {created_date.slice(0, 4)}년{" "}
+                            {created_date.slice(5, 7)}월{" "}
+                            {created_date.slice(8, 10)}일
+                          </Typography>
+                        ) : null}
+                      </Box>
+                    </Box>
                   </Box>
                 );
               }

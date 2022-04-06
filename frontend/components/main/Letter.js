@@ -12,9 +12,10 @@ function Letter({
   createdDate,
   main,
   senderName,
-  switchPage,
+  setSelectedMail,
   mailId,
   handlePage,
+  switchPage,
 }) {
   const router = useRouter();
 
@@ -39,7 +40,13 @@ function Letter({
           cursor: "pointer",
         },
       }}
-      onClick={handlePage ? (e) => handlePage(mailId) : null}
+      onClick={
+        handlePage
+          ? (e) => handlePage(mailId)
+          : switchPage
+          ? (e) => switchPage(mailId)
+          : null
+      }
     >
       <svg
         width="320"

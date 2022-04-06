@@ -37,6 +37,8 @@ export default function Preview() {
     isFontBold,
     setIsFontBold,
     underlineColor,
+    setReceiverName,
+    setReceiverEmail,
   } = useContext(LetterContext);
 
   const { setMailCode } = useContext(RoutingContext);
@@ -50,31 +52,33 @@ export default function Preview() {
   const send = async () => {
     const stringifyStickers = JSON.stringify(stickersPos);
     const body = {
+      mail_type: mailType,
       receiver_name: receiverName,
       receiver_email: receiverEmail,
       title: title,
-      mail_type: mailType,
-      style_url: styleUrl,
       content: content,
+      style_url: styleUrl,
       music_url: musicUrl,
       image: "",
       content_position: "",
       stickers: stringifyStickers,
       font_order: fontOrder,
       font_type: fontType,
+      font_size: fontsize,
       // 숫자로
       font_color: fontColor,
       background_color: bgcolor,
       is_font_bold: isFontBold,
       underline_color: underlineColor,
       handwrite_image: "",
-      font_size: fontsize,
     };
 
     try {
       const res = await sendLetter(body);
       setMailCode(res.data);
-      console.log(res.data.code);
+      setReceiverName(null);
+      setReceiverEmail(null);
+      // console.log(res.data.code);
       // console.log("하기 전", stickersPos);
       // console.log(JSON.stringify(stickersPos));
       // console.log("다시", JSON.parse(stringifyStickers));
