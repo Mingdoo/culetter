@@ -1,5 +1,6 @@
 import { Box, Typography, Button, Grid } from "@mui/material";
 import LetterContext from "../../contexts/LetterContext";
+import RoutingContext from "../../contexts/RoutingContext";
 import Header from "../../components/Header";
 import Router from "next/router";
 import { useContext, useEffect, useState } from "react";
@@ -14,7 +15,8 @@ export default function Send() {
   useEffect(() => {
     authentication();
   }, []);
-  const { title, mailCode } = useContext(LetterContext);
+  const { title } = useContext(LetterContext);
+  const { mailCode } = useContext(RoutingContext);
   const [name, setName] = useState("");
   const toHome = () => Router.push("/main");
   const toMailSent = () => Router.push("/mail/sent");

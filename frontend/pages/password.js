@@ -1,7 +1,9 @@
 import { Box, Button, Typography } from "@mui/material";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Header from "../components/Header";
 import Router from "next/router";
+
+import RoutingContext from "../contexts/RoutingContext";
 import PWCheckField from "../components/profile/PWCheckField";
 import ConfirmBtn from "../components/profile/ConfirmBtn";
 import { ToastContainer, toast } from "react-toastify";
@@ -13,6 +15,8 @@ export default function password() {
 
   const [pwSecondInput, setPwSecondInput] = useState(null);
   const [samePw, setSamePw] = useState(true);
+
+  const { setFromBack } = useContext(RoutingContext);
 
   const onConfirmBtnClick = async (e) => {
     e.preventDefault();
@@ -32,9 +36,11 @@ export default function password() {
     console.log("test");
     handleSamePw();
   }, [pwSecondInput]);
+
   const handlePrevClick = (e) => {
     e.preventDefault();
     // router back with parameters... 비밀번호 확인을 또 시킬 순 없음.
+    setFromBack(true);
     Router.back();
   };
 
