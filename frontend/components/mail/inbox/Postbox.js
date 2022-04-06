@@ -24,7 +24,6 @@ export default function MailBox({
           right: 40,
           // right: hasNew ? 40 : 50,
           top: -5,
-          // border: "black 1.5px solid",
           color: "black",
           fontSize: "18px",
           boxShadow: "1px 1px 3px rgba(0, 0, 0, 0.5)",

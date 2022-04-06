@@ -129,7 +129,7 @@ const LoginForm = () => {
   };
 
   const BtnStyle = {
-    width: "35%",
+    width: "45%",
     fontFamily: "Gowun Batang",
     backgroundColor: "#E2E0A5",
     color: "#3A1D1D",
@@ -166,7 +166,7 @@ const LoginForm = () => {
             </Button>
             <Button
               style={BtnStyle}
-              sx={{ width: "40%" }}
+              sx={{ width: "50%" }}
               onClick={handleLogout}
             >
               <LogoutIcon />

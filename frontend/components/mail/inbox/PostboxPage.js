@@ -47,7 +47,6 @@ export default function PostboxPage({
   );
 
   useEffect(() => {
-    console.log("[handleObserver]");
     const option = {
       root: null,
       rootMargin: "20px",
