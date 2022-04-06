@@ -39,7 +39,6 @@ export default function ReadMailByCode({ code }) {
     console.log(data);
     console.log(data.style_url);
     console.log(data.content);
-    console.log(data.style_url);
     console.log(data.music_url);
   }, [data]);
 
