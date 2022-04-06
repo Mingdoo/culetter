@@ -39,9 +39,14 @@ export default function Player(props) {
 
   useEffect(() => {
     if (music !== null) {
+      console.log(music);
       setMusicUrl(music);
     }
   }, []);
+
+  useEffect(() => {
+    console.log(musicUrl);
+  }, [musicUrl]);
   return (
     <>
       <audio src={musicUrl} ref={audioPlayer} onTimeUpdate={onPlaying}>
