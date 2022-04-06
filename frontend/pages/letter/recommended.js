@@ -63,9 +63,9 @@ const Recommended = () => {
       const index = parseInt(curIndex) + 1;
       setChecked(curIndex);
       setIsUploaded(false);
-      setPrevImg(`/img/postcard${index}.jpg`);
+      setPrevImg(photocardList[checked]);
       // 선택된 이미지???
-      setStyleUrl(`/img/postcard${index}.jpg`);
+      setStyleUrl(photocardList[checked]);
     }
   };
 
