@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../styles/globals.css";
 import "../styles/Landing.module.css";
+import "react-toastify/dist/ReactToastify.css";
 import LetterContext from "../contexts/LetterContext";
 import RoutingContext from "../contexts/RoutingContext";
 import { DefaultSeo } from "next-seo";

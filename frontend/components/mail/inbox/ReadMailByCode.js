@@ -35,6 +35,14 @@ export default function ReadMailByCode({ code }) {
     }
   };
 
+  useEffect(() => {
+    console.log(data);
+    console.log(data.style_url);
+    console.log(data.content);
+    console.log(data.style_url);
+    console.log(data.music_url);
+  }, [data]);
+
   function renderElement(Sticker) {
     const Emoji = Emojis[Sticker.content.idx];
     return (
@@ -228,7 +236,7 @@ export default function ReadMailByCode({ code }) {
                   minHeight: 560,
                   overflowY: "auto",
                   whiteSpace: "pre-line",
-                  fontWeight: data.is_font_bold ? "bol d" : "normal",
+                  fontWeight: data.is_font_bold ? "bold" : "normal",
                 }}
               >
                 {data.title}

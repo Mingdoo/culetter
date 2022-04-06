@@ -6,13 +6,14 @@ import React, {
   useCallback,
   useContext,
 } from "react";
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 import MenuList from "../../components/menu/MenuList";
 import Letter from "../../components/main/Letter";
 import Photocard from "../../components/mail/inbox/Photocard";
 import { getUndoneMail } from "../../components/apis/mailbox";
 import { authentication } from "../../components/apis/auth";
 import LetterContext from "../../contexts/LetterContext";
+import Header from "../../components/Header";
 export default function Storage() {
   const [loading, setLoading] = useState(false);
   const [mails, setMails] = useState([]);
@@ -57,18 +58,9 @@ export default function Storage() {
           minHeight: "100vh",
         }}
       >
-        <MenuList></MenuList>
-        <Typography
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            py: "3.5vh",
-            fontSize: 28,
-            fontFamily: "Gowun Dodum",
-          }}
-        >
-          작성 중인 편지
-        </Typography>
+        <Header handlePrevClick={(e) => Router.back()} />
+        <MenuList />
+
         {/* 받는 사람: sender_name
           created_date: 
           title: 

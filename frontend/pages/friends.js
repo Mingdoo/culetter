@@ -41,9 +41,9 @@ function friends() {
       });
   }, []);
 
-  // useEffect(() => {
-  //   console.log(searchFriendId);
-  // }, [searchFriendId]);
+  useEffect(() => {
+    console.log(userFriends);
+  }, [userFriends]);
 
   const handleAddFriendClick = (e) => {
     e.preventDefault();
@@ -200,7 +200,7 @@ function friends() {
                   scale: 1,
                   opacity: 2,
                   transition: {
-                    delay: 0.5,
+                    delay: 0.25,
                   },
                 },
               }}
@@ -226,7 +226,7 @@ function friends() {
                 scale: 1,
                 opacity: 2,
                 transition: {
-                  delay: 0.5,
+                  delay: 0.25,
                 },
               },
             }}

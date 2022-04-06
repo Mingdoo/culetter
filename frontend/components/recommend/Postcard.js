@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Input, Typography, Button } from "@mui/material";
 
 const Postcard = (props) => {

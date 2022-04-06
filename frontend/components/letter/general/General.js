@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Box, Typography } from "@mui/material";
+import LetterContext from "../../../contexts/LetterContext";
 
 function General({ props }) {
+  const { styleUrl } = useContext(LetterContext);
   return (
     <Box
       sx={{
@@ -12,7 +14,7 @@ function General({ props }) {
         justifyContent: "center",
       }}
     >
-      <img src="/test.png" width={420} style={{ position: "absolute" }} />
+      <img src={styleUrl} width={420} style={{ position: "absolute" }} />
       <Box
         sx={{
           position: "absolute",

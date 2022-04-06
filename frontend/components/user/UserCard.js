@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Box, Typography, Button, IconButton } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PersonIcon from "@mui/icons-material/Person";
@@ -20,6 +20,9 @@ import LetterContext from "../../contexts/LetterContext";
 import Router from "next/router";
 
 export default function UserCard(props) {
+  useEffect(() => {
+    console.log(props.obj.profile_image);
+  }, []);
   const { memberId, setMemberId } = useContext(LetterContext);
 
   const HandleFriendAcceptClick = (e, obj) => {
@@ -144,6 +147,7 @@ export default function UserCard(props) {
               justifyContent: "end",
               mx: "auto",
               width: 0.4,
+              minWidth: 142,
             }}
           >
             <Button
@@ -174,6 +178,7 @@ export default function UserCard(props) {
               alignItems: "center",
               justifyContent: "end",
               mx: "auto",
+              minWidth: 142,
               width: 0.4,
             }}
           >
@@ -181,6 +186,7 @@ export default function UserCard(props) {
               sx={{
                 fontSize: 10,
                 borderRadius: 3,
+
                 height: 25,
                 mr: "0.5rem",
                 fontFamily: "Gowun Batang",
@@ -248,6 +254,7 @@ export default function UserCard(props) {
               flexDirection: "row",
               alignContent: "center",
               justifyContent: "end",
+
               width: 0.4,
             }}
           >
@@ -280,9 +287,33 @@ export default function UserCard(props) {
           mt: "1rem",
         }}
       >
-        <AccountCircleIcon
-          sx={{ mx: "1rem", alignSelf: "center", fontSize: 35 }}
-        />
+        {props.obj.profile_image ? (
+          <Box
+            sx={{
+              width: 39,
+              height: 35,
+              mx: "1rem",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <img
+              src={props.obj.profile_image}
+              style={{
+                width: 29,
+                height: 29,
+                borderRadius: "50%",
+                border: "1px solid black",
+              }}
+            />
+          </Box>
+        ) : (
+          <AccountCircleIcon
+            sx={{ mx: "1rem", alignSelf: "center", fontSize: 35 }}
+          />
+        )}
         <Box
           sx={{
             width: 170,

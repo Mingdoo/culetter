@@ -11,7 +11,7 @@ export default function LinkShare() {
   const { mailCode } = useContext(RoutingContext);
   const [isMobile, setIsMobile] = useState(true);
 
-  const link = `https://cultter.site/${mailCode}`;
+  const link = `https://www.culetter.site/letter/read/${mailCode}`;
 
   useEffect(() => {
     setIsMobile(
@@ -39,7 +39,7 @@ export default function LinkShare() {
 
   const copyData = async () => {
     try {
-      await navigator.clipboard.writeText(mailCode);
+      await navigator.clipboard.writeText(link);
       console.log("copied!");
       toast("복사성공", {
         position: "top-center",
