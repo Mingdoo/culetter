@@ -66,7 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/members").permitAll()  // 해당 URL은 인증 처리X
                 .antMatchers("/members/signin/**",
                         "/members/email/**",
-                        "/code/**").permitAll()
+                        "/mails/code/**").permitAll()
                 .anyRequest()
                 .authenticated()
 
