@@ -16,7 +16,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import CropEasy from "../crop/CropEasy";
 import ConfirmBtn from "./ConfirmBtn";
 import StyledTextField from "./StyledTextField";
-import { getUserInfo, editUserInfo, deleteUser } from "../apis/profile";
+import { getUserInfo, deleteUser } from "../apis/profile";
 import LockIcon from "@mui/icons-material/Lock";
 import Router from "next/router";
 import { ToastContainer, toast } from "react-toastify";
@@ -54,7 +54,7 @@ export default function MyPage() {
     const formData = new FormData();
     formData.append(
       "info",
-      new Blob([JSON.stringify(userInfo)], { type: "application/json" })
+      new Blob([JSON.stringify(userInfo)], { type: "application/json" }),
     );
     formData.append("profileImage", profileImage);
     console.log(formData.get("info"));
@@ -76,7 +76,7 @@ export default function MyPage() {
     };
     formData.append(
       "info",
-      new Blob([JSON.stringify(userInfo)], { type: "application/json" })
+      new Blob([JSON.stringify(userInfo)], { type: "application/json" }),
     );
     formData.append("profileImage", photoURL);
     try {
@@ -89,7 +89,7 @@ export default function MyPage() {
             Authorization:
               "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzMiIsImF1dGgiOiJST0xFXzEiLCJleHAiOjE2NDkyNjExNTd9.uEYVoYw4viX8Wdb5ts1gDRm7pbg0xncYac-d7iuGz0si0J_rh3WFnMm6clxKZ-_-jHwIpoaWhbHesbrHOa382A",
           },
-        }
+        },
       );
       console.log(res);
     } catch (e) {
@@ -116,7 +116,7 @@ export default function MyPage() {
     console.log("photo");
     // 1. 파일이 있다면 확인 & 파일 크기 확인하고 너무 크면 거절!
     const file = event.target.files[0];
-    if (file.size) {
+    if (file && file.size) {
       const size = parseFloat(file.size / 1024).toFixed(2);
       if (size >= 2048) {
         toast.error("사진 용량이 2MB을 초과할 수 없습니다.", {
@@ -160,7 +160,7 @@ export default function MyPage() {
 
   return (
     <Box>
-      <input type="file" id="file" name="file" onChange={onClickUploadFile} />
+      {/* <input type="file" id="file" name="file" onChange={onClickUploadFile} /> */}
       <Box
         sx={{
           backgroundColor: "#E2E0A5",

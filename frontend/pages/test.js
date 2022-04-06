@@ -50,7 +50,7 @@ export default function test() {
     const formData = new FormData();
     formData.append(
       "info",
-      new Blob([JSON.stringify(userInfo)], { type: "application/json" })
+      new Blob([JSON.stringify(userInfo)], { type: "application/json" }),
     );
     formData.append("profileImage", profileImage);
     console.log(formData.get("info"));
@@ -99,13 +99,13 @@ export default function test() {
                       <AddAPhotoIcon></AddAPhotoIcon>
                     </InputLabel>
                   </IconButton>
-                  <Input
+                  {/* <Input
                     id="profileImg"
                     sx={{ display: "none" }}
                     type="file"
                     accept="image/*"
                     onChange={onClickUploadFile}
-                  ></Input>
+                  ></Input> */}
                 </Box>
               </Box>
 

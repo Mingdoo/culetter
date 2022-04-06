@@ -54,7 +54,7 @@ export default function StyledTextField({
       disabled={disabled}
       onChange={onChange ? onChange : null}
       sx={{
-        "& .MuiInput-underline": { fontFamily: "Gowun Batang", color: "red" },
+        "& .MuiInput-underline": { fontFamily: "Gowun Batang", color: "black" },
         "& .MuiInput-underline:not(.Mui-disabled):hover::before": {
           borderColor: "pink",
         },
@@ -67,9 +67,9 @@ export default function StyledTextField({
         width: 1,
         fontFamily: "Gowun Batang",
         "& label": {
-          color: "red",
+          color: "black",
           fontFamily: "Gowun Batang",
-          "&.Mui-focused": { color: "red" },
+          "&.Mui-focused": { color: "black" },
           fontSize: 14,
         },
       }}
