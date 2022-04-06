@@ -20,6 +20,7 @@ function MyApp({ Component, pageProps }) {
   const [styleUrl, setStyleUrl] = useState("");
   const [content, setContent] = useState("");
   const [musicUrl, setMusicUrl] = useState("");
+  const [musicName, setMusicName] = useState("");
   const [image, setImage] = useState("");
   const [contentPosition, setContentPosition] = useState("");
   const [stickersPos, setStickersPos] = useState({});
@@ -91,6 +92,8 @@ function MyApp({ Component, pageProps }) {
           setTempMailId,
           emotion,
           setEmotion,
+          musicName,
+          setMusicName,
         }}
       >
         <RoutingContext.Provider
