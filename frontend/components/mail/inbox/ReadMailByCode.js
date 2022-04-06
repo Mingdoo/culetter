@@ -36,7 +36,7 @@ export default function ReadMailByCode({ code }) {
   };
 
   useEffect(() => {
-    console.log(data);
+    console.log(data.style_url);
   }, [data]);
 
   function renderElement(Sticker) {
