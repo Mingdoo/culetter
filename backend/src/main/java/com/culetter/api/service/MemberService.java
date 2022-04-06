@@ -13,6 +13,8 @@ public interface MemberService {
     MemberDto.Response getMemberInfoByAuthentication();
     Member findMemberByEmail(String email);
     void updateMember(MemberDto.InfoRequest infoRequest, MultipartFile multipartFile);
+    void updateMemberInfo(MemberDto.InfoRequest infoRequest);
+    void updateMemberProfile(MultipartFile multipartFile);
     void checkPassword(String password);
     void updatePassword(String password);
     void deleteMember();
