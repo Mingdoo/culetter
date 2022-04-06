@@ -6,8 +6,18 @@ import ReactCardFlip from "react-card-flip";
 import { emojis } from "../photocard/PhotoCard";
 const Photocard = (props) => {
   const { front, back, content } = props;
-  const { bgcolor, stickersPos, fontsize, fontType, fontColor, isFontBold } =
-    useContext(LetterContext);
+  const {
+    bgcolor,
+    stickersPos,
+    fontsize,
+    fontType,
+    fontColor,
+    isFontBold,
+    image,
+  } = useContext(LetterContext);
+  useEffect(() => {
+    console.log(image);
+  }, []);
   //something changed
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -29,7 +39,7 @@ const Photocard = (props) => {
           <img
             width={width}
             height={height}
-            src={front}
+            src={image && image}
             style={{ borderRadius: "2rem" }}
           ></img>
         </Box>

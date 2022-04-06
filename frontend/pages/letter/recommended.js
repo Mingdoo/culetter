@@ -5,7 +5,7 @@ import Imgupload from "../../components/recommend/Imgupload";
 import Postcard from "../../components/recommend/Postcard";
 import Normal from "../../components/recommend/Normal";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box, Checkbox, Grid, Typography } from "@mui/material";
+import { Box, Checkbox, Divider, Grid, Typography } from "@mui/material";
 import Router from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -24,6 +24,7 @@ import {
   fetchPostCardImage,
   getRecommendImage,
 } from "../../components/apis/letter";
+import { HashLoader } from "react-spinners";
 
 const useCheckboxStyles = makeStyles({
   overrides: {
@@ -103,6 +104,7 @@ const Recommended = () => {
 
   const handleAnalyze = async () => {
     let sendType;
+    setIsLoading(true);
     if (mailType === "PHOTOCARD") {
       sendType = "photocardImage";
     }
@@ -118,7 +120,29 @@ const Recommended = () => {
     };
     console.log(body);
     getRecommendImage(body).then((res) => {
-      console.log(res);
+      if (mailType === "PHOTOCARD") {
+        setTimeout(() => {
+          const reversed = [...res.data.style_list].reverse().splice(0, 12);
+          setPhotocardList(res.data.style_list.splice(0, 24).concat(reversed));
+          setIsLoading(false);
+        }, 1000);
+      }
+
+      if (mailType === "GENERAL") {
+        setTimeout(() => {
+          const reversed = [...res.data.style_list].reverse().splice(0, 12);
+          setLetterList(res.data.style_list.splice(0, 24).concat(reversed));
+          setIsLoading(false);
+        }, 1000);
+      }
+
+      if (mailType === "POSTCARD") {
+        setTimeout(() => {
+          const reversed = [...res.data.style_list].reverse().splice(0, 12);
+          setPostcardList(res.data.style_list.splice(0, 24).concat(reversed));
+          setIsLoading(false);
+        }, 1000);
+      }
     });
   };
 
@@ -137,6 +161,15 @@ const Recommended = () => {
     }
 
     if (checked !== -1) {
+      if (mailType === "PHOTOCARD") {
+        setImage(photocardList[checked]);
+      }
+      if (mailType === "POSTCARD") {
+        setImage(postcardList[checked]);
+      }
+      if (mailType === "GENERAL") {
+        setImage(letterList[checked]);
+      }
       Router.push("/letter/music");
     } else {
       if (isUploaded) {
@@ -160,8 +193,29 @@ const Recommended = () => {
         minHeight: "100vh",
         mx: "auto",
         bgcolor: "#FCFAEF",
+        position: "relative",
       }}
     >
+      {isLoading && (
+        <>
+          <Box
+            sx={{
+              position: "absolute",
+              width: 1,
+              height: 1,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <HashLoader size={50} />
+            <Typography sx={{ mt: "1rem", fontFamily: "Gowun Dodum" }}>
+              추천 목록 생성중..
+            </Typography>
+          </Box>
+        </>
+      )}
       {mailType === "PHOTOCARD" ? (
         <>
           <Header
@@ -224,7 +278,7 @@ const Recommended = () => {
             >
               <Photocard
                 key={index}
-                front={data.front}
+                front={data}
                 // back={data.back}
                 content={content}
               ></Photocard>
@@ -252,7 +306,7 @@ const Recommended = () => {
                 margin: " 0rem 1rem",
               }}
             >
-              <Normal imgsrc={data.imgsrc}></Normal>
+              <Normal imgsrc={data}></Normal>
               <Checkbox
                 component="div"
                 value={index}
@@ -294,7 +348,7 @@ const Recommended = () => {
                   <Postcard
                     component="div"
                     key={index}
-                    imgsrc={data.imgsrc}
+                    imgsrc={data}
                   ></Postcard>
                   <Checkbox
                     value={index}
@@ -320,7 +374,11 @@ const Recommended = () => {
               엽서 미리보기
             </Typography>
             <Box component="div" sx={{ position: "relative" }}>
-              <img width="288px" height="180px" src={prevImg}></img>
+              <img
+                width="288px"
+                height="180px"
+                src={checked !== -1 ? postcardList[checked] : prevImg}
+              ></img>
               <Typography
                 sx={{
                   position: "relative",
@@ -329,7 +387,7 @@ const Recommended = () => {
                   fontSize: "1rem",
                 }}
               >
-                {prevImg === "/img/prevImg.png" ? "미리보기 이미지" : null}
+                {uploadedImage || checked !== -1 ? null : "미리보기 이미지"}
               </Typography>
               <Box sx={{ position: "relative", mt: "-1.8rem" }}>
                 <img
@@ -375,6 +433,7 @@ const Recommended = () => {
           </Box>
         )}
       </Box>
+      {!isLoading && <Divider sx={{ mt: "2rem" }} />}
       <ToastContainer />
     </Box>
   );
