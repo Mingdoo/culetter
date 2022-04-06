@@ -19,6 +19,7 @@ export default function ReadMailByCode({ code }) {
     try {
       const res = await getMailByCode(code);
       setData(res.data);
+      console.log(res);
       // console.log(JSON.parse(res.data.stickers));
       setStickersPos(JSON.parse(res.data.stickers));
     } catch (error) {
@@ -227,7 +228,9 @@ export default function ReadMailByCode({ code }) {
       <Box sx={{ mt: "2rem" }}>
         <Player musicUrl={data.music_url}></Player>
       </Box>
-      <Button onClick={saveLetter}>저장</Button>
+      <Button onClick={saveLetter}>
+        <Typography>저장</Typography>
+      </Button>
     </>
   );
 }

@@ -49,6 +49,7 @@ export default function select() {
 
   useEffect(() => {
     authentication();
+    setReceiverName("");
     const token = localStorage.getItem("accessToken");
     {
       token &&
