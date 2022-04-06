@@ -39,7 +39,6 @@ public class MailController {
         return ResponseEntity.status(HttpStatus.OK).body(mailService.analyzeResult(contentRequest.get("content")));
     }
 
-    // TODO
     @PostMapping("/style")
     public ResponseEntity<Map<String, List<String>>> recommendStyle(@RequestBody MailDto.EmotionRequest emotionRequest){
         Map<String,List<String>> mrs = new HashMap<>();
