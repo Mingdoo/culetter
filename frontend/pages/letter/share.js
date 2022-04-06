@@ -10,20 +10,24 @@ import LinkShare from "../../components/letter/send/LinkShare";
 import KakaoShare from "../../components/letter/send/KakaoShare";
 import Letter from "../../components/main/Letter";
 import { authentication } from "../../components/apis/auth";
-
+import MenuList from "../../components/menu/MenuList";
 export default function Send() {
   // receiverName 있으면 카카오톡으로 알리기 아니면 링크 공유
+  useEffect(() => {
+    authentication();
+  }, []);
   const { title, receiverName } = useContext(LetterContext);
   const { mailCode } = useContext(RoutingContext);
   const [name, setName] = useState("");
   const toHome = () => Router.push("/main");
   const toMailSent = () => Router.push("/mail/sent");
   useEffect(() => {
-    authentication();
     setName(localStorage.getItem("name"));
-    console.log(receiverName);
   }, []);
 
+  const handlePrevClick = () => {
+    Router.back();
+  };
   return (
     <Box
       component="div"
@@ -35,7 +39,8 @@ export default function Send() {
         bgcolor: "#FCFAEF",
       }}
     >
-      <Header title="편지 전송"></Header>
+      <Header title="편지 전송" handlePrevClick={handlePrevClick}></Header>
+      <MenuList />
       <Box
         sx={{
           textAlign: "center",
@@ -80,7 +85,7 @@ export default function Send() {
                 fontFamily: "Gowun Batang",
               }}
             >
-              to. <strong>{receiverName}</strong>
+              to. <strong>{receiverName ? receiverName : "친구"}</strong>
             </Typography>
             <Typography
               sx={{

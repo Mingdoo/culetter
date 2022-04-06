@@ -8,7 +8,7 @@ function PostCard({ props }) {
   const [bgColor, setBgColor] = useState(1);
   const [underlineColour, setUnderlineColour] = useState(0);
 
-  const { setUnderlineColor, setBgcolor, image } = useContext(LetterContext);
+  const { setUnderlineColor, setBgcolor, styleUrl } = useContext(LetterContext);
   return (
     <Box
       sx={{
@@ -21,7 +21,7 @@ function PostCard({ props }) {
     >
       <Box sx={{ border: "0.5px solid" }}>
         <img
-          src={image}
+          src={styleUrl}
           width={418}
           height={200}
           style={{ display: "block" }}

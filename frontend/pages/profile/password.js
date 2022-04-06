@@ -1,15 +1,15 @@
 import { Box, Button, Typography } from "@mui/material";
 import { useEffect, useState, useContext } from "react";
-import Header from "../components/Header";
+import Header from "../../components/Header";
 import Router from "next/router";
 
-import RoutingContext from "../contexts/RoutingContext";
-import PWCheckField from "../components/profile/PWCheckField";
-import ConfirmBtn from "../components/profile/ConfirmBtn";
+import RoutingContext from "../../contexts/RoutingContext";
+import PWCheckField from "../../components/profile/PWCheckField";
+import ConfirmBtn from "../../components/profile/ConfirmBtn";
 import { ToastContainer, toast } from "react-toastify";
-import { changePw } from "../components/apis/profile";
-import { authentication } from "../components/apis/auth";
-export default function password() {
+import { changePw } from "../../components/apis/profile";
+import { authentication } from "../../components/apis/auth";
+export default function password(props) {
   const [pwInput, setPwInput] = useState(null);
   const [pwCheck, setPwCheck] = useState(true);
 
@@ -30,6 +30,20 @@ export default function password() {
 
   useEffect(() => {
     authentication();
+    if (Router.router.state.query.pwConfirm !== "true") {
+      Router.push("/main");
+      setTimeout(() => {
+        toast.error(
+          <Box sx={{ fontFamily: "Gowun Dodum", textAlign: "center" }}>
+            잘못 된 접근입니다. 😢
+          </Box>,
+          {
+            position: toast.POSITION.TOP_CENTER,
+            role: "alert",
+          },
+        );
+      }, 100);
+    }
   }, []);
 
   useEffect(() => {

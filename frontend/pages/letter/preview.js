@@ -50,8 +50,8 @@ export default function Preview() {
     const stringifyStickers = JSON.stringify(stickersPos);
     const body = {
       mail_type: mailType,
-      receiver_name: receiverName,
-      receiver_email: receiverEmail,
+      receiver_name: receiverName !== null ? receiverName : "",
+      receiver_email: receiverEmail !== null ? receiverEmail : "",
       title: title,
       content: content,
       style_url: styleUrl,
@@ -72,8 +72,7 @@ export default function Preview() {
 
     try {
       const res = await sendLetter(body);
-      setMailCode(res.data);
-      setReceiverName(null);
+      setMailCode(res.data.code);
       setReceiverEmail(null);
       // console.log(res.data.code);
       // console.log("하기 전", stickersPos);
@@ -107,8 +106,6 @@ export default function Preview() {
         {mailType === "PHOTOCARD" ? (
           <Photocard
             key="previewLetter"
-            front="/img/photocard_front1.jpg"
-            back="/img/photocard_back.png"
             content={content}
             preview={true}
           ></Photocard>

@@ -1,4 +1,6 @@
+import { LocalPostOffice } from "@mui/icons-material";
 import axios from "axios";
+import { userApi } from "./auth";
 import { BASE_URL } from "./config";
 
 export const usersApi = axios.create({
@@ -16,7 +18,7 @@ usersApi.interceptors.request.use(
   function (error) {
     console.log(error);
     return Promise.reject(error);
-  }
+  },
 );
 
 export const pwValidation = async (password) => {
@@ -29,15 +31,6 @@ export const getUserInfo = async () => {
   return await usersApi.get();
 };
 
-export const editUserInfo = async (body) => {
-  return await axios.put('https://www.culetter.site/api/members',body, {
-    headers: {
-      "Content-Type": 'multipart/form-data',
-      "Authorization": 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzMiIsImF1dGgiOiJST0xFXzEiLCJleHAiOjE2NDkxNjY1NjZ9.47GLkHNoZUVNYb504TNiOkcePgOsMB4CyyCcO5byGsNNrHyX2X67oiG7jjxtQSC2bnwSUn0EHba8Mmh8p3z-ZA'
-    }
-  })
-};
-
 export const changePw = async (password) => {
   return await usersApi.patch(`/password`, {
     password: password,
@@ -46,4 +39,29 @@ export const changePw = async (password) => {
 
 export const deleteUser = async () => {
   return await usersApi.delete();
+};
+
+export const changeUsername = async (name) => {
+  return await userApi.put(
+    "/members/info",
+    {
+      name,
+    },
+    {
+      headers: {
+        Authorization: localStorage.getItem("accessToken"),
+      },
+    },
+  );
+};
+
+export const changeProfileImage = async (image) => {
+  const form = new FormData();
+  form.append("profileImage", image);
+  return await userApi.put("/members/profile", form, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: localStorage.getItem("accessToken"),
+    },
+  });
 };

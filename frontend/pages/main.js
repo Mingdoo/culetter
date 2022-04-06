@@ -4,6 +4,7 @@ import { Box, Typography } from "@mui/material";
 import Letter from "../components/main/Letter";
 import Footer from "../components/Footer";
 import { authentication } from "../components/apis/auth";
+import { ToastContainer, toast } from "react-toastify";
 export default function Main() {
   useEffect(() => {
     authentication();
@@ -12,6 +13,7 @@ export default function Main() {
     <>
       <Box>
         <Box sx={{ width: 420, mx: "auto" }}>
+          <ToastContainer />
           <Box
             sx={{
               bgcolor: "#FCFAEF",
@@ -44,7 +46,7 @@ export default function Main() {
                     key={index}
                     main={true}
                   ></Letter>
-                )
+                ),
               )}
             </Box>
             <Footer />

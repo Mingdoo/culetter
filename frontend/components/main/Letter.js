@@ -208,7 +208,7 @@ function Letter({
             whiteSpace: "nowrap",
             display: "block",
             fontSize: 22,
-            fontWeight: "bold",
+            // fontWeight: "bold",
             fontFamily: "Gowun Dodum",
           }}
         >

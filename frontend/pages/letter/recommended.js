@@ -19,7 +19,7 @@ import CheckCircleTwoToneIcon from "@mui/icons-material/CheckCircleTwoTone";
 import CircleTwoToneIcon from "@mui/icons-material/CircleTwoTone";
 import LetterContext from "../../contexts/LetterContext";
 import RecommendApi from "../../components/apis/RecommendApi";
-import { getRouteMatcher } from "next/dist/shared/lib/router/utils";
+import { AnimateSharedLayout, motion } from "framer-motion";
 import {
   fetchPostCardImage,
   getRecommendImage,
@@ -65,10 +65,7 @@ const Recommended = () => {
       setIsUploaded(false);
       setPrevImg(`/img/postcard${index}.jpg`);
       // 선택된 이미지???
-      // setStyleUrl(`/img/postcard${index}.jpg`)
-      setStyleUrl(
-        "https://culetter.s3.ap-northeast-2.amazonaws.com/profile_image/06946054-b2af-4607-b19d-e615e2838e28-1649084959518"
-      );
+      setStyleUrl(`/img/postcard${index}.jpg`);
     }
   };
 
@@ -152,7 +149,7 @@ const Recommended = () => {
       fetchPostCardImage(uploadedImage)
         .then((res) => {
           console.log(res);
-          setImage(res.data.image_url);
+          setStyleUrl(res.data.image_url);
           Router.push("/letter/music");
         })
         .catch((error) => {
@@ -162,13 +159,13 @@ const Recommended = () => {
 
     if (checked !== -1) {
       if (mailType === "PHOTOCARD") {
-        setImage(photocardList[checked]);
+        setStyleUrl(photocardList[checked]);
       }
       if (mailType === "POSTCARD") {
-        setImage(postcardList[checked]);
+        setStyleUrl(postcardList[checked]);
       }
       if (mailType === "GENERAL") {
-        setImage(letterList[checked]);
+        setStyleUrl(letterList[checked]);
       }
       Router.push("/letter/music");
     } else {
@@ -186,256 +183,264 @@ const Recommended = () => {
     Router.push("/letter/write");
   };
   return (
-    <Box
-      component="div"
-      sx={{
-        width: 420,
-        minHeight: "100vh",
-        mx: "auto",
-        bgcolor: "#FCFAEF",
-        position: "relative",
-      }}
-    >
-      {isLoading && (
-        <>
-          <Box
-            sx={{
-              position: "absolute",
-              width: 1,
-              height: 1,
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <HashLoader size={50} />
-            <Typography sx={{ mt: "1rem", fontFamily: "Gowun Dodum" }}>
-              추천 목록 생성중..
-            </Typography>
-          </Box>
-        </>
-      )}
-      {mailType === "PHOTOCARD" ? (
-        <>
-          <Header
-            handlePrevClick={handlePrevClick}
-            title="포토카드 선택"
-            handleNextClick={handleNextClick}
-          />
-          <Typography sx={{ textAlign: "center", fontFamily: "Gowun Batang" }}>
-            카드를 탭하면 카드가 뒤집힙니다
-          </Typography>
-        </>
-      ) : mailType === "GENERAL" ? (
-        <>
-          <Header
-            handlePrevClick={handlePrevClick}
-            title="편지지 선택"
-            handleNextClick={handleNextClick}
-          />
-          <Typography
-            className="Batang"
-            sx={{ textAlign: "center", mb: "1rem" }}
-          >
-            편지 내용에 어울리는 편지지 입니다
-          </Typography>
-        </>
-      ) : (
-        <>
-          <Header
-            handlePrevClick={handlePrevClick}
-            title="엽서 선택"
-            handleNextClick={handleNextClick}
-          />
-          <Typography
-            className="Batang"
-            sx={{ textAlign: "center", mb: "1rem" }}
-          >
-            편지 내용에 어울리는 엽서사진 입니다
-          </Typography>
-        </>
-      )}
+    <AnimateSharedLayout layout>
       <Box
         component="div"
         sx={{
-          display: "flex",
-          justifyContent: mailType === "POSTCARD" ? null : "space-between",
-          flexDirection: mailType === "GENERAL" ? "row" : "column",
-          flexWrap: mailType === "PHOTOCARD" ? null : "wrap",
-          alignItems: "center",
+          width: 420,
+          minHeight: "100vh",
+          mx: "auto",
+          bgcolor: "#FCFAEF",
+          position: "relative",
         }}
       >
-        {mailType === "PHOTOCARD" ? (
-          photocardList.map((data, index) => (
+        {isLoading && (
+          <>
             <Box
-              key={index}
               sx={{
+                position: "absolute",
+                width: 1,
+                height: 1,
                 display: "flex",
-                flexDirection: "row",
+                flexDirection: "column",
+                justifyContent: "center",
                 alignItems: "center",
               }}
             >
-              <Photocard
-                key={index}
-                front={data}
-                // back={data.back}
-                content={content}
-              ></Photocard>
-              <Checkbox
-                value={index}
-                onChange={handleChange}
-                checked={checked == index}
-                icon={<RadioButtonUncheckedIcon />}
-                checkedIcon={<CheckCircleOutlineIcon />}
-                style={{
-                  height: "10%",
-                  color: checked == index ? "#dc816c  " : "#ECDDBE",
-                }}
-              />
+              <HashLoader size={50} />
+              <Typography sx={{ mt: "1rem", fontFamily: "Gowun Dodum" }}>
+                추천 목록 생성중..
+              </Typography>
             </Box>
-          ))
-        ) : mailType === "GENERAL" ? (
-          letterList.map((data, index) => (
-            <Box
-              component="div"
-              key={index}
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                margin: " 0rem 1rem",
-              }}
-            >
-              <Normal imgsrc={data}></Normal>
-              <Checkbox
-                component="div"
-                value={index}
-                onChange={handleChange}
-                checked={checked == index}
-                icon={<RadioButtonUncheckedIcon />}
-                checkedIcon={<CheckCircleOutlineIcon />}
-                style={{
-                  display: "inline-block",
-                  alignSelf: "center",
-                  width: "25%",
-                  height: "1%",
-                  color: checked == index ? "#dc816c " : "#f0c8bf",
-                }}
-              />
-            </Box>
-          ))
-        ) : mailType === "POSTCARD" ? (
+          </>
+        )}
+        {mailType === "PHOTOCARD" ? (
           <>
-            <Box
-              component="div"
-              sx={{
-                height: "65vh",
-                display: "flex",
-                flexDirection: "column",
-                overflow: "auto",
-              }}
-            >
-              {postcardList.map((data, index) => (
-                <Box
-                  key={index}
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    mb: "1rem",
-                  }}
-                >
-                  <Postcard
-                    component="div"
-                    key={index}
-                    imgsrc={data}
-                  ></Postcard>
-                  <Checkbox
-                    value={index}
-                    onChange={handleChange}
-                    checked={checked == index}
-                    icon={<RadioButtonUncheckedIcon />}
-                    checkedIcon={<CheckCircleOutlineIcon />}
-                    style={{
-                      display: "inline-block",
-                      width: "12%",
-                      height: "20%",
-                      color: checked == index ? "#dc816c " : "#ECDDBE",
-                    }}
-                  />
-                </Box>
-              ))}
-            </Box>
-            <Typography
-              component="div"
-              className="Dodum"
-              sx={{ mt: "2rem", mb: "1rem" }}
-            >
-              엽서 미리보기
-            </Typography>
-            <Box component="div" sx={{ position: "relative" }}>
-              <img
-                width="288px"
-                height="180px"
-                src={checked !== -1 ? postcardList[checked] : prevImg}
-              ></img>
+            <Header
+              handlePrevClick={handlePrevClick}
+              title="포토카드 선택"
+              handleNextClick={handleNextClick}
+            />
+            {!isLoading && (
               <Typography
+                sx={{ textAlign: "center", fontFamily: "Gowun Batang" }}
+              >
+                카드를 탭하면 카드가 뒤집힙니다
+              </Typography>
+            )}
+          </>
+        ) : mailType === "GENERAL" ? (
+          <>
+            <Header
+              handlePrevClick={handlePrevClick}
+              title="편지지 선택"
+              handleNextClick={handleNextClick}
+            />
+            <Typography
+              className="Batang"
+              sx={{ textAlign: "center", mb: "1rem" }}
+            >
+              편지 내용에 어울리는 편지지 입니다
+            </Typography>
+          </>
+        ) : (
+          <>
+            <Header
+              handlePrevClick={handlePrevClick}
+              title="엽서 선택"
+              handleNextClick={handleNextClick}
+            />
+            <Typography
+              className="Batang"
+              sx={{ textAlign: "center", mb: "1rem" }}
+            >
+              편지 내용에 어울리는 엽서사진 입니다
+            </Typography>
+          </>
+        )}
+
+        <Box
+          component="div"
+          sx={{
+            display: "flex",
+            justifyContent: mailType === "POSTCARD" ? null : "space-between",
+            flexDirection: mailType === "GENERAL" ? "row" : "column",
+            flexWrap: mailType === "PHOTOCARD" ? null : "wrap",
+            alignItems: "center",
+          }}
+        >
+          {mailType === "PHOTOCARD" ? (
+            photocardList.map((data, index) => (
+              <Box
+                key={index}
                 sx={{
-                  position: "relative",
-                  top: "-6rem",
-                  left: "6rem",
-                  fontSize: "1rem",
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
                 }}
               >
-                {uploadedImage || checked !== -1 ? null : "미리보기 이미지"}
+                <Photocard
+                  key={index}
+                  front={data}
+                  // back={data.back}
+                  content={content}
+                ></Photocard>
+                <Checkbox
+                  value={index}
+                  onChange={handleChange}
+                  checked={checked == index}
+                  icon={<RadioButtonUncheckedIcon />}
+                  checkedIcon={<CheckCircleOutlineIcon />}
+                  style={{
+                    height: "10%",
+                    color: checked == index ? "#dc816c  " : "#ECDDBE",
+                  }}
+                />
+              </Box>
+            ))
+          ) : mailType === "GENERAL" ? (
+            letterList.map((data, index) => (
+              <Box
+                component="div"
+                key={index}
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  margin: " 0rem 1rem",
+                }}
+              >
+                <Normal imgsrc={data}></Normal>
+                <Checkbox
+                  component="div"
+                  value={index}
+                  onChange={handleChange}
+                  checked={checked == index}
+                  icon={<RadioButtonUncheckedIcon />}
+                  checkedIcon={<CheckCircleOutlineIcon />}
+                  style={{
+                    display: "inline-block",
+                    alignSelf: "center",
+                    width: "25%",
+                    height: "1%",
+                    color: checked == index ? "#dc816c " : "#f0c8bf",
+                  }}
+                />
+              </Box>
+            ))
+          ) : mailType === "POSTCARD" ? (
+            <>
+              <Box
+                component="div"
+                sx={{
+                  height: "65vh",
+                  display: "flex",
+                  flexDirection: "column",
+                  overflow: "auto",
+                }}
+              >
+                {postcardList.map((data, index) => (
+                  <Box
+                    key={index}
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                      mb: "1rem",
+                    }}
+                  >
+                    <Postcard
+                      component="div"
+                      key={index}
+                      imgsrc={data}
+                    ></Postcard>
+                    <Checkbox
+                      value={index}
+                      onChange={handleChange}
+                      checked={checked == index}
+                      icon={<RadioButtonUncheckedIcon />}
+                      checkedIcon={<CheckCircleOutlineIcon />}
+                      style={{
+                        display: "inline-block",
+                        width: "12%",
+                        height: "20%",
+                        color: checked == index ? "#dc816c " : "#ECDDBE",
+                      }}
+                    />
+                  </Box>
+                ))}
+              </Box>
+              <Typography
+                component="div"
+                className="Dodum"
+                sx={{ mt: "2rem", mb: "1rem" }}
+              >
+                엽서 미리보기
               </Typography>
-              <Box sx={{ position: "relative", mt: "-1.8rem" }}>
+              <Box component="div" sx={{ position: "relative" }}>
                 <img
                   width="288px"
                   height="180px"
-                  src={"/img/postcardbg.png"}
+                  src={checked !== -1 ? postcardList[checked] : prevImg}
                 ></img>
+                <Typography
+                  sx={{
+                    position: "relative",
+                    top: "-6rem",
+                    left: "6rem",
+                    fontSize: "1rem",
+                  }}
+                >
+                  {uploadedImage || checked !== -1 ? null : "미리보기 이미지"}
+                </Typography>
+                <Box sx={{ position: "relative", mt: "-1.8rem" }}>
+                  <img
+                    width="288px"
+                    height="180px"
+                    src={"/img/postcardbg.png"}
+                  ></img>
+                </Box>
               </Box>
-            </Box>
-            <Imgupload
-              handlePrevImage={handlePrevImage}
-              isUploaded={isUploaded}
-              setIsUploaded={setIsUploaded}
-              setUploadedImage={setUploadedImage}
-            />
-          </>
-        ) : (
-          <Box
-            sx={{
-              height: "100vh",
-              mt: "10rem",
-            }}
-          >
-            <Typography
+              <Imgupload
+                handlePrevImage={handlePrevImage}
+                isUploaded={isUploaded}
+                setIsUploaded={setIsUploaded}
+                setUploadedImage={setUploadedImage}
+              />
+            </>
+          ) : (
+            <Box
               sx={{
-                fontFamily: "Gowun Batang",
-                fontWeight: "bolder",
-                textAlign: "center",
+                height: "100vh",
+                mt: "10rem",
               }}
             >
-              형식이 선택되지 않았습니다
-            </Typography>
+              <Typography
+                sx={{
+                  fontFamily: "Gowun Batang",
+                  fontWeight: "bolder",
+                  textAlign: "center",
+                }}
+              >
+                형식이 선택되지 않았습니다
+              </Typography>
 
-            <Typography
-              sx={{
-                fontFamily: "Gowun Batang",
-                fontWeight: "bolder",
-                textAlign: "center",
-              }}
-            >
-              수신인 선택 페이지로 이동합니다
-            </Typography>
-          </Box>
-        )}
+              <Typography
+                sx={{
+                  fontFamily: "Gowun Batang",
+                  fontWeight: "bolder",
+                  textAlign: "center",
+                }}
+              >
+                수신인 선택 페이지로 이동합니다
+              </Typography>
+            </Box>
+          )}
+        </Box>
+
+        {!isLoading && <Divider sx={{ mt: "2rem" }} />}
+        <ToastContainer />
       </Box>
-      {!isLoading && <Divider sx={{ mt: "2rem" }} />}
-      <ToastContainer />
-    </Box>
+    </AnimateSharedLayout>
   );
 };
 export default Recommended;

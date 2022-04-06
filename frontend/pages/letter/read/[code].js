@@ -10,7 +10,7 @@ import MenuList from "../../../components/menu/MenuList";
 
 export default function ReadCodeMail() {
   const router = useRouter();
-  // const mailCode = router.query.code;
+  const mailCode = router.query;
   const [mail, setMail] = useState(null);
   const [code, setCode] = useState(false);
 

@@ -12,6 +12,7 @@ function receiverButton(props) {
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
+        mx: "auto",
         boxShadow: 3,
         "&:hover": {
           cursor: "pointer",
@@ -25,7 +26,14 @@ function receiverButton(props) {
       >
         {props.title}
       </Typography>
-      <Typography sx={{ fontSize: 10, ml: "1rem", fontFamily: "Gowun Batang" }}>
+      <Typography
+        sx={{
+          fontSize: 10,
+          ml: "1rem",
+          fontFamily: "Gowun Batang",
+          mr: "1rem",
+        }}
+      >
         {props.description}
       </Typography>
     </Box>
