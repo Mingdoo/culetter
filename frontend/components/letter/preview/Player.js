@@ -19,6 +19,7 @@ export default function Player(props) {
     VideoPlaybackQuality.readyState > 2;
   const [currentTime, setCurrentTime] = useState(0);
   const [seekValue, setSeekValue] = useState(0);
+  // const [isPlaying, setIsPlaying] = useState(true);
   const play = () => {
     if (!isPlaying) {
       audioPlayer.current.play();
@@ -41,8 +42,6 @@ export default function Player(props) {
       ? setIsPlaying(true)
       : null;
   };
-
-  // const [isPlaying, setIsPlaying] = useState(true);
 
   useEffect(() => {
     if (music !== null) {
@@ -89,7 +88,7 @@ export default function Player(props) {
               sx={{ display: "flex", justifyContent: "center" }}
               onClick={() => {
                 play();
-                setIsPlaying(false);
+                // setIsPlaying(false);
               }}
             ></PlayArrowRoundedIcon>
           ) : (
@@ -97,7 +96,7 @@ export default function Player(props) {
               sx={{ display: "flex", justifyContent: "center" }}
               onClick={() => {
                 pause();
-                setIsPlaying(true);
+                // setIsPlaying(true);
               }}
             ></PauseIcon>
           )}
