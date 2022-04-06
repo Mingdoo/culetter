@@ -57,8 +57,14 @@ const music = () => {
   const lpImgList = ["/img/lpImg1.png", "/img/lpImg2.png", "/img/lpImg3.png"];
   const [index, setIndex] = useState(0);
   const [checked, setChecked] = useState("");
-  const { musicUrl, setMusicUrl, emotion, setMusicName, musicName } =
-    useContext(LetterContext);
+  const {
+    musicUrl,
+    setMusicUrl,
+    emotion,
+    setMusicName,
+    musicName,
+    receiverName,
+  } = useContext(LetterContext);
   const [progress, setProgress] = useState(0);
 
   const playerIcon = {
@@ -108,6 +114,7 @@ const music = () => {
     handleMusicList();
     setEndTime(player.current.duration);
     setCurrentTime(player.current.currentTime);
+    console.log(receiverName);
   }, []);
 
   useEffect(() => {
