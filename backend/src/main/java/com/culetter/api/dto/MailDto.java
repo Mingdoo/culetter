@@ -46,4 +46,26 @@ public class MailDto {
 
         private LocalDateTime created_date;
     }
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class EmotionRequest {
+        private String type;
+        private Float happy;
+        private Float angry;
+        private Float sad;
+        private Float panic;
+    }
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class EmotionResponse {
+        private Float happy;
+        private Float angry;
+        private Float sad;
+        private Float panic;
+    }
+
 }

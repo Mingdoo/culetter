@@ -2,7 +2,6 @@ package com.culetter.api.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.ToString;
 
 public class FileDto {
 
@@ -12,6 +11,13 @@ public class FileDto {
         private String fileName;
         private String filePath;
         private String url;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    public static class Coefficient {
+        private int index;
+        private double value;
     }
 
 //    @Getter
