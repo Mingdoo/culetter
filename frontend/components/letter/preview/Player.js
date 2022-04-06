@@ -8,14 +8,22 @@ import LetterContext from "../../../contexts/LetterContext";
 
 export default function Player(props) {
   const { music } = props;
+  console.log(music, "player props");
   // const { musicSelected } = useContext(ContentsContext);
   const { musicName, musicUrl, setMusicUrl } = useContext(LetterContext);
   const audioPlayer = useRef();
-
+  const isPlaying =
+    audioPlayer.currentTime > 0 &&
+    !audioPlayer.paused &&
+    !VideoPlaybackQuality.ended &&
+    VideoPlaybackQuality.readyState > 2;
   const [currentTime, setCurrentTime] = useState(0);
   const [seekValue, setSeekValue] = useState(0);
+  // const [isPlaying, setIsPlaying] = useState(true);
   const play = () => {
-    audioPlayer.current.play();
+    if (!isPlaying) {
+      audioPlayer.current.play();
+    }
   };
   const pause = () => {
     audioPlayer.current.pause();
@@ -35,13 +43,16 @@ export default function Player(props) {
       : null;
   };
 
-  const [isPlaying, setIsPlaying] = useState(true);
-
   useEffect(() => {
     if (music !== null) {
+      console.log(music, "player");
       setMusicUrl(music);
     }
   }, []);
+
+  useEffect(() => {
+    console.log(musicUrl, "player");
+  }, [musicUrl]);
   return (
     <>
       <audio src={musicUrl} ref={audioPlayer} onTimeUpdate={onPlaying}>
@@ -77,7 +88,7 @@ export default function Player(props) {
               sx={{ display: "flex", justifyContent: "center" }}
               onClick={() => {
                 play();
-                setIsPlaying(false);
+                // setIsPlaying(false);
               }}
             ></PlayArrowRoundedIcon>
           ) : (
@@ -85,7 +96,7 @@ export default function Player(props) {
               sx={{ display: "flex", justifyContent: "center" }}
               onClick={() => {
                 pause();
-                setIsPlaying(true);
+                // setIsPlaying(true);
               }}
             ></PauseIcon>
           )}
