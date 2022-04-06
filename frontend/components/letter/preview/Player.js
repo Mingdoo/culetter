@@ -56,7 +56,7 @@ export default function Player(props) {
   }, [musicUrl]);
   return (
     <>
-      <audio src={musicUrl} ref={audioPlayer} onTimeUpdate={onPlaying}>
+      <audio src={music} ref={audioPlayer} onTimeUpdate={onPlaying}>
         Your browser does not support the
         <code>audio</code> element.
       </audio>

@@ -36,10 +36,10 @@ export default function ReadMailByCode({ code }) {
   };
 
   useEffect(() => {
-    console.log(data);
-    console.log(data.style_url);
-    console.log(data.content);
-    console.log(data.music_url);
+    // console.log(data);
+    // console.log(data.style_url);
+    // console.log(data.content);
+    // console.log(data.music_url);
   }, [data]);
 
   function renderElement(Sticker) {
