@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from "react";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import LetterContext from "../../contexts/LetterContext";
 import "react-toastify/dist/ReactToastify.css";
 import {
@@ -93,7 +92,25 @@ const Content = (props) => {
     }
   };
 
-  useEffect(() => {}, [contentLength]);
+  useEffect(() => {
+    if (tempTitle !== "" && tempContent !== "") {
+      setTitle(tempTitle);
+      setContent(tempContent);
+      setOpacity("0%");
+      setLoading(true);
+      setTimeout(() => {
+        setOpacity("100%");
+        setLoading(false);
+      }, 3000);
+    }
+  }, [tempTitle, tempContent]);
+
+  useEffect(() => {
+    if (tempTitle == "" && tempContent == "") {
+      setContent("");
+      setTitle("");
+    }
+  }, []);
 
   return (
     <>
