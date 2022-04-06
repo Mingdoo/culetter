@@ -1,14 +1,14 @@
 import { Box, Typography } from "@mui/material";
 // import newmailbox from "../../../assests/newmailbox.PNG";
 
-export const Photocard = ({
+export default function Photocard({
   senderName,
   createdDate,
   src,
   switchPage,
   mailId,
   handlePage,
-}) => {
+}) {
   return (
     <Box
       sx={{
@@ -66,4 +66,4 @@ export const Photocard = ({
       </Box>
     </Box>
   );
-};
+}
