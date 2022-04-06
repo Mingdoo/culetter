@@ -79,7 +79,7 @@ const Photocard = (props) => {
                   fontSize="large"
                 />
               </Box>
-            ),
+            )
           )}
         </Box>
       </ReactCardFlip>

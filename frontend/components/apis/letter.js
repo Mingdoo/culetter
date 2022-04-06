@@ -16,16 +16,12 @@ mailsApi.interceptors.request.use(
   function (error) {
     console.log(error);
     return Promise.reject(error);
-  }
+  },
 );
 
 export const sendLetter = async (body) => {
   console.log(body);
   return await mailsApi.post(`/write`, body);
-};
-
-export const test = async () => {
-  return await axios.get(`${BASE_URL}/members`);
 };
 
 export const getMail = async (id) => {
@@ -34,4 +30,18 @@ export const getMail = async (id) => {
 
 export const getMailByCode = async (code) => {
   return await mailsApi.get(`/code/${code}`);
+};
+
+export const saveRecvMail = async (code) => {
+  return await mailsApi.post(`/recvsave/${code}`);
+};
+
+export const fetchPostCardImage = async (photo) => {
+  const form = new FormData();
+  form.append("postcard_image", photo);
+  return await mailsApi.post(`/postcard`, form, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 };

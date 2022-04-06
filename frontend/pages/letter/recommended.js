@@ -20,6 +20,7 @@ import CircleTwoToneIcon from "@mui/icons-material/CircleTwoTone";
 import LetterContext from "../../contexts/LetterContext";
 import RecommendApi from "../../components/apis/RecommendApi";
 import { getRouteMatcher } from "next/dist/shared/lib/router/utils";
+import { fetchPostCardImage } from "../../components/apis/letter";
 
 const useCheckboxStyles = makeStyles({
   overrides: {
@@ -35,9 +36,11 @@ const useCheckboxStyles = makeStyles({
 });
 
 const Recommended = () => {
-  const { mailType, content, title, setStyleUrl } = useContext(LetterContext);
+  const { mailType, content, title, setStyleUrl, setImage } =
+    useContext(LetterContext);
   const { getEmotion, getRecommendImage } = RecommendApi;
-
+  const [isUploaded, setIsUploaded] = useState(false);
+  const [uploadedImage, setUploadedImage] = useState(null);
   // const [mailType, setType] = useState("photocard");
   // const [type, setType] = useState("normal");
   // const [type, setType] = useState("postcard");
@@ -94,14 +97,21 @@ const Recommended = () => {
     } else {
       const index = parseInt(curIndex) + 1;
       setChecked(curIndex);
+      setIsUploaded(false);
       setPrevImg(`/img/postcard${index}.jpg`);
       // 선택된 이미지???
       // setStyleUrl(`/img/postcard${index}.jpg`)
       setStyleUrl(
-        "https://culetter.s3.ap-northeast-2.amazonaws.com/profile_image/06946054-b2af-4607-b19d-e615e2838e28-1649084959518"
+        "https://culetter.s3.ap-northeast-2.amazonaws.com/profile_image/06946054-b2af-4607-b19d-e615e2838e28-1649084959518",
       );
     }
   };
+
+  // useEffect(() => {
+  //   console.log(isUploaded);
+  //   console.log(uploadedImage);
+  //   console.log(checked);
+  // }, [isUploaded, uploadedImage, checked]);
 
   const handlePrevImage = (url) => {
     setPrevImg(url);
@@ -154,13 +164,28 @@ const Recommended = () => {
 
   const handleNextClick = (e) => {
     e.preventDefault();
-    if (checked != -1) {
+    if (isUploaded) {
+      fetchPostCardImage(uploadedImage)
+        .then((res) => {
+          console.log(res);
+          setImage(res.data.image_url);
+          Router.push("/letter/music");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+
+    if (checked !== -1) {
       Router.push("/letter/music");
     } else {
-      toast.error("사진을 선택해주세요", {
-        position: toast.POSITION.TOP_CENTER,
-        role: "alert",
-      });
+      if (isUploaded) {
+      } else {
+        toast.error("사진을 선택해주세요", {
+          position: toast.POSITION.TOP_CENTER,
+          role: "alert",
+        });
+      }
     }
   };
   const handlePrevClick = (e) => {
@@ -245,7 +270,7 @@ const Recommended = () => {
               <Checkbox
                 value={index}
                 onChange={handleChange}
-                checked={checked == index}
+                checked={checked === index}
                 icon={<RadioButtonUncheckedIcon />}
                 checkedIcon={<CheckCircleIcon />}
                 style={{
@@ -279,7 +304,7 @@ const Recommended = () => {
                   alignSelf: "center",
                   width: "25%",
                   height: "1%",
-                  color: checked == index ? "#dc816c " : "#f0c8bf",
+                  color: checked === index ? "#dc816c " : "#f0c8bf",
                 }}
               />
             </Box>
@@ -313,14 +338,14 @@ const Recommended = () => {
                   <Checkbox
                     value={index}
                     onChange={handleChange}
-                    checked={checked == index}
+                    checked={checked === index}
                     icon={<RadioButtonUncheckedIcon />}
                     checkedIcon={<CheckCircleOutlineIcon />}
                     style={{
                       display: "inline-block",
                       width: "12%",
                       height: "20%",
-                      color: checked == index ? "#dc816c " : "#ECDDBE",
+                      color: checked === index ? "#dc816c " : "#ECDDBE",
                     }}
                   />
                 </Box>
@@ -353,7 +378,12 @@ const Recommended = () => {
                 ></img>
               </Box>
             </Box>
-            <Imgupload handlePrevImage={handlePrevImage} />
+            <Imgupload
+              handlePrevImage={handlePrevImage}
+              isUploaded={isUploaded}
+              setIsUploaded={setIsUploaded}
+              setUploadedImage={setUploadedImage}
+            />
           </>
         ) : (
           <Box

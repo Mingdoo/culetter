@@ -51,7 +51,6 @@ const writeLetter = () => {
   };
 
   useEffect(() => {
-    console.log(mailType);
     authentication();
     if (
       router.query.constructor === Object &&

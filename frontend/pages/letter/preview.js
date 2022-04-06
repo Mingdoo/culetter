@@ -4,7 +4,7 @@ import { useRef, useState, useContext, useEffect } from "react";
 import Header from "../../components/Header";
 import General from "../../components/letter/preview/General";
 import Photocard from "../../components/letter/preview/Photocard";
-import MiniPlayer from "../../components/letter/preview/miniPlayer";
+import Player from "../../components/letter/preview/Player";
 import LetterContext from "../../contexts/LetterContext";
 import PostCard from "../../components/letter/preview/Postcard";
 import MenuList from "../../components/menu/MenuList";
@@ -27,6 +27,7 @@ export default function Preview() {
     musicUrl,
     image,
     contentPosition,
+    fontsize,
     stickersPos,
     bgcolor,
     fontOrder,
@@ -47,7 +48,6 @@ export default function Preview() {
 
   const send = async () => {
     const stringifyStickers = JSON.stringify(stickersPos);
-    console.log(stringifyStickers);
     const body = {
       receiver_name: receiverName,
       receiver_email: receiverEmail,
@@ -58,7 +58,7 @@ export default function Preview() {
       music_url: musicUrl,
       image: "",
       content_position: "",
-      stickers: JSON.stringify(stickersPos),
+      stickers: stringifyStickers,
       font_order: fontOrder,
       font_type: fontType,
       // 숫자로
@@ -67,12 +67,17 @@ export default function Preview() {
       is_font_bold: isFontBold,
       underline_color: underlineColor,
       handwrite_image: "",
+      font_size: fontsize,
     };
 
     try {
       const res = await sendLetter(body);
-      setMailCode(res.data.code);
-      Router.push("/letter/send");
+      setMailCode(res.data);
+      console.log(res.data.code);
+      // console.log("하기 전", stickersPos);
+      // console.log(JSON.stringify(stickersPos));
+      // console.log("다시", JSON.parse(stringifyStickers));
+      // Router.push("/letter/send");
     } catch (e) {
       console.log(e);
     }
@@ -112,7 +117,7 @@ export default function Preview() {
         {mailType === "POSTCARD" ? <PostCard /> : <></>}
       </Box>
       <Box sx={{ mt: "2rem" }}>
-        <MiniPlayer musicUrl={musicUrl}></MiniPlayer>
+        <Player musicUrl={musicUrl}></Player>
       </Box>
 
       <Button
