@@ -8,11 +8,11 @@ import Player from "../../letter/preview/Player";
 import { fonts, colors } from "../../Variables";
 import { emojis as Emojis } from "../../letter/photocard/PhotoCard";
 import Photocard from "../../letter/preview/Photocard";
+import { motion } from "framer-motion";
 
 export default function ReadMailByCode({ code }) {
   const [data, setData] = useState([]);
   const [stickersPos, setStickersPos] = useState([]);
-
   const [isFlipped, setIsFlipped] = useState(false);
 
   const fetchMail = async (code) => {
@@ -29,7 +29,7 @@ export default function ReadMailByCode({ code }) {
   const saveLetter = async () => {
     try {
       const res = await saveRecvMail(code);
-      // Router.push("/mail/inbox");
+      Router.push("/mail/inbox");
     } catch (e) {
       console.log(e);
     }
@@ -63,7 +63,24 @@ export default function ReadMailByCode({ code }) {
   // useEffect(() => console.log("stickersPos", stickersPos), [stickersPos]);
 
   return (
-    <>
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      variants={{
+        hidden: {
+          scale: 1,
+          opacity: 0,
+        },
+        visible: {
+          scale: 1,
+          opacity: 2,
+          transition: {
+            delay: 0.5,
+          },
+        },
+      }}
+      layoutId="underline"
+    >
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         {data.mail_type === "PHOTOCARD" ? (
           <Box
@@ -235,9 +252,22 @@ export default function ReadMailByCode({ code }) {
       <Box sx={{ mt: "2rem" }}>
         <Player musicUrl={data.music_url}></Player>
       </Box>
-      <Button onClick={saveLetter}>
-        <Typography>저장</Typography>
-      </Button>
-    </>
+      {data.receiver_email ? null : (
+        <Box sx={{ display: "flex", justifyContent: "center", mt: "1rem" }}>
+          <Button sx={{ ...ButtonStyle }} onClick={saveLetter}>
+            편지함에 보관
+          </Button>
+        </Box>
+      )}
+    </motion.div>
   );
 }
+
+const ButtonStyle = {
+  fontFamily: "Gowun Batang",
+  fontSize: 18,
+  color: "black",
+  "&:hover": {
+    backgroundColor: "transparent",
+  },
+};

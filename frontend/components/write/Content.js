@@ -14,7 +14,7 @@ import { getServerSideSitemapIndex } from "next-sitemap";
 import MailApi from "../apis/MailApi";
 
 const Content = (props) => {
-  const { checkTextValid, tempTitle, tempContent } = props;
+  const { checkTextValid, tempTitle, tempContent, tempMailType } = props;
   const maxTitleLength = 100;
   const maxContentByte = 65535;
   const maxContentLength = 32768;
@@ -96,6 +96,7 @@ const Content = (props) => {
 
   useEffect(() => {
     if (tempTitle !== "" && tempContent !== "") {
+      setMailType(tempMailType);
       setTitle(tempTitle);
       setContent(`${tempContent}`);
       setContentLength(tempContent.length);
