@@ -4,14 +4,13 @@ import { getMail } from "../../apis/letter";
 import Player from "../../letter/preview/Player";
 import { fonts, colors } from "../../Variables";
 import ReadMailPhotoCard from "./ReadMailPhotoCard";
-import { useRouter } from "next/router";
 
 export default function ReadMail({ selectedMail }) {
   const [data, setData] = useState([]);
 
-  const fetchMail = async (id) => {
+  const fetchMail = async () => {
     try {
-      const res = await getMail(id);
+      const res = await getMail(selectedMail);
       setData(res.data);
     } catch (error) {
       console.log(error);
@@ -19,7 +18,7 @@ export default function ReadMail({ selectedMail }) {
   };
 
   useEffect(() => {
-    fetchMail(selectedMail);
+    fetchMail();
   }, []);
 
   return (
@@ -27,11 +26,7 @@ export default function ReadMail({ selectedMail }) {
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         {/* 포토카드 */}
         {data.mail_type === "PHOTOCARD" ? (
-          <ReadMailPhotoCard
-            key="readPhotoCard"
-            preview={true}
-            data={data}
-          ></ReadMailPhotoCard>
+          <ReadMailPhotoCard data={data}></ReadMailPhotoCard>
         ) : (
           <></>
         )}
@@ -70,7 +65,7 @@ export default function ReadMail({ selectedMail }) {
                   minHeight: 560,
                   overflowY: "auto",
                   whiteSpace: "pre-line",
-                  // fontWeight: data.is_font_bold ? "bold" : "normal",
+                  fontWeight: data.is_font_bold ? "bold" : "normal",
                 }}
               >
                 {data.title}
@@ -95,7 +90,7 @@ export default function ReadMail({ selectedMail }) {
           >
             <Box sx={{ border: "1px solid" }}>
               <img
-                src="/test.png"
+                src={data.style_url}
                 width={418}
                 height={200}
                 style={{ display: "block" }}
@@ -127,6 +122,7 @@ export default function ReadMail({ selectedMail }) {
                     textDecoration: `${colors[data.underline_color]} underline`,
                     textUnderlineOffset: 4,
                     bgcolor: colors[data.background_color],
+                    fontWeight: data.is_font_bold ? "bold" : "normal",
                   }}
                 >
                   {data.title}
@@ -140,7 +136,7 @@ export default function ReadMail({ selectedMail }) {
           <></>
         )}
       </Box>
-      <Box sx={{ mt: "2rem" }}>
+      <Box sx={{ py: "2rem" }}>
         <Player musicUrl={data.music_url}></Player>
       </Box>
     </>

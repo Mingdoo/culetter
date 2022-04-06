@@ -27,6 +27,7 @@ export default function Preview() {
     musicUrl,
     image,
     contentPosition,
+    fontsize,
     stickersPos,
     bgcolor,
     fontOrder,
@@ -66,13 +67,16 @@ export default function Preview() {
       is_font_bold: isFontBold,
       underline_color: underlineColor,
       handwrite_image: "",
+      font_size: fontsize,
     };
 
     try {
       const res = await sendLetter(body);
       setMailCode(res.data);
-      console.log("No JSON", stickersPos);
-      console.log(JSON.stringify(stickersPos));
+      console.log(res.data.code);
+      // console.log("하기 전", stickersPos);
+      // console.log(JSON.stringify(stickersPos));
+      // console.log("다시", JSON.parse(stringifyStickers));
       // Router.push("/letter/send");
     } catch (e) {
       console.log(e);
