@@ -45,3 +45,13 @@ export const fetchPostCardImage = async (photo) => {
     },
   });
 };
+
+export const analyzeLetterContent = async (content) => {
+  return await mailsApi.post("/analyze", {
+    content,
+  });
+};
+
+export const getRecommendImage = async (body) => {
+  return await mailsApi.post("/style", body);
+};

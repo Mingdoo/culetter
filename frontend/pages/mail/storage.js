@@ -88,6 +88,8 @@ export default function Storage() {
                       cursor: "pointer",
                     },
                   }}
+                  handlePage={handlePage}
+                  mailId={mail_id}
                 ></Photocard>
               );
             } else if (mail_Type === "GENERAL") {
