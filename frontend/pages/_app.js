@@ -2,15 +2,16 @@ import React, { useEffect, useState } from "react";
 import "../styles/globals.css";
 import "../styles/Landing.module.css";
 import LetterContext from "../contexts/LetterContext";
+import RoutingContext from "../contexts/RoutingContext";
 import { DefaultSeo } from "next-seo";
 import { DEFAULT_SEO } from "../components/Variables";
 
 function MyApp({ Component, pageProps }) {
-  // useEffect(() => {
-  //   if (process.env.NEXT_PUBLIC_KAKAO_KEY) {
-  //     Kakao.init(process.env.NEXT_PUBLIC_KAKAO_KEY);
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (process.env.NEXT_PUBLIC_KAKAO_KEY) {
+      Kakao.init(process.env.NEXT_PUBLIC_KAKAO_KEY);
+    }
+  }, []);
   const [name, setName] = useState("");
   const [receiverName, setReceiverName] = useState("");
   const [receiverEmail, setReceiverEmail] = useState("");
@@ -33,7 +34,10 @@ function MyApp({ Component, pageProps }) {
   const [underlineColor, setUnderlineColor] = useState(0);
   const [createdDate, setCreatedDate] = useState("");
   const [senderEmail, setSenderEmail] = useState("");
+
   const [mailCode, setMailCode] = useState("");
+  const [fromBack, setFromBack] = useState(false);
+
   const [tempMailId, setTempMailId] = useState("");
   const [emotion, setEmotion] = useState({});
   return (
@@ -89,8 +93,12 @@ function MyApp({ Component, pageProps }) {
           setEmotion,
         }}
       >
-        <Component {...pageProps} />
-        <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+        <RoutingContext.Provider
+          value={{ mailCode, setMailCode, fromBack, setFromBack }}
+        >
+          <Component {...pageProps} />
+          <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+        </RoutingContext.Provider>
       </LetterContext.Provider>
     </>
   );
