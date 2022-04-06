@@ -71,7 +71,6 @@ const Photocard = (props) => {
                   position: "absolute",
                 }}
               >
-                {console.log(Sticker)}
                 <Sticker.content.icon
                   sx={{
                     color: Sticker.content.color,

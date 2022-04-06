@@ -1,142 +1,124 @@
-import { Box, Typography } from "@mui/material";
-import { useEffect, useState, useContext } from "react";
-import { getMailByCode } from "../../apis/letter";
+import { Box, Typography, Button } from "@mui/material";
+import { useEffect, useState } from "react";
+import ReactCardFlip from "react-card-flip";
+import Router from "next/router";
+
+import { getMailByCode, saveRecvMail } from "../../apis/letter";
 import Player from "../../letter/preview/Player";
 import { fonts, colors } from "../../Variables";
+import { emojis as Emojis } from "../../letter/photocard/PhotoCard";
 import Photocard from "../../letter/preview/Photocard";
-import LetterContext from "../../../contexts/LetterContext";
+
 export default function ReadMailByCode({ code }) {
-  const {
-    content,
-    setName,
-    setBgcolor,
-    setContent,
-    setCreatedDate,
-    setFontsize,
-    setFontColor,
-    setFontOrder,
-    setFontType,
-    setIsFontBold,
-    setMailType,
-    setMusicUrl,
-    setReceiverEmail,
-    setReceiverName,
-    setSenderEmail,
-    setStyleUrl,
-    setTitle,
-    setStickersPos,
-    setUnderlineColor,
-  } = useContext(LetterContext);
   const [data, setData] = useState([]);
+  const [stickersPos, setStickersPos] = useState([]);
 
-  const [isClicked, setIsClicked] = useState(false);
-  const [showFront, setShowFront] = useState(false);
-  const [showBack, setShowBack] = useState(false);
-
-  const handleFrontClick = () => {
-    setShowFront(true);
-    setShowBack(true);
-    setIsClicked(true);
-  };
-
-  const handleBackClick = () => {
-    setIsClicked(false);
-  };
+  const [isFlipped, setIsFlipped] = useState(false);
 
   const fetchMail = async (code) => {
     try {
       const res = await getMailByCode(code);
-      // const {
-      //   sender_name,
-      //   background_color,
-      //   content,
-      //   created_date,
-      //   font_color,
-      //   font_order,
-      //   font_type,
-      //   is_font_bold,
-      //   mail_type,
-      //   music_url,
-      //   receiver_mail,
-      //   receiver_name,
-      //   sender_email,
-      //   stickers,
-      //   style_url,
-      //   title,
-      //   underline_color,
-      // } = res.data;
       setData(res.data);
-      console.log(res.data);
-      // setStickersPos(res.data.stickers);
-      // setIsData(true);
-      // setMailType(mail_type);
-      // setPlayer(music_url);
+      // console.log(JSON.parse(res.data.stickers));
+      setStickersPos(JSON.parse(res.data.stickers));
     } catch (error) {
       console.log(error);
     }
   };
 
-  const test = async () => {
+  const saveLetter = async () => {
     try {
-      const res = await getMailByCode("8Wyl2gZwTwbBx1rK");
-      console.log(res.data);
-    } catch (error) {
-      console.log(error);
+      const res = await saveRecvMail(code);
+      // Router.push("/mail/inbox");
+    } catch (e) {
+      console.log(e);
     }
   };
+
+  function renderElement(Sticker) {
+    const Emoji = Emojis[Sticker.content.idx];
+    return (
+      <Emoji.icon
+        sx={{
+          color: Sticker.content.color,
+          transform: `translate(${Sticker.position.x}px, ${Sticker.position.y}px)`,
+        }}
+        fontSize="large"
+      />
+    );
+  }
 
   useEffect(() => {
     fetchMail(code);
-    test();
   }, []);
+
+  // useEffect(() => console.log("stickersPos", stickersPos), [stickersPos]);
 
   return (
     <>
-      <Box sx={{ mt: "2rem" }}>
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
         {data.mail_type === "PHOTOCARD" ? (
           <Box
-            className="card"
             sx={{
               width: 300,
-              height: 400,
+              height: 480,
               mt: "2rem",
               position: "relative",
               my: "1rem",
             }}
           >
-            <Box
-              component="div"
-              className={
-                "front face " + (isClicked && showFront ? "rotateFront" : null)
-              }
-              onClick={handleFrontClick}
-            >
-              <img
-                width={300}
-                height={400}
-                src={data.style_url}
-                style={{ borderRadius: "2rem" }}
-              ></img>
-            </Box>
-            <Box
-              component="div"
-              className={
-                "back face " + (isClicked && showBack ? "rotateBack" : null)
-              }
-              onClick={handleBackClick}
-              sx={{
-                bgcolor: colors[data.background_color],
-                width: 300,
-                height: 480,
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                alignSelf: "center",
-                borderRadius: "2rem",
-                position: "relative",
-              }}
-            ></Box>
+            <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
+              <Box
+                component="div"
+                onClick={(e) => setIsFlipped((prev) => !prev)}
+              >
+                <img
+                  width={300}
+                  height={480}
+                  src={data.style_url}
+                  style={{ borderRadius: "2rem" }}
+                ></img>
+              </Box>
+              <Box
+                component="div"
+                onClick={(e) => setIsFlipped((prev) => !prev)}
+                sx={{
+                  bgcolor: colors[data.background_color],
+                  width: 300,
+                  height: 480,
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  alignSelf: "center",
+                  borderRadius: "2rem",
+                  position: "relative",
+                }}
+              >
+                {stickersPos.map((Sticker) =>
+                  Sticker.type !== "sticker" ? (
+                    <Typography
+                      sx={{
+                        display: "inline",
+                        position: "absolute",
+                        transform: `translate(${Sticker.position.x}px, ${Sticker.position.y}px)`,
+                        fontSize: data.font_size,
+                        fontFamily: fonts[parseInt(data.font_type)].fontfamily,
+                        color: colors[data.font_color],
+                        whiteSpace: "pre-line",
+                        fontWeight: data.is_font_bold ? "bold" : "normal",
+                      }}
+                    >
+                      {Sticker.content}
+                    </Typography>
+                  ) : (
+                    <Box sx={{ position: "absolute" }}>
+                      {renderElement(Sticker)}
+                    </Box>
+                  )
+                )}
+              </Box>
+            </ReactCardFlip>
           </Box>
         ) : null}
         {data.mail_type === "POSTCARD" ? (
@@ -242,66 +224,10 @@ export default function ReadMailByCode({ code }) {
           <></>
         )}
       </Box>
-      <Box>
-        {[
-          {
-            idx: 999,
-            type: "text",
-            content: "두둘리",
-            position: { x: -64, y: -180 },
-            disabled: true,
-          },
-          {
-            idx: 998,
-            type: "title",
-            content: "둘리둘리",
-            position: { x: 0, y: 0 },
-            disabled: true,
-          },
-          {
-            idx: 0,
-            type: "sticker",
-            content: { icon: { type: {}, compare: null }, color: "#FFD93D" },
-            position: { x: 24, y: -25 },
-            disabled: true,
-          },
-        ].map((Sticker, idx) =>
-          Sticker.type !== "sticker" ? (
-            <Typography
-              sx={{
-                display: "inline",
-                position: "absolute",
-                transform: `translate(${Sticker.position.x}px, ${Sticker.position.y}px)`,
-                fontSize: data.font_size,
-                fontFamily: fonts[1].fontfamily,
-                color: colors[1],
-                whiteSpace: "pre-line",
-                fontWeight: "normal",
-              }}
-            >
-              {Sticker.content}
-            </Typography>
-          ) : (
-            <Box sx={{ position: "absolute" }}>
-              <Sticker></Sticker>
-              {/* <Sticker.content.icon
-                sx={{ color: "pink" }}
-              ></Sticker.content.icon> */}
-            </Box>
-          )
-        )}
-        {[
-          { test: 1, testw: 2 },
-          { test: 2, testw: 3 },
-        ].map((test, idx) => {
-          <Box sx={{ bgColor: "red", width: 1, height: "900px" }}>
-            {test.test}
-          </Box>;
-        })}
-      </Box>
       <Box sx={{ mt: "2rem" }}>
         <Player musicUrl={data.music_url}></Player>
       </Box>
+      <Button onClick={saveLetter}>저장</Button>
     </>
   );
 }

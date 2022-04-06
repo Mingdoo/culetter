@@ -24,14 +24,14 @@ export const sendLetter = async (body) => {
   return await mailsApi.post(`/write`, body);
 };
 
-export const test = async () => {
-  return await axios.get(`${BASE_URL}/members`);
-};
-
 export const getMail = async (id) => {
   return await mailsApi.get(`/id/${id}`);
 };
 
 export const getMailByCode = async (code) => {
   return await mailsApi.get(`/code/${code}`);
+};
+
+export const saveRecvMail = async (code) => {
+  return await mailsApi.post(`/recvsave/${code}`);
 };

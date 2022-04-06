@@ -21,7 +21,7 @@ export default function mailSent() {
     try {
       const res = await getSendMail();
       console.log(res.data.result);
-      setMails(res.data.result);
+      setMails(res.data.result.reverse());
     } catch (error) {
       console.log(error);
     }
@@ -38,36 +38,49 @@ export default function mailSent() {
   }, []);
 
   return (
-    <Box sx={{ width: 420, mx: "auto" }}>
+    <>
       <Box
         sx={{
           width: 420,
           mx: "auto",
           bgcolor: "#FCFAEF",
           position: "relative",
-          pb: 5,
-          justifyContent: "start",
-          alignItems: "start",
-          height: 1,
           minHeight: "100vh",
+          pb: "2rem",
         }}
       >
-        {isRead ? null : (
-          <BackButton sx={{ pt: 1 }} onClick={setIsRead}></BackButton>
-        )}
-        <MenuList></MenuList>
-        <Typography
-          variant="h4"
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            py: "3.5vh",
-            fontSize: 28,
-            fontFamily: "Gowun Dodum",
-          }}
+        <Grid
+          container
+          spacing={0}
+          direction="row"
+          alignItems="center"
+          justify="center"
+          sx={{ width: 420 }}
         >
-          보낸 편지
-        </Typography>
+          <Grid item xs={3}>
+            {isRead ? null : (
+              <Box sx={{ m: "1rem" }}>
+                <BackButton onClick={setIsRead}></BackButton>
+              </Box>
+            )}
+          </Grid>
+          <Grid item xs={6}>
+            <Box sx={{ m: "1rem" }}>
+              {" "}
+              <Typography
+                sx={{
+                  textAlign: "center",
+                  fontSize: "1.5rem",
+                  fontFamily: "Gowun Dodum",
+                }}
+              >
+                보낸 편지
+              </Typography>
+            </Box>
+          </Grid>
+        </Grid>
+        <MenuList></MenuList>
+
         {isRead ? (
           <Box>
             <SearchBox
@@ -141,6 +154,6 @@ export default function mailSent() {
         )}
       </Box>
       <Footer></Footer>
-    </Box>
+    </>
   );
 }

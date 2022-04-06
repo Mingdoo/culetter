@@ -21,7 +21,7 @@ import LockIcon from "@mui/icons-material/Lock";
 import Router from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios"
+import axios from "axios";
 export default function MyPage() {
   const [open, setOpen] = useState(false);
   const [photoURL, setPhotoURL] = useState(null);
@@ -29,6 +29,7 @@ export default function MyPage() {
   const [name, setName] = useState(null);
   const [email, setEmail] = useState("");
   const [nameErrorMsg, setNameErrorMsg] = useState(false);
+  const [profileImage, setProfileImage] = useState();
 
   const setUserInfo = async () => {
     try {
@@ -42,27 +43,60 @@ export default function MyPage() {
       console.log(error);
     }
   };
-
+  const onClickUploadFile = function (e) {
+    const file = e.target.files[0];
+    setProfileImage(file);
+  };
+  const onClickUpdate = function () {
+    const userInfo = {
+      name: "이름바꿈",
+    };
+    const formData = new FormData();
+    formData.append(
+      "info",
+      new Blob([JSON.stringify(userInfo)], { type: "application/json" })
+    );
+    formData.append("profileImage", profileImage);
+    console.log(formData.get("info"));
+    axios
+      .put("https://www.culetter.site/api/members", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzMiIsImF1dGgiOiJST0xFXzEiLCJleHAiOjE2NDkyNjExNTd9.uEYVoYw4viX8Wdb5ts1gDRm7pbg0xncYac-d7iuGz0si0J_rh3WFnMm6clxKZ-_-jHwIpoaWhbHesbrHOa382A",
+        },
+      })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
   const edit = async () => {
     const formData = new FormData();
     const userInfo = {
-      "name": `"${name}"`
-    }
-    formData.append("info", new Blob([JSON.stringify(userInfo)], {type:"application/json"}));
+      name: "이름바꿈1",
+    };
+    formData.append(
+      "info",
+      new Blob([JSON.stringify(userInfo)], { type: "application/json" })
+    );
     formData.append("profileImage", photoURL);
     try {
-      const res = await axios.put('https://www.culetter.site/api/members',formData, {
-        headers: {
-          "Content-Type": 'multipart/form-data',
-          "Authorization": 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzMiIsImF1dGgiOiJST0xFXzEiLCJleHAiOjE2NDkxNjY1NjZ9.47GLkHNoZUVNYb504TNiOkcePgOsMB4CyyCcO5byGsNNrHyX2X67oiG7jjxtQSC2bnwSUn0EHba8Mmh8p3z-ZA'
+      const res = await axios.put(
+        "https://www.culetter.site/api/members",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization:
+              "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzMiIsImF1dGgiOiJST0xFXzEiLCJleHAiOjE2NDkyNjExNTd9.uEYVoYw4viX8Wdb5ts1gDRm7pbg0xncYac-d7iuGz0si0J_rh3WFnMm6clxKZ-_-jHwIpoaWhbHesbrHOa382A",
+          },
         }
-      })
-      console.log(res)
+      );
+      console.log(res);
     } catch (e) {
-      console.log(">>>>>>>>",formData.get("info"))
-      console.log(formData.get("profileImage"))
-      console.log(e)
-    }    
+      console.log(">>>>>>>>", formData.get("info"));
+      console.log("222222", formData.get("profileImage"));
+      console.log(e);
+    }
   };
 
   const deleteAccount = async () => {
@@ -94,14 +128,14 @@ export default function MyPage() {
     }
     // 2. 파일 크기 적당하면 크롭~
     if (file) {
-      setPhotoURL(file)
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onloadend = () => {
-        setPhotoURL(reader.result);
-        // 임시
-        setOpen(true);
-      };
+      setPhotoURL(file);
+      // const reader = new FileReader();
+      // reader.readAsDataURL(file);
+      // reader.onloadend = () => {
+      //   setPhotoURL(reader.result);
+      //   // 임시
+      //   setOpen(true);
+      // };
     }
   };
 
@@ -126,6 +160,7 @@ export default function MyPage() {
 
   return (
     <Box>
+      <input type="file" id="file" name="file" onChange={onClickUploadFile} />
       <Box
         sx={{
           backgroundColor: "#E2E0A5",
@@ -281,7 +316,7 @@ export default function MyPage() {
           </Box>
         </Box>
       </Box>
-      <ConfirmBtn onClick={edit}></ConfirmBtn>
+      <ConfirmBtn onClick={onClickUpdate}></ConfirmBtn>
       {/* <ConfirmBtn onClick={deleteAccount}></ConfirmBtn> */}{" "}
       <ToastContainer />
     </Box>
