@@ -57,7 +57,7 @@ const Content = (props) => {
       console.log(mailId);
       const response = await getTempSave(
         body,
-        mailId === "" || undefined ? 0 : mailId
+        mailId === "" || undefined ? 0 : mailId,
       );
       setMailId(response.data.mail_id);
       console.log(response.data.mail_id);
@@ -96,9 +96,6 @@ const Content = (props) => {
   };
 
   useEffect(() => {}, [contentLength]);
-  useEffect(() => {
-    console.log(content);
-  }, [content]);
 
   return (
     <Box sx={{ padding: "0.8rem", fontFamily: "Gowun Dodum" }}>

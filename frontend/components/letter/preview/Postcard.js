@@ -32,11 +32,12 @@ function PostCard({ props }) {
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
+        mt: "2rem",
       }}
     >
       <Box sx={{ border: "1px solid" }}>
         <img
-          src="/test.png"
+          src={image}
           width={418}
           height={200}
           style={{ display: "block" }}

@@ -6,9 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 function emojipalette({ isColorOpen, emojis, handleClickEmoji }) {
-  useEffect(() => {
-    console.log(isColorOpen);
-  }, []);
+  useEffect(() => {}, []);
   const settings = {
     arrows: false,
     infinite: false,
