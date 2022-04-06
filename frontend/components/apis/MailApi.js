@@ -20,13 +20,19 @@ mailApi.interceptors.request.use(
 );
 
 const getTempSave = async (body, letterId) => {
-  console.log(body);
   const result = await mailApi.post(`/mails/tempsave/${letterId}`, body);
+  return result;
+};
+
+const getMailById = async (letterId) => {
+  console.log(letterId);
+  const result = await mailApi.get(`/mails/id/${letterId}`);
   return result;
 };
 
 const MailApi = {
   getTempSave,
+  getMailById,
 };
 
 export default MailApi;

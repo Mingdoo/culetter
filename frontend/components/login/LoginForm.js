@@ -85,7 +85,7 @@ const LoginForm = () => {
         {
           position: toast.POSITION.TOP_CENTER,
           role: "alert",
-        },
+        }
       );
       setTimeout(function () {
         Router.push("/main");
@@ -107,7 +107,7 @@ const LoginForm = () => {
         {
           position: toast.POSITION.TOP_CENTER,
           role: "alert",
-        },
+        }
       );
     }
   };
