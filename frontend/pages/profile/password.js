@@ -9,6 +9,7 @@ import ConfirmBtn from "../../components/profile/ConfirmBtn";
 import { ToastContainer, toast } from "react-toastify";
 import { changePw } from "../../components/apis/profile";
 import { authentication } from "../../components/apis/auth";
+import MenuList from "../../components/menu/MenuList";
 export default function password(props) {
   const [pwInput, setPwInput] = useState(null);
   const [pwCheck, setPwCheck] = useState(true);
@@ -21,7 +22,26 @@ export default function password(props) {
   const onConfirmBtnClick = async (e) => {
     e.preventDefault();
     try {
-      const res = await changePw(pwInput);
+      const res = await changePw(pwInput).then(() => {
+        toast.success(
+          <div
+            style={{ width: "100%", display: "flex", justifyContent: "center" }}
+          >
+            <div
+              style={{
+                display: "inline-block",
+                fontFamily: "Gowun Batang",
+              }}
+            >
+              비밀번호가 변경되었습니다 🎉
+            </div>
+          </div>,
+          {
+            position: toast.POSITION.TOP_CENTER,
+            role: "alert",
+          },
+        );
+      });
       console.log(res);
     } catch (error) {
       console.log(error);
@@ -67,6 +87,7 @@ export default function password(props) {
   };
   return (
     <Box sx={{ width: 420, mx: "auto" }}>
+      <ToastContainer />
       <Box
         sx={{
           bgcolor: "#FCFAEF",
@@ -82,6 +103,7 @@ export default function password(props) {
           title="비밀번호 변경"
           handlePrevClick={handlePrevClick}
         ></Header>
+        <MenuList />
         <Box sx={{ width: "85%" }}>
           <Typography className="Batang" sx={{ fontSize: 14 }}>
             변경하실 비밀번호를 입력해주세요

@@ -63,7 +63,7 @@ const Content = (props) => {
       console.log(mailId);
       const response = await getTempSave(
         body,
-        mailId === "" || undefined ? 0 : mailId
+        mailId === "" || undefined ? 0 : mailId,
       );
       setMailId(response.data.mail_id);
       toast.success(
@@ -113,8 +113,10 @@ const Content = (props) => {
       titleLength > 0 &&
       titleLength < maxTitleLength
     ) {
+      console.log("11");
       checkTextValid(true);
     } else {
+      console.log("11else");
       checkTextValid(false);
     }
   };
@@ -126,8 +128,10 @@ const Content = (props) => {
       setTitleLength(tempTitle.length);
       setContent(`${tempContent}`);
       setContentLength(tempContent.length);
+      setTitleLength(tempTitle.length);
       setOpacity("0%");
       setLoading(true);
+      console.log("22");
       checkTextValid(true);
       setTimeout(() => {
         setOpacity("100%");
@@ -138,23 +142,32 @@ const Content = (props) => {
 
   useEffect(() => {
     if (
+      !tempMailType &&
       contentLength > 0 &&
       contentLength < maxContentLength &&
       titleLength > 0 &&
       titleLength < maxTitleLength
     ) {
+      console.log("33 ");
       checkTextValid(true);
     } else {
+      console.log("33 eslse");
       checkTextValid(false);
+    }
+    if (tempMailType && contentLength > 0 && titleLength > 0) {
+      console.log("33 does it work");
+      checkTextValid(true);
     }
   }, [contentLength, titleLength]);
 
   useEffect(() => {
     console.log(mailType);
-    if (tempTitle == "" && tempContent == "") {
-      setContent("");
-      setTitle("");
-    }
+    // if (tempTitle == "" && tempContent == "") {
+    //   setContent("");
+    //   setTitle("");
+    // }
+    setContentLength(content.length);
+    setTitleLength(title.length);
   }, []);
 
   return (

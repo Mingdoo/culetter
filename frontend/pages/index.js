@@ -11,7 +11,7 @@ export default function landing() {
       | |   | | | | (_) | |   |  _|   | |   | | |  _| | |_) |\n\
       | |___| |_| |  _  | |___| |___  | |   | | | |___|  _ < \n\
        \\____|____/  ( ) |_____|_____| |_|   |_| |_____|_| \\_\\\n\
-                    |/"
+                    |/",
   );
 
   return (
@@ -36,10 +36,10 @@ export default function landing() {
             gutterBottom
           >
             문득 생각나는 사람에게 <br />
-            마음을 전달하고싶었던 적 없으신가요?
+            마음을 전달하고 싶었던 적 없으신가요?
             <br />
             CU;LETTER가 <br /> 당신의 마음이 <br />
-            오롯이 전달되는것을 도와드릴게요
+            오롯이 전달되는 것을 도와드릴게요
           </Typography>
           <StartButton description="시작하기"></StartButton>
         </Box>

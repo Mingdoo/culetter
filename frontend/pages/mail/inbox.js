@@ -7,6 +7,8 @@ import BackButton from "../../components/mail/inbox/BackButton";
 import MailPage from "../../components/mail/inbox/MailPage";
 import PostboxPage from "../../components/mail/inbox/PostboxPage";
 import { authentication } from "../../components/apis/auth";
+import Header from "../../components/Header";
+import Router from "next/router";
 
 export default function inbox() {
   useEffect(() => {
@@ -19,6 +21,21 @@ export default function inbox() {
   const [error, setError] = useState(null);
   const [selectedId, setSelectedId] = useState(null);
 
+  useEffect(() => {
+    console.log(isMail, isPostBox);
+  }, [isMail]);
+
+  useEffect(() => {
+    console.log(isMail, isPostBox);
+  }, [isPostBox]);
+  const handlePrevClick = () => {
+    if (!isMail || !isPostBox) {
+      setIsMail(true);
+      setIsPostBox(true);
+    } else {
+      Router.back();
+    }
+  };
   return (
     <>
       <Box
@@ -30,43 +47,7 @@ export default function inbox() {
           minHeight: "100vh",
         }}
       >
-        <Grid
-          container
-          spacing={0}
-          direction="row"
-          alignItems="center"
-          justify="center"
-          sx={{ width: 420 }}
-        >
-          <Grid item xs={3}>
-            {isPostBox ? (
-              <Box sx={{ m: "1rem" }}></Box>
-            ) : (
-              <Box sx={{ m: "1rem" }}>
-                <BackButton
-                  onClick={isMail ? setIsPostBox : setIsMail}
-                ></BackButton>
-              </Box>
-            )}
-          </Grid>
-          <Grid item xs={6}>
-            <Box
-              sx={{
-                m: "1rem",
-              }}
-            >
-              <Typography
-                sx={{
-                  textAlign: "center",
-                  fontSize: "1.5rem",
-                  fontFamily: "Gowun Dodum",
-                }}
-              >
-                받은 편지
-              </Typography>
-            </Box>
-          </Grid>
-        </Grid>
+        <Header title="받은 편지" handlePrevClick={handlePrevClick} />
         <MenuList></MenuList>
 
         {loading ? <div>loading...</div> : null}
