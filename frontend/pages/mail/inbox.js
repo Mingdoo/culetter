@@ -9,7 +9,7 @@ import PostboxPage from "../../components/mail/inbox/PostboxPage";
 import { authentication } from "../../components/apis/auth";
 import Header from "../../components/Header";
 import Router from "next/router";
-
+import { AnimateSharedLayout } from "framer-motion";
 export default function inbox() {
   useEffect(() => {
     authentication();
