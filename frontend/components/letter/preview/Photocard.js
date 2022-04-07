@@ -17,7 +17,9 @@ const Photocard = (props) => {
     fontOrder,
     image,
   } = useContext(LetterContext);
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log(fontOrder);
+  }, []);
   //something changed
   const [isFlipped, setIsFlipped] = useState(false);
 
