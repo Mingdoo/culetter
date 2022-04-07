@@ -15,7 +15,7 @@ export default function Send() {
   useEffect(() => {
     console.log(window.Kakao.isInitialized());
     if (receiverName && !window.Kakao.isInitialized()) {
-      Kakao.init("3a6df59af8e42ef7045cfd0b2303169c");
+      Kakao.init(process.env.NEXT_PUBLIC_KAKAO_KEY);
     }
     console.log(window.Kakao.isInitialized());
     authentication();
