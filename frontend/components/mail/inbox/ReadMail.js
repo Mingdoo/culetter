@@ -37,25 +37,7 @@ export default function ReadMail({
 
   const deleteMailSend = async () => {
     try {
-      // await deleteSendMail(selectedMail);
-      toast.success(
-        <div
-          style={{ width: "100%", display: "flex", justifyContent: "center" }}
-        >
-          <div
-            style={{
-              display: "inline-block",
-              fontFamily: "Gowun Batang",
-            }}
-          >
-            삭제 성공🎉
-          </div>
-        </div>,
-        {
-          position: toast.POSITION.TOP_CENTER,
-          role: "alert",
-        }
-      );
+      await deleteSendMail(selectedMail);
       setIsRead(true);
     } catch (e) {
       console.log(e);

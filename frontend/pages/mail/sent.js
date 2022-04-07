@@ -54,7 +54,9 @@ export default function mailSent() {
   }, []);
 
   useEffect(() => {
+    setCheck(false);
     fetch();
+    setSearchName("");
   }, [isRead]);
 
   return (
