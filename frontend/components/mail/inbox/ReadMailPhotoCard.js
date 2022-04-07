@@ -82,7 +82,9 @@ export default function ReadMailPhotocard({ data }) {
                 {Sticker.content}
               </Typography>
             ) : (
-              <Box sx={{ position: "absolute" }}>{renderElement(Sticker)}</Box>
+              <Box sx={{ position: "absolute" }} key={index}>
+                {renderElement(Sticker)}
+              </Box>
             )
           )}
         </Box>
