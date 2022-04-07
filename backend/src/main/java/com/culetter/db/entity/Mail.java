@@ -33,6 +33,7 @@ public class Mail {
     @Column(columnDefinition = "TEXT")
     private String content;
     private String styleUrl;
+    private String musicTitle;
     private String musicUrl;
     private String image;
     private String contentPosition;
@@ -54,9 +55,9 @@ public class Mail {
     @Builder
     public Mail(String code, Long senderId, String senderEmail, String senderName, Boolean isRead, String receiverEmail,
                 String receiverName, Byte existCnt, String mailType, String title, String content, String styleUrl,
-                String musicUrl, String image, String contentPosition, String stickers, String fontOrder, String fontType,
-                Byte fontColor, Byte fontSize, Byte backgroundColor, Boolean isFontBold, Byte underlineColor,
-                String handwriteImage, LocalDateTime createdDate) {
+                String musicTitle, String musicUrl, String image, String contentPosition,
+                String stickers, String fontOrder, String fontType, Byte fontColor, Byte fontSize,
+                Byte backgroundColor, Boolean isFontBold, Byte underlineColor, String handwriteImage, LocalDateTime createdDate) {
         this.code = code;
         this.senderId = senderId;
         this.senderEmail = senderEmail;
@@ -69,6 +70,7 @@ public class Mail {
         this.title = title;
         this.content = content;
         this.styleUrl = styleUrl;
+        this.musicTitle = musicTitle;
         this.musicUrl = musicUrl;
         this.image = image;
         this.contentPosition = contentPosition;
@@ -93,7 +95,8 @@ public class Mail {
     }
 
     public void updateTempMail(String receiverEmail, String receiverName, String title,
-                               String mailType, String mailStyle, String content, String musicUrl,
+                               String mailType, String mailStyle, String content,
+                               String musicTitle, String musicUrl,
                                String image, String contentPosition, String stickers,
                                String fontOrder, String fontType, Byte fontColor, Byte fontSize,
                                Byte backgroundColor, Boolean isFontBold,
@@ -104,6 +107,7 @@ public class Mail {
         this.mailType = mailType;
         this.styleUrl = mailStyle;
         this.content = content;
+        this.musicTitle = musicTitle;
         this.musicUrl = musicUrl;
         this.image = image;
         this.contentPosition = contentPosition;

@@ -66,8 +66,6 @@ public class MailServiceImpl implements MailService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public MailDto.Mail selectMailById(Long mailId) {
-        memberService.getMemberByAuthentication();
-
         Mail mail = mailRepository.findByMailId(mailId)
                 .orElseThrow(()-> new ValueNotExistException("편지가 존재하지 않습니다."));
 
@@ -80,6 +78,7 @@ public class MailServiceImpl implements MailService {
             mail.getTitle(),
             mail.getMailType(),mail.getStyleUrl(),
             mail.getContent(),
+            mail.getMusicTitle(),
             mail.getMusicUrl(),
             mail.getImage(),
             mail.getContentPosition(),
@@ -108,6 +107,7 @@ public class MailServiceImpl implements MailService {
                 mail.getTitle(),
                 mail.getMailType(),mail.getStyleUrl(),
                 mail.getContent(),
+                mail.getMusicTitle(),
                 mail.getMusicUrl(),
                 mail.getImage(),
                 mail.getContentPosition(),
@@ -213,6 +213,7 @@ public class MailServiceImpl implements MailService {
                 .mailType(mail.getMail_type())
                 .styleUrl(mail.getStyle_url())
                 .content(mail.getContent())
+                .musicTitle(mail.getMusic_title())
                 .musicUrl(mail.getMusic_url())
                 .image(mail.getImage())
                 .contentPosition(mail.getContent_position())
@@ -272,6 +273,7 @@ public class MailServiceImpl implements MailService {
                     .mailType(mail.getMail_type())
                     .styleUrl(mail.getStyle_url())
                     .content(mail.getContent())
+                    .musicTitle(mail.getMusic_title())
                     .musicUrl(mail.getMusic_url())
                     .image(mail.getImage())
                     .contentPosition(mail.getContent_position())
@@ -297,7 +299,7 @@ public class MailServiceImpl implements MailService {
                     mail.getReceiver_email(), mail.getReceiver_name(),
                     mail.getTitle(),
                     mail.getMail_type(), mail.getStyle_url(),
-                    mail.getContent(), mail.getMusic_url(), mail.getImage(),
+                    mail.getContent(), mail.getMusic_title(), mail.getMusic_url(), mail.getImage(),
                     mail.getContent_position(), mail.getStickers(),
                     mail.getFont_order(), mail.getFont_type(),
                     mail.getFont_color(), mail.getFont_size(),
@@ -339,7 +341,7 @@ public class MailServiceImpl implements MailService {
                 mail.getReceiver_email(), mail.getReceiver_name(),
                 mail.getTitle(),
                 mail.getMail_type(), mail.getStyle_url(),
-                mail.getContent(), mail.getMusic_url(), mail.getImage(),
+                mail.getContent(), mail.getMusic_title(), mail.getMusic_url(), mail.getImage(),
                 mail.getContent_position(), mail.getStickers(),
                 mail.getFont_order(), mail.getFont_type(),
                 mail.getFont_color(), mail.getFont_size(),
