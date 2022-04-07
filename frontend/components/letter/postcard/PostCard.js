@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Box, Typography } from "@mui/material";
 import { colors } from "../../../components/Variables";
 import Palette from "../Palette";
