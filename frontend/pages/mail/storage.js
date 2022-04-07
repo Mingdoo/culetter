@@ -10,6 +10,8 @@ import LetterContext from "../../contexts/LetterContext";
 import Header from "../../components/Header";
 import DeleteIcon from "@mui/icons-material/Delete";
 import BorderColorRoundedIcon from "@mui/icons-material/BorderColorRounded";
+import { motion, AnimateSharedLayout } from "framer-motion";
+
 export default function Storage() {
   const [loading, setLoading] = useState(false);
   const [mails, setMails] = useState([]);
@@ -57,89 +59,115 @@ export default function Storage() {
   }, []);
 
   return (
-    <Box>
-      <Box
-        sx={{
-          width: 420,
-          mx: "auto",
-          bgcolor: "#FCFAEF",
-          position: "relative",
-          minHeight: "100vh",
-        }}
-      >
-        <Header handlePrevClick={(e) => Router.back()} title="작성 중인 편지" />
-        <MenuList />
+    <AnimateSharedLayout>
+      <Box>
+        <Box
+          sx={{
+            width: 420,
+            mx: "auto",
+            bgcolor: "#FCFAEF",
+            position: "relative",
+            minHeight: "100vh",
+          }}
+        >
+          <Header
+            handlePrevClick={(e) => Router.back()}
+            title="작성 중인 편지"
+          />
+          <MenuList />
 
-        {/* 받는 사람: sender_name
+          {/* 받는 사람: sender_name
           created_date: 
           title: 
            */}
-        {/* {loading && <Typography>loading</Typography>} */}
-        {Array.isArray(mails) && mails.length === 0 && (
-          <>
-            <Typography
-              variant="h1"
-              sx={{ fontFamily: "Gowun Dodum", textAlign: "center" }}
-            >
-              텅..
-            </Typography>
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
-              <Button
-                sx={{
-                  color: "#a63636",
-                  borderColor: "#a63636",
-                  mt: "3rem",
-                  fontFamily: "Gowun Batang",
-                  textAlign: "center",
-                  "&:hover": {
-                    cursor: "pointer",
-                    bgcolor: "#f7e4e0",
-                    borderColor: "#f7e4e0",
-                  },
-                }}
-                onClick={handleWriteClick}
-                variant="outlined"
-                startIcon={<BorderColorRoundedIcon />}
-              >
-                편지 쓰러가기
-              </Button>
-            </Box>
-          </>
-        )}
-
-        {mails &&
-          mails.map(({ title, mail_type, created_date, mail_id }, index) => {
-            return (
-              <Box sx={{ position: "relative" }} key={index}>
-                <Letter
-                  text={title}
-                  index={1}
-                  createdDate={created_date}
-                  handlePage={handlePage}
-                  mailId={mail_id}
-                  mailType={mail_type}
-                ></Letter>
-                <Tooltip title="삭제">
-                  <IconButton
-                    aria-label="삭제"
-                    onClick={(e) => deleteMail(mail_id)}
+          {/* {loading && <Typography>loading</Typography>} */}
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: {
+                scale: 1,
+                opacity: 0,
+              },
+              visible: {
+                scale: 1,
+                opacity: 2,
+                transition: {
+                  delay: 0.1,
+                },
+              },
+            }}
+            layoutId="underline"
+          >
+            {Array.isArray(mails) && mails.length === 0 && (
+              <>
+                <Typography
+                  variant="h1"
+                  sx={{ fontFamily: "Gowun Dodum", textAlign: "center" }}
+                >
+                  텅..
+                </Typography>
+                <Box sx={{ display: "flex", justifyContent: "center" }}>
+                  <Button
                     sx={{
-                      position: "absolute",
-                      bottom: 20,
-                      right: 69,
                       color: "#a63636",
+                      borderColor: "#a63636",
+                      mt: "3rem",
+                      fontFamily: "Gowun Batang",
+                      textAlign: "center",
                       "&:hover": {
+                        cursor: "pointer",
                         bgcolor: "#f7e4e0",
+                        borderColor: "#f7e4e0",
                       },
                     }}
+                    onClick={handleWriteClick}
+                    variant="outlined"
+                    startIcon={<BorderColorRoundedIcon />}
                   >
-                    <DeleteIcon />
-                  </IconButton>
-                </Tooltip>
-              </Box>
-            );
-          })}
+                    편지 쓰러가기
+                  </Button>
+                </Box>
+              </>
+            )}
+
+            {mails &&
+              mails.map(
+                ({ title, mail_type, created_date, mail_id }, index) => {
+                  return (
+                    <Box sx={{ position: "relative" }} key={index}>
+                      <Letter
+                        text={title}
+                        index={1}
+                        createdDate={created_date}
+                        handlePage={handlePage}
+                        mailId={mail_id}
+                        mailType={mail_type}
+                      ></Letter>
+                      <Tooltip title="삭제">
+                        <IconButton
+                          aria-label="삭제"
+                          onClick={(e) => deleteMail(mail_id)}
+                          sx={{
+                            position: "absolute",
+                            bottom: 20,
+                            right: 69,
+                            color: "#a63636",
+                            "&:hover": {
+                              bgcolor: "#f7e4e0",
+                            },
+                          }}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </Tooltip>
+                    </Box>
+                  );
+                }
+              )}
+          </motion.div>
+        </Box>
       </Box>
-    </Box>
+    </AnimateSharedLayout>
   );
 }

@@ -4,7 +4,7 @@ import { Box, Grid, CircularProgress, Typography } from "@mui/material";
 import Postbox from "./Postbox";
 import SearchBox from "../../user/SearchBox";
 import { getRecvMails } from "../../apis/mailbox";
-import Spinner from "../../Spinner";
+import { motion } from "framer-motion";
 
 export default function PostboxPage({
   setIsPostBox,
@@ -66,7 +66,24 @@ export default function PostboxPage({
   }, [page]);
 
   return (
-    <Box>
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      variants={{
+        hidden: {
+          scale: 1,
+          opacity: 0,
+        },
+        visible: {
+          scale: 1,
+          opacity: 2,
+          transition: {
+            delay: 0.1,
+          },
+        },
+      }}
+      layoutId="underline"
+    >
       <Box>
         <Box sx={{ display: "flex" }}>
           <SearchBox
@@ -127,6 +144,6 @@ export default function PostboxPage({
           <Box sx={{ height: 10 }}></Box>
         )}
       </Box>
-    </Box>
+    </motion.div>
   );
 }
