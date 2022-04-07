@@ -6,7 +6,6 @@ import com.culetter.common.jwt.JwtFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,11 +44,23 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).body(memberService.getMemberInfoByAuthentication());
     }
 
-    @PutMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<String> modifyMember(@Valid @RequestPart(value = "info") MemberDto.InfoRequest infoRequest,
-                                               @RequestPart(value = "profileImage", required = false) MultipartFile multipartFile) {
-        log.debug("modifyMember - {}", multipartFile.isEmpty());
-        memberService.updateMember(infoRequest, multipartFile);
+//    @PutMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+//    public ResponseEntity<String> modifyMember(@Valid @RequestPart(value = "info") MemberDto.InfoRequest infoRequest,
+//                                               @RequestPart(value = "profileImage", required = false) MultipartFile multipartFile) {
+//        log.debug("modifyMember - {}", multipartFile.isEmpty());
+//        memberService.updateMember(infoRequest, multipartFile);
+//        return ResponseEntity.status(HttpStatus.OK).body("회원정보 변경이 완료되었습니다.");
+//    }
+
+    @PutMapping("/info")
+    public ResponseEntity<String> modifyMemberInfo(@Valid @RequestBody MemberDto.InfoRequest infoRequest){
+        memberService.updateMemberInfo(infoRequest);
+        return ResponseEntity.status(HttpStatus.OK).body("회원정보 변경이 완료되었습니다.");
+    }
+
+    @PutMapping("/profile")
+    public ResponseEntity<String> modifyMemberProfile(@RequestPart(value="profileImage") MultipartFile multipartFile){
+        memberService.updateMemberProfile(multipartFile);
         return ResponseEntity.status(HttpStatus.OK).body("회원정보 변경이 완료되었습니다.");
     }
 
