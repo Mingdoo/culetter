@@ -87,7 +87,7 @@ const LoginForm = () => {
         {
           position: toast.POSITION.TOP_CENTER,
           role: "alert",
-        },
+        }
       );
       setTimeout(function () {
         Router.push("/main");
@@ -109,7 +109,7 @@ const LoginForm = () => {
         {
           position: toast.POSITION.TOP_CENTER,
           role: "alert",
-        },
+        }
       );
     }
   };
@@ -300,7 +300,10 @@ const LoginForm = () => {
               }}
             > */}
           <Grid container>
-            <Grid item xs={6} sx={{ mt: 6 }}>
+            <Grid item xs={1}>
+              <Box></Box>
+            </Grid>
+            <Grid item xs={5} sx={{ mt: 6 }}>
               <Button
                 variant="contained"
                 size="small"
@@ -316,7 +319,7 @@ const LoginForm = () => {
                 로그인
               </Button>
             </Grid>
-            <Grid item xs={6} sx={{ mt: 6 }}>
+            <Grid item xs={5} sx={{ mt: 6 }}>
               <Link href="/register">
                 <Button
                   variant="contained"
@@ -333,8 +336,11 @@ const LoginForm = () => {
                 </Button>
               </Link>
             </Grid>
+            <Grid item xs={1}>
+              <Box></Box>
+            </Grid>
           </Grid>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <Box component="div">
               <Button
                 size="small"
@@ -350,7 +356,7 @@ const LoginForm = () => {
                 비밀번호 재설정
               </Button>
             </Box>
-          </Grid>
+          </Grid> */}
           <ToastContainer />
         </FormControl>
       )}

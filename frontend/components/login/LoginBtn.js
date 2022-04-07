@@ -12,7 +12,10 @@ const LoginBtn = () => {
           mt: 1,
         }}
       >
-        <Grid button xs={6}>
+        <Grid xs={1}>
+          <Box></Box>
+        </Grid>
+        <Grid button xs={5}>
           <Button
             variant="contained"
             size="small"
@@ -26,7 +29,7 @@ const LoginBtn = () => {
             로그인
           </Button>
         </Grid>
-        <Grid button xs={6}>
+        <Grid button xs={5}>
           <Link href="/register" passHref>
             <Button
               variant="contained"
@@ -42,8 +45,11 @@ const LoginBtn = () => {
             </Button>
           </Link>
         </Grid>
+        <Grid xs={1}>
+          <Box></Box>
+        </Grid>
       </Grid>
-      <Box component="div">
+      {/* <Box component="div">
         <Button
           size="small"
           style={{
@@ -56,7 +62,7 @@ const LoginBtn = () => {
         >
           비밀번호 재설정
         </Button>
-      </Box>
+      </Box> */}
       {/* <Box component="div" sx={{ mt: 2 }}>
         <Button
           size="small"

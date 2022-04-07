@@ -13,7 +13,7 @@ export default function ReadCodeMail() {
   const mailCode = router.query;
   const [mail, setMail] = useState(null);
   const [code, setCode] = useState(false);
-
+  const [receivedTitle, setReceivedTitle] = useState("편지");
   useEffect(() => {
     if (!router.isReady) return;
     setCode(router.query.code);
@@ -30,9 +30,14 @@ export default function ReadCodeMail() {
         position: "relative",
       }}
     >
-      <Header title="편지"></Header>
+      <Header title={receivedTitle}></Header>
       <MenuList></MenuList>
-      {code && <ReadMailByCode code={code}></ReadMailByCode>}
+      {code && (
+        <ReadMailByCode
+          code={code}
+          setReceivedTitle={setReceivedTitle}
+        ></ReadMailByCode>
+      )}
     </Box>
   );
 }
