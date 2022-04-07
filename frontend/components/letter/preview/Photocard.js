@@ -84,13 +84,14 @@ const Photocard = (props) => {
               >
                 <Sticker.content.icon
                   sx={{
+                    position: "absolute",
                     color: Sticker.content.color,
                     transform: `translate(${Sticker.position.x}px, ${Sticker.position.y}px)`,
                   }}
                   fontSize="large"
                 />
               </Box>
-            ),
+            )
           )}
         </Box>
       </ReactCardFlip>

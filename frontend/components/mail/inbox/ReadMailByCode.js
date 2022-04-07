@@ -47,6 +47,7 @@ export default function ReadMailByCode({ code }) {
     return (
       <Emoji.icon
         sx={{
+          position: "absolute",
           color: Sticker.content.color,
           transform: `translate(${Sticker.position.x}px, ${Sticker.position.y}px)`,
         }}
