@@ -9,29 +9,75 @@ import { fonts, colors } from "../../Variables";
 import { emojis as Emojis } from "../../letter/photocard/PhotoCard";
 import Photocard from "../../letter/preview/Photocard";
 import { motion } from "framer-motion";
+import { toast } from "react-toastify";
 
-export default function ReadMailByCode({ code }) {
+export default function ReadMailByCode({ code, setReceivedTitle }) {
   const [data, setData] = useState([]);
   const [stickersPos, setStickersPos] = useState([]);
   const [isFlipped, setIsFlipped] = useState(false);
 
+  useEffect(() => {
+    setReceivedTitle(`보낸이 : ${data.sender_name}`);
+  }, [data]);
   const fetchMail = async (code) => {
     try {
       const res = await getMailByCode(code);
       setData(res.data);
-      console.log(res.data);
+      // console.log(res.data);
       setStickersPos(JSON.parse(res.data.stickers));
     } catch (error) {
-      console.log(error);
+      Router.push("/");
+      setTimeout(() => {
+        toast.error(
+          <div
+            style={{ width: "100%", display: "flex", justifyContent: "center" }}
+          >
+            <div
+              style={{
+                display: "inline-block",
+                fontFamily: "Gowun Batang",
+              }}
+            >
+              유효하지 않은 편지 코드에요 😢
+            </div>
+          </div>,
+          {
+            position: toast.POSITION.TOP_CENTER,
+            role: "alert",
+          }
+        );
+      }, 100);
     }
   };
 
   const saveLetter = async () => {
-    try {
-      const res = await saveRecvMail(code);
-      Router.push("/mail/inbox");
-    } catch (e) {
-      console.log(e);
+    if (localStorage.getItem("accessToken")) {
+      try {
+        const res = await saveRecvMail(code);
+        Router.push("/mail/inbox");
+      } catch (e) {}
+    } else {
+      Router.push("/login");
+      setTimeout(() => {
+        toast.error(
+          <div
+            style={{ width: "100%", display: "flex", justifyContent: "center" }}
+          >
+            <div
+              style={{
+                display: "inline-block",
+                fontFamily: "Gowun Batang",
+              }}
+            >
+              로그인이 필요한 작업이에요 😢
+            </div>
+          </div>,
+          {
+            position: toast.POSITION.TOP_CENTER,
+            role: "alert",
+          }
+        );
+      }, 100);
     }
   };
 
@@ -49,9 +95,7 @@ export default function ReadMailByCode({ code }) {
         sx={{
           position: "absolute",
           color: Sticker.content.color,
-          transform: `translate(${Sticker.position.x + 17.5}px, ${
-            Sticker.position.y + 17.5
-          }px)`,
+          transform: `translate(${Sticker.position.x}px, ${Sticker.position.y}px)`,
         }}
         fontSize="large"
       />

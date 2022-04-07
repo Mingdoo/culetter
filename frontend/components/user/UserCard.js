@@ -20,12 +20,8 @@ import LetterContext from "../../contexts/LetterContext";
 import Router from "next/router";
 
 export default function UserCard(props) {
-  useEffect(() => {
-    if (props.obj.member_id === 4) {
-      console.log(props.obj);
-    }
-  }, [props.obj]);
-  const { memberId, setMemberId } = useContext(LetterContext);
+  const { memberId, setMemberId, setReceiverName, setReceiverEmail } =
+    useContext(LetterContext);
 
   const HandleFriendAcceptClick = (e, obj) => {
     e.preventDefault();
@@ -61,6 +57,8 @@ export default function UserCard(props) {
   const handleMailClick = (e, obj) => {
     e.preventDefault();
     setMemberId(obj.member_id);
+    setReceiverName(obj.name);
+    setReceiverEmail(obj.email);
     Router.push("/letter/type");
   };
 
@@ -97,7 +95,6 @@ export default function UserCard(props) {
   };
 
   const HandleFriendRequestClick = (e, obj) => {
-    console.log(obj);
     requestFriend(obj.member_id)
       .then((res) => {
         if (res.status === 200) {
@@ -111,13 +108,13 @@ export default function UserCard(props) {
           };
           props.setSearchedMembers((searchedMembers) =>
             searchedMembers.map((member) =>
-              member.member_id === obj.member_id ? updatedMember : member,
-            ),
+              member.member_id === obj.member_id ? updatedMember : member
+            )
           );
         }
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 
@@ -134,8 +131,8 @@ export default function UserCard(props) {
         };
         props.setSearchedMembers((searchedMembers) =>
           searchedMembers.map((member) =>
-            member.member_id === obj.member_id ? updatedMember : member,
-          ),
+            member.member_id === obj.member_id ? updatedMember : member
+          )
         );
       }
     });

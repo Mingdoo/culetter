@@ -3,6 +3,7 @@ import { Box, Typography } from "@mui/material";
 import LandingDiv from "../components/landing/LandingDiv";
 import StartButton from "../components/landing/StartButton";
 import Footer from "../components/Footer";
+import { ToastContainer } from "react-toastify";
 
 export default function landing() {
   console.log(
@@ -11,12 +12,13 @@ export default function landing() {
       | |   | | | | (_) | |   |  _|   | |   | | |  _| | |_) |\n\
       | |___| |_| |  _  | |___| |___  | |   | | | |___|  _ < \n\
        \\____|____/  ( ) |_____|_____| |_|   |_| |_____|_| \\_\\\n\
-                    |/",
+                    |/"
   );
 
   return (
     <>
       <Box sx={{ width: 420, mx: "auto" }}>
+        <ToastContainer />
         <Box sx={{ ...landingBoxStyle, minHeight: "100vh" }}>
           <Typography
             variant="h3"

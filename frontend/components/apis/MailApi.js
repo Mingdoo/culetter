@@ -14,7 +14,6 @@ mailApi.interceptors.request.use(
     return config;
   },
   function (error) {
-    console.log(error);
     return Promise.reject(error);
   }
 );
@@ -25,7 +24,6 @@ const getTempSave = async (body, letterId) => {
 };
 
 const getMailById = async (letterId) => {
-  console.log(letterId);
   const result = await mailApi.get(`/mails/id/${letterId}`);
   return result;
 };

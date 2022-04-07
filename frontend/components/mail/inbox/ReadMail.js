@@ -108,17 +108,8 @@ export default function ReadMail({ selectedMail }) {
                   fontWeight: data.is_font_bold ? "bold" : "normal",
                 }}
               >
-                <Typography
-                  sx={{
-                    mb: "0.1rem",
-                    fontFamily: "Gowun Batang",
-                    fontWeight: "Bolder",
-                  }}
-                >
-                  <Typography sx={{ mb: "0.5rem", fontFamily: "Gowun Batang" }}>
-                    {data.title}
-                  </Typography>
-                </Typography>
+                {data.title}
+                <br />
                 {data.content}
               </Typography>
             </Box>

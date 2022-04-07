@@ -64,7 +64,7 @@ export default function select() {
           .then((res) => {
             setUserFriends(res.data.friends);
           })
-          .catch((err) => console.log(err));
+          .catch((err) => {});
     }
   }, []);
 

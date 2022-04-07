@@ -33,10 +33,10 @@ export default function mailSent() {
       const res = await getSendMail();
       setContent("");
       setTitle("");
-      console.log(res.data.result);
+      // console.log(res.data.result);
       setMails(res.data.result.reverse());
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 

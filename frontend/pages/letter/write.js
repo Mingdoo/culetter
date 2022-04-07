@@ -46,14 +46,14 @@ const writeLetter = () => {
       analyzeLetterContent(content)
         .then((res) => {
           setEmotion(res.data);
-          console.log(res);
+          // console.log(res);
           setTimeout(() => {
             setIsLoading(false);
             Router.push("/letter/recommended");
           }, 1000);
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           setIsLoading(true);
         });
     } else {
@@ -79,16 +79,16 @@ const writeLetter = () => {
     try {
       const response = await getMailById(id);
       setMailId(id);
-      console.log(mailId, id);
+      // console.log(mailId, id);
       setTempMailType(response.data.mail_type);
       setTempContent(response.data.content);
       setTempTitle(response.data.title);
       setReceiverEmail(response.data.receiver_email);
       setReceiverName(response.data.receiver_name);
-      console.log("1", response);
+      // console.log("1", response);
       setMailType(response.data.mail_type);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -98,17 +98,17 @@ const writeLetter = () => {
       router.query.constructor === Object &&
       Object.keys(router.query).length === 0
     ) {
-      console.log("notTempSave");
+      // console.log("notTempSave");
     } else {
       handleGetMail(router.query.tempId);
-      console.log("tempSave");
+      // console.log("tempSave");
     }
   }, []);
 
-  useEffect(() => {
-    console.log("2", tempContent);
-    console.log(textValid);
-  }, [tempContent, tempTitle]);
+  // useEffect(() => {
+  //   console.log("2", tempContent);
+  //   console.log(textValid);
+  // }, [tempContent, tempTitle]);
 
   return (
     <Box

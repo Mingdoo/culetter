@@ -54,7 +54,7 @@ const Recommended = () => {
   const [prevImg, setPrevImg] = useState("");
 
   const handleChange = (event) => {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     const curIndex = event.target.value;
     if (curIndex === checked) {
       setChecked(-1);
@@ -81,13 +81,13 @@ const Recommended = () => {
   };
 
   useEffect(() => {
-    console.log(checked);
+    // console.log(checked);
   }, [checked]);
 
   useEffect(() => {
     authentication();
-    console.log(emotion);
-    console.log(mailType);
+    // console.log(emotion);
+    // console.log(mailType);
     const token = localStorage.getItem("accessToken");
     if (token && mailType == "") {
       setTimeout(() => {
@@ -115,7 +115,7 @@ const Recommended = () => {
       type: sendType,
       ...emotion,
     };
-    console.log(body);
+    // console.log(body);
     getRecommendImage(body).then((res) => {
       if (mailType === "PHOTOCARD") {
         setTimeout(() => {
@@ -148,12 +148,12 @@ const Recommended = () => {
     if (isUploaded) {
       fetchPostCardImage(uploadedImage)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           setStyleUrl(res.data.image_url);
           Router.push("/letter/music");
         })
         .catch((error) => {
-          console.log(error);
+          // console.log(error);
         });
     }
 
@@ -237,8 +237,11 @@ const Recommended = () => {
               handleNextClick={handleNextClick}
             />
             <Typography
-              className="Batang"
-              sx={{ textAlign: "center", mb: "1rem" }}
+              sx={{
+                textAlign: "center",
+                mb: "1rem",
+                fontFamily: "Gowun Batang",
+              }}
             >
               편지 내용에 어울리는 편지지 입니다
             </Typography>
@@ -251,8 +254,11 @@ const Recommended = () => {
               handleNextClick={handleNextClick}
             />
             <Typography
-              className="Batang"
-              sx={{ textAlign: "center", mb: "1rem" }}
+              sx={{
+                textAlign: "center",
+                mb: "1rem",
+                fontFamily: "Gowun Batang",
+              }}
             >
               편지 내용에 어울리는 엽서사진 입니다
             </Typography>
@@ -371,8 +377,7 @@ const Recommended = () => {
               </Box>
               <Typography
                 component="div"
-                className="Dodum"
-                sx={{ mt: "2rem", mb: "1rem" }}
+                sx={{ mt: "2rem", mb: "1rem", fontFamily: "Gowun Dodum" }}
               >
                 엽서 미리보기
               </Typography>
@@ -386,8 +391,10 @@ const Recommended = () => {
                   sx={{
                     position: "relative",
                     top: "-6rem",
-                    left: "6rem",
+                    textAlign: "center",
+                    alignSelf: "center",
                     fontSize: "1rem",
+                    fontFamily: "Gowun Dodum",
                   }}
                 >
                   {uploadedImage || checked !== -1 ? null : "미리보기 이미지"}

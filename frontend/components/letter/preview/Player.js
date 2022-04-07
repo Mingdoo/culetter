@@ -59,17 +59,12 @@ export default function Player(props) {
 
   useEffect(() => {
     if (music !== undefined) {
-      console.log(music, "player music");
       setMusicUrl(music);
     } else {
       setMusicUrl(musicUrl);
     }
-    console.log(isPlaying);
   }, []);
 
-  useEffect(() => {
-    console.log(music, "player");
-  }, [music]);
   return (
     <>
       <audio

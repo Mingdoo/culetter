@@ -31,7 +31,7 @@ function friends() {
         setIncomingFriends(res.data.requests);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
 
     getFriends()
@@ -39,13 +39,13 @@ function friends() {
         setUserFriends(res.data.friends);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }, []);
 
-  useEffect(() => {
-    console.log(userFriends);
-  }, [userFriends]);
+  // useEffect(() => {
+  //   console.log(userFriends);
+  // }, [userFriends]);
   const handlePrevClick = () => {
     if (addOpen) {
       setAddOpen(!addOpen);
