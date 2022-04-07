@@ -6,9 +6,17 @@ import Letter from "../../main/Letter";
 import Photocard from "./Photocard";
 import ReadMail from "./ReadMail";
 import Spinner from "../../Spinner";
-export default function MailPage({ senderId, isMail, setIsMail }) {
+import { ToastContainer } from "react-toastify";
+
+export default function MailPage({
+  senderId,
+  isMail,
+  setIsMail,
+  setIsPostbox,
+}) {
   const [page, setPage] = useState(0);
   const [data, setData] = useState([]);
+  const [noData, setNoData] = useState(false);
   const [loading, setLoading] = useState(false);
   const [mails, setMails] = useState([]);
   const [selectedMail, setSelectedMail] = useState(null);
@@ -20,11 +28,15 @@ export default function MailPage({ senderId, isMail, setIsMail }) {
     setLoading(true);
     try {
       const res = await getRecvMailsBySender(senderId);
-
-      setData(res.data.result.reverse());
-      setMails(res.data.result.reverse().slice(0, 6));
+      console.log(Array.isArray(res.data.result));
+      if (Array.isArray(res.data.result) && !res.data.result.length) {
+        setNoData(true);
+      }
+      const reversed = res.data.result.reverse();
+      setData(reversed);
+      setMails(reversed.slice(0, 6));
     } catch (e) {
-      // console.log(e);
+      console.log(e);
     } finally {
       setLoading(false);
     }
@@ -38,6 +50,14 @@ export default function MailPage({ senderId, isMail, setIsMail }) {
     fetchMails();
     setPage((prev) => prev + 1);
   }, []);
+
+  useEffect(async () => {
+    if (noFirstRender1.current) {
+      fetchMails();
+    } else {
+      noFirstRender1.current = true;
+    }
+  }, [isMail]);
 
   // useEffect(() => {
   //   if (noFirstRender2.current) {
@@ -81,8 +101,13 @@ export default function MailPage({ senderId, isMail, setIsMail }) {
     <>
       {/* src 에 style_url 넣음? */}
       {isMail ? (
-        loading ? (
-          <Spinner mt="30vh"></Spinner>
+        noData ? (
+          <Typography
+            variant="h1"
+            sx={{ fontFamily: "Gowun Dodum", textAlign: "center", mt: "5rem" }}
+          >
+            텅..
+          </Typography>
         ) : (
           <Box sx={{ minHeight: "90vh" }}>
             {mails.map(
@@ -206,8 +231,13 @@ export default function MailPage({ senderId, isMail, setIsMail }) {
           </Box>
         )
       ) : (
-        <ReadMail selectedMail={selectedMail}></ReadMail>
+        <ReadMail
+          selectedMail={selectedMail}
+          setIsMail={setIsMail}
+          senderId={senderId}
+        ></ReadMail>
       )}
+      <ToastContainer></ToastContainer>
     </>
   );
 }
