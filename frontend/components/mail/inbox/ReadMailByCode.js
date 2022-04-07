@@ -238,7 +238,7 @@ export default function ReadMailByCode({ code }) {
                   fontWeight: data.is_font_bold ? "bold" : "normal",
                 }}
               >
-                {data.title}
+                <Typography sx={{ mb: "1.5rem" }}>{data.title}</Typography>
                 <br />
                 {data.content}
               </Typography>
