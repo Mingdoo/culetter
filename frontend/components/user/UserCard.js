@@ -20,11 +20,6 @@ import LetterContext from "../../contexts/LetterContext";
 import Router from "next/router";
 
 export default function UserCard(props) {
-  useEffect(() => {
-    if (props.obj.member_id === 4) {
-      console.log(props.obj);
-    }
-  }, [props.obj]);
   const { memberId, setMemberId, setReceiverName, setReceiverEmail } =
     useContext(LetterContext);
 
@@ -100,7 +95,6 @@ export default function UserCard(props) {
   };
 
   const HandleFriendRequestClick = (e, obj) => {
-    console.log(obj);
     requestFriend(obj.member_id)
       .then((res) => {
         if (res.status === 200) {
@@ -120,7 +114,7 @@ export default function UserCard(props) {
         }
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 

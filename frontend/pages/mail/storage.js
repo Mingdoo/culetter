@@ -19,21 +19,21 @@ export default function Storage() {
   const fetch = async () => {
     try {
       const response = await getUndoneMail();
-      console.log(response.data.result);
+      // console.log(response.data.result);
       setMails(response.data.result.reverse());
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
   const deleteMail = async (id) => {
-    console.log("Dete");
+    // console.log("Dete");
     try {
       const res = await deleteUndoneMail(id);
-      console.log(res);
+      // console.log(res);
       fetch();
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   };
   const handleWriteClick = () => {
@@ -48,7 +48,7 @@ export default function Storage() {
       },
       "/letter/write"
     );
-    console.log(id);
+    // console.log(id);
   };
 
   useEffect(() => {

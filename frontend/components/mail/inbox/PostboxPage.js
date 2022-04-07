@@ -31,7 +31,7 @@ export default function PostboxPage({
       setData(res.data.result);
       setMails(res.data.result.slice(0, 8));
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     } finally {
       setLoading(false);
     }

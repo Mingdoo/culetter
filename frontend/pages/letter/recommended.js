@@ -54,7 +54,7 @@ const Recommended = () => {
   const [prevImg, setPrevImg] = useState("");
 
   const handleChange = (event) => {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     const curIndex = event.target.value;
     if (curIndex === checked) {
       setChecked(-1);
@@ -81,13 +81,13 @@ const Recommended = () => {
   };
 
   useEffect(() => {
-    console.log(checked);
+    // console.log(checked);
   }, [checked]);
 
   useEffect(() => {
     authentication();
-    console.log(emotion);
-    console.log(mailType);
+    // console.log(emotion);
+    // console.log(mailType);
     const token = localStorage.getItem("accessToken");
     if (token && mailType == "") {
       setTimeout(() => {
@@ -115,7 +115,7 @@ const Recommended = () => {
       type: sendType,
       ...emotion,
     };
-    console.log(body);
+    // console.log(body);
     getRecommendImage(body).then((res) => {
       if (mailType === "PHOTOCARD") {
         setTimeout(() => {
@@ -148,12 +148,12 @@ const Recommended = () => {
     if (isUploaded) {
       fetchPostCardImage(uploadedImage)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           setStyleUrl(res.data.image_url);
           Router.push("/letter/music");
         })
         .catch((error) => {
-          console.log(error);
+          // console.log(error);
         });
     }
 

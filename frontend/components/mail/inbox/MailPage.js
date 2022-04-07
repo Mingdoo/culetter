@@ -16,20 +16,15 @@ export default function MailPage({ senderId, isMail, setIsMail }) {
   const noFirstRender1 = useRef(false);
   const noFirstRender2 = useRef(false);
 
-  useEffect(() => {
-    console.log(isMail);
-    // setIsMail(true);
-  }, []);
-
   const fetchMails = async () => {
     setLoading(true);
     try {
       const res = await getRecvMailsBySender(senderId);
-      console.log(res.data.result.reverse().slice(0, 6));
+
       setData(res.data.result.reverse());
       setMails(res.data.result.reverse().slice(0, 6));
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     } finally {
       setLoading(false);
     }

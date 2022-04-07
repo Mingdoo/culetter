@@ -23,7 +23,7 @@ export default function ReadMailByCode({ code, setReceivedTitle }) {
     try {
       const res = await getMailByCode(code);
       setData(res.data);
-      console.log(res.data);
+      // console.log(res.data);
       setStickersPos(JSON.parse(res.data.stickers));
     } catch (error) {
       Router.push("/");

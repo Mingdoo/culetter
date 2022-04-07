@@ -67,7 +67,7 @@ export default function index() {
         );
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
     const reader = new FileReader();
     file && reader.readAsDataURL(file);
@@ -94,9 +94,9 @@ export default function index() {
       localStorage.setItem("name", res.data.name);
       setProfileImage(res.data.profileImage);
       setEmail(res.data.email);
-      console.log(res.data);
+      // console.log(res.data);
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   };
 
@@ -133,7 +133,7 @@ export default function index() {
   const onClickUpdate = () => {
     changeUsername(newName)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setUserInfo();
         toast.success(
           <div
@@ -155,7 +155,7 @@ export default function index() {
         );
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
   return (

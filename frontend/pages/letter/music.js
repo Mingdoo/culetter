@@ -83,7 +83,7 @@ const music = () => {
 
   const handleToggle = (item) => () => {
     //선택 해제
-    console.log(item);
+    // console.log(item);
     if (item.music_name === checked) {
       setChecked("");
       setMusicName("제목");
@@ -114,7 +114,7 @@ const music = () => {
     handleMusicList();
     setEndTime(player.current.duration);
     setCurrentTime(player.current.currentTime);
-    console.log(receiverName);
+    // console.log(receiverName);
   }, []);
 
   useEffect(() => {
@@ -140,7 +140,7 @@ const music = () => {
       const response = await getRecommendMusic(body);
       setMusicList(response.data.music_list.slice(0, 10));
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -170,7 +170,7 @@ const music = () => {
         {
           position: toast.POSITION.TOP_CENTER,
           role: "alert",
-        },
+        }
       );
     }
   };

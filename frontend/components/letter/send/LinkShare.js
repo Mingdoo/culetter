@@ -14,7 +14,6 @@ export default function LinkShare() {
   const link = `https://www.culetter.site/letter/read/${mailCode}`;
 
   useEffect(() => {
-    console.log(mailCode);
     setIsMobile(
       window.matchMedia("only screen and (max-width: 760px)").matches
     );
@@ -33,14 +32,13 @@ export default function LinkShare() {
         console.error("Something went wrong sharing the letter", error);
       }
     } else {
-      console.log("cant share");
     }
   };
 
   const copyData = async () => {
     try {
       await navigator.clipboard.writeText(link);
-      console.log("copied!");
+
       toast.success(
         <div
           style={{ width: "100%", display: "flex", justifyContent: "center" }}
@@ -64,9 +62,7 @@ export default function LinkShare() {
           progress: undefined,
         }
       );
-    } catch (error) {
-      console.log(`copy failed ${error}`);
-    }
+    } catch (error) {}
   };
 
   return (

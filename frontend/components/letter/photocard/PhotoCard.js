@@ -68,7 +68,6 @@ function PhotoCard({ props }) {
 
   useEffect(() => {
     setStickersPos(stickers);
-    console.log(stickersPos);
   }, [stickers]);
 
   useEffect(() => {}, []);

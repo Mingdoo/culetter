@@ -21,13 +21,13 @@ export default function inbox() {
   const [error, setError] = useState(null);
   const [selectedId, setSelectedId] = useState(null);
 
-  useEffect(() => {
-    console.log(isMail, isPostBox);
-  }, [isMail]);
+  // useEffect(() => {
+  //   console.log(isMail, isPostBox);
+  // }, [isMail]);
 
-  useEffect(() => {
-    console.log(isMail, isPostBox);
-  }, [isPostBox]);
+  // useEffect(() => {
+  //   console.log(isMail, isPostBox);
+  // }, [isPostBox]);
   const handlePrevClick = () => {
     if (!isMail || !isPostBox) {
       setIsMail(true);

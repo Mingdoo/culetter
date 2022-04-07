@@ -34,13 +34,12 @@ export default function MyPage() {
   const setUserInfo = async () => {
     try {
       const res = await getUserInfo();
-      console.log(res.data);
+      // console.log(res.data);
       setEmail(res.data.email);
       setName(res.data.name);
       setPhotoURL(res.data.profileImage);
     } catch (error) {
       // 토스트 메세지
-      console.log(error);
     }
   };
   const onClickUploadFile = function (e) {
@@ -54,20 +53,20 @@ export default function MyPage() {
     const formData = new FormData();
     formData.append(
       "info",
-      new Blob([JSON.stringify(userInfo)], { type: "application/json" }),
+      new Blob([JSON.stringify(userInfo)], { type: "application/json" })
     );
     formData.append("profileImage", profileImage);
-    console.log(formData.get("info"));
+    // console.log(formData.get("info"));
     axios
       .put("https://www.culetter.site/api/members", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization:
-            "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzMiIsImF1dGgiOiJST0xFXzEiLCJleHAiOjE2NDkyNjExNTd9.uEYVoYw4viX8Wdb5ts1gDRm7pbg0xncYac-d7iuGz0si0J_rh3WFnMm6clxKZ-_-jHwIpoaWhbHesbrHOa382A",
+            // "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzMiIsImF1dGgiOiJST0xFXzEiLCJleHAiOjE2NDkyNjExNTd9.uEYVoYw4viX8Wdb5ts1gDRm7pbg0xncYac-d7iuGz0si0J_rh3WFnMm6clxKZ-_-jHwIpoaWhbHesbrHOa382A",
         },
       })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .then((res) => {})
+      .catch((err) => {});
   };
   const edit = async () => {
     const formData = new FormData();
@@ -76,7 +75,7 @@ export default function MyPage() {
     };
     formData.append(
       "info",
-      new Blob([JSON.stringify(userInfo)], { type: "application/json" }),
+      new Blob([JSON.stringify(userInfo)], { type: "application/json" })
     );
     formData.append("profileImage", photoURL);
     try {
@@ -89,22 +88,22 @@ export default function MyPage() {
             Authorization:
               "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzMiIsImF1dGgiOiJST0xFXzEiLCJleHAiOjE2NDkyNjExNTd9.uEYVoYw4viX8Wdb5ts1gDRm7pbg0xncYac-d7iuGz0si0J_rh3WFnMm6clxKZ-_-jHwIpoaWhbHesbrHOa382A",
           },
-        },
+        }
       );
-      console.log(res);
+      // console.log(res);
     } catch (e) {
-      console.log(">>>>>>>>", formData.get("info"));
-      console.log("222222", formData.get("profileImage"));
-      console.log(e);
+      // console.log(">>>>>>>>", formData.get("info"));
+      // console.log("222222", formData.get("profileImage"));
+      // console.log(e);
     }
   };
 
   const deleteAccount = async () => {
     try {
       const res = await deleteUser();
-      console.log(res);
+      // console.log(res);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -113,7 +112,7 @@ export default function MyPage() {
   }, []);
 
   const handleChangePhoto = (event) => {
-    console.log("photo");
+    // console.log("photo");
     // 1. 파일이 있다면 확인 & 파일 크기 확인하고 너무 크면 거절!
     const file = event.target.files[0];
     if (file && file.size) {

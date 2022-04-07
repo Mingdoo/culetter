@@ -142,7 +142,7 @@ const SignupForm = () => {
             {
               position: toast.POSITION.TOP_CENTER,
               role: "alert",
-            },
+            }
           );
         });
         break;
@@ -177,9 +177,9 @@ const SignupForm = () => {
         {
           position: toast.POSITION.TOP_CENTER,
           role: "alert",
-        },
+        }
       );
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       //이메일 인증 코드 전송 실패시 처리
       toast.error(" 이메일을 확인해주세요", {
@@ -197,13 +197,13 @@ const SignupForm = () => {
     try {
       const response = await getConfirmAuthCode(body);
       setAuthCode(true);
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       toast.error(" 인증코드를 확인해주세요", {
         position: toast.POSITION.TOP_CENTER,
         role: "alert",
       });
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -215,7 +215,7 @@ const SignupForm = () => {
     };
     try {
       const response = await getRegister(body);
-      console.log(response);
+      // console.log(response);
       toast.success(
         <div>
           회원가입에 성공했습니다 <br />
@@ -224,7 +224,7 @@ const SignupForm = () => {
         {
           position: toast.POSITION.TOP_CENTER,
           role: "alert",
-        },
+        }
       );
       setTimeout(function () {
         Router.push("/login");

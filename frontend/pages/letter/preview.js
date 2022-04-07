@@ -48,7 +48,7 @@ export default function Preview() {
   const { setMailCode } = useContext(RoutingContext);
   useEffect(() => {
     authentication();
-    console.log(stickersPos);
+    // console.log(stickersPos);
   }, []);
 
   const send = async () => {
@@ -80,13 +80,13 @@ export default function Preview() {
     if (mailId) {
       try {
         const res = await sendTempMail(body, mailId);
-        console.log(res);
+        // console.log(res);
         setMailCode(res.data.code);
         setContent("");
         setTitle("");
         Router.push("/letter/share");
       } catch (e) {
-        console.log(e);
+        // console.log(e);
       }
     } else {
       try {
@@ -101,7 +101,7 @@ export default function Preview() {
         // console.log("다시", JSON.parse(stringifyStickers));
         Router.push("/letter/share");
       } catch (e) {
-        console.log(e);
+        // console.log(e);
       }
     }
   };
