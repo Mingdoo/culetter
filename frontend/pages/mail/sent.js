@@ -73,31 +73,31 @@ export default function mailSent() {
           <MenuList></MenuList>
 
           {isRead ? (
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={{
-                hidden: {
-                  scale: 1,
-                  opacity: 0,
-                },
-                visible: {
-                  scale: 1,
-                  opacity: 2,
-                  transition: {
-                    delay: 0.1,
+            <Box>
+              <SearchBox
+                id="searchNameInput"
+                label="수신인 이름"
+                width={320}
+                onChange={(e) => setSearchName(e)}
+              ></SearchBox>
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: {
+                    scale: 1,
+                    opacity: 0,
                   },
-                },
-              }}
-              layoutId="underline"
-            >
-              <Box>
-                <SearchBox
-                  id="searchNameInput"
-                  label="수신인 이름"
-                  width={320}
-                  onChange={(e) => setSearchName(e)}
-                ></SearchBox>
+                  visible: {
+                    scale: 1,
+                    opacity: 2,
+                    transition: {
+                      delay: 0.1,
+                    },
+                  },
+                }}
+                layoutId="underline"
+              >
                 {Array.isArray(mails) && !mails.length ? (
                   <Typography
                     variant="h1"
@@ -179,8 +179,8 @@ export default function mailSent() {
                           )
                         )}
                 </Grid>
-              </Box>
-            </motion.div>
+              </motion.div>
+            </Box>
           ) : (
             <ReadMail
               selectedMail={selectedMail}
