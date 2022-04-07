@@ -25,7 +25,8 @@ export default function UserCard(props) {
       console.log(props.obj);
     }
   }, [props.obj]);
-  const { memberId, setMemberId } = useContext(LetterContext);
+  const { memberId, setMemberId, setReceiverName, setReceiverEmail } =
+    useContext(LetterContext);
 
   const HandleFriendAcceptClick = (e, obj) => {
     e.preventDefault();
@@ -61,6 +62,8 @@ export default function UserCard(props) {
   const handleMailClick = (e, obj) => {
     e.preventDefault();
     setMemberId(obj.member_id);
+    setReceiverName(obj.name);
+    setReceiverEmail(obj.email);
     Router.push("/letter/type");
   };
 
@@ -111,8 +114,8 @@ export default function UserCard(props) {
           };
           props.setSearchedMembers((searchedMembers) =>
             searchedMembers.map((member) =>
-              member.member_id === obj.member_id ? updatedMember : member,
-            ),
+              member.member_id === obj.member_id ? updatedMember : member
+            )
           );
         }
       })
@@ -134,8 +137,8 @@ export default function UserCard(props) {
         };
         props.setSearchedMembers((searchedMembers) =>
           searchedMembers.map((member) =>
-            member.member_id === obj.member_id ? updatedMember : member,
-          ),
+            member.member_id === obj.member_id ? updatedMember : member
+          )
         );
       }
     });
