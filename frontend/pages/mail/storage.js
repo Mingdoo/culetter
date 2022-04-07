@@ -72,7 +72,12 @@ export default function Storage() {
           created_date: 
           title: 
            */}
-        {loading && <Typography>loading</Typography>}
+        {/* {loading && <Typography>loading</Typography>} */}
+        {Array.isArray(mails) && mails.length === 0 && (
+          <Typography sx={{ fontFamily: "Gowun Batang" }}>
+            편지 쓰러가기
+          </Typography>
+        )}
 
         {mails &&
           mails.map(({ title, mail_type, created_date, mail_id }, index) => {

@@ -36,7 +36,7 @@ export const getSendMail = async () => {
 };
 
 export const deleteRecvMail = async (mailId) => {
-  return await mailboxesApi.delete(`/recv`, { mail_id: mailId });
+  return await mailboxesApi.delete(`/recv`, { data: { mail_id: mailId } });
 };
 
 export const deleteUndoneMail = async (mailId) => {
@@ -52,5 +52,5 @@ export const deleteUndoneMail = async (mailId) => {
 };
 
 export const deleteSendMail = async (mailId) => {
-  return await mailboxesApi.delete(`/send`, { mail_id: mailId });
+  return await mailboxesApi.delete(`/send`, { data: { mail_id: mailId } });
 };
