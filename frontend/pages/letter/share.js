@@ -14,6 +14,9 @@ import MenuList from "../../components/menu/MenuList";
 export default function Send() {
   // receiverName 있으면 카카오톡으로 알리기 아니면 링크 공유
   useEffect(() => {
+    if (process.env.NEXT_PUBLIC_KAKAO_KEY) {
+      Kakao.init(process.env.NEXT_PUBLIC_KAKAO_KEY);
+    }
     authentication();
   }, []);
   const { title, receiverName } = useContext(LetterContext);
