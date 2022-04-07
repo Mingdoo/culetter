@@ -14,7 +14,15 @@ export default function MailBox({
 }) {
   return (
     // 해당 링크 주소로 이동
-    <Box sx={{ position: "relative", mb: 5 }}>
+    <Box
+      sx={{
+        position: "relative",
+        mb: 5,
+        "&:hover": {
+          cursor: "pointer",
+        },
+      }}
+    >
       <Avatar
         sx={{
           bgcolor: "#E2E0A5",

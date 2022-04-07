@@ -371,8 +371,7 @@ const Recommended = () => {
               </Box>
               <Typography
                 component="div"
-                className="Dodum"
-                sx={{ mt: "2rem", mb: "1rem" }}
+                sx={{ mt: "2rem", mb: "1rem", fontFamily: "Gowun Dodum" }}
               >
                 엽서 미리보기
               </Typography>
@@ -386,8 +385,10 @@ const Recommended = () => {
                   sx={{
                     position: "relative",
                     top: "-6rem",
-                    left: "6rem",
+                    textAlign: "center",
+                    alignSelf: "center",
                     fontSize: "1rem",
+                    fontFamily: "Gowun Dodum",
                   }}
                 >
                   {uploadedImage || checked !== -1 ? null : "미리보기 이미지"}

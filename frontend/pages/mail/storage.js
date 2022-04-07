@@ -36,7 +36,9 @@ export default function Storage() {
       console.log(e);
     }
   };
-
+  const handleWriteClick = () => {
+    Router.push("/letter/select");
+  };
   const handlePage = (id) => {
     setTempMailId(id);
     router.push(
@@ -74,9 +76,27 @@ export default function Storage() {
            */}
         {/* {loading && <Typography>loading</Typography>} */}
         {Array.isArray(mails) && mails.length === 0 && (
-          <Typography sx={{ fontFamily: "Gowun Batang" }}>
-            편지 쓰러가기
-          </Typography>
+          <>
+            <Typography
+              variant="h1"
+              sx={{ fontFamily: "Gowun Dodum", textAlign: "center" }}
+            >
+              텅..
+            </Typography>
+            <Typography
+              sx={{
+                mt: "3rem",
+                fontFamily: "Gowun Batang",
+                textAlign: "center",
+                "&:hover": {
+                  cursor: "pointer",
+                },
+              }}
+              onClick={handleWriteClick}
+            >
+              편지 쓰러가기
+            </Typography>
+          </>
         )}
 
         {mails &&

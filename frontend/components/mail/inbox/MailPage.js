@@ -125,6 +125,11 @@ export default function MailPage({ senderId, isMail, setIsMail }) {
                   return (
                     <Box
                       key={idx}
+                      sx={{
+                        "&:hover": {
+                          cursor: "pointer",
+                        },
+                      }}
                       onClick={(e) => {
                         setSelectedMail(mail_id);
                       }}
@@ -149,6 +154,9 @@ export default function MailPage({ senderId, isMail, setIsMail }) {
                         justifyContent: "center",
                         fontSize: 26,
                         height: "204px",
+                        "&:hover": {
+                          cursor: "pointer",
+                        },
                       }}
                       onClick={(e) => switchPage(mail_id)}
                     >
