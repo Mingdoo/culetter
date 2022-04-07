@@ -20,9 +20,8 @@ export default function LinkShare() {
   }, []);
 
   const shareData = {
-    title: "test",
-    text: "test",
-    url: "document.location.href",
+    title: link,
+    text: link,
   };
 
   const shareMobile = async () => {
@@ -33,14 +32,13 @@ export default function LinkShare() {
         console.error("Something went wrong sharing the letter", error);
       }
     } else {
-      console.log("cant share");
     }
   };
 
   const copyData = async () => {
     try {
       await navigator.clipboard.writeText(link);
-      console.log("copied!");
+
       toast.success(
         <div
           style={{ width: "100%", display: "flex", justifyContent: "center" }}
@@ -56,7 +54,7 @@ export default function LinkShare() {
         </div>,
         {
           position: "top-center",
-          autoClose: 5000,
+          autoClose: 1000,
           hideProgressBar: true,
           closeOnClick: true,
           pauseOnHover: false,
@@ -64,15 +62,13 @@ export default function LinkShare() {
           progress: undefined,
         }
       );
-    } catch (error) {
-      console.log(`copy failed ${error}`);
-    }
+    } catch (error) {}
   };
 
   return (
     <Box>
       <Grid container sx={{ pl: 2 }}>
-        <Grid item xs={10}>
+        <Grid item xs={9}>
           <TextField
             disabled
             id="linkShare"
@@ -81,7 +77,7 @@ export default function LinkShare() {
             sx={{ color: "black", width: "100%" }}
           />
         </Grid>
-        <Grid item xs={1}>
+        <Grid item xs={isMobile ? 1 : 0} sx={{ ml: "1rem" }}>
           {isMobile ? (
             <IconButton title="공유" onClick={shareMobile}>
               <ShareIcon />

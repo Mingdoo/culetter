@@ -32,7 +32,8 @@ export const emojis = [
 ];
 
 function PhotoCard({ props }) {
-  const { setStickersPos, setBgcolor } = useContext(LetterContext);
+  const { setStickersPos, setBgcolor, stickersPos, setFontColor } =
+    useContext(LetterContext);
 
   const [count, setCount] = useState(0);
   const [stickers, updateStickers] = useState([]);
@@ -90,7 +91,7 @@ function PhotoCard({ props }) {
       disabled: obj.disabled,
     };
     const updatedStickers = stickers.map((sticker) =>
-      sticker.idx === obj.idx ? updatedSticker : sticker,
+      sticker.idx === obj.idx ? updatedSticker : sticker
     );
 
     updateStickers(updatedStickers);
@@ -160,7 +161,7 @@ function PhotoCard({ props }) {
                   position: { x: 0, y: 0 },
                   disabled: false,
                 },
-                data,
+                data
               )
             }
             disabled={isfixed}
@@ -179,6 +180,7 @@ function PhotoCard({ props }) {
                 "&:hover": {
                   cursor: !isfixed ? "grab" : "auto",
                 },
+                zIndex: 999,
               }}
               id="title"
             >
@@ -198,7 +200,7 @@ function PhotoCard({ props }) {
                   position: { x: 0, y: 0 },
                   disabled: false,
                 },
-                data,
+                data
               )
             }
             disabled={isfixed}
@@ -217,6 +219,7 @@ function PhotoCard({ props }) {
                 "&:hover": {
                   cursor: !isfixed ? "grab" : "auto",
                 },
+                zIndex: 998,
               }}
               id="text"
             >
@@ -235,7 +238,10 @@ function PhotoCard({ props }) {
                 disabled={Sticker.disabled}
                 key={idx}
               >
-                <Box className="handle" sx={{ position: "absolute" }}>
+                <Box
+                  className="handle"
+                  sx={{ position: "absolute", zIndex: 1000 }}
+                >
                   <Sticker.content.icon
                     sx={{
                       color: Sticker.content.color,
@@ -251,7 +257,7 @@ function PhotoCard({ props }) {
                   />
                 </Box>
               </Draggable>
-            ) : null,
+            ) : null
           )}
         </Box>
         <Box>
@@ -279,7 +285,7 @@ function PhotoCard({ props }) {
               updateStickers((stickers) =>
                 stickers.map((sticker) => {
                   return { ...sticker, disabled: true };
-                }),
+                })
               );
               setStickersPos(stickers);
             }}

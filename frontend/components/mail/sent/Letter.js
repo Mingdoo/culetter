@@ -12,7 +12,16 @@ export default function Letter({
   const height = (width * 2) / 3;
   return (
     <>
-      <Box component="div" sx={{ width: "100%", position: "relative" }}>
+      <Box
+        component="div"
+        sx={{
+          width: "100%",
+          position: "relative",
+          "&:hover": {
+            cursor: "pointer",
+          },
+        }}
+      >
         <Box
           component="div"
           sx={{

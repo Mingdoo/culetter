@@ -9,29 +9,77 @@ import { fonts, colors } from "../../Variables";
 import { emojis as Emojis } from "../../letter/photocard/PhotoCard";
 import Photocard from "../../letter/preview/Photocard";
 import { motion } from "framer-motion";
+import { toast } from "react-toastify";
+import SaveAltRoundedIcon from "@mui/icons-material/SaveAltRounded";
 
-export default function ReadMailByCode({ code }) {
+export default function ReadMailByCode({ code, setReceivedTitle }) {
   const [data, setData] = useState([]);
   const [stickersPos, setStickersPos] = useState([]);
   const [isFlipped, setIsFlipped] = useState(false);
 
+  useEffect(() => {
+    console.log(data);
+    setReceivedTitle(`보낸이 : ${data.sender_name}`);
+  }, [data]);
   const fetchMail = async (code) => {
     try {
       const res = await getMailByCode(code);
       setData(res.data);
-      // console.log(JSON.parse(res.data.stickers));
+      // console.log(res.data);
       setStickersPos(JSON.parse(res.data.stickers));
     } catch (error) {
-      console.log(error);
+      Router.push("/");
+      setTimeout(() => {
+        toast.error(
+          <div
+            style={{ width: "100%", display: "flex", justifyContent: "center" }}
+          >
+            <div
+              style={{
+                display: "inline-block",
+                fontFamily: "Gowun Batang",
+              }}
+            >
+              유효하지 않은 편지 코드에요 😢
+            </div>
+          </div>,
+          {
+            position: toast.POSITION.TOP_CENTER,
+            role: "alert",
+          }
+        );
+      }, 100);
     }
   };
 
   const saveLetter = async () => {
-    try {
-      const res = await saveRecvMail(code);
-      Router.push("/mail/inbox");
-    } catch (e) {
-      console.log(e);
+    if (localStorage.getItem("accessToken")) {
+      try {
+        const res = await saveRecvMail(code);
+        Router.push("/mail/inbox");
+      } catch (e) {}
+    } else {
+      Router.push("/login");
+      setTimeout(() => {
+        toast.error(
+          <div
+            style={{ width: "100%", display: "flex", justifyContent: "center" }}
+          >
+            <div
+              style={{
+                display: "inline-block",
+                fontFamily: "Gowun Batang",
+              }}
+            >
+              로그인이 필요한 작업이에요 😢
+            </div>
+          </div>,
+          {
+            position: toast.POSITION.TOP_CENTER,
+            role: "alert",
+          }
+        );
+      }, 100);
     }
   };
 
@@ -47,6 +95,7 @@ export default function ReadMailByCode({ code }) {
     return (
       <Emoji.icon
         sx={{
+          position: "absolute",
           color: Sticker.content.color,
           transform: `translate(${Sticker.position.x}px, ${Sticker.position.y}px)`,
         }}
@@ -74,7 +123,7 @@ export default function ReadMailByCode({ code }) {
           scale: 1,
           opacity: 2,
           transition: {
-            delay: 0.5,
+            delay: 0.1,
           },
         },
       }}
@@ -119,7 +168,7 @@ export default function ReadMailByCode({ code }) {
                   position: "relative",
                 }}
               >
-                {stickersPos.map((Sticker) =>
+                {stickersPos.map((Sticker, idx) =>
                   Sticker.type !== "sticker" ? (
                     <Typography
                       sx={{
@@ -131,12 +180,14 @@ export default function ReadMailByCode({ code }) {
                         color: colors[data.font_color],
                         whiteSpace: "pre-line",
                         fontWeight: data.is_font_bold ? "bold" : "normal",
+                        textAlign: data.font_order,
                       }}
+                      key={idx}
                     >
                       {Sticker.content}
                     </Typography>
                   ) : (
-                    <Box sx={{ position: "absolute" }}>
+                    <Box sx={{ position: "absolute" }} key={idx}>
                       {renderElement(Sticker)}
                     </Box>
                   )
@@ -238,7 +289,9 @@ export default function ReadMailByCode({ code }) {
                   fontWeight: data.is_font_bold ? "bold" : "normal",
                 }}
               >
-                <Typography sx={{ mb: "1.5rem" }}>{data.title}</Typography>
+                <Typography sx={{ mb: "0.5rem", fontFamily: "Gowun Batang" }}>
+                  {data.title}
+                </Typography>
                 <br />
                 {data.content}
               </Typography>
@@ -254,38 +307,42 @@ export default function ReadMailByCode({ code }) {
           inboxMusicName={data.music_title}
         ></Player>
       </Box>
-      {data.receiver_email ? null : (
-        <Box
-          sx={{
-            width: "100%",
-            display: "flex",
-            fontSize: 18,
-            justifyContent: "center",
-            mt: "1rem",
-            borderRadius: "3rem",
-          }}
+
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          fontSize: 18,
+          justifyContent: "center",
+          mt: "1rem",
+          borderRadius: "3rem",
+        }}
+      >
+        <Button
+          variant="outlined"
+          sx={{ ...ButtonStyle }}
+          onClick={saveLetter}
+          startIcon={<SaveAltRoundedIcon />}
         >
-          <Button sx={{ ...ButtonStyle }} onClick={saveLetter}>
-            <Typography sx={{ fontFamily: "Gowun Batang", mr: "1rem" }}>
-              편지함에 보관
-              <DownloadIcon sx={{ color: "white", ml: "2rem" }} />
-            </Typography>
-          </Button>
-        </Box>
-      )}
+          편지함에 보관
+        </Button>
+      </Box>
     </motion.div>
   );
 }
 
 const ButtonStyle = {
   fontFamily: "Gowun Batang",
-  fontSize: 18,
-  color: "black",
-  backgroundColor: "#f7e4e0",
+  fontSize: 16,
+  color: "#a63636",
+  borderColor: "#a63636",
   "&:hover": {
-    backgroundColor: "transparent",
+    backgroundColor: "#f7e4e0",
+    borderColor: "#f7e4e0",
   },
-  borderRadius: "2rem",
-  width: "50%",
+  borderRadius: "1rem",
+  width: "40%",
   justifyContent: "center",
+  display: "flex",
+  mt: "1rem",
 };

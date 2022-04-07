@@ -6,7 +6,7 @@ import ReactCardFlip from "react-card-flip";
 import { emojis as Emojis } from "../../letter/photocard/PhotoCard";
 
 export default function ReadMailPhotocard({ data }) {
-  console.log(data);
+  // console.log(data);
   const [stickersPos, setStickersPos] = useState([]);
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -16,7 +16,9 @@ export default function ReadMailPhotocard({ data }) {
       <Emoji.icon
         sx={{
           color: Sticker.content.color,
-          transform: `translate(${Sticker.position.x}px, ${Sticker.position.y}px)`,
+          transform: `translate(${Sticker.position.x + 17.5}px, ${
+            Sticker.position.y + 17.5
+          }px)`,
         }}
         fontSize="large"
       />
@@ -73,13 +75,16 @@ export default function ReadMailPhotocard({ data }) {
                   color: colors[data.font_color],
                   whiteSpace: "pre-line",
                   fontWeight: data.is_font_bold ? "bold" : "normal",
+                  textAlign: data.font_order,
                 }}
                 key={index}
               >
                 {Sticker.content}
               </Typography>
             ) : (
-              <Box sx={{ position: "absolute" }}>{renderElement(Sticker)}</Box>
+              <Box sx={{ position: "absolute" }} key={index}>
+                {renderElement(Sticker)}
+              </Box>
             )
           )}
         </Box>

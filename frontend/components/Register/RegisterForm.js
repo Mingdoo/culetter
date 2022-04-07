@@ -48,6 +48,8 @@ const SignupForm = () => {
   const [name, setName] = useState("");
   const [code, setCode] = useState("");
 
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+
   // 유효성 검사 메시지
   const [emailMsg, setEmailMsg] = useState("");
   const [emailConfirmCodeMsg, setEmailConfirmCodeMsg] = useState("");
@@ -130,7 +132,19 @@ const SignupForm = () => {
     e.preventDefault();
     switch (e.target.id) {
       case "sendBtn":
-        sendEmailAuthCodeApi();
+        setButtonDisabled(true);
+        sendEmailAuthCodeApi().catch(() => {
+          setButtonDisabled(false);
+          toast.error(
+            <Box sx={{ textAlign: "center", fontFamily: "Gowun Dodum" }}>
+              이메일을 확인해주세요 😂
+            </Box>,
+            {
+              position: toast.POSITION.TOP_CENTER,
+              role: "alert",
+            }
+          );
+        });
         break;
       case "confirmBtn":
         checkEmailAuthCodeApi();
@@ -165,7 +179,7 @@ const SignupForm = () => {
           role: "alert",
         }
       );
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       //이메일 인증 코드 전송 실패시 처리
       toast.error(" 이메일을 확인해주세요", {
@@ -183,13 +197,13 @@ const SignupForm = () => {
     try {
       const response = await getConfirmAuthCode(body);
       setAuthCode(true);
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       toast.error(" 인증코드를 확인해주세요", {
         position: toast.POSITION.TOP_CENTER,
         role: "alert",
       });
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -201,7 +215,7 @@ const SignupForm = () => {
     };
     try {
       const response = await getRegister(body);
-      console.log(response);
+      // console.log(response);
       toast.success(
         <div>
           회원가입에 성공했습니다 <br />
@@ -316,13 +330,14 @@ const SignupForm = () => {
               style={{
                 minWidth: "10px",
                 minHeight: "10px",
-                backgroundColor: "#FCFAEF",
+                backgroundColor: buttonDisabled ? "#aaaaaa" : "#FCFAEF",
                 color: "#3A1D1D",
                 fontSize: "0.5rem",
                 margin: "1rem",
                 fontFamily: "Gowun Dodum",
               }}
               onClick={handleBtn}
+              disabled={buttonDisabled}
             >
               전송
             </Button>

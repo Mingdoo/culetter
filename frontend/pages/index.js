@@ -3,6 +3,7 @@ import { Box, Typography } from "@mui/material";
 import LandingDiv from "../components/landing/LandingDiv";
 import StartButton from "../components/landing/StartButton";
 import Footer from "../components/Footer";
+import { ToastContainer } from "react-toastify";
 
 export default function landing() {
   console.log(
@@ -17,6 +18,7 @@ export default function landing() {
   return (
     <>
       <Box sx={{ width: 420, mx: "auto" }}>
+        <ToastContainer />
         <Box sx={{ ...landingBoxStyle, minHeight: "100vh" }}>
           <Typography
             variant="h3"
@@ -36,10 +38,10 @@ export default function landing() {
             gutterBottom
           >
             문득 생각나는 사람에게 <br />
-            마음을 전달하고싶었던 적 없으신가요?
+            마음을 전달하고 싶었던 적 없으신가요?
             <br />
             CU;LETTER가 <br /> 당신의 마음이 <br />
-            오롯이 전달되는것을 도와드릴게요
+            오롯이 전달되는 것을 도와드릴게요
           </Typography>
           <StartButton description="시작하기"></StartButton>
         </Box>
@@ -53,8 +55,8 @@ export default function landing() {
         <LandingDiv
           style={landingBoxStyle}
           bgcolor={divColor[1]}
-          title="다양한 레이아웃 제공"
-          description="사용자의 편지가 더 돋보일 수 있도록 다양한 템플릿을 제공해드립니다. "
+          title="커스텀 편지"
+          description="사용자 밎춤 레이아웃 및 스타일 수정이 가능합니다"
           id="1"
         ></LandingDiv>
         <LandingDiv

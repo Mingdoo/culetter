@@ -17,7 +17,7 @@ export default function PasswordCheck({ pwConfirm, setPwConfirm }) {
       setPwConfirm(true);
     } catch (error) {
       // 토스트 메세지
-      console.log(error);
+      // console.log(error);
       toast.error("일치하지 않는 비밀번호입니다.", {
         position: toast.POSITION.TOP_CENTER,
         role: "alert",

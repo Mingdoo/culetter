@@ -1,5 +1,5 @@
 import { Box, Typography, Grid } from "@mui/material";
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useState, useContext } from "react";
 import { authentication } from "../../components/apis/auth";
 import MenuList from "../../components/menu/MenuList";
 import Footer from "../../components/Footer";
@@ -8,6 +8,10 @@ import Letter from "../../components/mail/sent/Letter";
 import ReadMail from "../../components/mail/inbox/ReadMail";
 import { getSendMail } from "../../components/apis/mailbox";
 import BackButton from "../../components/mail/inbox/BackButton";
+import Header from "../../components/Header";
+import Router from "next/router";
+import LetterContext from "../../contexts/LetterContext";
+import { motion, AnimateSharedLayout } from "framer-motion";
 
 const tempData = [];
 
@@ -16,14 +20,26 @@ export default function mailSent() {
   const [mails, setMails] = useState([]);
   const [isRead, setIsRead] = useState(true);
   const [selectedMail, setSelectedMail] = useState(null);
+  const [check, setCheck] = useState(false);
+  const { setContent, setTitle } = useContext(LetterContext);
 
+  const handlePrevClick = () => {
+    if (isRead) {
+      Router.back();
+    } else {
+      setIsRead(!isRead);
+    }
+  };
   const fetch = async () => {
     try {
       const res = await getSendMail();
-      console.log(res.data.result);
+      setContent("");
+      setTitle("");
+      // console.log(res.data.result);
       setMails(res.data.result.reverse());
+      setCheck(true);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -37,91 +53,50 @@ export default function mailSent() {
     fetch();
   }, []);
 
+  useEffect(() => {
+    fetch();
+  }, [isRead]);
+
   return (
     <>
-      <Box
-        sx={{
-          width: 420,
-          mx: "auto",
-          bgcolor: "#FCFAEF",
-          position: "relative",
-          minHeight: "100vh",
-          pb: "2rem",
-        }}
-      >
-        <Grid
-          container
-          spacing={0}
-          direction="row"
-          alignItems="center"
-          justify="center"
-          sx={{ width: 420 }}
+      <AnimateSharedLayout layout>
+        <Box
+          sx={{
+            width: 420,
+            mx: "auto",
+            bgcolor: "#FCFAEF",
+            position: "relative",
+            minHeight: "100vh",
+            pb: "2rem",
+          }}
         >
-          <Grid item xs={3}>
-            {isRead ? null : (
-              <Box sx={{ m: "1rem" }}>
-                <BackButton onClick={setIsRead}></BackButton>
-              </Box>
-            )}
-          </Grid>
-          <Grid item xs={6}>
-            <Box sx={{ m: "1rem" }}>
-              {" "}
-              <Typography
-                sx={{
-                  textAlign: "center",
-                  fontSize: "1.5rem",
-                  fontFamily: "Gowun Dodum",
-                }}
-              >
-                보낸 편지
-              </Typography>
-            </Box>
-          </Grid>
-        </Grid>
-        <MenuList></MenuList>
+          <Header title="보낸 편지" handlePrevClick={handlePrevClick} />
 
-        {isRead ? (
-          <Box>
-            <SearchBox
-              id="searchNameInput"
-              label="수신인 이름"
-              width={320}
-              onChange={(e) => setSearchName(e)}
-            ></SearchBox>
-            <Grid container sx={{ width: 1, pt: 1, px: 2 }}>
-              {!searchName
-                ? mails.map(
-                    (
-                      {
-                        created_date,
-                        mail_id,
-                        mail_type,
-                        receiver_email,
-                        receiver_name,
-                        style_url,
-                        title,
-                      },
-                      index
-                    ) => (
-                      <Grid item xs={6} key={index} sx={{ width: 1, pt: 4 }}>
-                        <Letter
-                          type={mail_type}
-                          name={receiver_name}
-                          title={title}
-                          date={created_date}
-                          width={150}
-                          readMail={readMail}
-                          mailId={mail_id}
-                        ></Letter>
-                      </Grid>
-                    )
-                  )
-                : mails
-                    .filter((obj) => {
-                      return obj.receiver_name.includes(searchName);
-                    })
-                    .map(
+          <MenuList></MenuList>
+
+          {isRead ? (
+            <Box>
+              <SearchBox
+                id="searchNameInput"
+                label="수신인 이름"
+                width={320}
+                onChange={(e) => setSearchName(e)}
+              ></SearchBox>
+              {Array.isArray(mails) && !mails.length && check ? (
+                <Typography
+                  variant="h1"
+                  sx={{
+                    fontFamily: "Gowun Dodum",
+                    textAlign: "center",
+                    mt: "5rem",
+                  }}
+                >
+                  텅..
+                </Typography>
+              ) : null}
+              <Grid container sx={{ width: 1, pt: 1, px: 2 }}>
+                {!searchName
+                  ? mails.map(
                       (
                         {
                           created_date,
@@ -136,6 +111,7 @@ export default function mailSent() {
                       ) => (
                         <Grid item xs={6} key={index} sx={{ width: 1, pt: 4 }}>
                           <Letter
+                            key={index}
                             type={mail_type}
                             name={receiver_name}
                             title={title}
@@ -146,14 +122,55 @@ export default function mailSent() {
                           ></Letter>
                         </Grid>
                       )
-                    )}
-            </Grid>
-          </Box>
-        ) : (
-          <ReadMail selectedMail={selectedMail}></ReadMail>
-        )}
-      </Box>
-      <Footer></Footer>
+                    )
+                  : mails
+                      .filter((obj) => {
+                        return obj.receiver_name.includes(searchName);
+                      })
+                      .map(
+                        (
+                          {
+                            created_date,
+                            mail_id,
+                            mail_type,
+                            receiver_email,
+                            receiver_name,
+                            style_url,
+                            title,
+                          },
+                          index
+                        ) => (
+                          <Grid
+                            item
+                            xs={6}
+                            key={index}
+                            sx={{ width: 1, pt: 4 }}
+                          >
+                            <Letter
+                              key={index}
+                              type={mail_type}
+                              name={receiver_name}
+                              title={title}
+                              date={created_date}
+                              width={150}
+                              readMail={readMail}
+                              mailId={mail_id}
+                            ></Letter>
+                          </Grid>
+                        )
+                      )}
+              </Grid>
+            </Box>
+          ) : (
+            <ReadMail
+              selectedMail={selectedMail}
+              sent={true}
+              setIsRead={setIsRead}
+            ></ReadMail>
+          )}
+        </Box>
+        <Footer></Footer>
+      </AnimateSharedLayout>
     </>
   );
 }

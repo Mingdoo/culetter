@@ -14,9 +14,10 @@ const Photocard = (props) => {
     fontType,
     fontColor,
     isFontBold,
+    fontOrder,
     image,
   } = useContext(LetterContext);
-  useEffect(() => {}, []);
+
   //something changed
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -70,6 +71,7 @@ const Photocard = (props) => {
                   color: colors[fontColor],
                   whiteSpace: "pre-line",
                   fontWeight: isFontBold ? "bold" : "normal",
+                  textAlign: fontOrder,
                 }}
                 key={idx}
               >
@@ -84,13 +86,14 @@ const Photocard = (props) => {
               >
                 <Sticker.content.icon
                   sx={{
+                    position: "absolute",
                     color: Sticker.content.color,
                     transform: `translate(${Sticker.position.x}px, ${Sticker.position.y}px)`,
                   }}
                   fontSize="large"
                 />
               </Box>
-            ),
+            )
           )}
         </Box>
       </ReactCardFlip>

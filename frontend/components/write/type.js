@@ -5,7 +5,7 @@ import LetterContext from "../../contexts/LetterContext";
 const link = ["photocard", "normal", "postcard"];
 const Type = (props) => {
   const { text, index, describe, imgsrc } = props;
-  const { setMailType } = useContext(LetterContext);
+  const { setMailType, setContent, setTitle } = useContext(LetterContext);
 
   return (
     <Link href={"/letter/write"}>

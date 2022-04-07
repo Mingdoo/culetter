@@ -60,7 +60,7 @@ const Content = (props) => {
       handwrite_image: "",
     };
     try {
-      console.log(mailId);
+      // console.log(mailId);
       const response = await getTempSave(
         body,
         mailId === "" || undefined ? 0 : mailId
@@ -90,7 +90,7 @@ const Content = (props) => {
         }
       );
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -113,8 +113,10 @@ const Content = (props) => {
       titleLength > 0 &&
       titleLength < maxTitleLength
     ) {
+      // console.log("11");
       checkTextValid(true);
     } else {
+      // console.log("11else");
       checkTextValid(false);
     }
   };
@@ -123,10 +125,13 @@ const Content = (props) => {
     if (tempTitle !== "" && tempContent !== "") {
       setMailType(tempMailType);
       setTitle(tempTitle);
+      setTitleLength(tempTitle.length);
       setContent(`${tempContent}`);
       setContentLength(tempContent.length);
+      setTitleLength(tempTitle.length);
       setOpacity("0%");
       setLoading(true);
+      // console.log("22");
       checkTextValid(true);
       setTimeout(() => {
         setOpacity("100%");
@@ -137,23 +142,38 @@ const Content = (props) => {
 
   useEffect(() => {
     if (
+      !tempMailType &&
       contentLength > 0 &&
       contentLength < maxContentLength &&
       titleLength > 0 &&
       titleLength < maxTitleLength
     ) {
+      // console.log("33 ");
       checkTextValid(true);
     } else {
+      // console.log("33 eslse");
       checkTextValid(false);
+    }
+    if (tempMailType && contentLength > 0 && titleLength > 0) {
+      // console.log("33 does it work");
+      checkTextValid(true);
     }
   }, [contentLength, titleLength]);
 
   useEffect(() => {
-    console.log(mailType);
-    if (tempTitle == "" && tempContent == "") {
+    // console.log(mailType);
+    // if (tempTitle == "" && tempContent == "") {
+    //   setContent("");
+    //   setTitle("");
+    // }
+    if (content === " " && title === " ") {
       setContent("");
       setTitle("");
     }
+    // console.log(content);
+    // console.log(title);
+    setContentLength(content.length);
+    setTitleLength(title.length);
   }, []);
 
   return (

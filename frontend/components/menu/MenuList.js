@@ -1,16 +1,17 @@
 import MenuListItem from "./MenuListItem";
 import { Box } from "@mui/material";
 import MenuButton from "./MenuButton";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import LetterContext from "../../contexts/LetterContext";
 
 export default function MenuList() {
   const [open, setOpen] = useState(false);
-  const [name, setName] = useState("");
+  const [storageName, setStorageName] = useState("");
   const HandleMenu = () => (open ? setOpen(false) : setOpen(true));
-
+  const { name } = useContext(LetterContext);
   useEffect(() => {
-    setName(localStorage.getItem("name"));
-  });
+    setStorageName(localStorage.getItem("name"));
+  }, []);
   return (
     <>
       <MenuButton HandleMenu={HandleMenu} open={open}></MenuButton>
@@ -31,15 +32,14 @@ export default function MenuList() {
           sx={{
             color: "white",
             whiteSpace: "nowrap",
-            // display: "flex",
-            // justifyContent: "center",
+            fontFamily: "Gowun Batang",
             mt: 4,
             pb: 2,
             px: "16px",
             borderBottom: 1,
           }}
         >
-          [{name}]
+          {name || storageName} 님
         </Box>
         {[
           "홈",

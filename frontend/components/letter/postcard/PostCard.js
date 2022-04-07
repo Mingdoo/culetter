@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Box, Typography } from "@mui/material";
 import { colors } from "../../../components/Variables";
 import Palette from "../Palette";
@@ -9,6 +9,9 @@ function PostCard({ props }) {
   const [underlineColour, setUnderlineColour] = useState(0);
 
   const { setUnderlineColor, setBgcolor, styleUrl } = useContext(LetterContext);
+  useEffect(() => {
+    setBgcolor(bgColor);
+  }, [bgColor]);
   return (
     <Box
       sx={{

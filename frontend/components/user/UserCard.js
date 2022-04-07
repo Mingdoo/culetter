@@ -20,10 +20,8 @@ import LetterContext from "../../contexts/LetterContext";
 import Router from "next/router";
 
 export default function UserCard(props) {
-  useEffect(() => {
-    console.log(props.obj.profile_image);
-  }, []);
-  const { memberId, setMemberId } = useContext(LetterContext);
+  const { memberId, setMemberId, setReceiverName, setReceiverEmail } =
+    useContext(LetterContext);
 
   const HandleFriendAcceptClick = (e, obj) => {
     e.preventDefault();
@@ -59,6 +57,8 @@ export default function UserCard(props) {
   const handleMailClick = (e, obj) => {
     e.preventDefault();
     setMemberId(obj.member_id);
+    setReceiverName(obj.name);
+    setReceiverEmail(obj.email);
     Router.push("/letter/type");
   };
 
@@ -104,16 +104,17 @@ export default function UserCard(props) {
             name: obj.name,
             favorite: obj.favorite,
             friend_status: 1,
+            profile_image: obj.profile_image,
           };
           props.setSearchedMembers((searchedMembers) =>
             searchedMembers.map((member) =>
-              member.member_id === obj.member_id ? updatedMember : member,
-            ),
+              member.member_id === obj.member_id ? updatedMember : member
+            )
           );
         }
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 
@@ -126,11 +127,12 @@ export default function UserCard(props) {
           name: obj.name,
           favorite: obj.favorite,
           friend_status: 0,
+          profile_image: obj.profile_image,
         };
         props.setSearchedMembers((searchedMembers) =>
           searchedMembers.map((member) =>
-            member.member_id === obj.member_id ? updatedMember : member,
-          ),
+            member.member_id === obj.member_id ? updatedMember : member
+          )
         );
       }
     });
@@ -290,22 +292,26 @@ export default function UserCard(props) {
         {props.obj.profile_image ? (
           <Box
             sx={{
-              width: 39,
+              width: 37,
               height: 35,
               mx: "1rem",
               display: "flex",
               flexDirection: "row",
               justifyContent: "center",
               alignItems: "center",
+              position: "relative",
+              top: "2px",
             }}
           >
             <img
               src={props.obj.profile_image}
               style={{
+                display: "block",
                 width: 29,
                 height: 29,
                 borderRadius: "50%",
                 border: "1px solid black",
+                textAlign: "center",
               }}
             />
           </Box>

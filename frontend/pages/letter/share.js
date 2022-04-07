@@ -3,7 +3,7 @@ import LetterContext from "../../contexts/LetterContext";
 import RoutingContext from "../../contexts/RoutingContext";
 import Header from "../../components/Header";
 import Router from "next/router";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 import stamp from "../../public/img/stamp.PNG";
 import LinkShare from "../../components/letter/send/LinkShare";
@@ -12,11 +12,12 @@ import Letter from "../../components/main/Letter";
 import { authentication } from "../../components/apis/auth";
 import MenuList from "../../components/menu/MenuList";
 export default function Send() {
-  // receiverName 있으면 카카오톡으로 알리기 아니면 링크 공유
   useEffect(() => {
-    if (process.env.NEXT_PUBLIC_KAKAO_KEY) {
+    // console.log(window.Kakao.isInitialized());
+    if (receiverName && !window.Kakao.isInitialized()) {
       Kakao.init(process.env.NEXT_PUBLIC_KAKAO_KEY);
     }
+    // console.log(window.Kakao.isInitialized());
     authentication();
   }, []);
   const { title, receiverName } = useContext(LetterContext);
@@ -124,9 +125,9 @@ export default function Send() {
       <Grid
         container
         sx={{
-          position: "absolute",
+          position: "fixed",
           bottom: 35,
-          width: 1,
+          width: 420,
         }}
         component="div"
       >

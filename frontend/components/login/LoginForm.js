@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LockIcon from "@mui/icons-material/Lock";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
@@ -19,9 +19,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Router from "next/router";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import LetterContext from "../../contexts/LetterContext";
 
 const LoginForm = () => {
   const { getLogin } = UserApi;
+  const { name, setName } = useContext(LetterContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [accessToken, setAccessToken] = useState(false);
@@ -68,6 +70,7 @@ const LoginForm = () => {
       const response = await getLogin(body);
       localStorage.setItem("accessToken", response.headers.authorization);
       localStorage.setItem("name", response.data.name);
+      setName(response.data.name);
       toast.success(
         <div
           style={{ width: "100%", display: "flex", justifyContent: "center" }}
@@ -88,7 +91,7 @@ const LoginForm = () => {
       );
       setTimeout(function () {
         Router.push("/main");
-      }, 2000);
+      }, 1000);
     } catch (error) {
       toast.error(
         <div
@@ -280,6 +283,9 @@ const LoginForm = () => {
                   },
                 }}
                 onChange={(e) => handleInput(e.target.value, "password")}
+                onKeyUp={(e) => {
+                  e.key === "Enter" ? handleLogin(e) : null;
+                }}
               />
             </Grid>
             <Grid item xs={2}></Grid>
@@ -294,7 +300,10 @@ const LoginForm = () => {
               }}
             > */}
           <Grid container>
-            <Grid item xs={6} sx={{ mt: 6 }}>
+            <Grid item xs={1}>
+              <Box></Box>
+            </Grid>
+            <Grid item xs={5} sx={{ mt: 6 }}>
               <Button
                 variant="contained"
                 size="small"
@@ -303,13 +312,14 @@ const LoginForm = () => {
                   minHeight: "30px",
                   backgroundColor: "#E2E0A5",
                   color: "#3A1D1D",
+                  fontFamily: "Gowun Dodum",
                 }}
                 onClick={handleLogin}
               >
                 로그인
               </Button>
             </Grid>
-            <Grid item xs={6} sx={{ mt: 6 }}>
+            <Grid item xs={5} sx={{ mt: 6 }}>
               <Link href="/register">
                 <Button
                   variant="contained"
@@ -319,14 +329,18 @@ const LoginForm = () => {
                     minHeight: "30px",
                     backgroundColor: "#E2E0A5",
                     color: "#3A1D1D",
+                    fontFamily: "Gowun Dodum",
                   }}
                 >
                   회원가입
                 </Button>
               </Link>
             </Grid>
+            <Grid item xs={1}>
+              <Box></Box>
+            </Grid>
           </Grid>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <Box component="div">
               <Button
                 size="small"
@@ -336,12 +350,13 @@ const LoginForm = () => {
                   color: "#FCFAEF",
                   fontSize: 12,
                   marginTop: "1rem",
+                  fontFamily: "Gowun Dodum",
                 }}
               >
                 비밀번호 재설정
               </Button>
             </Box>
-          </Grid>
+          </Grid> */}
           <ToastContainer />
         </FormControl>
       )}

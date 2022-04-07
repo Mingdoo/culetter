@@ -23,27 +23,51 @@ import {
 } from "../../components/apis/profile";
 import ConfirmBtn from "../../components/profile/ConfirmBtn";
 import PasswordCheck from "../../components/profile/PasswordCheck";
+import LetterContext from "../../contexts/LetterContext";
 
 import Header from "../../components/Header";
 import MenuList from "../../components/menu/MenuList";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function index() {
   const [profileImage, setProfileImage] = useState();
   const [showProfileImage, setShowProfileImage] = useState();
-  const [name, setName] = useState();
+  const [newName, setNewName] = useState();
   const [email, setEmail] = useState();
   const testConfirm = useRef(false);
   const [pwConfirm, setPwConfirm] = useState(false);
+  const [nameValidation, setNameValidation] = useState(true);
   const { fromBack, setFromBack } = useContext(RoutingContext);
-
+  const { name, setName } = useContext(LetterContext);
+  const [nameMsg, setNameMsg] = useState(false);
   const onClickUploadFile = function (e) {
     const file = e.target.files[0];
     changeProfileImage(file)
       .then(() => {
         setProfileImage(file);
+        setUserInfo();
+
+        toast.success(
+          <div
+            style={{ width: "100%", display: "flex", justifyContent: "center" }}
+          >
+            <div
+              style={{
+                display: "inline-block",
+                fontFamily: "Gowun Batang",
+              }}
+            >
+              프로필 이미지 변경 성공 🎉
+            </div>
+          </div>,
+          {
+            position: toast.POSITION.TOP_CENTER,
+            role: "alert",
+          }
+        );
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
     const reader = new FileReader();
     file && reader.readAsDataURL(file);
@@ -52,15 +76,27 @@ export default function index() {
     };
   };
 
+  const newNameValid = (name) => {
+    const namePattern = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|\*]{2,12}$/;
+    if (!namePattern.test(name)) {
+      setNameMsg("2자 이상 12자 이하로 특수문자는 포함하지 않습니다");
+      setNameValidation(false);
+    } else {
+      setNameMsg("");
+      setNameValidation(true);
+    }
+  };
   const setUserInfo = async () => {
     try {
       const res = await getUserInfo();
+      setNewName(res.data.name);
       setName(res.data.name);
+      localStorage.setItem("name", res.data.name);
       setProfileImage(res.data.profileImage);
       setEmail(res.data.email);
-      console.log(res.data);
+      // console.log(res.data);
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   };
 
@@ -91,20 +127,41 @@ export default function index() {
           pwConfirm: pwConfirm,
         },
       },
-      "profile/password",
+      "profile/password"
     );
   };
   const onClickUpdate = () => {
-    changeUsername(name)
+    changeUsername(newName)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
+        setUserInfo();
+        toast.success(
+          <div
+            style={{ width: "100%", display: "flex", justifyContent: "center" }}
+          >
+            <div
+              style={{
+                display: "inline-block",
+                fontFamily: "Gowun Batang",
+              }}
+            >
+              프로필 이름이 변경되었습니다 🎉
+            </div>
+          </div>,
+          {
+            position: toast.POSITION.TOP_CENTER,
+            role: "alert",
+          }
+        );
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
   return (
     <>
+      <ToastContainer />
+
       <Box sx={{ width: 420, mx: "auto" }}>
         <Box
           sx={{
@@ -120,10 +177,10 @@ export default function index() {
           <Header title="마이페이지" handlePrevClick={handlePrevClick}></Header>
           <MenuList />
           <Box sx={{ width: "85%" }}>
-            <Typography className="Batang" sx={{ fontSize: 18 }}>
+            <Typography sx={{ fontSize: 18, fontFamily: "Gowun Batang" }}>
               {!pwConfirm ? "비밀번호 확인" : "회원정보 수정"}
             </Typography>
-            <Typography className="Batang" sx={{ fontSize: 12 }}>
+            <Typography sx={{ fontSize: 12, fontFamily: "Gowun Batang" }}>
               {!pwConfirm
                 ? "회원 정보 수정을 위해서 비밀번호를 입력해주세요"
                 : "프로필 사진, 비밀번호, 이름을 변경할 수 있습니다"}
@@ -220,8 +277,11 @@ export default function index() {
                                 id="name"
                                 type="name"
                                 label="이름"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
+                                value={newName}
+                                onChange={(e) => {
+                                  setNewName(e.target.value);
+                                  newNameValid(e.target.value);
+                                }}
                                 disabled={false}
                               ></StyledTextField>
                             </Grid>
@@ -236,7 +296,9 @@ export default function index() {
                             fontSize: 11,
                             pt: "3px",
                           }}
-                        ></Box>
+                        >
+                          {nameMsg}
+                        </Box>
                         <Box>
                           <Grid container>
                             <Grid
@@ -280,7 +342,10 @@ export default function index() {
                     </Box>
                   </Box>
                 </Box>
-                <ConfirmBtn onClick={onClickUpdate}></ConfirmBtn>
+                <ConfirmBtn
+                  onClick={onClickUpdate}
+                  disabled={!nameValidation}
+                ></ConfirmBtn>
               </Box>
             )}
           </Box>

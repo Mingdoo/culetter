@@ -10,7 +10,7 @@ import RoutingContext from "../../contexts/RoutingContext";
 import PostCard from "../../components/letter/preview/Postcard";
 import MenuList from "../../components/menu/MenuList";
 import SendIcon from "@mui/icons-material/Send";
-import { sendLetter } from "../../components/apis/letter";
+import { sendLetter, sendTempMail } from "../../components/apis/letter";
 import { authentication } from "../../components/apis/auth";
 
 import Router from "next/router";
@@ -18,6 +18,7 @@ import Router from "next/router";
 export default function Preview() {
   const {
     memberId,
+    mailId,
     receiverName,
     receiverEmail,
     title,
@@ -40,11 +41,14 @@ export default function Preview() {
     underlineColor,
     setReceiverName,
     setReceiverEmail,
+    setContent,
+    setTitle,
   } = useContext(LetterContext);
 
   const { setMailCode } = useContext(RoutingContext);
   useEffect(() => {
     authentication();
+    // console.log(stickersPos);
   }, []);
 
   const send = async () => {
@@ -73,17 +77,32 @@ export default function Preview() {
       music_title: musicName,
     };
 
-    try {
-      const res = await sendLetter(body);
-      setMailCode(res.data.code);
-      setReceiverEmail(null);
-      // console.log(res.data.code);
-      // console.log("하기 전", stickersPos);
-      // console.log(JSON.stringify(stickersPos));
-      // console.log("다시", JSON.parse(stringifyStickers));
-      Router.push("/letter/share");
-    } catch (e) {
-      console.log(e);
+    if (mailId) {
+      try {
+        const res = await sendTempMail(body, mailId);
+        // console.log(res);
+        setMailCode(res.data.code);
+        setContent("");
+        setTitle("");
+        Router.push("/letter/share");
+      } catch (e) {
+        // console.log(e);
+      }
+    } else {
+      try {
+        const res = await sendLetter(body);
+        setMailCode(res.data.code);
+        setReceiverEmail(null);
+        setContent("");
+        setTitle("");
+        // console.log(res.data.code);
+        // console.log("하기 전", stickersPos);
+        // console.log(JSON.stringify(stickersPos));
+        // console.log("다시", JSON.parse(stringifyStickers));
+        Router.push("/letter/share");
+      } catch (e) {
+        // console.log(e);
+      }
     }
   };
 

@@ -56,13 +56,13 @@ export default function StyledTextField({
       sx={{
         "& .MuiInput-underline": { fontFamily: "Gowun Batang", color: "black" },
         "& .MuiInput-underline:not(.Mui-disabled):hover::before": {
-          borderColor: "pink",
+          borderColor: "#A63636",
         },
         "& .MuiInput-underline:after": {
-          borderBottomColor: "pink",
+          borderBottomColor: "#A63636",
         },
         "& .MuiInput-underline:before": {
-          borderBottomColor: "pink",
+          borderBottomColor: "#A63636",
         },
         width: 1,
         fontFamily: "Gowun Batang",
