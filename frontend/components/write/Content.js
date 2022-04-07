@@ -66,15 +66,29 @@ const Content = (props) => {
         mailId === "" || undefined ? 0 : mailId
       );
       setMailId(response.data.mail_id);
-      toast.success("임시 저장 완료", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.success(
+        <div
+          style={{ width: "100%", display: "flex", justifyContent: "center" }}
+        >
+          <div
+            style={{
+              display: "inline-block",
+              fontFamily: "Gowun Batang",
+            }}
+          >
+            임시저장 완료🎉
+          </div>
+        </div>,
+        {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        }
+      );
     } catch (error) {
       console.log(error);
     }
