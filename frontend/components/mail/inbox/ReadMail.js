@@ -37,7 +37,7 @@ export default function ReadMail({
 
   const deleteMailSend = async () => {
     try {
-      await deleteSendMail(selectedMail);
+      // await deleteSendMail(selectedMail);
       toast.success(
         <div
           style={{ width: "100%", display: "flex", justifyContent: "center" }}
