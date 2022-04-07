@@ -69,19 +69,6 @@ export default function mailSent() {
         <Header title="보낸 편지" handlePrevClick={handlePrevClick} />
 
         <MenuList></MenuList>
-
-        {Array.isArray(mails) && !mails.length ? (
-          <Typography
-            variant="h1"
-            sx={{
-              fontFamily: "Gowun Dodum",
-              textAlign: "center",
-              mt: "5rem",
-            }}
-          >
-            텅..
-          </Typography>
-        ) : null}
         {isRead ? (
           <Box>
             <SearchBox
