@@ -1,5 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import LetterContext from "../../contexts/LetterContext";
+import { ToastContainer, toast } from "react-toastify";
+
 import "react-toastify/dist/ReactToastify.css";
 import {
   Box,
@@ -64,6 +66,15 @@ const Content = (props) => {
         mailId === "" || undefined ? 0 : mailId
       );
       setMailId(response.data.mail_id);
+      toast.success("임시 저장 완료", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+      });
     } catch (error) {
       console.log(error);
     }
