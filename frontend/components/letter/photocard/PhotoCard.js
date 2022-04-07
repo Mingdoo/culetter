@@ -179,6 +179,7 @@ function PhotoCard({ props }) {
                 "&:hover": {
                   cursor: !isfixed ? "grab" : "auto",
                 },
+                zIndex: 999,
               }}
               id="title"
             >
@@ -217,6 +218,7 @@ function PhotoCard({ props }) {
                 "&:hover": {
                   cursor: !isfixed ? "grab" : "auto",
                 },
+                zIndex: 998,
               }}
               id="text"
             >
@@ -235,7 +237,10 @@ function PhotoCard({ props }) {
                 disabled={Sticker.disabled}
                 key={idx}
               >
-                <Box className="handle" sx={{ position: "absolute" }}>
+                <Box
+                  className="handle"
+                  sx={{ position: "absolute", zIndex: 1000 }}
+                >
                   <Sticker.content.icon
                     sx={{
                       color: Sticker.content.color,

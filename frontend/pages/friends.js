@@ -13,6 +13,8 @@ import {
   searchUsers,
 } from "../components/apis/user";
 import { authentication } from "../components/apis/auth";
+import Header from "../components/Header";
+import Router from "next/router";
 function friends() {
   const [incomingFriends, setIncomingFriends] = useState([]);
   const [userFriends, setUserFriends] = useState([]);
@@ -44,7 +46,13 @@ function friends() {
   useEffect(() => {
     console.log(userFriends);
   }, [userFriends]);
-
+  const handlePrevClick = () => {
+    if (addOpen) {
+      setAddOpen(!addOpen);
+    } else {
+      Router.back();
+    }
+  };
   const handleAddFriendClick = (e) => {
     e.preventDefault();
     setSearchFriendId("");
@@ -77,13 +85,12 @@ function friends() {
             minHeight: "100vh",
           }}
         >
+          <Header
+            title={addOpen ? "친구 추가" : "친구 목록"}
+            handlePrevClick={handlePrevClick}
+          />
           <MenuList />
-          <Typography
-            sx={{ mx: "2rem", my: "1.5rem", fontFamily: "Gowun Dodum" }}
-            variant="h5"
-          >
-            {addOpen ? "친구 추가" : "친구 목록"}
-          </Typography>
+
           <Divider />
           {addOpen ? (
             <Box

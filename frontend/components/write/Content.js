@@ -61,7 +61,7 @@ const Content = (props) => {
       console.log(mailId);
       const response = await getTempSave(
         body,
-        mailId === "" || undefined ? 0 : mailId
+        mailId === "" || undefined ? 0 : mailId,
       );
       setMailId(response.data.mail_id);
     } catch (error) {
@@ -125,10 +125,12 @@ const Content = (props) => {
 
   useEffect(() => {
     console.log(mailType);
-    if (tempTitle == "" && tempContent == "") {
-      setContent("");
-      setTitle("");
-    }
+    // if (tempTitle == "" && tempContent == "") {
+    //   setContent("");
+    //   setTitle("");
+    // }
+    setContentLength(content.length);
+    setTitleLength(title.length);
   }, []);
 
   return (

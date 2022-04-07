@@ -170,7 +170,7 @@ const music = () => {
         {
           position: toast.POSITION.TOP_CENTER,
           role: "alert",
-        }
+        },
       );
     }
   };
