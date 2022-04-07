@@ -7,7 +7,7 @@ import AlbumIcon from "@mui/icons-material/Album";
 import LetterContext from "../../../contexts/LetterContext";
 
 export default function Player(props) {
-  const { music } = props;
+  const { music, inboxMusicName } = props;
   // const { musicSelected } = useContext(ContentsContext);
   const { musicName, musicUrl, setMusicUrl } = useContext(LetterContext);
   const audioPlayer = useRef();
@@ -82,7 +82,9 @@ export default function Player(props) {
           </Box>
         </Grid>
         <Grid item xs={10}>
-          <Typography className="Batang">{musicName}</Typography>
+          <Typography className="Batang">
+            {inboxMusicName ? inboxMusicName : musicName}
+          </Typography>
         </Grid>
         <Grid item xs={1}>
           {playStatus === "stop" ? (

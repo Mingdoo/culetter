@@ -39,18 +39,28 @@ export default function Send() {
         bgcolor: "#FCFAEF",
       }}
     >
-      <Header title="편지 전송" handlePrevClick={handlePrevClick}></Header>
-      <MenuList />
-      <Box
-        sx={{
-          textAlign: "center",
-          fontFamily: "Gowun Batang",
-        }}
-      >
-        {/* 이미 전송한 후인덴 전송할 준비를 끝냈다고? */}
-        편지를 전달할 준비를 마쳤습니다.<br></br>공유를 통해 다른 사람에게
-        편지를 전달해주세요!
-      </Box>
+      <Header title="편지 공유"></Header>
+      {/* <MenuList /> */}
+      {receiverName ? (
+        <Box
+          sx={{
+            textAlign: "center",
+            fontFamily: "Gowun Batang",
+          }}
+        >
+          편지를 전송했습니다.<br></br>보낸 친구에게 알려주세요!
+        </Box>
+      ) : (
+        <Box
+          sx={{
+            textAlign: "center",
+            fontFamily: "Gowun Batang",
+          }}
+        >
+          편지를 전송했습니다.<br></br>링크를 통해 다른 사람에게 편지를
+          전달해주세요!
+        </Box>
+      )}
       <Box component="div" sx={{ mt: "5rem" }}>
         <Box>
           <Box sx={{ position: "relative" }}>
