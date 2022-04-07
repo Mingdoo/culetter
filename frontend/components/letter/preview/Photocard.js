@@ -89,8 +89,8 @@ const Photocard = (props) => {
                 <Sticker.content.icon
                   sx={{
                     color: Sticker.content.color,
-                    transform: `translate(${Sticker.position.x + 17.5}px, ${
-                      Sticker.position.y + 17.5
+                    transform: `translate(${Sticker.position.x + 35}px, ${
+                      Sticker.position.y + 35
                     }px)`,
                   }}
                   fontSize="large"
