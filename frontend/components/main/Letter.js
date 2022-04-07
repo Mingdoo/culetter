@@ -46,7 +46,9 @@ function Letter({
           ? (e) => handlePage(mailId)
           : switchPage
           ? (e) => switchPage(mailId)
-          : null
+          : main
+          ? handleMainClick
+          : handleInboxClick
       }
     >
       <svg
@@ -55,7 +57,6 @@ function Letter({
         viewBox="0 0 348 204"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        onClick={main ? handleMainClick : handleInboxClick}
       >
         <rect
           x="0.5"

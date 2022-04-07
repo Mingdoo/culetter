@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LockIcon from "@mui/icons-material/Lock";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
@@ -19,9 +19,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Router from "next/router";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import LetterContext from "../../contexts/LetterContext";
 
 const LoginForm = () => {
   const { getLogin } = UserApi;
+  const { name, setName } = useContext(LetterContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [accessToken, setAccessToken] = useState(false);
@@ -68,6 +70,7 @@ const LoginForm = () => {
       const response = await getLogin(body);
       localStorage.setItem("accessToken", response.headers.authorization);
       localStorage.setItem("name", response.data.name);
+      setName(response.data.name);
       toast.success(
         <div
           style={{ width: "100%", display: "flex", justifyContent: "center" }}
@@ -84,7 +87,7 @@ const LoginForm = () => {
         {
           position: toast.POSITION.TOP_CENTER,
           role: "alert",
-        }
+        },
       );
       setTimeout(function () {
         Router.push("/main");
@@ -106,7 +109,7 @@ const LoginForm = () => {
         {
           position: toast.POSITION.TOP_CENTER,
           role: "alert",
-        }
+        },
       );
     }
   };

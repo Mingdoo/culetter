@@ -48,6 +48,8 @@ const SignupForm = () => {
   const [name, setName] = useState("");
   const [code, setCode] = useState("");
 
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+
   // 유효성 검사 메시지
   const [emailMsg, setEmailMsg] = useState("");
   const [emailConfirmCodeMsg, setEmailConfirmCodeMsg] = useState("");
@@ -130,7 +132,19 @@ const SignupForm = () => {
     e.preventDefault();
     switch (e.target.id) {
       case "sendBtn":
-        sendEmailAuthCodeApi();
+        setButtonDisabled(true);
+        sendEmailAuthCodeApi().catch(() => {
+          setButtonDisabled(false);
+          toast.error(
+            <Box sx={{ textAlign: "center", fontFamily: "Gowun Dodum" }}>
+              이메일을 확인해주세요 😂
+            </Box>,
+            {
+              position: toast.POSITION.TOP_CENTER,
+              role: "alert",
+            },
+          );
+        });
         break;
       case "confirmBtn":
         checkEmailAuthCodeApi();
@@ -163,7 +177,7 @@ const SignupForm = () => {
         {
           position: toast.POSITION.TOP_CENTER,
           role: "alert",
-        }
+        },
       );
       console.log(response);
     } catch (error) {
@@ -210,7 +224,7 @@ const SignupForm = () => {
         {
           position: toast.POSITION.TOP_CENTER,
           role: "alert",
-        }
+        },
       );
       setTimeout(function () {
         Router.push("/login");
@@ -316,13 +330,14 @@ const SignupForm = () => {
               style={{
                 minWidth: "10px",
                 minHeight: "10px",
-                backgroundColor: "#FCFAEF",
+                backgroundColor: buttonDisabled ? "#aaaaaa" : "#FCFAEF",
                 color: "#3A1D1D",
                 fontSize: "0.5rem",
                 margin: "1rem",
                 fontFamily: "Gowun Dodum",
               }}
               onClick={handleBtn}
+              disabled={buttonDisabled}
             >
               전송
             </Button>

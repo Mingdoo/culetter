@@ -8,6 +8,8 @@ import Letter from "../../components/mail/sent/Letter";
 import ReadMail from "../../components/mail/inbox/ReadMail";
 import { getSendMail } from "../../components/apis/mailbox";
 import BackButton from "../../components/mail/inbox/BackButton";
+import Header from "../../components/Header";
+import Router from "next/router";
 
 const tempData = [];
 
@@ -17,6 +19,13 @@ export default function mailSent() {
   const [isRead, setIsRead] = useState(true);
   const [selectedMail, setSelectedMail] = useState(null);
 
+  const handlePrevClick = () => {
+    if (isRead) {
+      Router.back();
+    } else {
+      setIsRead(!isRead);
+    }
+  };
   const fetch = async () => {
     try {
       const res = await getSendMail();
@@ -49,36 +58,8 @@ export default function mailSent() {
           pb: "2rem",
         }}
       >
-        <Grid
-          container
-          spacing={0}
-          direction="row"
-          alignItems="center"
-          justify="center"
-          sx={{ width: 420 }}
-        >
-          <Grid item xs={3}>
-            {isRead ? null : (
-              <Box sx={{ m: "1rem" }}>
-                <BackButton onClick={setIsRead}></BackButton>
-              </Box>
-            )}
-          </Grid>
-          <Grid item xs={6}>
-            <Box sx={{ m: "1rem" }}>
-              {" "}
-              <Typography
-                sx={{
-                  textAlign: "center",
-                  fontSize: "1.5rem",
-                  fontFamily: "Gowun Dodum",
-                }}
-              >
-                보낸 편지
-              </Typography>
-            </Box>
-          </Grid>
-        </Grid>
+        <Header title="보낸 편지" handlePrevClick={handlePrevClick} />
+
         <MenuList></MenuList>
 
         {isRead ? (
@@ -102,7 +83,7 @@ export default function mailSent() {
                         style_url,
                         title,
                       },
-                      index
+                      index,
                     ) => (
                       <Grid item xs={6} key={index} sx={{ width: 1, pt: 4 }}>
                         <Letter
@@ -115,7 +96,7 @@ export default function mailSent() {
                           mailId={mail_id}
                         ></Letter>
                       </Grid>
-                    )
+                    ),
                   )
                 : mails
                     .filter((obj) => {
@@ -132,7 +113,7 @@ export default function mailSent() {
                           style_url,
                           title,
                         },
-                        index
+                        index,
                       ) => (
                         <Grid item xs={6} key={index} sx={{ width: 1, pt: 4 }}>
                           <Letter
@@ -145,7 +126,7 @@ export default function mailSent() {
                             mailId={mail_id}
                           ></Letter>
                         </Grid>
-                      )
+                      ),
                     )}
             </Grid>
           </Box>

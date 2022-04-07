@@ -5,6 +5,7 @@ import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
 import PauseIcon from "@mui/icons-material/Pause";
 import AlbumIcon from "@mui/icons-material/Album";
 import LetterContext from "../../../contexts/LetterContext";
+import Marquee from "react-fast-marquee";
 
 export default function Player(props) {
   const { music, inboxMusicName } = props;
@@ -70,7 +71,7 @@ export default function Player(props) {
           px: "4px",
           display: "flex",
           color: "white",
-          width: "90%",
+          width: "70%",
           mx: "auto",
           // mb: 10,
           alignItems: "center",
@@ -78,13 +79,23 @@ export default function Player(props) {
       >
         <Grid item xs={1} sx={{ display: "flex" }}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <AlbumIcon fontSize="small"></AlbumIcon>
+            <AlbumIcon
+              className={playStatus === "play" ? "playAlbum" : null}
+              fontSize="small"
+            ></AlbumIcon>
           </Box>
         </Grid>
         <Grid item xs={10}>
-          <Typography className="Batang">
-            {inboxMusicName ? inboxMusicName : musicName}
-          </Typography>
+          <Marquee
+            component="div"
+            play={playStatus === "play"}
+            direction="right"
+            gradient={false}
+          >
+            <Typography>
+              {inboxMusicName ? inboxMusicName : musicName}
+            </Typography>
+          </Marquee>
         </Grid>
         <Grid item xs={1}>
           {playStatus === "stop" ? (
