@@ -125,9 +125,9 @@ export default function Send() {
       <Grid
         container
         sx={{
-          position: "absolute",
+          position: "fixed",
           bottom: 35,
-          width: 1,
+          width: 420,
         }}
         component="div"
       >
