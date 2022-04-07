@@ -19,7 +19,7 @@ axios.interceptors.request.use(
   function (error) {
     console.log(error);
     return Promise.reject(error);
-  },
+  }
 );
 
 export const email = async (userEmail) => {
@@ -40,7 +40,7 @@ export const authentication = () => {
         {
           position: toast.POSITION.TOP_CENTER,
           role: "alert",
-        },
+        }
       );
     }, 100);
   }

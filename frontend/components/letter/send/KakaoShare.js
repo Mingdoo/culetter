@@ -9,18 +9,18 @@ export default function KakaoShare({ title, name }) {
         title: title,
         description: `${name}님께서 보낸 편지가 도착했습니다.`,
         imageUrl:
-          "https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg",
+          "http://k.kakaocdn.net/dn/TACVC/btrw53r5nUs/pKPuexhLd1v3WKMM2SPS31/kakaolink40_original.png",
         link: {
-          mobileWebUrl: "http://culetter.site/",
-          webUrl: "http://culetter.site/",
+          mobileWebUrl: "http://culetter.site/inbox",
+          webUrl: "http://culetter.site/inbox",
         },
       },
       buttons: [
         {
           title: "CU;LETTER로 가기",
           link: {
-            mobileWebUrl: "http://culetter.site/",
-            webUrl: "http://culetter.site/",
+            mobileWebUrl: "http://culetter.site/inbox",
+            webUrl: "http://culetter.site/inbox",
           },
         },
       ],
