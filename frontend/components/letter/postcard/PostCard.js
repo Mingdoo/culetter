@@ -9,6 +9,9 @@ function PostCard({ props }) {
   const [underlineColour, setUnderlineColour] = useState(0);
 
   const { setUnderlineColor, setBgcolor, styleUrl } = useContext(LetterContext);
+  useEffect(() => {
+    setBgcolor(bgColor);
+  }, [bgColor]);
   return (
     <Box
       sx={{
