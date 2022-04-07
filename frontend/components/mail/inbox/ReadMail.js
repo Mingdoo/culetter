@@ -1,12 +1,15 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Tooltip, IconButton } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { useEffect, useState } from "react";
 import { getMail } from "../../apis/letter";
+import { deleteRecvMail } from "../../apis/mailbox";
 import Player from "../../letter/preview/Player";
 import { fonts, colors } from "../../Variables";
 import ReadMailPhotoCard from "./ReadMailPhotoCard";
 import Spinner from "../../Spinner";
-import { motion, AnimateSharedLayout } from "framer-motion";
+import { motion } from "framer-motion";
 
+import Router from "next/router";
 export default function ReadMail({ selectedMail }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -20,6 +23,16 @@ export default function ReadMail({ selectedMail }) {
       console.log(error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const deleteMail = async () => {
+    console.log(selectedMail);
+    try {
+      const res = await deleteRecvMail(selectedMail);
+      console.log(res.data);
+    } catch (e) {
+      console.log(e);
     }
   };
 
@@ -172,6 +185,20 @@ export default function ReadMail({ selectedMail }) {
           <></>
         )}
       </Box>
+      <Tooltip title="삭제">
+        <IconButton
+          aria-label="삭제"
+          onClick={(e) => deleteMail()}
+          sx={{
+            position: "absolute",
+            bottom: 20,
+            right: 69,
+            color: "#a63636",
+          }}
+        >
+          <DeleteIcon />
+        </IconButton>
+      </Tooltip>
       <Box sx={{ py: "2rem" }}>
         <Player
           music={data.music_url}
