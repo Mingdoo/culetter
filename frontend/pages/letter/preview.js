@@ -116,7 +116,7 @@ export default function Preview() {
         {mailType === "POSTCARD" ? <PostCard /> : <></>}
       </Box>
       <Box sx={{ mt: "2rem" }}>
-        <Player musicUrl={musicUrl}></Player>
+        <Player music={musicUrl}></Player>
       </Box>
 
       <Button

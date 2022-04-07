@@ -164,7 +164,7 @@ export default function ReadMail({ selectedMail }) {
         )}
       </Box>
       <Box sx={{ py: "2rem" }}>
-        <Player musicUrl={data.music_url}></Player>
+        <Player music={data.music_url}></Player>
       </Box>
     </motion.div>
   );
