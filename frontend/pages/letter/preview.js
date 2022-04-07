@@ -57,6 +57,7 @@ export default function Preview() {
       content: content,
       style_url: styleUrl,
       music_url: musicUrl,
+      music_title: musicName,
       image: "",
       content_position: "",
       stickers: stringifyStickers,
