@@ -87,7 +87,7 @@ const LoginForm = () => {
         {
           position: toast.POSITION.TOP_CENTER,
           role: "alert",
-        },
+        }
       );
       setTimeout(function () {
         Router.push("/main");
@@ -109,7 +109,7 @@ const LoginForm = () => {
         {
           position: toast.POSITION.TOP_CENTER,
           role: "alert",
-        },
+        }
       );
     }
   };
@@ -333,23 +333,6 @@ const LoginForm = () => {
                 </Button>
               </Link>
             </Grid>
-          </Grid>
-          <Grid item xs={12}>
-            <Box component="div">
-              <Button
-                size="small"
-                style={{
-                  minWidth: "150px",
-                  minHeight: "30px",
-                  color: "#FCFAEF",
-                  fontSize: 12,
-                  marginTop: "1rem",
-                  fontFamily: "Gowun Dodum",
-                }}
-              >
-                비밀번호 재설정
-              </Button>
-            </Box>
           </Grid>
           <ToastContainer />
         </FormControl>

@@ -14,8 +14,9 @@ export default function LinkShare() {
   const link = `https://www.culetter.site/letter/read/${mailCode}`;
 
   useEffect(() => {
+    console.log(mailCode);
     setIsMobile(
-      window.matchMedia("only screen and (max-width: 760px)").matches,
+      window.matchMedia("only screen and (max-width: 760px)").matches
     );
   }, []);
 
@@ -62,7 +63,7 @@ export default function LinkShare() {
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
-        },
+        }
       );
     } catch (error) {
       console.log(`copy failed ${error}`);
