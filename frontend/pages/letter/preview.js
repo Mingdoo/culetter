@@ -102,7 +102,7 @@ export default function Preview() {
       }}
     >
       <Header title="미리보기" handlePrevClick={handlePrevClick}></Header>
-      <MenuList></MenuList>
+      {/* <MenuList></MenuList> */}
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         {/* 포토카드 */}
         {mailType === "PHOTOCARD" ? (
