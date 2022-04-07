@@ -123,7 +123,7 @@ export default function ReadMailByCode({ code, setReceivedTitle }) {
           scale: 1,
           opacity: 2,
           transition: {
-            delay: 0.5,
+            delay: 0.1,
           },
         },
       }}
