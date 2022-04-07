@@ -39,7 +39,7 @@ export default function MenuList() {
             borderBottom: 1,
           }}
         >
-          [{name || storageName}]
+          {name || storageName} 님
         </Box>
         {[
           "홈",

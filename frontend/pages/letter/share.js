@@ -3,7 +3,7 @@ import LetterContext from "../../contexts/LetterContext";
 import RoutingContext from "../../contexts/RoutingContext";
 import Header from "../../components/Header";
 import Router from "next/router";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 import stamp from "../../public/img/stamp.PNG";
 import LinkShare from "../../components/letter/send/LinkShare";
@@ -13,9 +13,12 @@ import { authentication } from "../../components/apis/auth";
 import MenuList from "../../components/menu/MenuList";
 export default function Send() {
   // receiverName 있으면 카카오톡으로 알리기 아니면 링크 공유
+  const init = useRef(true);
   useEffect(() => {
-    if (process.env.NEXT_PUBLIC_KAKAO_KEY) {
-      Kakao.init(process.env.NEXT_PUBLIC_KAKAO_KEY);
+    if (init) {
+      Kakao.init("3a6df59af8e42ef7045cfd0b2303169c");
+    } else {
+      init.current = false;
     }
     authentication();
   }, []);
