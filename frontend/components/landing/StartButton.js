@@ -18,6 +18,7 @@ export default function StartButton(props) {
 const ButtonStyle = {
   borderRadius: 2,
   backgroundColor: "#D3504A",
+  fontFamily: "Gowun Dodum",
   "&:hover": {
     backgroundColor: "#e4615b",
   },

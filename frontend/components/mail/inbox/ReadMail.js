@@ -95,8 +95,17 @@ export default function ReadMail({ selectedMail }) {
                   fontWeight: data.is_font_bold ? "bold" : "normal",
                 }}
               >
-                {data.title}
-                <br />
+                <Typography
+                  sx={{
+                    mb: "0.1rem",
+                    fontFamily: "Gowun Batang",
+                    fontWeight: "Bolder",
+                  }}
+                >
+                  <Typography sx={{ mb: "0.5rem", fontFamily: "Gowun Batang" }}>
+                    {data.title}
+                  </Typography>
+                </Typography>
                 {data.content}
               </Typography>
             </Box>
@@ -164,7 +173,10 @@ export default function ReadMail({ selectedMail }) {
         )}
       </Box>
       <Box sx={{ py: "2rem" }}>
-        <Player musicUrl={data.music_url}></Player>
+        <Player
+          music={data.music_url}
+          inboxMusicName={data.music_title}
+        ></Player>
       </Box>
     </motion.div>
   );

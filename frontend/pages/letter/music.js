@@ -290,9 +290,9 @@ const music = () => {
       </Box>
 
       <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <Button onClick={handlePreviousMusic}>
+        {/* <Button onClick={handlePreviousMusic}>
           <SkipPreviousSharpIcon style={playerIcon} />
-        </Button>
+        </Button> */}
         {playStatus === "stop" ? (
           <Button onClick={handleMusicStart}>
             <PlayCircleFilledSharpIcon style={playerIcon} />
@@ -302,9 +302,9 @@ const music = () => {
             <PauseIcon style={playerIcon} />
           </Button>
         )}
-        <Button onClick={handleNextMusic}>
+        {/* <Button onClick={handleNextMusic}>
           <SkipNextSharpIcon style={playerIcon} />
-        </Button>
+        </Button> */}
       </Box>
       <Typography
         sx={{

@@ -32,8 +32,7 @@ export default function MenuList() {
           sx={{
             color: "white",
             whiteSpace: "nowrap",
-            // display: "flex",
-            // justifyContent: "center",
+            fontFamily: "Gowun Batang",
             mt: 4,
             pb: 2,
             px: "16px",

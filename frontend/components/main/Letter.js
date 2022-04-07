@@ -16,6 +16,7 @@ function Letter({
   mailId,
   handlePage,
   switchPage,
+  mailType,
 }) {
   const router = useRouter();
 
@@ -231,10 +232,23 @@ function Letter({
           <Typography sx={{ fontSize: 12, fontFamily: "Gowun Dodum" }}>
             {senderName}
           </Typography>
-          {createdDate ? (
+          {createdDate && !handlePage ? (
             <Typography sx={{ fontSize: 12, fontFamily: "Gowun Dodum" }}>
               {index ? "엽서, " : "일반, "}
               {/* {createdDate} */}
+              {createdDate.slice(0, 4)}년 {createdDate.slice(5, 7)}월{" "}
+              {createdDate.slice(8, 10)}일
+            </Typography>
+          ) : null}
+          {createdDate && handlePage ? (
+            <Typography sx={{ fontSize: 12, fontFamily: "Gowun Dodum" }}>
+              {mailType
+                ? mailType === "GENERAL"
+                  ? "일반, "
+                  : mailType === "POSTCARD"
+                  ? "엽서, "
+                  : "포토카드, "
+                : null}
               {createdDate.slice(0, 4)}년 {createdDate.slice(5, 7)}월{" "}
               {createdDate.slice(8, 10)}일
             </Typography>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
-import { Box, Grid, CircularProgress } from "@mui/material";
+import { Box, Grid, CircularProgress, Typography } from "@mui/material";
 // import mailsRecvAPI from "../../apis/mailbox";
 import Postbox from "./Postbox";
 import SearchBox from "../../user/SearchBox";
@@ -77,6 +77,18 @@ export default function PostboxPage({
             inbox={true}
           />
         </Box>
+        {!mails ? (
+          <Box
+            sx={{
+              fontFamily: "Gowun Batang",
+              display: "flex",
+              justifyContent: "center",
+              mt: "10rem",
+            }}
+          >
+            아직 도착한 편지가 없습니다
+          </Box>
+        ) : null}
         <Box sx={{ minHeight: "87vh", px: 2 }}>
           {loading ? (
             <Spinner text="로딩 중" mt="30vh"></Spinner>
@@ -94,7 +106,7 @@ export default function PostboxPage({
                       ></Postbox>
                     </Grid>
                   ))
-                : data
+                : mails
                     .filter((obj) => {
                       return obj.name.includes(searchMemberName);
                     })
