@@ -32,7 +32,7 @@ export const emojis = [
 ];
 
 function PhotoCard({ props }) {
-  const { setStickersPos, setBgcolor } = useContext(LetterContext);
+  const { setStickersPos, setBgcolor, stickersPos } = useContext(LetterContext);
 
   const [count, setCount] = useState(0);
   const [stickers, updateStickers] = useState([]);
@@ -68,6 +68,7 @@ function PhotoCard({ props }) {
 
   useEffect(() => {
     setStickersPos(stickers);
+    console.log(stickersPos);
   }, [stickers]);
 
   useEffect(() => {}, []);
@@ -90,7 +91,7 @@ function PhotoCard({ props }) {
       disabled: obj.disabled,
     };
     const updatedStickers = stickers.map((sticker) =>
-      sticker.idx === obj.idx ? updatedSticker : sticker,
+      sticker.idx === obj.idx ? updatedSticker : sticker
     );
 
     updateStickers(updatedStickers);
@@ -160,7 +161,7 @@ function PhotoCard({ props }) {
                   position: { x: 0, y: 0 },
                   disabled: false,
                 },
-                data,
+                data
               )
             }
             disabled={isfixed}
@@ -199,7 +200,7 @@ function PhotoCard({ props }) {
                   position: { x: 0, y: 0 },
                   disabled: false,
                 },
-                data,
+                data
               )
             }
             disabled={isfixed}
@@ -256,7 +257,7 @@ function PhotoCard({ props }) {
                   />
                 </Box>
               </Draggable>
-            ) : null,
+            ) : null
           )}
         </Box>
         <Box>
@@ -284,7 +285,7 @@ function PhotoCard({ props }) {
               updateStickers((stickers) =>
                 stickers.map((sticker) => {
                   return { ...sticker, disabled: true };
-                }),
+                })
               );
               setStickersPos(stickers);
             }}
