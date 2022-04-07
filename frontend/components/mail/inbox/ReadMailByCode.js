@@ -2,7 +2,7 @@ import { Box, Typography, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import ReactCardFlip from "react-card-flip";
 import Router from "next/router";
-
+import DownloadIcon from "@mui/icons-material/Download";
 import { getMailByCode, saveRecvMail } from "../../apis/letter";
 import Player from "../../letter/preview/Player";
 import { fonts, colors } from "../../Variables";
@@ -36,10 +36,10 @@ export default function ReadMailByCode({ code }) {
   };
 
   useEffect(() => {
-    console.log(data);
-    console.log(data.style_url);
-    console.log(data.content);
-    console.log(data.music_url);
+    // console.log(data);
+    // console.log(data.style_url);
+    // console.log(data.content);
+    // console.log(data.music_url);
   }, [data]);
 
   function renderElement(Sticker) {
@@ -252,9 +252,21 @@ export default function ReadMailByCode({ code }) {
         <Player music={data.music_url}></Player>
       </Box>
       {data.receiver_email ? null : (
-        <Box sx={{ display: "flex", justifyContent: "center", mt: "1rem" }}>
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            fontSize: 18,
+            justifyContent: "center",
+            mt: "1rem",
+            borderRadius: "3rem",
+          }}
+        >
           <Button sx={{ ...ButtonStyle }} onClick={saveLetter}>
-            편지함에 보관
+            <Typography sx={{ fontFamily: "Gowun Batang", mr: "1rem" }}>
+              편지함에 보관
+              <DownloadIcon sx={{ color: "white" }} />
+            </Typography>
           </Button>
         </Box>
       )}
@@ -266,7 +278,9 @@ const ButtonStyle = {
   fontFamily: "Gowun Batang",
   fontSize: 18,
   color: "black",
+  backgroundColor: "#f7e4e0",
   "&:hover": {
     backgroundColor: "transparent",
   },
+  borderRadius: "2rem",
 };
