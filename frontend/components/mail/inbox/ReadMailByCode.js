@@ -49,9 +49,7 @@ export default function ReadMailByCode({ code }) {
         sx={{
           position: "absolute",
           color: Sticker.content.color,
-          transform: `translate(${Sticker.position.x + 17.5}px, ${
-            Sticker.position.y + 17.5
-          }px)`,
+          transform: `translate(${Sticker.position.x}px, ${Sticker.position.y}px)`,
         }}
         fontSize="large"
       />

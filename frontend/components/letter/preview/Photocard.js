@@ -90,9 +90,7 @@ const Photocard = (props) => {
                   sx={{
                     position: "absolute",
                     color: Sticker.content.color,
-                    transform: `translate(${Sticker.position.x + 35}px, ${
-                      Sticker.position.y + 35
-                    }px)`,
+                    transform: `translate(${Sticker.position.x}px, ${Sticker.position.y}px)`,
                   }}
                   fontSize="large"
                 />
