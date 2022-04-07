@@ -1,4 +1,4 @@
-import { Grid, Box, Typography } from "@mui/material";
+import { Grid, Box, Typography, Stack, Slider } from "@mui/material";
 import { useState, useRef, useContext, useEffect } from "react";
 
 import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
@@ -6,6 +6,8 @@ import PauseIcon from "@mui/icons-material/Pause";
 import AlbumIcon from "@mui/icons-material/Album";
 import LetterContext from "../../../contexts/LetterContext";
 import Marquee from "react-fast-marquee";
+import VolumeUp from "@mui/icons-material/VolumeUp";
+import VolumeDown from "@mui/icons-material/VolumeDown";
 
 export default function Player(props) {
   const { music, inboxMusicName } = props;
@@ -16,6 +18,8 @@ export default function Player(props) {
   const [seekValue, setSeekValue] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [playStatus, setPlayStatus] = useState("stop");
+  const [volume, setVolume] = useState(0.5);
+  const [openVolumeController, setOpenVolumeController] = useState(false);
   const handleMusicStart = () => {
     audioPlayer.current.play();
     setPlayStatus("play");
@@ -39,6 +43,20 @@ export default function Player(props) {
     //   : null;
   };
 
+  const handleVolumeControl = () => {
+    setOpenVolumeController((prev) => !prev);
+  };
+
+  const handleVolumeChange = (event, newValue) => {
+    setVolume(newValue / 100);
+  };
+
+  const preventHorizontalKeyboardNavigation = (event) => {
+    if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+      event.preventDefault();
+    }
+  };
+
   useEffect(() => {
     if (music !== undefined) {
       console.log(music, "player music");
@@ -58,6 +76,7 @@ export default function Player(props) {
         src={music === undefined ? musicUrl : music}
         ref={audioPlayer}
         onTimeUpdate={onPlaying}
+        volume={volume}
       >
         Your browser does not support the
         <code>audio</code> element.
@@ -85,7 +104,7 @@ export default function Player(props) {
             ></AlbumIcon>
           </Box>
         </Grid>
-        <Grid item xs={10}>
+        <Grid item xs={8}>
           <Marquee
             component="div"
             play={playStatus === "play"}
@@ -116,6 +135,27 @@ export default function Player(props) {
             ></PauseIcon>
           )}
         </Grid>
+        <Box>
+          <VolumeUp sx={{ color: "#eee" }} onClick={handleVolumeControl} />
+          <Box className={"volumeController"}>
+            {openVolumeController ? (
+              <Box sx={{ height: 100 }}>
+                <Slider
+                  sx={{
+                    '& input[type="range"]': {
+                      WebkitAppearance: "slider-vertical",
+                    },
+                  }}
+                  orientation="vertical"
+                  // defaultValue={volume}
+                  value={volume * 100}
+                  onChange={handleVolumeChange}
+                  onKeyDown={preventHorizontalKeyboardNavigation}
+                />
+              </Box>
+            ) : null}
+          </Box>
+        </Box>
       </Grid>
     </>
   );

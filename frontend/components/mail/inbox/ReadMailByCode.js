@@ -270,7 +270,6 @@ export default function ReadMailByCode({ code }) {
           <Button sx={{ ...ButtonStyle }} onClick={saveLetter}>
             <Typography sx={{ fontFamily: "Gowun Batang", mr: "1rem" }}>
               편지함에 보관
-              <DownloadIcon sx={{ color: "white", ml: "2rem" }} />
             </Typography>
           </Button>
         </Box>
@@ -288,6 +287,6 @@ const ButtonStyle = {
     backgroundColor: "transparent",
   },
   borderRadius: "2rem",
-  width: "50%",
+  width: "40%",
   justifyContent: "center",
 };

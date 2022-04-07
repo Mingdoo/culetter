@@ -123,6 +123,7 @@ const Content = (props) => {
     if (tempTitle !== "" && tempContent !== "") {
       setMailType(tempMailType);
       setTitle(tempTitle);
+      setTitleLength(tempTitle.length);
       setContent(`${tempContent}`);
       setContentLength(tempContent.length);
       setOpacity("0%");
