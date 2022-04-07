@@ -333,7 +333,7 @@ export default function ReadMailByCode({ code, setReceivedTitle }) {
 
 const ButtonStyle = {
   fontFamily: "Gowun Batang",
-  fontSize: 16,
+  fontSize: 18,
   color: "#a63636",
   borderColor: "#a63636",
   "&:hover": {

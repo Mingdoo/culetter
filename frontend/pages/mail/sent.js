@@ -70,18 +70,6 @@ export default function mailSent() {
 
         <MenuList></MenuList>
 
-        {Array.isArray(mails) && !mails.length ? (
-          <Typography
-            variant="h1"
-            sx={{
-              fontFamily: "Gowun Dodum",
-              textAlign: "center",
-              mt: "5rem",
-            }}
-          >
-            텅..
-          </Typography>
-        ) : null}
         {isRead ? (
           <Box>
             <SearchBox
@@ -90,6 +78,18 @@ export default function mailSent() {
               width={320}
               onChange={(e) => setSearchName(e)}
             ></SearchBox>
+            {Array.isArray(mails) && !mails.length ? (
+              <Typography
+                variant="h1"
+                sx={{
+                  fontFamily: "Gowun Dodum",
+                  textAlign: "center",
+                  mt: "5rem",
+                }}
+              >
+                텅..
+              </Typography>
+            ) : null}
             <Grid container sx={{ width: 1, pt: 1, px: 2 }}>
               {!searchName
                 ? mails.map(
