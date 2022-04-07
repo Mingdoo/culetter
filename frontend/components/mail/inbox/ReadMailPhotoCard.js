@@ -16,7 +16,9 @@ export default function ReadMailPhotocard({ data }) {
       <Emoji.icon
         sx={{
           color: Sticker.content.color,
-          transform: `translate(${Sticker.position.x}px, ${Sticker.position.y}px)`,
+          transform: `translate(${Sticker.position.x + 17.5}px, ${
+            Sticker.position.y + 17.5
+          }px)`,
         }}
         fontSize="large"
       />
@@ -73,6 +75,7 @@ export default function ReadMailPhotocard({ data }) {
                   color: colors[data.font_color],
                   whiteSpace: "pre-line",
                   fontWeight: data.is_font_bold ? "bold" : "normal",
+                  textAlign: data.font_order,
                 }}
                 key={index}
               >

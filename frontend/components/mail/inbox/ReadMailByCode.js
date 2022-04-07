@@ -19,7 +19,7 @@ export default function ReadMailByCode({ code }) {
     try {
       const res = await getMailByCode(code);
       setData(res.data);
-      // console.log(JSON.parse(res.data.stickers));
+      console.log(res.data);
       setStickersPos(JSON.parse(res.data.stickers));
     } catch (error) {
       console.log(error);
@@ -48,7 +48,9 @@ export default function ReadMailByCode({ code }) {
       <Emoji.icon
         sx={{
           color: Sticker.content.color,
-          transform: `translate(${Sticker.position.x}px, ${Sticker.position.y}px)`,
+          transform: `translate(${Sticker.position.x + 17.5}px, ${
+            Sticker.position.y + 17.5
+          }px)`,
         }}
         fontSize="large"
       />
@@ -119,7 +121,7 @@ export default function ReadMailByCode({ code }) {
                   position: "relative",
                 }}
               >
-                {stickersPos.map((Sticker) =>
+                {stickersPos.map((Sticker, idx) =>
                   Sticker.type !== "sticker" ? (
                     <Typography
                       sx={{
@@ -131,12 +133,14 @@ export default function ReadMailByCode({ code }) {
                         color: colors[data.font_color],
                         whiteSpace: "pre-line",
                         fontWeight: data.is_font_bold ? "bold" : "normal",
+                        textAlign: data.font_order,
                       }}
+                      key={idx}
                     >
                       {Sticker.content}
                     </Typography>
                   ) : (
-                    <Box sx={{ position: "absolute" }}>
+                    <Box sx={{ position: "absolute" }} key={idx}>
                       {renderElement(Sticker)}
                     </Box>
                   )
