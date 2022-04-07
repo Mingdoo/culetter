@@ -26,6 +26,7 @@ export default function Preview() {
     setStyleUrl,
     content,
     musicUrl,
+    musicName,
     image,
     contentPosition,
     fontsize,
@@ -68,6 +69,7 @@ export default function Preview() {
       is_font_bold: isFontBold,
       underline_color: underlineColor,
       handwrite_image: "",
+      music_title: musicName,
     };
 
     try {
@@ -100,7 +102,7 @@ export default function Preview() {
       }}
     >
       <Header title="미리보기" handlePrevClick={handlePrevClick}></Header>
-      <MenuList></MenuList>
+      {/* <MenuList></MenuList> */}
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         {/* 포토카드 */}
         {mailType === "PHOTOCARD" ? (
@@ -116,7 +118,7 @@ export default function Preview() {
         {mailType === "POSTCARD" ? <PostCard /> : <></>}
       </Box>
       <Box sx={{ mt: "2rem" }}>
-        <Player musicUrl={musicUrl}></Player>
+        <Player music={musicUrl}></Player>
       </Box>
 
       <Button
