@@ -237,8 +237,11 @@ const Recommended = () => {
               handleNextClick={handleNextClick}
             />
             <Typography
-              className="Batang"
-              sx={{ textAlign: "center", mb: "1rem" }}
+              sx={{
+                textAlign: "center",
+                mb: "1rem",
+                fontFamily: "Gowun Batang",
+              }}
             >
               편지 내용에 어울리는 편지지 입니다
             </Typography>
@@ -251,8 +254,11 @@ const Recommended = () => {
               handleNextClick={handleNextClick}
             />
             <Typography
-              className="Batang"
-              sx={{ textAlign: "center", mb: "1rem" }}
+              sx={{
+                textAlign: "center",
+                mb: "1rem",
+                fontFamily: "Gowun Batang",
+              }}
             >
               편지 내용에 어울리는 엽서사진 입니다
             </Typography>
