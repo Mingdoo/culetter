@@ -13,8 +13,14 @@ import { motion, AnimateSharedLayout } from "framer-motion";
 import { authentication } from "../../components/apis/auth";
 import MenuList from "../../components/menu/MenuList";
 export default function select() {
-  const { memberId, setMemberId, setReceiverName, setReceiverEmail } =
-    useContext(LetterContext);
+  const {
+    memberId,
+    setMemberId,
+    setReceiverName,
+    setReceiverEmail,
+    setMailId,
+    mailId,
+  } = useContext(LetterContext);
   const [searchId, setSearchId] = useState("");
   const [filterFavorite, setFilterFavorite] = useState(false);
   const [receiver, setReceiver] = useState("");
@@ -50,6 +56,7 @@ export default function select() {
   useEffect(() => {
     authentication();
     setReceiverName("");
+    setMailId("");
     const token = localStorage.getItem("accessToken");
     {
       token &&

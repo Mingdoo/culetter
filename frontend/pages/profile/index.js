@@ -36,9 +36,10 @@ export default function index() {
   const [email, setEmail] = useState();
   const testConfirm = useRef(false);
   const [pwConfirm, setPwConfirm] = useState(false);
+  const [nameValidation, setNameValidation] = useState(true);
   const { fromBack, setFromBack } = useContext(RoutingContext);
   const { name, setName } = useContext(LetterContext);
-
+  const [nameMsg, setNameMsg] = useState(false);
   const onClickUploadFile = function (e) {
     const file = e.target.files[0];
     changeProfileImage(file)
@@ -62,7 +63,7 @@ export default function index() {
           {
             position: toast.POSITION.TOP_CENTER,
             role: "alert",
-          },
+          }
         );
       })
       .catch((err) => {
@@ -75,6 +76,16 @@ export default function index() {
     };
   };
 
+  const newNameValid = (name) => {
+    const namePattern = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|\*]{2,12}$/;
+    if (!namePattern.test(name)) {
+      setNameMsg("2자 이상 12자 이하로 특수문자는 포함하지 않습니다");
+      setNameValidation(false);
+    } else {
+      setNameMsg("");
+      setNameValidation(true);
+    }
+  };
   const setUserInfo = async () => {
     try {
       const res = await getUserInfo();
@@ -116,7 +127,7 @@ export default function index() {
           pwConfirm: pwConfirm,
         },
       },
-      "profile/password",
+      "profile/password"
     );
   };
   const onClickUpdate = () => {
@@ -140,7 +151,7 @@ export default function index() {
           {
             position: toast.POSITION.TOP_CENTER,
             role: "alert",
-          },
+          }
         );
       })
       .catch((err) => {
@@ -267,7 +278,10 @@ export default function index() {
                                 type="name"
                                 label="이름"
                                 value={newName}
-                                onChange={(e) => setNewName(e.target.value)}
+                                onChange={(e) => {
+                                  setNewName(e.target.value);
+                                  newNameValid(e.target.value);
+                                }}
                                 disabled={false}
                               ></StyledTextField>
                             </Grid>
@@ -282,7 +296,9 @@ export default function index() {
                             fontSize: 11,
                             pt: "3px",
                           }}
-                        ></Box>
+                        >
+                          {nameMsg}
+                        </Box>
                         <Box>
                           <Grid container>
                             <Grid
@@ -326,7 +342,10 @@ export default function index() {
                     </Box>
                   </Box>
                 </Box>
-                <ConfirmBtn onClick={onClickUpdate}></ConfirmBtn>
+                <ConfirmBtn
+                  onClick={onClickUpdate}
+                  disabled={!nameValidation}
+                ></ConfirmBtn>
               </Box>
             )}
           </Box>
