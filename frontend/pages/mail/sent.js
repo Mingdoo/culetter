@@ -10,6 +10,7 @@ import { getSendMail } from "../../components/apis/mailbox";
 import BackButton from "../../components/mail/inbox/BackButton";
 import Header from "../../components/Header";
 import Router from "next/router";
+import LetterContext from "../../contexts/LetterContext";
 
 const tempData = [];
 
@@ -18,6 +19,7 @@ export default function mailSent() {
   const [mails, setMails] = useState([]);
   const [isRead, setIsRead] = useState(true);
   const [selectedMail, setSelectedMail] = useState(null);
+  const { setContent, setTitle } = useContext(LetterContext);
 
   const handlePrevClick = () => {
     if (isRead) {
@@ -29,6 +31,8 @@ export default function mailSent() {
   const fetch = async () => {
     try {
       const res = await getSendMail();
+      setContent("");
+      setTitle("");
       console.log(res.data.result);
       setMails(res.data.result.reverse());
     } catch (error) {
@@ -83,7 +87,7 @@ export default function mailSent() {
                         style_url,
                         title,
                       },
-                      index,
+                      index
                     ) => (
                       <Grid item xs={6} key={index} sx={{ width: 1, pt: 4 }}>
                         <Letter
@@ -96,7 +100,7 @@ export default function mailSent() {
                           mailId={mail_id}
                         ></Letter>
                       </Grid>
-                    ),
+                    )
                   )
                 : mails
                     .filter((obj) => {
@@ -113,7 +117,7 @@ export default function mailSent() {
                           style_url,
                           title,
                         },
-                        index,
+                        index
                       ) => (
                         <Grid item xs={6} key={index} sx={{ width: 1, pt: 4 }}>
                           <Letter
@@ -126,7 +130,7 @@ export default function mailSent() {
                             mailId={mail_id}
                           ></Letter>
                         </Grid>
-                      ),
+                      )
                     )}
             </Grid>
           </Box>

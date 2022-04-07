@@ -63,7 +63,7 @@ const Content = (props) => {
       console.log(mailId);
       const response = await getTempSave(
         body,
-        mailId === "" || undefined ? 0 : mailId,
+        mailId === "" || undefined ? 0 : mailId
       );
       setMailId(response.data.mail_id);
       toast.success(
@@ -166,6 +166,12 @@ const Content = (props) => {
     //   setContent("");
     //   setTitle("");
     // }
+    if (content === " " && title === " ") {
+      setContent("");
+      setTitle("");
+    }
+    console.log(content);
+    console.log(title);
     setContentLength(content.length);
     setTitleLength(title.length);
   }, []);
