@@ -50,6 +50,10 @@ export default function mailSent() {
     fetch();
   }, []);
 
+  useEffect(() => {
+    fetch();
+  }, [handlePrevClick]);
+
   return (
     <>
       <Box
@@ -66,6 +70,18 @@ export default function mailSent() {
 
         <MenuList></MenuList>
 
+        {Array.isArray(mails) && !mails.length ? (
+          <Typography
+            variant="h1"
+            sx={{
+              fontFamily: "Gowun Dodum",
+              textAlign: "center",
+              mt: "5rem",
+            }}
+          >
+            텅..
+          </Typography>
+        ) : null}
         {isRead ? (
           <Box>
             <SearchBox
@@ -135,7 +151,11 @@ export default function mailSent() {
             </Grid>
           </Box>
         ) : (
-          <ReadMail selectedMail={selectedMail}></ReadMail>
+          <ReadMail
+            selectedMail={selectedMail}
+            sent={true}
+            setIsRead={setIsRead}
+          ></ReadMail>
         )}
       </Box>
       <Footer></Footer>
