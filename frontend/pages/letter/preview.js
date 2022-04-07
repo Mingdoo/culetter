@@ -41,6 +41,8 @@ export default function Preview() {
     underlineColor,
     setReceiverName,
     setReceiverEmail,
+    setContent,
+    setTitle,
   } = useContext(LetterContext);
 
   const { setMailCode } = useContext(RoutingContext);
@@ -78,6 +80,8 @@ export default function Preview() {
       try {
         const res = await sendTempMail(body, mailId);
         console.log(res);
+        setContent("");
+        setTitle("");
         Router.push("/letter/share");
       } catch (e) {
         console.log(e);
@@ -87,6 +91,8 @@ export default function Preview() {
         const res = await sendLetter(body);
         setMailCode(res.data.code);
         setReceiverEmail(null);
+        setContent("");
+        setTitle("");
         // console.log(res.data.code);
         // console.log("하기 전", stickersPos);
         // console.log(JSON.stringify(stickersPos));
