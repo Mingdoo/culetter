@@ -91,7 +91,7 @@ const LoginForm = () => {
       );
       setTimeout(function () {
         Router.push("/main");
-      }, 2000);
+      }, 1000);
     } catch (error) {
       toast.error(
         <div
@@ -283,6 +283,9 @@ const LoginForm = () => {
                   },
                 }}
                 onChange={(e) => handleInput(e.target.value, "password")}
+                onKeyUp={(e) => {
+                  e.key === "Enter" ? handleLogin(e) : null;
+                }}
               />
             </Grid>
             <Grid item xs={2}></Grid>
@@ -306,6 +309,7 @@ const LoginForm = () => {
                   minHeight: "30px",
                   backgroundColor: "#E2E0A5",
                   color: "#3A1D1D",
+                  fontFamily: "Gowun Dodum",
                 }}
                 onClick={handleLogin}
               >
@@ -322,6 +326,7 @@ const LoginForm = () => {
                     minHeight: "30px",
                     backgroundColor: "#E2E0A5",
                     color: "#3A1D1D",
+                    fontFamily: "Gowun Dodum",
                   }}
                 >
                   회원가입
@@ -339,6 +344,7 @@ const LoginForm = () => {
                   color: "#FCFAEF",
                   fontSize: 12,
                   marginTop: "1rem",
+                  fontFamily: "Gowun Dodum",
                 }}
               >
                 비밀번호 재설정

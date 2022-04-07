@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import LetterContext from "../contexts/LetterContext";
 import RoutingContext from "../contexts/RoutingContext";
 import { DefaultSeo } from "next-seo";
+import Head from "next/head";
 import { DEFAULT_SEO } from "../components/Variables";
 
 function MyApp({ Component, pageProps }) {
@@ -39,7 +40,14 @@ function MyApp({ Component, pageProps }) {
   const [emotion, setEmotion] = useState({});
   return (
     <>
+      <Head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, minimum-scale=1"
+        />
+      </Head>
       <DefaultSeo {...DEFAULT_SEO} />
+
       <LetterContext.Provider
         value={{
           name,

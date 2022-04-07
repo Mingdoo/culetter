@@ -15,13 +15,13 @@ export default function LinkShare() {
 
   useEffect(() => {
     setIsMobile(
-      window.matchMedia("only screen and (max-width: 760px)").matches
+      window.matchMedia("only screen and (max-width: 760px)").matches,
     );
   }, []);
 
   const shareData = {
-    title: "test",
-    text: "test",
+    title: link,
+    text: link,
     url: "document.location.href",
   };
 
@@ -62,7 +62,7 @@ export default function LinkShare() {
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
-        }
+        },
       );
     } catch (error) {
       console.log(`copy failed ${error}`);
