@@ -78,6 +78,8 @@ const writeLetter = () => {
   const handleGetMail = async (id) => {
     try {
       const response = await getMailById(id);
+      setMailId(id);
+      console.log(mailId, id);
       setTempMailType(response.data.mail_type);
       setTempContent(response.data.content);
       setTempTitle(response.data.title);

@@ -19,6 +19,10 @@ mailsApi.interceptors.request.use(
   }
 );
 
+export const sendTempMail = async (body, mailId) => {
+  console.log(mailId);
+  return await mailsApi.post(`/tempsave/write/${mailId}`, body);
+};
 export const sendLetter = async (body) => {
   console.log(body);
   return await mailsApi.post(`/write`, body);
