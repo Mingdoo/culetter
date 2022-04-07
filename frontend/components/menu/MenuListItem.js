@@ -44,11 +44,15 @@ function MenuListItem({ text, index }) {
           key={index}
           sx={{
             whiteSpace: "nowrap",
-            // position: "fixed",
           }}
         >
           <ListItemIcon sx={{ color: "white" }}>{icons[index]}</ListItemIcon>
-          <ListItemText sx={{ color: "white" }} primary={text} />
+          <ListItemText
+            disableTypography
+            sx={{ color: "white", fontFamily: "Gowun Batang" }}
+            style={{ fontFamily: "Gowun Batang" }}
+            primary={text}
+          />
         </ListItem>
       </Link>
       {/* <hr style={{ margin: 0 }}></hr> */}

@@ -84,6 +84,7 @@ const writeLetter = () => {
       console.log("1", response);
       setMailType(response.data.mail_type);
       checkTextValid(true);
+      console.log("1", textValid);
     } catch (error) {
       console.log(error);
     }
@@ -104,6 +105,7 @@ const writeLetter = () => {
 
   useEffect(() => {
     console.log("2", tempContent);
+    console.log(textValid);
   }, [tempContent, tempTitle]);
 
   return (
