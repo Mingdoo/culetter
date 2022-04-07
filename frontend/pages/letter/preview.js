@@ -81,6 +81,7 @@ export default function Preview() {
       try {
         const res = await sendTempMail(body, mailId);
         console.log(res);
+        setMailCode(res.data.code);
         setContent("");
         setTitle("");
         Router.push("/letter/share");
