@@ -40,7 +40,6 @@ export default function Preview() {
     underlineColor,
     setReceiverName,
     setReceiverEmail,
-    musicName,
   } = useContext(LetterContext);
 
   const { setMailCode } = useContext(RoutingContext);
