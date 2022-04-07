@@ -104,7 +104,7 @@ export default function Player(props) {
             ></AlbumIcon>
           </Box>
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={10}>
           <Marquee
             component="div"
             play={playStatus === "play"}
@@ -135,7 +135,7 @@ export default function Player(props) {
             ></PauseIcon>
           )}
         </Grid>
-        <Box>
+        {/* <Box>
           <VolumeUp sx={{ color: "#eee" }} onClick={handleVolumeControl} />
           <Box className={"volumeController"}>
             {openVolumeController ? (
@@ -155,7 +155,7 @@ export default function Player(props) {
               </Box>
             ) : null}
           </Box>
-        </Box>
+        </Box> */}
       </Grid>
     </>
   );
