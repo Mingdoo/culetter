@@ -12,14 +12,12 @@ import Letter from "../../components/main/Letter";
 import { authentication } from "../../components/apis/auth";
 import MenuList from "../../components/menu/MenuList";
 export default function Send() {
-  // receiverName 있으면 카카오톡으로 알리기 아니면 링크 공유
-  const init = useRef(true);
   useEffect(() => {
-    if (init) {
+    console.log(window.Kakao.isInitialized());
+    if (receiverName && !window.Kakao.isInitialized()) {
       Kakao.init("3a6df59af8e42ef7045cfd0b2303169c");
-    } else {
-      init.current = false;
     }
+    console.log(window.Kakao.isInitialized());
     authentication();
   }, []);
   const { title, receiverName } = useContext(LetterContext);
