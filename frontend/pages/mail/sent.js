@@ -179,8 +179,13 @@ export default function mailSent() {
                           )
                         )}
                 </Grid>
+<<<<<<< HEAD
               </motion.div>
             </Box>
+=======
+              </Box>
+            </motion.div>
+>>>>>>> 8ac7637bfab18e00df21b69b5ffc83282a07294b
           ) : (
             <ReadMail
               selectedMail={selectedMail}
