@@ -88,6 +88,7 @@ const Photocard = (props) => {
               >
                 <Sticker.content.icon
                   sx={{
+                    position: "absolute",
                     color: Sticker.content.color,
                     transform: `translate(${Sticker.position.x + 35}px, ${
                       Sticker.position.y + 35
