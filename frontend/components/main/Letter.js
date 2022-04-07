@@ -238,7 +238,8 @@ function Letter({
               {createdDate.slice(0, 4)}년 {createdDate.slice(5, 7)}월{" "}
               {createdDate.slice(8, 10)}일
             </Typography>
-          ) : (
+          ) : null}
+          {createdDate && (
             <Typography sx={{ fontSize: 12, fontFamily: "Gowun Dodum" }}>
               {mailType
                 ? mailType === "GENERAL"
