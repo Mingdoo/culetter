@@ -32,7 +32,8 @@ export const emojis = [
 ];
 
 function PhotoCard({ props }) {
-  const { setStickersPos, setBgcolor, stickersPos } = useContext(LetterContext);
+  const { setStickersPos, setBgcolor, stickersPos, setFontColor } =
+    useContext(LetterContext);
 
   const [count, setCount] = useState(0);
   const [stickers, updateStickers] = useState([]);

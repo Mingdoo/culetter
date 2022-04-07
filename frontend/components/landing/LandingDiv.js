@@ -47,11 +47,18 @@ export default function LandingDiv(props) {
         {props.description}
       </Typography>
       {/* <PhoneImage>
-        이미지가 추가되면 prop으로 경로 연결할 예정
+        sx={{ width: "100%" }}
+        src="iphone.png" component="img" alt={props.title + "에 대한 사진"}
       </PhoneImage> */}
       <Box
         sx={{ width: "100%" }}
-        src="iphone.png"
+        src={
+          props.id === "0"
+            ? "/img/recommendiphone.png"
+            : props.id === "1"
+            ? "/img/customiphone.png"
+            : "/img/musiciphone.png"
+        }
         component="img"
         alt={props.title + "에 대한 사진"}
       ></Box>

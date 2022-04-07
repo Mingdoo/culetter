@@ -55,8 +55,8 @@ export default function landing() {
         <LandingDiv
           style={landingBoxStyle}
           bgcolor={divColor[1]}
-          title="다양한 레이아웃 제공"
-          description="사용자의 편지가 더 돋보일 수 있도록 다양한 템플릿을 제공해드립니다. "
+          title="커스텀 편지"
+          description="사용자 밎춤 레이아웃 및 스타일 수정이 가능합니다"
           id="1"
         ></LandingDiv>
         <LandingDiv
