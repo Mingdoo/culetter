@@ -41,15 +41,29 @@ export default function LinkShare() {
     try {
       await navigator.clipboard.writeText(link);
       console.log("copied!");
-      toast("복사성공", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.success(
+        <div
+          style={{ width: "100%", display: "flex", justifyContent: "center" }}
+        >
+          <div
+            style={{
+              display: "inline-block",
+              fontFamily: "Gowun Batang",
+            }}
+          >
+            복사 성공🎉
+          </div>
+        </div>,
+        {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        }
+      );
     } catch (error) {
       console.log(`copy failed ${error}`);
     }

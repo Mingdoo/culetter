@@ -39,6 +39,7 @@ export default function Preview() {
     underlineColor,
     setReceiverName,
     setReceiverEmail,
+    musicName,
   } = useContext(LetterContext);
 
   const { setMailCode } = useContext(RoutingContext);
@@ -56,6 +57,7 @@ export default function Preview() {
       content: content,
       style_url: styleUrl,
       music_url: musicUrl,
+      music_title: musicName,
       image: "",
       content_position: "",
       stickers: stringifyStickers,

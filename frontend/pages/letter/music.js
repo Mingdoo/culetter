@@ -129,6 +129,7 @@ const music = () => {
     setMusicName(musicList[0].music_name);
     setChecked(musicList[0].music_name);
     setMusicUrl(musicList[0].music_url);
+    setMusic;
   }, [musicList]);
 
   const handleMusicList = async () => {
