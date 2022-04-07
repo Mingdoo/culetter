@@ -48,6 +48,7 @@ export default function Preview() {
   const { setMailCode } = useContext(RoutingContext);
   useEffect(() => {
     authentication();
+    console.log(stickersPos);
   }, []);
 
   const send = async () => {
