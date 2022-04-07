@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Box } from "@mui/material";
 import Header from "../../components/Header";
 import Type from "../../components/write/type";
@@ -6,11 +6,13 @@ import Router from "next/router";
 import MenuList from "../../components/menu/MenuList";
 import { authentication } from "../../components/apis/auth";
 import { motion, AnimateSharedLayout } from "framer-motion";
+import LetterContext from "../../contexts/LetterContext";
 const type = (props) => {
   useEffect(() => {
     authentication();
   }, []);
   const { describe, detail } = props;
+  const { setContent, setTitle } = useContext(LetterContext);
   const source = [
     {
       text: "포토 카드",

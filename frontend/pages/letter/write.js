@@ -46,7 +46,7 @@ const writeLetter = () => {
       analyzeLetterContent(content)
         .then((res) => {
           setEmotion(res.data);
-
+          console.log(res);
           setTimeout(() => {
             setIsLoading(false);
             Router.push("/letter/recommended");
@@ -66,6 +66,8 @@ const writeLetter = () => {
 
   const handlePrevClick = (e) => {
     e.preventDefault();
+    setContent("");
+    setTitle("");
     Router.push("/letter/type");
   };
 
