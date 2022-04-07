@@ -2,15 +2,24 @@ import { Box, Typography, Tooltip, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useEffect, useState } from "react";
 import { getMail } from "../../apis/letter";
-import { deleteRecvMail } from "../../apis/mailbox";
+import { deleteRecvMail, deleteSendMail } from "../../apis/mailbox";
 import Player from "../../letter/preview/Player";
 import { fonts, colors } from "../../Variables";
 import ReadMailPhotoCard from "./ReadMailPhotoCard";
 import Spinner from "../../Spinner";
 import { motion } from "framer-motion";
+import { getRecvMailsBySender } from "../../apis/mailbox";
 
-import Router from "next/router";
-export default function ReadMail({ selectedMail }) {
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+export default function ReadMail({
+  selectedMail,
+  setIsMail,
+  senderId,
+  sent,
+  setIsRead,
+}) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -26,11 +35,56 @@ export default function ReadMail({ selectedMail }) {
     }
   };
 
-  const deleteMail = async () => {
-    console.log(selectedMail);
+  const deleteMailSend = async () => {
     try {
-      const res = await deleteRecvMail(selectedMail);
-      console.log(res.data);
+      await deleteSendMail(selectedMail);
+      toast.success(
+        <div
+          style={{ width: "100%", display: "flex", justifyContent: "center" }}
+        >
+          <div
+            style={{
+              display: "inline-block",
+              fontFamily: "Gowun Batang",
+            }}
+          >
+            삭제 성공🎉
+          </div>
+        </div>,
+        {
+          position: toast.POSITION.TOP_CENTER,
+          role: "alert",
+        }
+      );
+      setIsRead(true);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const deleteMail = async () => {
+    try {
+      await deleteRecvMail(selectedMail);
+      toast.success(
+        <div
+          style={{ width: "100%", display: "flex", justifyContent: "center" }}
+        >
+          <div
+            style={{
+              display: "inline-block",
+              fontFamily: "Gowun Batang",
+            }}
+          >
+            삭제 성공🎉
+          </div>
+        </div>,
+        {
+          position: toast.POSITION.TOP_CENTER,
+          role: "alert",
+        }
+      );
+      setTimeout(() => {
+        setIsMail(true);
+      }, 1000);
     } catch (e) {
       console.log(e);
     }
@@ -176,25 +230,27 @@ export default function ReadMail({ selectedMail }) {
           <></>
         )}
       </Box>
-      <Tooltip title="삭제">
-        <IconButton
-          aria-label="삭제"
-          onClick={(e) => deleteMail()}
-          sx={{
-            position: "absolute",
-            bottom: 20,
-            right: 69,
-            color: "#a63636",
-          }}
-        >
-          <DeleteIcon />
-        </IconButton>
-      </Tooltip>
       <Box sx={{ py: "2rem" }}>
         <Player
           music={data.music_url}
           inboxMusicName={data.music_title}
         ></Player>
+      </Box>
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <Tooltip title="삭제">
+          <IconButton
+            aria-label="삭제"
+            onClick={sent ? (e) => deleteMailSend() : (e) => deleteMail()}
+            sx={{
+              color: "#a63636",
+              "&:hover": {
+                bgcolor: "#f7e4e0",
+              },
+            }}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </Tooltip>
       </Box>
     </motion.div>
   );

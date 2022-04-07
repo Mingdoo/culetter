@@ -29,12 +29,14 @@ export default function inbox() {
   //   console.log(isMail, isPostBox);
   // }, [isPostBox]);
   const handlePrevClick = () => {
-    if (!isMail || !isPostBox) {
-      setIsMail(true);
-      setIsPostBox(true);
-    } else {
-      Router.back();
-    }
+    // isMail:true isPostBox:true => first
+    // isMail:true isPostBox: false => second
+    // isMail:false isPostBox: false => last
+    !isMail && !isPostBox
+      ? setIsMail(true)
+      : isMail && !isPostBox
+      ? setIsPostBox(true)
+      : Router.back();
   };
   return (
     <>
@@ -62,6 +64,7 @@ export default function inbox() {
             senderId={selectedId}
             isMail={isMail}
             setIsMail={(e) => setIsMail(e)}
+            setIsPostbox={(e) => setIsPostBox(e)}
           ></MailPage>
         )}
       </Box>

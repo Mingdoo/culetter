@@ -9,7 +9,7 @@ import { authentication } from "../../components/apis/auth";
 import LetterContext from "../../contexts/LetterContext";
 import Header from "../../components/Header";
 import DeleteIcon from "@mui/icons-material/Delete";
-
+import BorderColorRoundedIcon from "@mui/icons-material/BorderColorRounded";
 export default function Storage() {
   const [loading, setLoading] = useState(false);
   const [mails, setMails] = useState([]);
@@ -83,19 +83,27 @@ export default function Storage() {
             >
               텅..
             </Typography>
-            <Typography
-              sx={{
-                mt: "3rem",
-                fontFamily: "Gowun Batang",
-                textAlign: "center",
-                "&:hover": {
-                  cursor: "pointer",
-                },
-              }}
-              onClick={handleWriteClick}
-            >
-              편지 쓰러가기
-            </Typography>
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
+              <Button
+                sx={{
+                  color: "#a63636",
+                  borderColor: "#a63636",
+                  mt: "3rem",
+                  fontFamily: "Gowun Batang",
+                  textAlign: "center",
+                  "&:hover": {
+                    cursor: "pointer",
+                    bgcolor: "#f7e4e0",
+                    borderColor: "#f7e4e0",
+                  },
+                }}
+                onClick={handleWriteClick}
+                variant="outlined"
+                startIcon={<BorderColorRoundedIcon />}
+              >
+                편지 쓰러가기
+              </Button>
+            </Box>
           </>
         )}
 
@@ -120,6 +128,9 @@ export default function Storage() {
                       bottom: 20,
                       right: 69,
                       color: "#a63636",
+                      "&:hover": {
+                        bgcolor: "#f7e4e0",
+                      },
                     }}
                   >
                     <DeleteIcon />
