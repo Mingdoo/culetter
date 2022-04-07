@@ -26,6 +26,7 @@ export default function Preview() {
     setStyleUrl,
     content,
     musicUrl,
+    musicName,
     image,
     contentPosition,
     fontsize,
@@ -68,6 +69,7 @@ export default function Preview() {
       is_font_bold: isFontBold,
       underline_color: underlineColor,
       handwrite_image: "",
+      music_title: musicName,
     };
 
     try {
