@@ -13,11 +13,11 @@ import { authentication } from "../../components/apis/auth";
 import MenuList from "../../components/menu/MenuList";
 export default function Send() {
   useEffect(() => {
-    console.log(window.Kakao.isInitialized());
+    // console.log(window.Kakao.isInitialized());
     if (receiverName && !window.Kakao.isInitialized()) {
       Kakao.init(process.env.NEXT_PUBLIC_KAKAO_KEY);
     }
-    console.log(window.Kakao.isInitialized());
+    // console.log(window.Kakao.isInitialized());
     authentication();
   }, []);
   const { title, receiverName } = useContext(LetterContext);
@@ -125,9 +125,9 @@ export default function Send() {
       <Grid
         container
         sx={{
-          position: "absolute",
+          position: "fixed",
           bottom: 35,
-          width: 1,
+          width: 420,
         }}
         component="div"
       >

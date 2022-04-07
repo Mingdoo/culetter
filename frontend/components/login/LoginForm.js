@@ -300,7 +300,10 @@ const LoginForm = () => {
               }}
             > */}
           <Grid container>
-            <Grid item xs={6} sx={{ mt: 6 }}>
+            <Grid item xs={1}>
+              <Box></Box>
+            </Grid>
+            <Grid item xs={5} sx={{ mt: 6 }}>
               <Button
                 variant="contained"
                 size="small"
@@ -316,7 +319,7 @@ const LoginForm = () => {
                 로그인
               </Button>
             </Grid>
-            <Grid item xs={6} sx={{ mt: 6 }}>
+            <Grid item xs={5} sx={{ mt: 6 }}>
               <Link href="/register">
                 <Button
                   variant="contained"
@@ -333,7 +336,27 @@ const LoginForm = () => {
                 </Button>
               </Link>
             </Grid>
+            <Grid item xs={1}>
+              <Box></Box>
+            </Grid>
           </Grid>
+          {/* <Grid item xs={12}>
+            <Box component="div">
+              <Button
+                size="small"
+                style={{
+                  minWidth: "150px",
+                  minHeight: "30px",
+                  color: "#FCFAEF",
+                  fontSize: 12,
+                  marginTop: "1rem",
+                  fontFamily: "Gowun Dodum",
+                }}
+              >
+                비밀번호 재설정
+              </Button>
+            </Box>
+          </Grid> */}
           <ToastContainer />
         </FormControl>
       )}

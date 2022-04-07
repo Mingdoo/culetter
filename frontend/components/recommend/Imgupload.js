@@ -59,7 +59,6 @@ const Imgupload = (props) => {
       </Typography>
       <Button
         component="div"
-        className="Dodum"
         onClick={handleClick}
         sx={{
           display: "inline-block",
@@ -68,9 +67,9 @@ const Imgupload = (props) => {
           width: "50%",
           backgroundColor: "#f0c8bf",
           color: "#3A1D1D",
+          fontFamily: "Gowun Dodum",
         }}
       >
-        {" "}
         이미지 업로드하기
       </Button>
       <Input

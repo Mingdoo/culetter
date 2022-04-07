@@ -9,7 +9,6 @@ export default function MenuButton({ OpenMenu, open }) {
       sx={{ position: "absolute", right: "2vh", top: "3vh" }}
       onClick={() => {
         OpenMenu();
-        console.log(open);
       }}
     >
       <MenuIcon></MenuIcon>

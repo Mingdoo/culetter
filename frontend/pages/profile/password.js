@@ -39,12 +39,12 @@ export default function password(props) {
           {
             position: toast.POSITION.TOP_CENTER,
             role: "alert",
-          },
+          }
         );
       });
-      console.log(res);
+      // console.log(res);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -60,14 +60,14 @@ export default function password(props) {
           {
             position: toast.POSITION.TOP_CENTER,
             role: "alert",
-          },
+          }
         );
       }, 100);
     }
   }, []);
 
   useEffect(() => {
-    console.log("test");
+    // console.log("test");
     handleSamePw();
   }, [pwSecondInput]);
 

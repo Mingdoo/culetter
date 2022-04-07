@@ -31,7 +31,7 @@ export default function PostboxPage({
       setData(res.data.result);
       setMails(res.data.result.slice(0, 8));
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     } finally {
       setLoading(false);
     }
@@ -77,21 +77,18 @@ export default function PostboxPage({
             inbox={true}
           />
         </Box>
-        {!mails ? (
-          <Box
-            sx={{
-              fontFamily: "Gowun Batang",
-              display: "flex",
-              justifyContent: "center",
-              mt: "10rem",
-            }}
-          >
-            아직 도착한 편지가 없습니다
-          </Box>
-        ) : null}
         <Box sx={{ minHeight: "87vh", px: 2 }}>
-          {loading ? (
-            <Spinner text="로딩 중" mt="30vh"></Spinner>
+          {Array.isArray(mails) && !mails.length ? (
+            <Typography
+              variant="h1"
+              sx={{
+                fontFamily: "Gowun Dodum",
+                textAlign: "center",
+                mt: "5rem",
+              }}
+            >
+              텅..
+            </Typography>
           ) : (
             <Grid container sx={{ width: 1, pt: 5 }}>
               {!searchMemberName

@@ -14,17 +14,14 @@ mailsApi.interceptors.request.use(
     return config;
   },
   function (error) {
-    console.log(error);
     return Promise.reject(error);
   }
 );
 
 export const sendTempMail = async (body, mailId) => {
-  console.log(mailId);
   return await mailsApi.post(`/tempsave/write/${mailId}`, body);
 };
 export const sendLetter = async (body) => {
-  console.log(body);
   return await mailsApi.post(`/write`, body);
 };
 

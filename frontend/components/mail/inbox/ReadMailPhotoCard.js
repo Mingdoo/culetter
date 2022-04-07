@@ -6,7 +6,7 @@ import ReactCardFlip from "react-card-flip";
 import { emojis as Emojis } from "../../letter/photocard/PhotoCard";
 
 export default function ReadMailPhotocard({ data }) {
-  console.log(data);
+  // console.log(data);
   const [stickersPos, setStickersPos] = useState([]);
   const [isFlipped, setIsFlipped] = useState(false);
 

@@ -9,29 +9,77 @@ import { fonts, colors } from "../../Variables";
 import { emojis as Emojis } from "../../letter/photocard/PhotoCard";
 import Photocard from "../../letter/preview/Photocard";
 import { motion } from "framer-motion";
+import { toast } from "react-toastify";
+import SaveAltRoundedIcon from "@mui/icons-material/SaveAltRounded";
 
-export default function ReadMailByCode({ code }) {
+export default function ReadMailByCode({ code, setReceivedTitle }) {
   const [data, setData] = useState([]);
   const [stickersPos, setStickersPos] = useState([]);
   const [isFlipped, setIsFlipped] = useState(false);
 
+  useEffect(() => {
+    console.log(data);
+    setReceivedTitle(`보낸이 : ${data.sender_name}`);
+  }, [data]);
   const fetchMail = async (code) => {
     try {
       const res = await getMailByCode(code);
       setData(res.data);
-      console.log(res.data);
+      // console.log(res.data);
       setStickersPos(JSON.parse(res.data.stickers));
     } catch (error) {
-      console.log(error);
+      Router.push("/");
+      setTimeout(() => {
+        toast.error(
+          <div
+            style={{ width: "100%", display: "flex", justifyContent: "center" }}
+          >
+            <div
+              style={{
+                display: "inline-block",
+                fontFamily: "Gowun Batang",
+              }}
+            >
+              유효하지 않은 편지 코드에요 😢
+            </div>
+          </div>,
+          {
+            position: toast.POSITION.TOP_CENTER,
+            role: "alert",
+          }
+        );
+      }, 100);
     }
   };
 
   const saveLetter = async () => {
-    try {
-      const res = await saveRecvMail(code);
-      Router.push("/mail/inbox");
-    } catch (e) {
-      console.log(e);
+    if (localStorage.getItem("accessToken")) {
+      try {
+        const res = await saveRecvMail(code);
+        Router.push("/mail/inbox");
+      } catch (e) {}
+    } else {
+      Router.push("/login");
+      setTimeout(() => {
+        toast.error(
+          <div
+            style={{ width: "100%", display: "flex", justifyContent: "center" }}
+          >
+            <div
+              style={{
+                display: "inline-block",
+                fontFamily: "Gowun Batang",
+              }}
+            >
+              로그인이 필요한 작업이에요 😢
+            </div>
+          </div>,
+          {
+            position: toast.POSITION.TOP_CENTER,
+            role: "alert",
+          }
+        );
+      }, 100);
     }
   };
 
@@ -259,37 +307,42 @@ export default function ReadMailByCode({ code }) {
           inboxMusicName={data.music_title}
         ></Player>
       </Box>
-      {data.receiver_email ? null : (
-        <Box
-          sx={{
-            width: "100%",
-            display: "flex",
-            fontSize: 18,
-            justifyContent: "center",
-            mt: "1rem",
-            borderRadius: "3rem",
-          }}
+
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          fontSize: 18,
+          justifyContent: "center",
+          mt: "1rem",
+          borderRadius: "3rem",
+        }}
+      >
+        <Button
+          variant="outlined"
+          sx={{ ...ButtonStyle }}
+          onClick={saveLetter}
+          startIcon={<SaveAltRoundedIcon />}
         >
-          <Button sx={{ ...ButtonStyle }} onClick={saveLetter}>
-            <Typography sx={{ fontFamily: "Gowun Batang", mr: "1rem" }}>
-              편지함에 보관
-            </Typography>
-          </Button>
-        </Box>
-      )}
+          편지함에 보관
+        </Button>
+      </Box>
     </motion.div>
   );
 }
 
 const ButtonStyle = {
   fontFamily: "Gowun Batang",
-  fontSize: 18,
-  color: "black",
-  backgroundColor: "#f7e4e0",
+  fontSize: 16,
+  color: "#a63636",
+  borderColor: "#a63636",
   "&:hover": {
-    backgroundColor: "transparent",
+    backgroundColor: "#f7e4e0",
+    borderColor: "#f7e4e0",
   },
-  borderRadius: "2rem",
+  borderRadius: "1rem",
   width: "40%",
   justifyContent: "center",
+  display: "flex",
+  mt: "1rem",
 };

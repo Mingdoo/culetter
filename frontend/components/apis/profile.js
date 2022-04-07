@@ -16,9 +16,8 @@ usersApi.interceptors.request.use(
     return config;
   },
   function (error) {
-    console.log(error);
     return Promise.reject(error);
-  },
+  }
 );
 
 export const pwValidation = async (password) => {
@@ -51,7 +50,7 @@ export const changeUsername = async (name) => {
       headers: {
         Authorization: localStorage.getItem("accessToken"),
       },
-    },
+    }
   );
 };
 

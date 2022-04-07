@@ -11,16 +11,16 @@ export default function KakaoShare({ title, name }) {
         imageUrl:
           "http://k.kakaocdn.net/dn/bg2T9H/btryCD59DUl/sQWDga17bUukAPkXJ1Jp8k/kakaolink40_original.png",
         link: {
-          mobileWebUrl: "https://culetter.site/mail/inbox",
-          webUrl: "https://culetter.site/mail/inbox",
+          mobileWebUrl: "https://culetter.site/login",
+          webUrl: "https://culetter.site/login",
         },
       },
       buttons: [
         {
           title: "CU;LETTER 가기",
           link: {
-            mobileWebUrl: "https://culetter.site/mail/inbox",
-            webUrl: "https://culetter.site/mail/inbox",
+            mobileWebUrl: "https://culetter.site/login",
+            webUrl: "https://culetter.site/login",
           },
         },
       ],

@@ -9,7 +9,7 @@ import { authentication } from "../../components/apis/auth";
 import LetterContext from "../../contexts/LetterContext";
 import Header from "../../components/Header";
 import DeleteIcon from "@mui/icons-material/Delete";
-
+import BorderColorRoundedIcon from "@mui/icons-material/BorderColorRounded";
 export default function Storage() {
   const [loading, setLoading] = useState(false);
   const [mails, setMails] = useState([]);
@@ -19,24 +19,26 @@ export default function Storage() {
   const fetch = async () => {
     try {
       const response = await getUndoneMail();
-      console.log(response.data.result);
+      // console.log(response.data.result);
       setMails(response.data.result.reverse());
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
   const deleteMail = async (id) => {
-    console.log("Dete");
+    // console.log("Dete");
     try {
       const res = await deleteUndoneMail(id);
-      console.log(res);
+      // console.log(res);
       fetch();
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   };
-
+  const handleWriteClick = () => {
+    Router.push("/letter/select");
+  };
   const handlePage = (id) => {
     setTempMailId(id);
     router.push(
@@ -46,7 +48,7 @@ export default function Storage() {
       },
       "/letter/write"
     );
-    console.log(id);
+    // console.log(id);
   };
 
   useEffect(() => {
@@ -74,9 +76,35 @@ export default function Storage() {
            */}
         {/* {loading && <Typography>loading</Typography>} */}
         {Array.isArray(mails) && mails.length === 0 && (
-          <Typography sx={{ fontFamily: "Gowun Batang" }}>
-            편지 쓰러가기
-          </Typography>
+          <>
+            <Typography
+              variant="h1"
+              sx={{ fontFamily: "Gowun Dodum", textAlign: "center" }}
+            >
+              텅..
+            </Typography>
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
+              <Button
+                sx={{
+                  color: "#a63636",
+                  borderColor: "#a63636",
+                  mt: "3rem",
+                  fontFamily: "Gowun Batang",
+                  textAlign: "center",
+                  "&:hover": {
+                    cursor: "pointer",
+                    bgcolor: "#f7e4e0",
+                    borderColor: "#f7e4e0",
+                  },
+                }}
+                onClick={handleWriteClick}
+                variant="outlined"
+                startIcon={<BorderColorRoundedIcon />}
+              >
+                편지 쓰러가기
+              </Button>
+            </Box>
+          </>
         )}
 
         {mails &&
@@ -100,6 +128,9 @@ export default function Storage() {
                       bottom: 20,
                       right: 69,
                       color: "#a63636",
+                      "&:hover": {
+                        bgcolor: "#f7e4e0",
+                      },
                     }}
                   >
                     <DeleteIcon />
