@@ -43,7 +43,7 @@ function edit() {
   }, []);
   useEffect(() => {
     setShowDots(
-      !(isColorOpen || isFontFamilyOpen || isAlignmentOpen || isFontSizeOpen),
+      !(isColorOpen || isFontFamilyOpen || isAlignmentOpen || isFontSizeOpen)
     );
   }, [isColorOpen, isFontFamilyOpen, isAlignmentOpen, isFontSizeOpen]);
 
@@ -97,6 +97,7 @@ function edit() {
 
   const handleNextClick = (e) => {
     e.preventDefault();
+    // console.log()
     Router.push("/letter/preview");
   };
   const handlePrevClick = (e) => {
