@@ -25,10 +25,9 @@ export default function MailPage({ senderId, isMail, setIsMail }) {
     setLoading(true);
     try {
       const res = await getRecvMailsBySender(senderId);
-      console.log(res.data.result.slice(0, 6));
-      setData(res.data.result);
-      setMails(res.data.result.slice(0, 6));
-      setLoading(false);
+      console.log(res.data.result.reverse().slice(0, 6));
+      setData(res.data.result.reverse());
+      setMails(res.data.result.reverse().slice(0, 6));
     } catch (e) {
       console.log(e);
     } finally {
