@@ -19,7 +19,7 @@ mailsApi.interceptors.request.use(
   }
 );
 
-export const saveTempMail = async (body, mailId) => {
+export const sendTempMail = async (body, mailId) => {
   console.log(mailId);
   return await mailsApi.post(`/tempsave/write/${mailId}`, body);
 };
