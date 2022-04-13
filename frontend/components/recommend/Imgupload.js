@@ -54,7 +54,7 @@ const Imgupload = (props) => {
         mt: "1rem",
       }}
     >
-      <Typography component="div" className="Dodum">
+      <Typography component="div" sx={{ fontFamily: "Gowun Dodum" }}>
         마음에 드는 사진이 없나요?
       </Typography>
       <Button
