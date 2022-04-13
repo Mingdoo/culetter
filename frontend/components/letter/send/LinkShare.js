@@ -85,7 +85,7 @@ export default function LinkShare() {
           ) : null}
         </Grid> */}
         <Grid item xs={2}>
-          <Box>
+          <Box sx={{ width: "60%", mx: "auto" }}>
             <IconButton
               title="복사"
               component="span"
