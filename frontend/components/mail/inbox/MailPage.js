@@ -28,7 +28,7 @@ export default function MailPage({
     setLoading(true);
     try {
       const res = await getRecvMailsBySender(senderId);
-      console.log(Array.isArray(res.data.result));
+      // console.log(Array.isArray(res.data.result));
       if (Array.isArray(res.data.result) && !res.data.result.length) {
         setNoData(true);
       }

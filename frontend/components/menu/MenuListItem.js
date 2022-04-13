@@ -12,7 +12,7 @@ import PeopleAltRoundedIcon from "@mui/icons-material/PeopleAltRounded";
 import BorderColorRoundedIcon from "@mui/icons-material/BorderColorRounded";
 import SendIcon from "@mui/icons-material/Send";
 import SaveIcon from "@mui/icons-material/Save";
-
+import Router, { useRouter } from "next/router";
 const icons = [
   <HomeRoundedIcon />,
   <BorderColorRoundedIcon />,
@@ -36,25 +36,34 @@ const hrefs = [
 ];
 
 function MenuListItem({ text, index }) {
+  const router = useRouter();
+  const test = (href) => {
+    if (router.pathname == href) {
+      router.reload();
+    } else {
+      Router.push(href);
+    }
+  };
   return (
     <>
-      <Link href={hrefs[index]}>
-        <ListItem
-          button
-          key={index}
-          sx={{
-            whiteSpace: "nowrap",
-          }}
-        >
-          <ListItemIcon sx={{ color: "white" }}>{icons[index]}</ListItemIcon>
-          <ListItemText
-            disableTypography
-            sx={{ color: "white", fontFamily: "Gowun Batang" }}
-            style={{ fontFamily: "Gowun Batang" }}
-            primary={text}
-          />
-        </ListItem>
-      </Link>
+      {/* <Link href={hrefs[index]}> */}
+      <ListItem
+        button
+        key={index}
+        sx={{
+          whiteSpace: "nowrap",
+        }}
+        onClick={(e) => test(hrefs[index])}
+      >
+        <ListItemIcon sx={{ color: "white" }}>{icons[index]}</ListItemIcon>
+        <ListItemText
+          disableTypography
+          sx={{ color: "white", fontFamily: "Gowun Batang" }}
+          style={{ fontFamily: "Gowun Batang" }}
+          primary={text}
+        />
+      </ListItem>
+      {/* </Link> */}
       {/* <hr style={{ margin: 0 }}></hr> */}
       <Divider></Divider>
     </>

@@ -18,7 +18,7 @@ export default function ReadMailByCode({ code, setReceivedTitle }) {
   const [isFlipped, setIsFlipped] = useState(false);
 
   useEffect(() => {
-    console.log(data);
+    // console.log(data);
     setReceivedTitle(`보낸이 : ${data.sender_name}`);
   }, [data]);
   const fetchMail = async (code) => {

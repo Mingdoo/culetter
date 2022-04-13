@@ -105,6 +105,7 @@ export default function Player(props) {
             play={playStatus === "play"}
             direction="right"
             gradient={false}
+            style={marqueeStyle}
           >
             <Typography>
               {inboxMusicName ? inboxMusicName : musicName}
@@ -155,3 +156,6 @@ export default function Player(props) {
     </>
   );
 }
+const marqueeStyle = {
+  zIndex: 0,
+};
