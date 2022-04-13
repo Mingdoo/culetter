@@ -68,7 +68,7 @@ export default function LinkShare() {
   return (
     <Box>
       <Grid container sx={{ pl: 2 }}>
-        <Grid item xs={9}>
+        <Grid item xs={10}>
           <TextField
             disabled
             id="linkShare"
@@ -77,22 +77,24 @@ export default function LinkShare() {
             sx={{ color: "black", width: "100%" }}
           />
         </Grid>
-        <Grid item xs={isMobile ? 1 : 0} sx={{ ml: "1rem" }}>
+        {/* <Grid item xs={isMobile ? 1 : 0} sx={{ ml: "1rem" }}>
           {isMobile ? (
             <IconButton title="공유" onClick={shareMobile}>
               <ShareIcon />
             </IconButton>
           ) : null}
-        </Grid>
-        <Grid item xs={1}>
-          <IconButton
-            title="복사"
-            component="span"
-            onClick={copyData}
-            sx={{ display: "flex" }}
-          >
-            <ContentCopyRoundedIcon />
-          </IconButton>
+        </Grid> */}
+        <Grid item xs={2}>
+          <Box>
+            <IconButton
+              title="복사"
+              component="span"
+              onClick={copyData}
+              sx={{ display: "flex" }}
+            >
+              <ContentCopyRoundedIcon />
+            </IconButton>
+          </Box>
         </Grid>
       </Grid>
       <ToastContainer
